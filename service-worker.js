@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.9225106f1d59fd20629fbeac0d1998ba.js"
+  "/precache-manifest.b73cc57eddf61bc86c4db26eaf671ce5.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-web3modal"});
