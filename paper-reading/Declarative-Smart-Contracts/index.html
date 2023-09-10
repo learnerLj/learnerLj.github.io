@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>论文阅读-Declarative Smart Contracts | 技术和思考</title><meta name="author" content="learner L"><meta name="copyright" content="learner L"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="总结摘要：This paper presents DeCon, a declarative programming language for implementing smart contracts and specifying contract-level properties. Driven b"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"这篇文章最后更新于","messageNext":"天前，文章内容可能已经过时，请优先参考最新的文章！"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '论文阅读-Declarative Smart Contracts',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-18 17:09:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/self/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="技术和思考" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/academic.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="技术和思考"><span class="site-name">技术和思考</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">论文阅读-Declarative Smart Contracts</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-18T09:03:33.000Z" title="发表于 2022-11-18 17:03:33">2022-11-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-18T09:09:35.830Z" title="更新于 2022-11-18 17:09:35">2022-11-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper-reading/">paper-reading</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="论文阅读-Declarative Smart Contracts"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>摘要：This paper presents DeCon, a declarative programming language for implementing smart contracts and specifying contract-level properties. Driven by the observation that smart contract operations and contract-level properties can be naturally expressed as relational constraints, DeCon models each smart contract as a set of relational tables that store transaction records. This relational representation of smart contracts enables convenient specification of contract properties, facilitates run-time monitoring of potential property violations, and brings clarity to contract debugging via data provenance. Specifically, a DeCon program consists of a set of declarative rules and violation query rules over the relational representation, describing the smart contract implementation and contract-level properties, respectively. We have developed a tool that can compile DeCon programs into executable Solidity programs, with instrumentation for run-time property monitoring. Our case studies demonstrate that DeCon can implement realistic smart contracts such as ERC20 and ERC721 digital tokens. Our evaluation results reveal the marginal overhead of DeCon compared to the open-source reference implementation, incurring 14% median gas overhead for execution, and another 16% median gas overhead for run-time verification.</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/proceedings/10.1145/3540250">ESEC/FSE 2022</a> <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3540250.3549121">https://dl.acm.org/doi/abs/10.1145/3540250.3549121</a></p>
+<h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><p>这个问题并不是很重要，而是提出了一种比较新奇的方式去结合了 Datalog 和 Solidity，意义在于创新性很好。总的来说，<strong>提出了基于 LP 的 domain specific language</strong>。在此之前，已经有人提出来过根据不变量去生产断言，然后用于运行时验证了。Azzopardi et al. 也提出了对比合约逻辑的检测检测方法。另外，</p>
+<blockquote>
+<p>Scilla [56] is a intermediate-level language for smart contracts that offers type safety and support for verification. KEVM [36] defines the formal semantics of EVM, and has been used to verify contracts against ERC20 standards.</p>
+<p>Jones et al. [38] uses functional programming language to write financial contracts.</p>
+<p>BitML [20] is a high-level language for Bitcoin smart contracts. Based on process calculus, it translates contracts into Bitcoin transactions.</p>
+</blockquote>
+<p>以上文章给他们设计 specification 带来了灵感。另外还需要少部分数理逻辑内容才能完成 domain specific language 设计。</p>
+<h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><p>基本和 souffle 一致，不赘述了，如果读者不明白可以看往期 Datalog 的文章，善用博客的搜索功能。下面说一些特有的设计。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211181030010.png" alt="image-20221118102959889"></p>
+<ul>
+<li>所有 declare 都是关系表，并且可以用下标指定主键，如果没有下标，默认全部主键。</li>
+<li>保留了一些函数，用于表示合约特性，比如 msg 之类的。</li>
+<li>加入了特殊的 declaration 用于表示异常情况。执行过程之后，如果 violation 还存在，那么就回退交易。</li>
+<li>加入了 public 标签，用于直接查询表，类似于 output</li>
+<li><code>recv_</code> 前缀的 declaration 用于当作触发器，是执行的起点。</li>
+</ul>
+<p>如何设计语言的细节可以见图，我的编译基础不是很好，还没系统学习。 所以不熟悉编程语言的符号系统。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211180101511.png" alt="image-20221118010142229" style="zoom: 80%;" /></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211180102976.png" alt="image-20221118010244811" style="zoom:80%;" /></p>
+<p>主要关注怎么编译的：</p>
+<ol>
+<li>谓词逻辑，主要就是查找满足条件的 body 然后推导出 head。大概分两类 iteral，一类是 declaration 一类是算术的布尔值。前者翻译成 <code>search R where C do S</code> 的形式，类似于 SQL。后者表示成 if 语句。通过嵌套，就可以类似于 SQL 的形式表达出来。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mint(p,n):-recv_mint(p,n),msgSender(s),owner(s),n&gt;0.</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">on</span> <span class="keyword">insert</span> recv_mint(p,n) &#123;</span><br><span class="line">	<span class="keyword">search</span> owner <span class="keyword">where</span> &#123;</span><br><span class="line">		address s <span class="operator">=</span> owner.p;</span><br><span class="line">		<span class="keyword">search</span> msgSender <span class="keyword">where</span> s<span class="operator">=</span><span class="operator">=</span>msg.sender &#123;</span><br><span class="line">			if(n<span class="operator">&gt;</span><span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">insert</span> mint(p,n)</span><br><span class="line">			&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>tip: 后面的编程语言语义的表达，我有些看不懂。可能有错误，欢迎读者指正。</p>
+</blockquote>
+<ol>
+<li><p>对于每个规则的触发器的定义如下，也就是说，如果对规则 r 出现了对它的 body 中的 literals(谓词公式的子句)的插入或者删除，那么就要触发这个规则。 e 是特殊的，用于表示 public 的 declaration。</p>
+<p>Given a rule 𝑟 , let 𝐵(𝑟 ) be the set of all relational literals in 𝑟 ’s body, and 𝑒 be the transaction relation in 𝑟 if 𝑟 is a transaction rule, the set of update triggers 𝑇 (𝑟 ) are defined as:</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+T(r):= \begin{cases}\bigcup_{l \in B(r)}\{\operatorname{Insert}(l), \text { Delete }(l)\} & r \text { is View } \\ \{\operatorname{Insert}(e)\} & r \text { is Tx rule }\end{cases}</script><ol>
+<li><p>对每个规则和它对应的触发器 trigger，设置更新 head declaration 的关系表。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211181619201.png" alt="image-20221118161912149"></p>
+<p>body 中所有的 declaration 的插入或者删除记为 G，然后 body 中的其他约束记为 L，接着根据 G, L, t 更新 head.</p>
+<p>具体的更新 head 的算法如下：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211181625722.png" alt="image-20221118162502671"></p>
+<p>总的来说，就是序号 1 里的方式。先匹配字面常量 L，比如 <code>n&gt;0</code> 之类的。</p>
+<ul>
+<li>如果没有这样的字面常量，那么就看是否出现了 trigger 事件。</li>
+<li>如果有字面常量约束…</li>
+</ul>
+</li>
+</ol>
+<p>这一段我无法理解，缺乏相应知识，估计需要了解一下 Datalog 引擎的算法。暂时放下。</p>
+<ol>
+<li><p>所有 declaration 做成映射的结构体，多个主键就是多级映射。另外加了 valid 变量表示这个结构体是否已经初始化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct RTuple &#123;</span><br><span class="line">	bool valid;</span><br><span class="line">	T1 field1;</span><br><span class="line">	T2 field2;</span><br><span class="line">    ... &#125;;</span><br><span class="line">mapping(k1 =&gt; k2 =&gt; ... =&gt; kn =&gt; RTuple) R;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="局限性和亮点"><a href="#局限性和亮点" class="headerlink" title="局限性和亮点"></a>局限性和亮点</h1><p>局限性：</p>
+<ol>
+<li>Keecak 这些密码学函数和 ABI 很难放在 logic language 去实现。至少作者按照 souffle 的逻辑是说很难。</li>
+<li>继承关系、接口、函数调用时的函数签名匹配这些，也没做好来。简单地说，好做的就做了，不好做的先放着。</li>
+<li>根据推导规则回溯去寻找变量更改的源头，但是可能存在多个分支，要么是无法精确定位，要么是指数级复杂度。</li>
+<li>declaration 都用关系表表示，solidity 中是映射+结构体，实际上这种生成出来的代码效率很低的。</li>
+</ol>
+<p>亮点：</p>
+<ol>
+<li>作者的编程语言基础挺好的，值得学习。</li>
+<li>LP 转 solidity 是个不错的设想，创新性好，值得鼓励。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.blog-blockchain.xyz">learner L</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/">http://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.blog-blockchain.xyz" target="_blank">技术和思考</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/paper-reading/">paper-reading</a></div><div class="post_share"><div class="social-share" data-image="/images/academic.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/images/wechat-pay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/wechat-pay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/images/alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/defi/Merkle-Tree-Proof-of-Reserves/" title="默克尔准备金（Merkle Tree Proof of Reserves)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/defi.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">默克尔准备金（Merkle Tree Proof of Reserves)</div></div></a></div><div class="next-post pull-right"><a href="/defi/DFX-Finance-attack/" title="DFX Finance 攻击分析"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/defi.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">DFX Finance 攻击分析</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/paper-reading/A-Study-of-Inline-Assembly-in-Solidity-Smart-Contracts/" title="论文阅读-A Study of Inline Assembly in Solidity Smart Contracts"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/academic.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-01</div><div class="title">论文阅读-A Study of Inline Assembly in Solidity Smart Contracts</div></div></a></div><div><a href="/paper-reading/A-Bytecode-based-Approach-for-Smart-Contract-Classification/" title="论文阅读-A Bytecode-based Approach for Smart Contract Classification"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/academic.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-24</div><div class="title">论文阅读-A Bytecode-based Approach for Smart Contract Classification</div></div></a></div><div><a href="/paper-reading/TokenAware-%20Accurate-and-Eficient-Bookkeeping-Recognition-for-Token-Smart-Contracts/" title="论文阅读-TokenAware Accurate and Eficient Bookkeeping Recognition for Token Smart Contracts"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/academic.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-09</div><div class="title">论文阅读-TokenAware Accurate and Eficient Bookkeeping Recognition for Token Smart Contracts</div></div></a></div><div><a href="/paper-reading/Under-Optimized-Smart-Contracts-Devour-Your-Money/" title="论文阅读-Under-Optimized Smart Contracts Devour Your Money"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/academic.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-04</div><div class="title">论文阅读-Under-Optimized Smart Contracts Devour Your Money</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">learner L</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/learnerLj" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/cdn.blog-blockchain.xyz/202208212113427.png" target="_blank" title="Wechat"><i class="fa-brands fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">学习区块链技术，读书和思考。如果觉得对您有帮助，不妨请作者一杯☕</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%A7%88"><span class="toc-number">2.</span> <span class="toc-text">概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B1%80%E9%99%90%E6%80%A7%E5%92%8C%E4%BA%AE%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">局限性和亮点</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/audit/blockchian-study-material/" title="区块链相关学习材料"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块链相关学习材料"/></a><div class="content"><a class="title" href="/audit/blockchian-study-material/" title="区块链相关学习材料">区块链相关学习材料</a><time datetime="2023-08-09T09:33:33.000Z" title="发表于 2023-08-09 17:33:33">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/information-theory/" title="信息论与编码"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/info-theory.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息论与编码"/></a><div class="content"><a class="title" href="/college-courses/information-theory/" title="信息论与编码">信息论与编码</a><time datetime="2023-05-29T00:15:22.000Z" title="发表于 2023-05-29 08:15:22">2023-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/pl/monad/" title="Haskell 函数式编程(三) Monad"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/haskell.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Haskell 函数式编程(三) Monad"/></a><div class="content"><a class="title" href="/pl/monad/" title="Haskell 函数式编程(三) Monad">Haskell 函数式编程(三) Monad</a><time datetime="2023-05-26T16:42:33.000Z" title="发表于 2023-05-27 00:42:33">2023-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/x86-masm/" title="x86汇编基础"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/x86_assembly.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="x86汇编基础"/></a><div class="content"><a class="title" href="/college-courses/x86-masm/" title="x86汇编基础">x86汇编基础</a><time datetime="2023-05-11T12:48:22.000Z" title="发表于 2023-05-11 20:48:22">2023-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/OS/" title="操作系统基础"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/OS.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="操作系统基础"/></a><div class="content"><a class="title" href="/college-courses/OS/" title="操作系统基础">操作系统基础</a><time datetime="2023-02-13T15:06:22.000Z" title="发表于 2023-02-13 23:06:22">2023-02-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By learner L</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><span>蜀ICP备2022014158号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      id: 'bfc9dcfa0a0bc2236da9adc765265b7a',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

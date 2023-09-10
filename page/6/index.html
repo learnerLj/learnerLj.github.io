@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>技术和思考 - 区块链技术</title><meta name="author" content="learner L"><meta name="copyright" content="learner L"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.blog-blockchain.xyz/page/6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"这篇文章最后更新于","messageNext":"天前，文章内容可能已经过时，请优先参考最新的文章！"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '技术和思考',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-09-11 03:39:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/self/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="技术和思考" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/images/top-img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="技术和思考"><span class="site-name">技术和思考</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">技术和思考</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/learnerLj" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/cdn.blog-blockchain.xyz/202208212113427.png" target="_blank" title="Wechat"><i class="fa-brands fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/evm/basic-understanding-to-evm/" title="初步理解以太坊虚拟机"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/evm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="初步理解以太坊虚拟机"></a></div><div class="recent-post-info"><a class="article-title" href="/evm/basic-understanding-to-evm/" title="初步理解以太坊虚拟机">初步理解以太坊虚拟机</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T13:49:22.000Z" title="发表于 2022-08-23 21:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/evm/">evm</a></span></div><div class="content">转载请标明出处: geth-analyze
+体系结构
+存储层一般的客户端采用 LevelDB 数据库，而 OpenEthereum 采用了 RocksDB。LevelDB 是 Key-Value 的、基于 Log-Structured Merge Tree 的非关系数据库。例如 geth 的所有区块数据都是存储在 LevelDB 中，而 LevelDB 的实现在源代码的 ethdb 包内。
+数据层以太坊的数据层主要定义了数据结构、数据模型、哈希函数、签名算法等。以太坊采用独特的数据结构保护区块头和区块体，区块头含有交易的 Merkle 根哈希值，还有账户状态的 Merkle 根哈希值、日志的 Merkle 根哈希值。以太坊中 Merkle 根哈希值是采用 Merkle Patricia Tree 计算的。哈希函数使用 keccak256，数字签名采用 ECDSA。
+网络层以太坊节点通信采用的 p2p 协议是 DEVp2p，包含了 RLPx、Discv4 等子协议。RLPx 是安全的数据传输协议，采用 ECIES(Elliptic Curve Integrated Encryption  ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/basic/advanced-charactors/" title="（八）合约的高级特性（完）"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="（八）合约的高级特性（完）"></a></div><div class="recent-post-info"><a class="article-title" href="/basic/advanced-charactors/" title="（八）合约的高级特性（完）">（八）合约的高级特性（完）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T12:49:22.000Z" title="发表于 2022-08-23 20:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/smart-contract-basics/">smart contract basics</a></span></div><div class="content">（七）特殊函数
+
+上一篇：（七）特殊函数
+
+继承继承的机制和 python 的非常相似，但是存在差异。一般而言使用过 C++, 基本已经掌握。
+当合约继承其他的合约时，只会在区块链上生成一个合约，所有相关的合约都会编译进这个合约，调用机制和写在一个合约上一致。
+继承时，全局变量无法覆盖，如果出现可见的同名变量会编译错误。通过例子来体会细节，重点理解语法，而不是程序逻辑。
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;contract Owned &#123;    constructor() &#123; owner = payable(msg.sender); &#125;//构造函数中的msg.sender 是部署者    address payable owner;&#125; ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/defi/defi-attack-cellection/" title="DeFi攻击事件研究"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/defi.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DeFi攻击事件研究"></a></div><div class="recent-post-info"><a class="article-title" href="/defi/defi-attack-cellection/" title="DeFi攻击事件研究">DeFi攻击事件研究</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T12:49:22.000Z" title="发表于 2022-08-23 20:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/defi/">defi</a></span></div><div class="content">前言：本文只为了交流学习，为了快速学习，已有的写的较好的资料直接照抄，并且在参考中注明来源。介绍的都非常简略，但是读者可以根据参考链接得到详细的讲解。
+来源：geth-analyze
+汇总表格
+
+
+
+发生时间
+名字
+类型
+损失金额
+简述原因
+代码
+txhash
+
+
+
+
+2022 年 07 月 25 日
+LPC
+BNB
+约 45,715 美元
+实际的账户余额在后续操作中变化了，但是变量 recipientBalance 没有再次更新，导致后续计算余额偏大。
+
+0x0e970ed84424d8ea51f6460ce6105ab68441d4450a80bc8d749fdf01e504ed8c
+
+
+2022 年 06 月 27 日
+XCarnival NFT
+ETH，业务逻辑漏洞
+约 380 万美元
+未考虑抵押物被取出不能借款的业务逻辑，主要是 isWithdraw(bool) 未在 borrow 过程中考虑
+onedrive
+0x51cbfd46f21afb44da4fa971f220bd28a14530e1d5da5009cfbdfee012e57e35，0x20396765bbeacb ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/basic/special-functions/" title="（七）特殊函数"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="（七）特殊函数"></a></div><div class="recent-post-info"><a class="article-title" href="/basic/special-functions/" title="（七）特殊函数">（七）特殊函数</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T10:49:22.000Z" title="发表于 2022-08-23 18:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/smart-contract-basics/">smart contract basics</a></span></div><div class="content">
+上一篇：（七）特殊函数
+下一篇：（八）合约的高级特性（完）
+
+底层函数交互特殊交互方式
+call 是底层的调用（没有封装过），直接发送消息给合约。方式如下：
+
+所有的参数，都会打包成一串 32 个字节，连续存放的序列。
+若第一个参数是函数的签名（函数哈希之后的前 4 个字节），则第二、第三这些后面的参数是函数的参数。如：nameReg.call(bytes4(keccak256(&quot;fun(uint256)&quot;)), a);
+
+
+&lt;address&gt;.call(bytes memory) returns (bool, bytes memory)
+用给定的合约发出低级 CALL 调用，返回成功状态及返回数据，发送所有可用 gas，也可以调节 gas。
+
+
+123456789101112131415161718192021222324252627282930313233343536373839// SPDX-License-Identifier: MITpragma solidity ^0.8.10;contract Receiver &#123;    eve ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/basic/application-binary-interface/" title="（六）应用二进制接口"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="（六）应用二进制接口"></a></div><div class="recent-post-info"><a class="article-title" href="/basic/application-binary-interface/" title="（六）应用二进制接口">（六）应用二进制接口</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T09:49:22.000Z" title="发表于 2022-08-23 17:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/smart-contract-basics/">smart contract basics</a></span></div><div class="content">
+上一篇：（五）字面量和内置单位、函数下一篇：（七）特殊函数
+
+接口含义在地址类型的介绍中提到了底层调用的 call 函数，这里将会介绍它的用法，以及和 ABI 函数的配合。
+ABI 全名 Application Binary Interface，翻译为应用二进制接口。它定义了与合约交互的规范，因此底层函数 (如 call) 直接给合约发消息前，需要了解 ABI。
+ABI 是由合约生成的，规定与合约交互方式的规则，它是一个接口，常被 web3 等库调用。熟悉 REST API 的读者应该能很快理解。
+例如下面是智能合约：
+12345678910111213141516171819202122232425262728293031323334353637383940// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;/** * @title Owner * @dev 设置和改变所有者 */contract Owner &#123;    address private owner;    // 设置 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/basic/function-literal-and-unit/" title="（五）字面量和内置单位、函数"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="（五）字面量和内置单位、函数"></a></div><div class="recent-post-info"><a class="article-title" href="/basic/function-literal-and-unit/" title="（五）字面量和内置单位、函数">（五）字面量和内置单位、函数</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T07:49:22.000Z" title="发表于 2022-08-23 15:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/smart-contract-basics/">smart contract basics</a></span></div><div class="content">
+上一篇：（四）类型下一篇：（六）应用二进制接口
+
+字面常量地址地址的字面常量有 EIP-55 的标准（区分大写字母和小写字母来验证），只有经过校验后才能作为 address 变量。
+有理数和整数十进制的小数字面常量都会带一个.比如1. .1 1.2。。.5*8的结果是整型的4。
+也支持科学计数法，但是指数部分需要是整数（防止无理数出现）。2e-10
+为了提高可读性，数字之间可以添加下划线，编译器会自动忽略。但是下划线不允许连续出现，而且只能出现在数字之间。1_2e345_678
+数值字面常量支持任意精度和长度，也支持对应类型的所有运算，字面常量的运算结果还是字面常量。但是如果出现在变量表达式就会发生隐式转化，并且不同类型的字面常量和变量运算不能通过编译。也就是说2**800+1-2**800在字面常量中是允许的
+（在0.4.0之前，整数的字面常量会被截断即5/2=2，但是之后是2.5)
+字面类型的运算还是字面常量，和非字面常量运算，就会隐式转化成普通类型
+字符串字符串字面常量（”foo”或者’bar’这样)，可以分段写(&quot;foo&quot;&quot;bar&quot;等效 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/basic/types/" title="（四）类型"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="（四）类型"></a></div><div class="recent-post-info"><a class="article-title" href="/basic/types/" title="（四）类型">（四）类型</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T06:49:22.000Z" title="发表于 2022-08-23 14:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/smart-contract-basics/">smart contract basics</a></span></div><div class="content">
+上一篇：（三）控制结构
+下一篇：（五）字面量和内置单位、函数
+
+Solidity 的值传递和引用传递有自己的规则，通过不同的存储域决定，后面详述。
+默认值：Solidity 中不存在undefined或null，每种变量都有自己的默认值，一般是“零状态”。
+运算符优先级
+布尔类型bool:常量值为true和false
+整型int / uint ：分别表示有符号和无符号的不同位数的整型变量。 支持关键字 uint8 到 uint256 （无符号，从 8 位到 256 位）以及 int8 到 int256，以 8 位为步长递增。 uint 和 int 分别是 uint256 和 int256 的别名。
+可以用type(x).min type(x).max来获取这个类型地最小值和最大值。
+位运算在二进制地补码上操作，特别的 ~int256（0）== int256（-1）
+移位：
+左移则会截断最高位；右移操作数必须是无符号地整型，否则会编译错误。
+
+x&lt;&lt;y相当于x*2**y,(其实这里体现了**的优先级比较高)
+如果x&gt;0:x&gt;&gt;y相当于x/2**y
+如果x& ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/basic/controll-flow/" title="（三）控制结构"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="（三）控制结构"></a></div><div class="recent-post-info"><a class="article-title" href="/basic/controll-flow/" title="（三）控制结构">（三）控制结构</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T04:49:22.000Z" title="发表于 2022-08-23 12:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/smart-contract-basics/">smart contract basics</a></span></div><div class="content">
+上一篇：（二）代码结构和合约特性
+下一篇：（四）类型
+
+表达式和控制结构Solidity 支持 if, else, while, do, for, break, continue, return这些和 C 语言一样的关键字。
+Solidity 还支持 try/catch 语句形式的异常处理， 但仅用于 外部函数调用 和 合约创建调用．
+由于不支持非布尔类型值转换成布尔类型，因此if(1)&#123;&#125;是不合法的。
+函数调用内部调用内部调用再 EVM 中只是简单的跳转（不会产生实际的消息调用），传递当前的内存的引用，效率很高。但是仍然要避免过多的递归，因为每次进入内部函数都会占用一个堆栈槽，而最多只有 1024 个堆栈槽。
+外部调用
+只有external或者public的函数才可以通过消息调用而不是单纯的跳转调用，外部函数的参数会暂时复制在内存中。
+
+this不可以出现在构造函数里，因为此时合约还没有完成。
+
+调用时可以指定 value 和 gas 。这里导入合约使用的时初始化合约实例然后赋予地址。
+
+
+123456789101112// SPDX-License-Ident ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/basic/program-structure-and-characters/" title="（二）代码结构和合约特性"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="（二）代码结构和合约特性"></a></div><div class="recent-post-info"><a class="article-title" href="/basic/program-structure-and-characters/" title="（二）代码结构和合约特性">（二）代码结构和合约特性</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T03:49:22.000Z" title="发表于 2022-08-23 11:49:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/smart-contract-basics/">smart contract basics</a></span></div><div class="content">
+上一篇：（一）初步理解智能合约
+下一篇：（三）控制结构
+
+代码结构直观理解代码结构，下面是铸造，生成代币的代码。
+123456789101112131415161718192021222324252627pragma solidity ^0.4;contract Coin&#123;    //set the &quot;address&quot; type variable minter    address public minter;    mapping (address =&gt;uint) public balances;    // set an event so as to be seen publicly    event Sent(address from,address to,uint amount);    //constructor only run once when creating contract,unable to invoke    //&quot;msg&quot; is the address of creator.&quot;msg.sen ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/basic/basic-understanding/" title="（一）初步理解智能合约"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="（一）初步理解智能合约"></a></div><div class="recent-post-info"><a class="article-title" href="/basic/basic-understanding/" title="（一）初步理解智能合约">（一）初步理解智能合约</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-23T02:48:22.000Z" title="发表于 2022-08-23 10:48:22">2022-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/smart-contract-basics/">smart contract basics</a></span></div><div class="content">
+下一篇：（二）代码结构和合约特性
+
+前言这是我学习区块链入门时做的笔记（基于 0.8.7 版本），基本涵盖了编写合约所需常用知识，由于做智能合约安全方面的研究需要精通 Solidity 和 以太坊原理，因此做的笔记比较详实。
+这些笔记基于阅读英文文档，参考中文文档和 stack overflow 以及相关教程，我根据学习者的接受新知识的顺序，对文章结构做了适当优化。
+这篇文章既可以作为新手入门（因为啃英文文档并且搜索信息并不是容易的事情），也可以作为快捷的检索帮助文档（官方文档的翻译某些部分比较难以理解）。建议使用电脑端阅读。
+初稿完成时，都还没学 C 语言，只是一知半解的边学边记。在大二上学期的寒假，我重新整理了一遍，修正了部分错误，将拗口的表述转化成习惯表述，补充了文档中缺少的范例，根据经验突出需要强调的注意事项，使得读者可以跟容易的学习。
+本文共计接近 7 万字，如果觉得有帮助点赞关注呀，我将会继续写智能合约的攻击方式、以太坊虚拟机原理、字节码的深入探索等等，逐渐完善知识体系，并且会分享读论文时的前沿理论。
+参考：
+
+Solidity 最新(0.8.0)中文文档
+Solidit ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#content-inner">7</a><a class="extend next" rel="next" href="/page/7/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">learner L</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/learnerLj" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/cdn.blog-blockchain.xyz/202208212113427.png" target="_blank" title="Wechat"><i class="fa-brands fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">学习区块链技术，读书和思考。如果觉得对您有帮助，不妨请作者一杯☕</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/audit/blockchian-study-material/" title="区块链相关学习材料"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块链相关学习材料"/></a><div class="content"><a class="title" href="/audit/blockchian-study-material/" title="区块链相关学习材料">区块链相关学习材料</a><time datetime="2023-08-09T09:33:33.000Z" title="发表于 2023-08-09 17:33:33">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/information-theory/" title="信息论与编码"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/info-theory.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息论与编码"/></a><div class="content"><a class="title" href="/college-courses/information-theory/" title="信息论与编码">信息论与编码</a><time datetime="2023-05-29T00:15:22.000Z" title="发表于 2023-05-29 08:15:22">2023-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/pl/monad/" title="Haskell 函数式编程(三) Monad"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/haskell.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Haskell 函数式编程(三) Monad"/></a><div class="content"><a class="title" href="/pl/monad/" title="Haskell 函数式编程(三) Monad">Haskell 函数式编程(三) Monad</a><time datetime="2023-05-26T16:42:33.000Z" title="发表于 2023-05-27 00:42:33">2023-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/x86-masm/" title="x86汇编基础"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/x86_assembly.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="x86汇编基础"/></a><div class="content"><a class="title" href="/college-courses/x86-masm/" title="x86汇编基础">x86汇编基础</a><time datetime="2023-05-11T12:48:22.000Z" title="发表于 2023-05-11 20:48:22">2023-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/OS/" title="操作系统基础"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/OS.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="操作系统基础"/></a><div class="content"><a class="title" href="/college-courses/OS/" title="操作系统基础">操作系统基础</a><time datetime="2023-02-13T15:06:22.000Z" title="发表于 2023-02-13 23:06:22">2023-02-13</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/"><span class="card-category-list-name">C</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/audit/"><span class="card-category-list-name">audit</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/basic/"><span class="card-category-list-name">basic</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/courses/"><span class="card-category-list-name">courses</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/defi/"><span class="card-category-list-name">defi</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/evm/"><span class="card-category-list-name">evm</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/experience/"><span class="card-category-list-name">experience</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/assembly/" style="font-size: 1.1em; color: #999">assembly</a> <a href="/tags/geth/" style="font-size: 1.5em; color: #99a9bf">geth</a> <a href="/tags/C/" style="font-size: 1.1em; color: #999">C</a> <a href="/tags/audit/" style="font-size: 1.16em; color: #999b9e">audit</a> <a href="/tags/basic/" style="font-size: 1.1em; color: #999">basic</a> <a href="/tags/information/" style="font-size: 1.1em; color: #999">information</a> <a href="/tags/paper-reading/" style="font-size: 1.27em; color: #99a0a9">paper-reading</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/defi/" style="font-size: 1.21em; color: #999ea4">defi</a> <a href="/tags/crypto/" style="font-size: 1.16em; color: #999b9e">crypto</a> <a href="/tags/read-think/" style="font-size: 1.1em; color: #999">read-think</a> <a href="/tags/smart-contract/" style="font-size: 1.39em; color: #99a4b4">smart contract</a> <a href="/tags/evm/" style="font-size: 1.33em; color: #99a2af">evm</a> <a href="/tags/OS/" style="font-size: 1.1em; color: #999">OS</a> <a href="/tags/program-language/" style="font-size: 1.44em; color: #99a7ba">program language</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/11/"><span class="card-archive-list-date">十一月 2022</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/10/"><span class="card-archive-list-date">十月 2022</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/09/"><span class="card-archive-list-date">九月 2022</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><span class="card-archive-list-count">35</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">62</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">265.3k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-09-10T19:39:13.199Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By learner L</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><span>蜀ICP备2022014158号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

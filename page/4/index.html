@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>技术和思考 - 区块链技术</title><meta name="author" content="learner L"><meta name="copyright" content="learner L"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.blog-blockchain.xyz/page/4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"这篇文章最后更新于","messageNext":"天前，文章内容可能已经过时，请优先参考最新的文章！"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '技术和思考',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-09-11 03:39:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/self/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="技术和思考" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/images/top-img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="技术和思考"><span class="site-name">技术和思考</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">技术和思考</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/learnerLj" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/cdn.blog-blockchain.xyz/202208212113427.png" target="_blank" title="Wechat"><i class="fa-brands fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/geth/forkId/" title="forkId 解读"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="forkId 解读"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/forkId/" title="forkId 解读">forkId 解读</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-25T03:30:33.000Z" title="发表于 2022-08-25 11:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">EIP-2124因为 core/forkId 包是 EIP-2124 的实现，因此我们先了解 EIP-2124 的内容。
+目的
+记住以太坊是向后兼容！
+
+以太坊节点之前寻找其他节点的方式是：随机的选择可以连接的节点，再去判断节点是否对自己有用。但是其他的节点可能是主网节点、测试网节点、私网节点、共识机制不一致的节点，这样“盲目”的寻找会浪费资源。
+于是这个提案希望在连接前，其他节点可以发送自己的链配置，实现精确连接到有用节点。这个传递的信息在提案中被称作 fork identifier，它实现如下功能：
+
+如果两个节点在不同的网络上，他们不应该考虑连接。
+如果硬分叉通过，升级的节点应该拒绝未升级的节点。
+如果两条链有相同的创世区块配置和链配置，但没有分叉（ETH / ETC），它们应该拒绝连接。
+
+这个提案并没有完整地处理分叉的问题，例如对于分叉 A、B、C，它没有单独处理每个分叉。
+具体实现方式
+FORK_HASH: 创世配置哈希和分叉区块高度的校验和，4 字节。
+分叉的区块高度按照顺序，计算 CRC32 校验和。
+分叉的区块高度视作 uint64，计算校验和时按照大端序。
+如果创世 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/geth/bloom-filter/" title="布隆过滤器原理"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="布隆过滤器原理"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/bloom-filter/" title="布隆过滤器原理">布隆过滤器原理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-25T03:30:33.000Z" title="发表于 2022-08-25 11:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">介绍
+布隆过滤器（英语：Bloom Filter）是 1970 年由布隆提出的。它实际上是一个很长的二进制向量和一系列随机映射函数。布隆过滤器可以用于检索一个元素是否在一个集合中。它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。
+
+可见，它解决的核心问题是 检索一个元素是否在一个集合中。原理大致如下：
+当一个元素被加入集合时，通过 K 个散列函数将这个元素映射成一个二进制数组中的 K 个位置，把这些位置的值设置为 1。检索时，我们只要观察这些对应的位置的值是不是都是 1 就（大约）知道集合中有没有检索的元素：如果这 K 个位置中有任何一个 0，则被检索元素一定不在集合中；如果都是 1，则被检元素很可能在。这就是布隆过滤器的基本思想。有个在线网站可以玩耍。
+
+以太坊如何使用布隆过滤器事件是以太坊给外部应用程序发送消息的重要方式，应用为了获取自己需要的信息，需要在许多事件中快速的检索。虽然把数据都写入存储，依靠存储中的哈希索引，可以快速检索，但是以太坊的存储空间的计算代价很高，不可能用来存储大量的交易日志、事件等重复性很高的信息。布隆过滤器就是用来解决快 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/geth/oracle-introduction/" title="oracle 原理和实现"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="oracle 原理和实现"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/oracle-introduction/" title="oracle 原理和实现">oracle 原理和实现</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-25T03:30:33.000Z" title="发表于 2022-08-25 11:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">oracle 介绍oracle 翻译是预言机，英文中的意思是预卜先知，知晓消息的意思。在区块链里用于合约获取链外的数据。例如你想把比特币转换成美元，如果在链上进行，那么就需要从链外获取比特币和美元的汇率，例如price feed oracles。但是以太坊是封闭的系统，直接与外界交互很容易破坏 EVM 安全性，因此才用了预言机作为中间层，沟通链上和链外。详细可见chainlink 的文档和官方文档。
+在以太坊上，oracle 是已经部署的智能合约和链外组件，它可以查询 API 提供的信息，然后给其他合约发消息，更新合约的数据。但是只相信唯一的数据源也是很不可靠的方式，通常是多个数据源。我们可以自己创建，也可以直接使用服务商提供的服务。
+一般 oracle 机制如下：
+
+到了需要链外数据的时候，合约触发事件。
+链外的接口监听事件的日志。
+链外接口处理事务，然后交易的方式返回数据给合约。
+
+
+oracle 实例下面是一个例子，从网络导入合约库，获取接口信息，然后创建合约类型 AggregatorV3Interface 的变量 priceFeed，然后结合获取的接口信息，在构造函数里创建在特 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/geth/tx-pool/" title="交易池分析"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交易池分析"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/tx-pool/" title="交易池分析">交易池分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-25T03:30:33.000Z" title="发表于 2022-08-25 11:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">core\txpool.go
+前言
+
+这篇文章是博主的朋友写的。
+在写这篇文章的时候，笔者已经完完全全看完该代码文件的每一行代码，但是由于代码量过于庞大，所以自然存在边看边忘的情况，所以在此写下这篇文章记录自己的理解以及收获，笔者能力有限，错误之处在所难免，还望包容
+由于该文件代码量过大，而且笔者还同时在看该仓库其他的代码文件，所以笔者决定分期写，一边阅读其他的源码文件，一边回顾txPool.go同时写下阅读笔记
+而且大部分的理解已经记录在源码文件中了，所以阅读源码中的笔记更能帮助理解
+
+
+一些重要概念
+可执行交易和非可执行交易。可执行交易是指从交易池中择优选出的一部分交易可以被执行，打包到区块中。非可执行交易则相反，任何刚进入交易池的交易均属于非可执行状态，在某一个时刻才会提升为可执行状态。
+
+
+
+本地交易 在交易池中将交易标记为 local 的有多种用途：
+在本地磁盘存储已发送的交易。这样，本地交易不会丢失，重启节点时可以重新加载到交易池，实时广播出去。
+可以作为外部程序和以太坊沟通的一个渠道。外部程序只需要监听文件内容变化，则可以获得交易清单。
+local交易可优先于 remot ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/geth/txlist/" title="TxList 解读"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TxList 解读"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/txlist/" title="TxList 解读">TxList 解读</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-25T03:30:33.000Z" title="发表于 2022-08-25 11:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">
+本文旨在分析清楚 tx_list.go 中这个工具包里面的重要代码
+
+堆排序以下为tx_list.go中的heap.Interface的全部实现代码，非常标准，和默认的一样；
+123456789101112131415161718//heap的整个实现过程type nonceHeap []uint64func (h nonceHeap) Len() int           &#123; return len(h) &#125;func (h nonceHeap) Less(i, j int) bool &#123; return h[i] &lt; h[j] &#125;func (h nonceHeap) Swap(i, j int)      &#123; h[i], h[j] = h[j], h[i] &#125;func (h *nonceHeap) Push(x interface&#123;&#125;) &#123;	*h = append(*h, x.(uint64))&#125;func (h *nonceHeap) Pop() interface&#123;& ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/geth/blockchain-core/" title="blockchain核心"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="blockchain核心"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/blockchain-core/" title="blockchain核心">blockchain核心</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-25T02:30:33.000Z" title="发表于 2022-08-25 10:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">
+参考： 以太坊 blockchain 源码分析 - mindcarver - 博客园 (cnblogs.com)
+主要部分转载：以太坊 blockchain 源码分析
+
+blockchain 关键元素
+db：持久化到底层数据储存，即 leveldb（注意不是 MySQL）（源码core/rawdb）；(参考文章：)Leveldb 基本介绍和使用指南 - 知乎 (zhihu.com) 以及对应的百科 LevelDB_百度百科 (baidu.com)
+genesisBlock：创始区块
+currentBlock：当前区块，blockchain 中并不是储存链所有的 block，而是通过 currentBlock 向前回溯直到 genesisBlock，这样就构成了区块链
+bodyCache、bodyRLPCache、blockCache、futureBlocks：区块链中的缓存结构，用于加快区块链的读取和构建；
+hc：headerchain 区块头链，由 blockchain 额外维护的另一条链，由于 Header 和 Block 的储存空间是有很大差别的，但同时 Block 的 Has ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/geth/understand-tx/" title="理解交易"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解交易"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/understand-tx/" title="理解交易">理解交易</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-25T01:30:33.000Z" title="发表于 2022-08-25 09:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">交易的入门介绍这里不作额外说明，可以学习官方文档、以及仓库中提供的《区块链基础》
+交易的结构类型传统交易（Legacy）是以太坊最初的交易类型，但是后来逐渐出现了 AccessList 类型的交易和 DynamicFee 类型的交易，他们分别由 EIP-2930 和 EIP-1559 定义
+12345const (	LegacyTxType     = iota //传统交易	AccessListTxType        //EIP-2930 定义的访问列表	DynamicFeeTxType        //EIP-1559 定义的动态交易费)
+关于这两个 EIP 的详细说明请看后文的『影响交易的 EIP』
+下面是交易的定义
+1234567891011121314151617181920type Transaction struct &#123;   inner TxData // Consensus contents of a transaction   //time 包的特点是时间分成显示和计算两部分   time time.Time // Time first seen lo ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/geth/blocks/" title="理解区块"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解区块"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/blocks/" title="理解区块">理解区块</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-25T00:30:33.000Z" title="发表于 2022-08-25 08:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">结构定义区块
+首先我们需要明白区块的结构。
+123456789101112131415161718192021// Block represents an entire block in the Ethereum blockchain.type Block struct &#123;   header       *Header      //区块头   uncles       []*Header    //引用的叔块   transactions Transactions //交易   // caches   hash atomic.Value //区块哈希   size atomic.Value //区块大小   // Td is used by package core to store the total difficulty   // of the chain up to and including the block.   td *big.Int //链的总难度，与最长链原则相关   //与 p2p 功能相关   // These fields are used by p ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/geth/understand-receipt/" title="理解收据receipt"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解收据receipt"></a></div><div class="recent-post-info"><a class="article-title" href="/geth/understand-receipt/" title="理解收据receipt">理解收据receipt</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-24T21:30:33.000Z" title="发表于 2022-08-25 05:30:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/geth/">geth</a></span></div><div class="content">核心结构收据主要包括交易类型、交易是否成功的状态码、交易是否成功的编码、直到这笔交易区块消耗的 gas、和布隆过滤器。为了方便处理交易，也添加了交易的信息，包括交易哈希、合约地址和消耗的 gas。为了检查交易和收据是否匹配，提供了区块哈希、区块高度和交易在区块中的索引。
+12345678910111213141516171819202122232425262728// Receipt represents the results of a transaction.type Receipt struct &#123;   // Consensus fields: These fields are defined by the Yellow Paper   Type      uint8  `json:&quot;type,omitempty&quot;` //交易类型   PostState []byte `json:&quot;root&quot;`           //交易成功/失败时的 RLP 编码   Status    uint64 `json:&quot;status&q ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/audit/learning-resource/" title="智能合约学习资源"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="智能合约学习资源"></a></div><div class="recent-post-info"><a class="article-title" href="/audit/learning-resource/" title="智能合约学习资源">智能合约学习资源</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-08-24T17:33:33.000Z" title="发表于 2022-08-25 01:33:33">2022-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/audit/">audit</a></span></div><div class="content">这些资源主要来自笔者的经历和学习，也参考了许多人的总结，作为自己的系统作结，应该对大家有帮助。
+帮助和交流平台
+gitter 在线频道。
+reddit ethereum 讨论区
+以太坊的 stackexchange
+stackoverflow
+
+还有一些 discord 服务器，感兴趣可以加入。
+优质社区
+以太坊社区网络，他们的文章整理的不错，文档也很好。
+
+
+
+以太坊维基百科，可以浏览基本的概念，很有帮助。
+
+以太坊基金会博客，可以得到很多前沿信息。
+
+
+
+
+登链社区，许多翻译的文章质量很高，并且有一些文档翻译。
+以太坊知识库，虽然许多东西没有更新，但是有些文章翻译的很好，例如 新手入门、以及它开发者提供的参考 都可以看出来是花了很长时间整理的，可以浏览，增长见识。比较可惜的是，后续没有继续更新，可能是小白成为大佬的过程常常写很多的文章，但是成为大佬后都应对复杂问题，就没有继续写下去了吧。
+
+
+
+layer2 方案的备忘录，以后深入以太坊拓展方案后可以很快对 layer2 有大致的认识。
+medium 虽然是英文社区，但是里面的优秀文章写的很好，建议翻译慢慢看。
+
+
+
+Eth2 展望 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/3/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#content-inner">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#content-inner">7</a><a class="extend next" rel="next" href="/page/5/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">learner L</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/learnerLj" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/cdn.blog-blockchain.xyz/202208212113427.png" target="_blank" title="Wechat"><i class="fa-brands fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">学习区块链技术，读书和思考。如果觉得对您有帮助，不妨请作者一杯☕</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/audit/blockchian-study-material/" title="区块链相关学习材料"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块链相关学习材料"/></a><div class="content"><a class="title" href="/audit/blockchian-study-material/" title="区块链相关学习材料">区块链相关学习材料</a><time datetime="2023-08-09T09:33:33.000Z" title="发表于 2023-08-09 17:33:33">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/information-theory/" title="信息论与编码"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/info-theory.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息论与编码"/></a><div class="content"><a class="title" href="/college-courses/information-theory/" title="信息论与编码">信息论与编码</a><time datetime="2023-05-29T00:15:22.000Z" title="发表于 2023-05-29 08:15:22">2023-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/pl/monad/" title="Haskell 函数式编程(三) Monad"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/haskell.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Haskell 函数式编程(三) Monad"/></a><div class="content"><a class="title" href="/pl/monad/" title="Haskell 函数式编程(三) Monad">Haskell 函数式编程(三) Monad</a><time datetime="2023-05-26T16:42:33.000Z" title="发表于 2023-05-27 00:42:33">2023-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/x86-masm/" title="x86汇编基础"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/x86_assembly.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="x86汇编基础"/></a><div class="content"><a class="title" href="/college-courses/x86-masm/" title="x86汇编基础">x86汇编基础</a><time datetime="2023-05-11T12:48:22.000Z" title="发表于 2023-05-11 20:48:22">2023-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/OS/" title="操作系统基础"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/OS.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="操作系统基础"/></a><div class="content"><a class="title" href="/college-courses/OS/" title="操作系统基础">操作系统基础</a><time datetime="2023-02-13T15:06:22.000Z" title="发表于 2023-02-13 23:06:22">2023-02-13</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/"><span class="card-category-list-name">C</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/audit/"><span class="card-category-list-name">audit</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/basic/"><span class="card-category-list-name">basic</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/courses/"><span class="card-category-list-name">courses</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/defi/"><span class="card-category-list-name">defi</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/evm/"><span class="card-category-list-name">evm</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/experience/"><span class="card-category-list-name">experience</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/assembly/" style="font-size: 1.1em; color: #999">assembly</a> <a href="/tags/geth/" style="font-size: 1.5em; color: #99a9bf">geth</a> <a href="/tags/C/" style="font-size: 1.1em; color: #999">C</a> <a href="/tags/audit/" style="font-size: 1.16em; color: #999b9e">audit</a> <a href="/tags/basic/" style="font-size: 1.1em; color: #999">basic</a> <a href="/tags/information/" style="font-size: 1.1em; color: #999">information</a> <a href="/tags/paper-reading/" style="font-size: 1.27em; color: #99a0a9">paper-reading</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/defi/" style="font-size: 1.21em; color: #999ea4">defi</a> <a href="/tags/crypto/" style="font-size: 1.16em; color: #999b9e">crypto</a> <a href="/tags/read-think/" style="font-size: 1.1em; color: #999">read-think</a> <a href="/tags/smart-contract/" style="font-size: 1.39em; color: #99a4b4">smart contract</a> <a href="/tags/evm/" style="font-size: 1.33em; color: #99a2af">evm</a> <a href="/tags/OS/" style="font-size: 1.1em; color: #999">OS</a> <a href="/tags/program-language/" style="font-size: 1.44em; color: #99a7ba">program language</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/11/"><span class="card-archive-list-date">十一月 2022</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/10/"><span class="card-archive-list-date">十月 2022</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/09/"><span class="card-archive-list-date">九月 2022</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><span class="card-archive-list-count">35</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">62</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">265.3k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-09-10T19:39:13.199Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By learner L</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><span>蜀ICP备2022014158号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>（六）指向分析 | 技术和思考</title><meta name="author" content="learner L"><meta name="copyright" content="learner L"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="上一篇：（五）过程间分析 下一篇：（七）抽象解释  程序分析中的敏感性 看到一篇总记得比较有条理的博客：华为云社区的《静态代码分析敏感性概念》，本小节（程序分析中的敏感性）的内容全部来自该博客，本人只做了排版优化。  本文介绍几种在静态代码分析中的敏感性分析的概念。主要有流敏感（flow-sens"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.blog-blockchain.xyz/pl/points-to-analysis/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"这篇文章最后更新于","messageNext":"天前，文章内容可能已经过时，请优先参考最新的文章！"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '（六）指向分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-12-07 11:16:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/self/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="技术和思考" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/pa.png')"><nav id="nav"><span id="blog-info"><a href="/" title="技术和思考"><span class="site-name">技术和思考</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">（六）指向分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-21T13:50:33.000Z" title="发表于 2022-11-21 21:50:33">2022-11-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-07T03:16:05.381Z" title="更新于 2022-12-07 11:16:05">2022-12-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/program-language/">program language</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>25分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="（六）指向分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>上一篇：<a href="https://www.blog-blockchain.xyz/pl/Interprocedural-DFA/">（五）过程间分析</a></p>
+<p>下一篇：<a href="https://www.blog-blockchain.xyz/pl/abstract-interpretation/">（七）抽象解释</a></p>
+</blockquote>
+<h1 id="程序分析中的敏感性"><a href="#程序分析中的敏感性" class="headerlink" title="程序分析中的敏感性"></a>程序分析中的敏感性</h1><blockquote>
+<p>看到一篇总记得比较有条理的博客：华为云社区的《<a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/234041">静态代码分析敏感性概念</a>》，<strong>本小节（程序分析中的敏感性）的内容全部来自该博客，本人只做了排版优化</strong>。</p>
+</blockquote>
+<p>本文介绍几种在静态代码分析中的敏感性分析的概念。主要有流敏感（flow-sensitive），路径敏感（path-sensitive），上下文敏感（context-sensitive）和域敏感（field-sensitive）。所有的敏感性分析相对于非敏感性分析，在分析的准确性上，都会有很大的精度提升（如减少漏报和误报等），但是会在时间或者空间上有更大损耗。</p>
+<h2 id="流敏感（flow-sensitive）"><a href="#流敏感（flow-sensitive）" class="headerlink" title="流敏感（flow-sensitive）"></a>流敏感（flow-sensitive）</h2><p>流敏感分析，是指在分析时，区分程序的执行顺序的分析。如下面的两段代码：</p>
+<p>代码片段一：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;zhangsan&quot;</span>;</span><br><span class="line">name = System.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + name;</span><br><span class="line">sqlExecute(sql);</span><br></pre></td></tr></table></figure>
+<p>代码片段二：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> System.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">name = <span class="string">&quot;zhangsan&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + name;</span><br><span class="line">sqlExecute(sql);</span><br></pre></td></tr></table></figure>
+<p>这里，我们设定 <code>sqlExecute</code> 是执行一条 sql 命令的方法，则上面的两个代码片段中，<code>System.getProperty()</code> 是从环境变量中获取数据，可以认为是污点入口。如果是代码片段一，可能发生 sql 注入风险，因为 <code>name</code> 在第 2 行，被赋给了一个外部传入的数据，第 3 行将 <code>name</code> 传递给了 sql，在第 4 行，sql 被传入一个污点坑。而代码片段二，则没有可能发生 sql 注入风险，因为在第 2 行，<code>name</code> 是个常量，第 3 行 sql 也没有被污染，是拼接了一个常量 <code>zhangsan</code>。</p>
+<p>上面的分析，实际上是一种流敏感的分析，我们分析了 <code>name</code> 在第 1 行和第 2 行指向的内容，从而知道在代码片段一中，第 3 行的 <code>name</code> 指向一个污染数据，代码片段二中，第 3 行的 <code>name</code> 指向的是一个常量字符串，从而知道上面代码片段一有 sql 注入风险，代码片段二没有 sql 注入风险。而如果是流不敏感分析，则不管是代码片段一还是代码片段二，都只能得出来的一个结论是：第 3 行的 <code>name</code> 指向的是常量字符串或者是外部传入的污染数据，从而得到的结论是代码片段一和代码片段二都有 sql 注入的风险。</p>
+<p>从上面的一个简单的结合指向分析和污点传播的案例，我们可以知道，<strong>流敏感分析可以有效降低分析的误报，提高分析的准确性</strong>。绝大部分的数据流分析，例如常量传播、指向分析等，都需要是流敏感分析，当然，也不是说所有的分析都需要是流敏感的，比如静态类型语言中，分析一个变量的类型，分析到一个位置的某个变量的类型信息后，其他地方的该变量自然就都是该类型的。</p>
+<p>流敏感分析已经是程序分析中，数据流分析的最基本要求，已有的一些成熟的代码分析框架，例如 Java 中的 Soot 和 Wala，C/C++中的 Clang 等，都是原始支持流敏感的分析。</p>
+<p>部分源码，在生成 SSA 形式的三地址码后，在 SSA 上的非流敏感分析，在相当程度上，也可以实现类似于普通三地址码的流敏感分析的效果，因为 SSA 中每个变量只会有一次赋值，生成 SSA 形式后，实际上的效果就是每个变量只会有一个指向，例如上面的代码片段，当针对 <code>name</code> 变量，针对两次赋值区分 <code>name1</code> 和 <code>name2</code> 之后，在 sql 中，都使用 <code>name2</code> 赋值，不会再有不同指向的问题。</p>
+<h2 id="路径敏感（path-sensitive）"><a href="#路径敏感（path-sensitive）" class="headerlink" title="路径敏感（path-sensitive）"></a>路径敏感（path-sensitive）</h2><p>路径敏感，就是在进行分析时，同时考虑了分支路径上面的条件信息。如下面的两段代码：</p>
+<p>代码片段一：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String name;</span><br><span class="line"><span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line"><span class="keyword">if</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    name = System.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    name = <span class="string">&quot;zhangsan&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + name;</span><br><span class="line">sqlExecute(sql);</span><br></pre></td></tr></table></figure>
+<p>代码片段二：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String name;</span><br><span class="line"><span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    name = System.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    name = <span class="string">&quot;zhangsan&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + name;</span><br><span class="line">sqlExecute(sql);</span><br></pre></td></tr></table></figure>
+<p>上面的两段代码除了 <code>x</code> 的取值外，都相同。那么来分析上面的代码。当 <code>x</code> 大于 0 时，<code>name</code> 是一个从环境变量里面获取的污点数据，当 <code>x</code> 小于等于 0 时，<code>name</code> 是一个常量 <code>zhangsan</code>，然后执行 sql 命令的拼接，并执行命令。</p>
+<p>现有的数据流分析，一般都可以识别到分支操作，然后执行到分支完毕时，执行一个 merge 的操作，然后继续执行。如上，<code>name</code> 在分支结束后，内容是 <code>&#123;System.getProperty(&quot;name&quot;)&#125;∨&#123;zhangsan&#125;</code>，如果是考虑污点分析的抽象值，则为 <code>&#123;Tainted&#125;∨&#123;NotTainted&#125;=&#123;Tainted，NotTainted&#125;</code>，然后 sql 被污染，最后发生一个 sql 注入问题（一般静态代码分析，都是 sound 分析，所以会报一个缺陷）。这种是不考虑路径敏感的场景。</p>
+<p>上面，不考虑分支条件的时候，对代码片段一和代码片段二分析时，都会报出来一个 sql 注入的问题。当带上分支条件时，对于第二种场景，计算约束 <code>constraint(&#123;x == -1&#125;∨&#123;x &gt; 0&#125;)</code> 无解，可以知道污点分支走不进去，从而可以知道其实代码片段二是不会发生 sql 注入的，而只有代码片段一会发生 sql 注入。</p>
+<p>从上面的分析，<strong>路径敏感分析，可以有效降低静态代码分析中的误报，提高分析的准确性</strong>。这就要求，在获取每一条分支路径分析时，都需要同时保存分支的条件，然后通过<strong>约束求解</strong>方法，获取分支可达性，从而降低误报。另外，如果是基于 SSA 形式的分析，一般可以通过在构造 φ 函数时，同时保存分支信息来实现。</p>
+<p>当前，很多静态代码分析框架，例如 Java 中 Soot，原生并没有关于路径分支的可达性的计算支持（即非路径敏感分析，《编译原理》中介绍的数据流分析，就是非路径敏感的），所以如果是基于这些框架开发静态代码分析框架，需要考虑路径敏感性分析的实现（基于分支条件的约束求解），但是也需要注意可能的路径爆炸等问题。</p>
+<h2 id="上下文敏感（context-sensitive）"><a href="#上下文敏感（context-sensitive）" class="headerlink" title="上下文敏感（context-sensitive）"></a>上下文敏感（context-sensitive）</h2><p>上下文敏感，就是考虑函数调用的上下文信息。一个函数可能会被多个函数调用，那么在不同的函数调用它的时候，在传给它的实际参数或当时的全局变量不同的情况下，可能有不同的行为，如下面的一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">name1</span> <span class="operator">=</span> getName(<span class="number">3</span>);  <span class="comment">// Tainted</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">sql1</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + name1;</span><br><span class="line">    sqlExecute(sql1);  <span class="comment">// Taint Sink</span></span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">name2</span> <span class="operator">=</span> getName(-<span class="number">1</span>);  <span class="comment">// Not Tainted</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">sql2</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + name2;</span><br><span class="line">    sqlExecute(sql2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">getName</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> System.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;zhangsan&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上所示，<code>getName()</code>方法基于入参的不同，会返回不同的结果，如上面的代码，在第 2 行和第 6 行，获取到的 <code>name1</code> 和 <code>name2</code> 的污点信息不同，当入参为 3 时，返回的是一个从环境变量中获取的污染的数据，到导致 sql 注入，而当入参为-1 时，返回的是一个常量，不是污染数据，不会有问题。</p>
+<p>所以，在上下文敏感的分析中，在第 4 行应该报一个 sql 注入问题，而在第 8 行则不应该报 sql 注入问题。而上下文非敏感的分析中，不考虑传入参数的不同，<code>getName()</code> 方法，则全部返回一个 <code>&#123;System.getProperty(&quot;name&quot;)&#125;∨&#123;zhangsan&#125;</code>，从而导致第 4 行和第 8 行都会报一个 sql 注入的问题。</p>
+<p>如上分析，上下文敏感分析，可以<strong>减少误报，提高分析精度</strong>，同时，也对函数建立摘要提出了挑战。上下文，指在分析函数调用过程中，可能影响函数行为的所有的信息，不仅仅包含传递的实参，还包括全局变量、实参类型等信息，根据我们的分析的目标来确定（静态代码分析，在一定程度上，全都需要进行一定程度的抽象，需要根据分析目标，在上下文和结果上进行合理抽象）。</p>
+<h2 id="域敏感（field-sensitive）"><a href="#域敏感（field-sensitive）" class="headerlink" title="域敏感（field-sensitive）"></a>域敏感（field-sensitive）</h2><p>域敏感，即针对对象属性、容器等数据类型上成员或者元素上面的分析问题。如下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> System.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">    <span class="type">Bean</span> <span class="variable">bean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bean</span>();</span><br><span class="line">    bean.setName(name);</span><br><span class="line">    bean.setGender(<span class="string">&quot;male&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">sql1</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + bean.getName();</span><br><span class="line">    sqlExecute(sql1);</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">sql2</span> <span class="operator">=</span> <span class="string">&quot;select * from user where gender = &quot;</span> + bean.getGender();</span><br><span class="line">    sqlExecute(sql2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Bean</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上面的例子，在第 2 行，<code>name</code> 是污染数据，然后在第 4 行，将 <code>bean</code> 的 <code>name</code> 属性设为 name，将 <code>bean</code> 的 <code>gender</code> 设置为常量 male，从而 <code>bean</code> 的 <code>name</code> 属性是被污染的，<code>gender</code> 属性没有被污染，继续往下分析，在执行 sql1 的第 8 行，应该报一个 sql 注入问题，而在执行 sql2 的第 11 行，不应该报 sql 注入问题。</p>
+<p>如果是域敏感分析，可以将污点打在对象的属性上面，从而能够区分上面的场景，只在第 8 行报一个 sql 注入缺陷，而在第 11 行则不会报缺陷，但是如果是域不敏感分析，则无法报准确将污点打在对象的属性上面，从而导致污点被打在对象上，从而导致第 8 行和第 11 行都会报一个缺陷。</p>
+<p>域敏感分析，对于面向对象语言的静态代码分析工具的实现，是一种非常重要的基础要求，如果无法实现域敏感分析，则会导致大量的无关的误报问题。当前，很多开源的分析框架，例如 Java 中基于 Soot 的 IDEal，就实现了域敏感的分析（可以参考<a target="_blank" rel="noopener" href="http://www.bodden.de/pubs/sab19context.pdf，Context-">http://www.bodden.de/pubs/sab19context.pdf，Context-</a>, Flow-, and Field-Sensitive Data-Flow Analysis using Synchronized Pushdown Systems），也有一些静态代码分析工具，将对象的属性延展为普通的变量来实现污点标记。</p>
+<p>上面介绍的这种域敏感分析，是静态代码分析工具的基本要求，下面介绍两种域敏感分析，根据我的使用静态代码分析工具的经验，还很少有工具很好地支持了下面的场景，直接看代码：</p>
+<p>案例一，List 场景：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> System.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">List&lt;String&gt; arg = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">arg.add(name);</span><br><span class="line">arg.add(<span class="string">&quot;male&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">sql1</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + arg.get(<span class="number">0</span>);</span><br><span class="line">sqlExecute(sql1);</span><br><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">sql2</span> <span class="operator">=</span> <span class="string">&quot;select * from user where gender = &quot;</span> + arg.get(<span class="number">1</span>);</span><br><span class="line">sqlExecute(sql2);</span><br></pre></td></tr></table></figure>
+<p>案例二，Map 场景：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> System.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">Map&lt;String, String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">map.put(<span class="string">&quot;gender&quot;</span>, <span class="string">&quot;male&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">sql1</span> <span class="operator">=</span> <span class="string">&quot;select * from user where name = &quot;</span> + map.get(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">sqlExecute(sql1);</span><br><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">sql2</span> <span class="operator">=</span> <span class="string">&quot;select * from user where gender = &quot;</span> + map.get(<span class="string">&quot;gender&quot;</span>);</span><br><span class="line">sqlExecute(sql2);</span><br></pre></td></tr></table></figure>
+<p>当前，还没有很好的工具，可以对上面的场景进行区分，如果没有误报的话，对于案例一和案例二，都是第 7 行应该有 sql 注入缺陷，第 10 行没有，但是，当前还没有一款很好的工具（也可能是有，但是我不知道），可以很好地对 <code>List</code> 和 <code>Map</code> 中的 <code>add</code> 和 <code>put</code> 进行准确处理。<code>List</code> 的 <code>add</code> 方法，<code>Map</code> 的 <code>put</code> 方法，都会把污点标记给打到整个容器上。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>流敏感分析，针对的是同一个代码块内部的语句的顺序执行的数据流分析的要求；路径敏感分析，针对的是同一个方法内里面，能够区分不同分支的分析要求（数据流分析是路径不敏感的）；上下文敏感分析，是针对跨过程调用的时候的数据流分析要求。这三个概念层层递进，都是面向程度执行结构的敏感性要求，是一个静态代码分析工具的基本通用要求，一般的静态代码分析框架，都应该实现这些基本要求。</p>
+<p>域敏感，也叫属性敏感，主要针对面向对象语言（包括 C 语言中的结构体等）的一种分析技术，目的是提高静态代码的分析精度，贯穿整个分析过程。实际上，域敏感并不是必须完全需要实现，静态代码分析工具可以基于需要，在不同的层次上实现域敏感，同时，也可以<strong>刻意将待分析程序部分内容实现为域不敏感来提高性能（域敏感分析，对分析时间和分析所消耗的内存，都有显著影响）</strong>。</p>
+<h1 id="流非敏感指向分析"><a href="#流非敏感指向分析" class="headerlink" title="流非敏感指向分析"></a>流非敏感指向分析</h1><p>为什么进行流非敏感的指向分析？下面例子来自《<a target="_blank" rel="noopener" href="https://blog.csdn.net/a173373310/article/details/119167140">论文解读系列—《Flow-Sensitive Pointer Analysis for Millions of Lines of Code》</a>》，做了一点儿改正。</p>
+<blockquote>
+<p>流敏感分析是考虑了每个程序点的独有状态值，即在某条语句之前和之后，可能状态值是不一样的。比如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  int *p, *q, a, b, c</span></span><br><span class="line">p = &amp;a;</span><br><span class="line">q = &amp;b;</span><br><span class="line">p = &amp;c;</span><br><span class="line">p = q;</span><br></pre></td></tr></table></figure>
+<p>如果是非流敏感分析，那么分析结果将是 <strong>pts_set [p] = {a, b, c}</strong> 对所有位置均成立，显然这是错误的。因为在语句 1 之后，p 只是指向了 a。如果是流敏感分析，那么结果是，对于语句 1 执行后，<strong>pts_set [p] = {a}</strong>, 在语句 3 执行后，<strong>pts_set [p] = {a ,c}</strong>, 在语句 4 执行后，<strong>pts_set [p] = {a, b, c}</strong>。<br>可以看到，流敏感分析对于程序分析精度的提高是非常有用的。</p>
+<p><strong>总结： 流敏感和非流敏感的区别在于：流敏感为每个程序点都计算了该点独有的程序状态</strong></p>
+</blockquote>
+<p>但是流敏感分析复杂度高的多，所以进行流非敏感分析常常是进一步分析的基础。接下来的指向分析时</p>
+<ul>
+<li>不考虑在堆上分配的内存</li>
+<li>不考虑 struct、数组等结构</li>
+<li>不考虑指针运算（如*(p+1)）</li>
+</ul>
+<p>这些限制有利于我们了解最基础的指向分析。</p>
+<h2 id="指向分析和别名分析"><a href="#指向分析和别名分析" class="headerlink" title="指向分析和别名分析"></a>指向分析和别名分析</h2><p>指针分析 (pointer analysis) 可以主要分成两类：别名分析 (alias analysis) 和指向分析 (points-to analysis)，中文语义不是很好区分。</p>
+<blockquote>
+<p><em>Alias analysis</em> computes a set S holding pairs of variables (p, q) , where p and q may (or must) point to the same location. On the other hand, <em>points-to analysis</em>, as described above, computes a relation <em>points-to(p, x)</em> , where p may (or must) point to the location of the variable x. We will focus our study in this lecture on points-to analysis, and will begin with a simple but useful approach originally proposed by Andersen.</p>
+</blockquote>
+<h2 id="Anderson-指向分析算法"><a href="#Anderson-指向分析算法" class="headerlink" title="Anderson 指向分析算法"></a>Anderson 指向分析算法</h2><blockquote>
+<p>Andersen’s points-to analysis is a context-insensitive interprocedural analysis. It is also a flow-insensitive analysis, that is an analysis that (unlike dataflow analysis) does not take into consideration the order of program statements. Context- and flow-insensitivity are used to improve the performance of the analysis, as precise pointer analysis can be notoriously<br>expensive in practice.</p>
+</blockquote>
+<p>该算法的指针赋值操作只有四类，而且分别对应的状态转换函数如下图所示。</p>
+<ol>
+<li>值变量取地址给指针赋值。</li>
+<li>指针给指针赋值。</li>
+<li>指针变量取值给值变量赋值。</li>
+<li>值变量给指针指向的变量赋值。</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202210232251369.png" alt="image-20221023225159161" style="zoom:35%;" /></p>
+<p>如果读者熟悉 Datalog，以上的约束时很容易实现的。其他所有指针操作都可以分解成这四类操作，例如 <code>**a = &amp;b</code> 等价于<code>c = &amp;b;d = *c;a = *d</code>。</p>
+<p>下面详细介绍为什么赋值语句会对应上图中的约束。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">z := <span class="number">1</span>;</span><br><span class="line">p := &amp;z;</span><br><span class="line">*p := <span class="number">2</span>;</span><br><span class="line">print z;</span><br></pre></td></tr></table></figure>
+<p>显然打印时，<code>z=2</code> 而不是 1。逐行分解来看，<code>p := &amp;z;</code> 那么 p 就必须包括 z 的所有可能地址，这样才会是 sound 的。</p>
+<p><code>*p := 2;</code> 那么凡是 <code>p</code> 中的元素都可能被赋值成 2，对应第四行。特别是 如果不是一个常数 2，而是一个变量，那么 p 的每一个元素都可能被 b 周的某一个元素赋值，也就是要扩大 p 对应集合的范围，包含 b 对应的集合。</p>
+<p>上面 <code>a=*b</code> 也是类似的，a 被 b 中的某个元素赋值，考虑所有可能的情况，就相当于 b 中的每一个元素，都要在 a 的集合中。这里 $\in$ 和 $\subseteq$ 有些混用，可能是为了保持多重指针时的一般性。</p>
+<p>总而言之，每次赋值就是扩充被赋值的指针或者元素。</p>
+<h2 id="约束求解"><a href="#约束求解" class="headerlink" title="约束求解"></a>约束求解</h2><p>请注意它是流非敏感的，所以非常适合 Datalog，读者也会理解下面的例子。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211052219857.png" alt="image-20221105221936656" style="zoom:40%;" /></p>
+<p>上面右边的约束可以写成标准形式.</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+    1. \boldsymbol{p}=\boldsymbol{p}\cup \boldsymbol{o}\cup \left( \cup _{v\in \boldsymbol{q}}\boldsymbol{v} \right) \cup (p\in \boldsymbol{q}\,\,?\{w\}:\varnothing )\\
+    2. \boldsymbol{q}=\boldsymbol{q}\cup \{p\}\cup (q\in \boldsymbol{q}\,\,?\{w\}:\varnothing )\\
+    3. \boldsymbol{o}=\boldsymbol{o}\cup \{v\}\cup (o\in \boldsymbol{q}\,\,?\{w\}:\varnothing )\\
+\end{cases}</script><p>涉及到 p 的约束有右边的 3、4、5 行，第 3、4 行很直接，通过并操作限定条件。第 5 行则是间接的，因为 q 里面可能包含了 p，那么 w 可能也会在 p 的范围内。总之，以上的约束都转变成了 p 的扩充。以此类推。</p>
+<p>笔者这时也没有对这样的规则感到得心应手，暂且学下去，等深入学习和实际应用之后会逐渐加深掌握的。</p>
+<p>之后开始不断计算上述的三个等式，比如 p 变了，那么涉及到 p 的所有等式重新运算，以这样的方式计算直到达到不动点，也就是所有变量的集合都不变了。具体方法是先确定变量之间的包含关系如下图：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.blog-blockchain.xyz/202211052251017.png" alt="image-20221105225124965" style="zoom:40%;" /></p>
+<p>但是这里还少了条件下或者说全称量词下的包含关系，那么就要监听全称量词，满足条件则进行对应操作。</p>
+<p><strong>后续很多研究进一步优化了指针分析</strong>，可以阅读这一篇核心文献：The Ant and the Grasshopper: Fast and Accurate Pointer Analysis for Millions of Lines of Code, Hardekopf and Lin,PLDI 2007</p>
+<h1 id="流敏感指向分析"><a href="#流敏感指向分析" class="headerlink" title="流敏感指向分析"></a>流敏感指向分析</h1><p>首先，SSA 形式下流非敏感和流敏感是等价的，因为每个变量只会赋值一次，那么就不会存在模糊的指向了。但是之前也提到 SSA 在循环、递归等方面存在局限性，所以流敏感指针分析可以提高精度。流敏感指向分析主要是数据流分析和 Anderson 算法的结合。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211061044209.png" alt="image-20221106104436134" style="zoom: 43%;" /></p>
+<p>前三条操作都比较显然，第四条主要是考虑到 a 实际上只会指向一个位置，那么如果 a 里的元素是多个可能的地址（比如由分支交汇造成的），那么完全替代所有地址对应的集合是不 sound 的，因此多个地址的情况下，采用并集。</p>
+<p><strong>后续很多研究进一步优化了指针分析</strong>，最新工作采用部分 SSA 来对流敏感进行加速，可 以应用到百万量级的代码，核心论文：Hardekopf B, Lin C. Flow-sensitive pointer analysis for millions of lines of code. CGO 2011:289-298.</p>
+<h1 id="指向分析的难点"><a href="#指向分析的难点" class="headerlink" title="指向分析的难点"></a>指向分析的难点</h1><h2 id="动态分配在堆的内存"><a href="#动态分配在堆的内存" class="headerlink" title="动态分配在堆的内存"></a>动态分配在堆的内存</h2><p>分析堆上分配的内存是一个难点，这种动态分配内存无法知道分配了多少次，比如写在循环里面。那么，一般会做一层抽象，只考虑代码出现的位置，所有循环到这一行代码，都视作同一块内存。因此，编译器处理数组时一般都是把数组当一个节点，而且大多数框架的指针分析算法不支持数组和指针运算。</p>
+<p>所以，尽量避免指针运算是一个较好的编程习惯，另外部分语言不支持指针运算，也是有这方面的考虑。</p>
+<h2 id="数组和指针运算"><a href="#数组和指针运算" class="headerlink" title="数组和指针运算"></a>数组和指针运算</h2><p>简单地说比如 C 语言 支持指针运算，比如 <code>*(p+i)</code> 或者数组 <code>p[i]</code>。这会给分析带来巨大的困难，因为必须要把运算的范围和指针范围结合起来，单独的较为精确的分析已经很复杂了，二者结合极难实现。因此，一般大多数分析框架不支持数组和指针运算。</p>
+<h2 id="结构体、对象、容器内的指针"><a href="#结构体、对象、容器内的指针" class="headerlink" title="结构体、对象、容器内的指针"></a>结构体、对象、容器内的指针</h2><p>以 C 语言结构体双向链表为例，结构体内的指针和结构体外的指针是不同的，对于两个不同链表，next 这个名字相同的变量也不是代表指向相同的位置。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Struct Node &#123; <span class="type">int</span> value; Node* next; Node* prev;&#125;;</span><br><span class="line">a = <span class="built_in">malloc</span>();</span><br><span class="line">a-&gt;next = b;</span><br><span class="line">a-&gt;prev = c;</span><br></pre></td></tr></table></figure>
+<p>一般由域非敏感分析和域敏感分析。</p>
+<h2 id="域非敏感分析"><a href="#域非敏感分析" class="headerlink" title="域非敏感分析"></a>域非敏感分析</h2><p>域非敏感（Field-Insensitive）分析比较简单粗暴，直接忽视结构体、对象自身的辖域。第一个办法是直接把结构体当作是一个整体，结构体里面指针的赋值就当作给结构体赋值，见下图。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211061126496.png" alt="image-20221106112608424" style="zoom:50%;" /></p>
+<p>第二种办法是不管结构体变量之间的区别了，一视同仁。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211061127249.png" alt="image-20221106112740183" style="zoom:50%;" /></p>
+<h2 id="域敏感分析"><a href="#域敏感分析" class="headerlink" title="域敏感分析"></a>域敏感分析</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211061303625.png" alt="image-20221106130335551" style="zoom:50%;" /></p>
+<p>简单地说，就是</p>
+<ul>
+<li>创建时添加结构体内的指针变量</li>
+<li>赋值时将结构体拆分成几个字段和结构体变量名。</li>
+</ul>
+<p>后续实践时会做这一部分。</p>
+<h1 id="基于-CFL-可达性的域敏感分析"><a href="#基于-CFL-可达性的域敏感分析" class="headerlink" title="基于 CFL 可达性的域敏感分析"></a>基于 CFL 可达性的域敏感分析</h1><p>回忆 CFL 之前用于函数括号匹配，用来区分不同上下文中的相同函数调用。这里只要将函数这个范围替换成结构体或者对象这个范围即可。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211062118903.png" alt="image-20221106211811844" style="zoom: 50%;" /></p>
+<ul>
+<li>new 表示新建了指针</li>
+<li>put[f] 表示上一个节点下一个节点内部的值 f (比如结构体内字段) 赋值。</li>
+<li>assign 表示直接赋值</li>
+<li>get[f] 表示从上一个节点取出内部的变量 f 给下一个节点赋值。</li>
+</ul>
+<p>从以上的定义，出现了如下的结论：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211062124955.png" alt="image-20221106212440908" style="zoom:50%;" /></p>
+<ul>
+<li>下划线表示逆过程。</li>
+<li><code>*</code> 表示前面的部分可以出现一次或者多次。</li>
+<li>变量 A 可以流向 B 的情况只存在于<ol>
+<li>创建变量 A</li>
+<li>以下两种情况之一。<ol>
+<li>给指针 A 赋值</li>
+<li><code>put[f]</code>, A 被赋值给下一个变量 C 的某个字段 f</li>
+<li>变量 D 是变量 C 的别名。</li>
+<li><code>get[f]</code> 变量 D 的字段 f 被赋值给 E。</li>
+</ol>
+</li>
+<li>重复步骤二，如果最后可以赋值给变量 B，那么表示变量 A 可以流向 B。</li>
+</ol>
+</li>
+<li>指向则是与流向是相反的过程。</li>
+<li>别名则是两个变量既可以指向也可以流向。</li>
+</ul>
+<p>如果读者熟悉离散数学的二元关系、等价关系之类的推导，应该能够较快理解以上过程。</p>
+<p>从上述步骤可以看到，<code>put[f]</code> 和 <code>get[f]</code> 就相当于之前学习的 CFL 可达性里的括号，只需要沿着括号匹配的方向去构建图。最后可以证明，基于 CFL 和基于 Anderson 算法的域敏感分析是等价的，这里不做证明。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211062138761.png" alt="image-20221106213817690" style="zoom:50%;" /></p>
+<h1 id="Steensgaard-算法"><a href="#Steensgaard-算法" class="headerlink" title="Steensgaard 算法"></a>Steensgaard 算法</h1><p>这个算法的核心是，指针 p 可能指向多个对象，那么就可以把多个对象合并成一个，让 p 只指向一个对象。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p = &amp;x;</span><br><span class="line">r = &amp;p;</span><br><span class="line">q = &amp;y;</span><br><span class="line">s = &amp;q;</span><br><span class="line">r = s;</span><br></pre></td></tr></table></figure>
+<p>按照 Anderson 指针分析算法，p 指向 x，其他以此类推。r 和 s 是同名，所以可以得到左图图。然后 p 指向了多个对象，那么就把 p 和 q 合并，就变成了右图。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211192338135.png" alt="image-20221119233728911"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211192339253.png" alt="image-20221119233904211"></p>
+<p>虽然这个过程降低了精度，比如 p 本来不会指向 y 的，s 也不会指向 q 的，不过保证了 sound，不会漏掉原来的情况。合并之后，发现 pq 指向了多个对象，所以还要继续合并。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211192341123.png" alt="image-20221119234154069" style="zoom:67%;" /></p>
+<p>最终，可以表达成如下形式。<code>p</code> 表示地址； <code>*p</code> 表示 p 指向的集合，也就是 p 所有可能指向的对象。join 的意思是把这两个东西合并，如果两个东西是相同的，那么久不用进行任何操作。例如上面的例子中 p q 合并就是因为 <code>s=r</code>，<code>p=&amp;x</code> 就需要把 p 指向的其他东西和 x 合并。依次类推。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211192344259.png" alt="image-20221119234441212"></p>
+<p>只要按照着语句顺序执行下来，那么就不会发生回溯去递归，所以除了合并操作外，线性的复杂度就可以完成。这就不像 Anderson 算法，需要生成约束，然后约束不断迭代，直到不动点。</p>
+<h1 id="上下文敏感"><a href="#上下文敏感" class="headerlink" title="上下文敏感"></a>上下文敏感</h1><p>这里主要考虑上下文敏感和域敏感指针分析同时出现的情况，我们知道上下文敏感主要是说函数在不同的地方调用，可以通过括号匹配的方式提高精度。上文以提到过，域敏感分析也可以通过 put-get 匹配完成。但是这两者的交集不一定是上下文无关问题，所以同时满足上下文敏感和域敏感是不可能实现的。</p>
+<p>可以在两者之间折衷。</p>
+<h2 id="降低上下文敏感性"><a href="#降低上下文敏感性" class="headerlink" title="降低上下文敏感性"></a>降低上下文敏感性</h2><p>把被调方法根据上下文克隆 n 次。下面的例子中，<code>SetF(y,m)</code> 相当于 <code>m.F=y</code>，但是可以更加抽象化，表示 y 赋值给 m 的 F 域。这里为了方便入门可以改写成更加明显地形式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">y = <span class="keyword">new</span> <span class="built_in">A</span>();</span><br><span class="line">m = <span class="keyword">new</span> <span class="built_in">A</span>();</span><br><span class="line">m.F = y;</span><br><span class="line">x = y;</span><br><span class="line">y.F = m;</span><br><span class="line">n = x.F;</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211201030565.png" alt="image-20221120103036498" style="zoom: 67%;" /></p>
+<p>按照之前学习的，可以将 SetF() 函数克隆，第一次调用的参数记作 <code>a,1</code> 和 <code>b,1</code>，第二次调用记作 <code>a,2</code> 和 <code>b,2</code>，这样区别了不同的上下文。其他的 <code>n,0</code> 表示在 Main 函数中的变量。</p>
+<h2 id="降低域敏感性"><a href="#降低域敏感性" class="headerlink" title="降低域敏感性"></a>降低域敏感性</h2><p>把域展开 n 次，这个想法在链表中体现的尤为明显。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211201046370.png" alt="image-20221120104647288" style="zoom:67%;" /></p>
+<p>展开的一次的话，就会把 Node<em> a 这个对象里面的指针展开，当作是与 a 同一个域的变量。然后赋值时，规定对应的约束。注意上面的 <code>=</code> 不是表示赋值，而是表示别名。这样做的理由是为了避免单向指向，导致失去类似于 `z= 1;p = &z;</em>p=2<code>这样间接修改</code>z` 的情况。</p>
+<p>下面是展开两次的情况：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211201105767.png" alt="image-20221120110545690" style="zoom: 50%;" /></p>
+<h1 id="控制流分析"><a href="#控制流分析" class="headerlink" title="控制流分析"></a>控制流分析</h1><p>C 语言和其他某些语言都支持函数指针，这就造成了我们可能并不知道数据流中究竟调用了哪个函数。所以有时候我们并不知道有哪些控制流，更加致命的是一些接口类型或者虚函数，控制流并不直接。因此，我们可以知道指针分析其实是过程间分析中非常重要的内容。</p>
+<p>控制流分析就是研究可能的控制流的情况，所以是 may analysis，这里和数据流分析是一样的，都是结果只能比实际的多，但是不能少。控制流分析和数据流分析的关系如下：</p>
+<ul>
+<li>控制流分析确定程序控制的流向</li>
+<li>数据流分析确定程序中数据的流向。</li>
+<li>数据流分析在控制流图上完成，因此<strong>控制流分析是数据流分析的基础</strong>。</li>
+</ul>
+<h2 id="Class-Hierarchy-Analysis"><a href="#Class-Hierarchy-Analysis" class="headerlink" title="Class Hierarchy Analysis"></a>Class Hierarchy Analysis</h2><p>极其简单，根据函数赋值对象的类型去筛选函数，然后所有筛选后的实现都是可能的，然后把不同实现的返回值合并起来。这种方式极其不精确，一旦实现多了，那么就没用了。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://cdn.blog-blockchain.xyz/202211212221316.png" alt="image-20221121222110155" style="zoom:67%;" /></p>
+<h2 id="Rapid-Type-Analysis"><a href="#Rapid-Type-Analysis" class="headerlink" title="Rapid Type Analysis"></a>Rapid Type Analysis</h2><p>这个稍微精确一些，只考虑那些在程序中创建了 的对象，加了一层的筛选。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">nterface I &#123; <span class="keyword">void</span> <span class="title function_">m</span><span class="params">()</span>; &#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">implements</span> <span class="title class_">I</span> &#123; <span class="keyword">void</span> <span class="title function_">m</span><span class="params">()</span> &#123; x = <span class="number">1</span>; &#125; &#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span> <span class="keyword">implements</span> <span class="title class_">I</span> &#123; <span class="keyword">void</span> <span class="title function_">m</span><span class="params">()</span> &#123; x = <span class="number">2</span>; &#125; &#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">I</span> <span class="variable">i</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">A</span>();</span><br><span class="line">    i.m();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span> &#123; <span class="keyword">void</span> <span class="title function_">m</span><span class="params">()</span> &#123; <span class="keyword">new</span> <span class="title class_">B</span>().m();</span><br><span class="line">&#125; &#125;</span><br></pre></td></tr></table></figure>
+<p>具体流程如下，初始化两个集合 <code>Methods</code> 和 <code>Classes</code>，记录调用和方法之间的关系集合 <code>Calls-&gt;Methods</code>。初始时刻 <code>Methods</code> 只包括 <code>main()</code> 函数，然后开始逐行扫描：</p>
+<ol>
+<li><p>如果遇到一个新的方法（相当于函数）的调用 <code>m</code>，那么将在次调用之前，所有实现了这个方法的类加入到 <code>Classes</code> 集合中。</p>
+</li>
+<li><p>如果 <code>Classes</code> 集合中增加了一个类 <code>A</code>，那么就把这次调用和类中的方法匹配，也即将 <code>1:m()-&gt;A.()</code> 加入 <code>Calls-&gt;Methods</code> 中。这里的 <code>1:m</code> 是考虑到上下文敏感性，对不同上下文的调用编号了。</p>
+</li>
+<li><p>将方法 <code>m</code> 中的所有方法（例如 <code>m</code> 嵌套了其他方法 <code>n</code>）加入到 <code>Methods</code> 中，递归地执行第 1 步。</p>
+</li>
+</ol>
+<p>分析速度很快，但是分析的精度优先，如果之前有多个实现，那么就也搞不定了，不过这样的分析实际工程中有所采用。</p>
+<h2 id="精确控制流分析"><a href="#精确控制流分析" class="headerlink" title="精确控制流分析"></a>精确控制流分析</h2><p>简单地说是一边进行指针分析，一遍进行 control flow analysis (CFA)。这一小部分的内容有些难，暂时跳过。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>除了上文每处标出的来源链接，以及这个系列最开始的说明以外，还参考了：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~aldrich/courses/15-819O-13sp/resources/pointer.pdf">https://www.cs.cmu.edu/~aldrich/courses/15-819O-13sp/resources/pointer.pdf</a></li>
+<li>Neil D. Jones, Steven S. Muchnick: Flow Analysis and Optimization of Lisp-Like Structures. POPL 1979: 244-256</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.blog-blockchain.xyz">learner L</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.blog-blockchain.xyz/pl/points-to-analysis/">http://www.blog-blockchain.xyz/pl/points-to-analysis/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.blog-blockchain.xyz" target="_blank">技术和思考</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/program-language/">program language</a></div><div class="post_share"><div class="social-share" data-image="/images/pa.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/images/wechat-pay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/wechat-pay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/images/alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/college-courses/cpp-cryptographic-algorithm-basis/" title="信息安全算法基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/cryptology.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">信息安全算法基础</div></div></a></div><div class="next-post pull-right"><a href="/defi/Merkle-Tree-Proof-of-Reserves/" title="默克尔准备金（Merkle Tree Proof of Reserves)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/defi.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">默克尔准备金（Merkle Tree Proof of Reserves)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pl/FP-haskell-1/" title="Haskell 入门(一)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/haskell.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-29</div><div class="title">Haskell 入门(一)</div></div></a></div><div><a href="/pl/FP-haskell-2/" title="Haskell 函数式编程(二)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/haskell.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-29</div><div class="title">Haskell 函数式编程(二)</div></div></a></div><div><a href="/pl/LP-souffle/" title="（三）Datalog和程序分析"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/pa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-04</div><div class="title">（三）Datalog和程序分析</div></div></a></div><div><a href="/pl/Interprocedural-DFA/" title="（五）过程间分析"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/pa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-23</div><div class="title">（五）过程间分析</div></div></a></div><div><a href="/pl/SMT-and-symbolic-excution/" title="（八）SMT和符号执行"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/pa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-23</div><div class="title">（八）SMT和符号执行</div></div></a></div><div><a href="/pl/abstract-interpretation/" title="（七）抽象解释"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/pa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-07</div><div class="title">（七）抽象解释</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">learner L</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/learnerLj" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/cdn.blog-blockchain.xyz/202208212113427.png" target="_blank" title="Wechat"><i class="fa-brands fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">学习区块链技术，读书和思考。如果觉得对您有帮助，不妨请作者一杯☕</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90%E4%B8%AD%E7%9A%84%E6%95%8F%E6%84%9F%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">程序分析中的敏感性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E6%95%8F%E6%84%9F%EF%BC%88flow-sensitive%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">流敏感（flow-sensitive）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E6%95%8F%E6%84%9F%EF%BC%88path-sensitive%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">路径敏感（path-sensitive）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E6%95%8F%E6%84%9F%EF%BC%88context-sensitive%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">上下文敏感（context-sensitive）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E6%95%8F%E6%84%9F%EF%BC%88field-sensitive%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">域敏感（field-sensitive）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E9%9D%9E%E6%95%8F%E6%84%9F%E6%8C%87%E5%90%91%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">流非敏感指向分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%90%91%E5%88%86%E6%9E%90%E5%92%8C%E5%88%AB%E5%90%8D%E5%88%86%E6%9E%90"><span class="toc-number">2.1.</span> <span class="toc-text">指向分析和别名分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Anderson-%E6%8C%87%E5%90%91%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">Anderson 指向分析算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F%E6%B1%82%E8%A7%A3"><span class="toc-number">2.3.</span> <span class="toc-text">约束求解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E6%95%8F%E6%84%9F%E6%8C%87%E5%90%91%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">流敏感指向分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E5%90%91%E5%88%86%E6%9E%90%E7%9A%84%E9%9A%BE%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">指向分析的难点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E5%9C%A8%E5%A0%86%E7%9A%84%E5%86%85%E5%AD%98"><span class="toc-number">4.1.</span> <span class="toc-text">动态分配在堆的内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88%E8%BF%90%E7%AE%97"><span class="toc-number">4.2.</span> <span class="toc-text">数组和指针运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E3%80%81%E5%AF%B9%E8%B1%A1%E3%80%81%E5%AE%B9%E5%99%A8%E5%86%85%E7%9A%84%E6%8C%87%E9%92%88"><span class="toc-number">4.3.</span> <span class="toc-text">结构体、对象、容器内的指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E9%9D%9E%E6%95%8F%E6%84%9F%E5%88%86%E6%9E%90"><span class="toc-number">4.4.</span> <span class="toc-text">域非敏感分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E6%95%8F%E6%84%9F%E5%88%86%E6%9E%90"><span class="toc-number">4.5.</span> <span class="toc-text">域敏感分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-CFL-%E5%8F%AF%E8%BE%BE%E6%80%A7%E7%9A%84%E5%9F%9F%E6%95%8F%E6%84%9F%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">基于 CFL 可达性的域敏感分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Steensgaard-%E7%AE%97%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">Steensgaard 算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E6%95%8F%E6%84%9F"><span class="toc-number">7.</span> <span class="toc-text">上下文敏感</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%8D%E4%BD%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E6%95%8F%E6%84%9F%E6%80%A7"><span class="toc-number">7.1.</span> <span class="toc-text">降低上下文敏感性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%8D%E4%BD%8E%E5%9F%9F%E6%95%8F%E6%84%9F%E6%80%A7"><span class="toc-number">7.2.</span> <span class="toc-text">降低域敏感性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E5%88%86%E6%9E%90"><span class="toc-number">8.</span> <span class="toc-text">控制流分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Class-Hierarchy-Analysis"><span class="toc-number">8.1.</span> <span class="toc-text">Class Hierarchy Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rapid-Type-Analysis"><span class="toc-number">8.2.</span> <span class="toc-text">Rapid Type Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B2%BE%E7%A1%AE%E6%8E%A7%E5%88%B6%E6%B5%81%E5%88%86%E6%9E%90"><span class="toc-number">8.3.</span> <span class="toc-text">精确控制流分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">9.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/audit/blockchian-study-material/" title="区块链相关学习材料"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块链相关学习材料"/></a><div class="content"><a class="title" href="/audit/blockchian-study-material/" title="区块链相关学习材料">区块链相关学习材料</a><time datetime="2023-08-09T09:33:33.000Z" title="发表于 2023-08-09 17:33:33">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/information-theory/" title="信息论与编码"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/info-theory.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="信息论与编码"/></a><div class="content"><a class="title" href="/college-courses/information-theory/" title="信息论与编码">信息论与编码</a><time datetime="2023-05-29T00:15:22.000Z" title="发表于 2023-05-29 08:15:22">2023-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/pl/monad/" title="Haskell 函数式编程(三) Monad"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/haskell.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Haskell 函数式编程(三) Monad"/></a><div class="content"><a class="title" href="/pl/monad/" title="Haskell 函数式编程(三) Monad">Haskell 函数式编程(三) Monad</a><time datetime="2023-05-26T16:42:33.000Z" title="发表于 2023-05-27 00:42:33">2023-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/x86-masm/" title="x86汇编基础"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/x86_assembly.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="x86汇编基础"/></a><div class="content"><a class="title" href="/college-courses/x86-masm/" title="x86汇编基础">x86汇编基础</a><time datetime="2023-05-11T12:48:22.000Z" title="发表于 2023-05-11 20:48:22">2023-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/college-courses/OS/" title="操作系统基础"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/OS.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="操作系统基础"/></a><div class="content"><a class="title" href="/college-courses/OS/" title="操作系统基础">操作系统基础</a><time datetime="2023-02-13T15:06:22.000Z" title="发表于 2023-02-13 23:06:22">2023-02-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By learner L</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><span>蜀ICP备2022014158号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      id: '08a618b5d9b8671987dbff97f37a373c',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

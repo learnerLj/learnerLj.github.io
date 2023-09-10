@@ -1,0 +1,1640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>技术和思考</title>
+  
+  <subtitle>区块链技术</subtitle>
+  <link href="http://www.blog-blockchain.xyz/atom.xml" rel="self"/>
+  
+  <link href="http://www.blog-blockchain.xyz/"/>
+  <updated>2023-08-09T09:01:57.222Z</updated>
+  <id>http://www.blog-blockchain.xyz/</id>
+  
+  <author>
+    <name>learner L</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>区块链相关学习材料</title>
+    <link href="http://www.blog-blockchain.xyz/audit/blockchian-study-material/"/>
+    <id>http://www.blog-blockchain.xyz/audit/blockchian-study-material/</id>
+    <published>2023-08-09T09:33:33.000Z</published>
+    <updated>2023-08-09T09:01:57.222Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;一些不错的合约相关入门资料。我已经过了这个阶段了，这些书签都要删了，就分享出来。&lt;br&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="audit" scheme="http://www.blog-blockchain.xyz/categories/audit/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>信息论与编码</title>
+    <link href="http://www.blog-blockchain.xyz/college-courses/information-theory/"/>
+    <id>http://www.blog-blockchain.xyz/college-courses/information-theory/</id>
+    <published>2023-05-29T00:15:22.000Z</published>
+    <updated>2023-08-07T04:59:00.419Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="courses" scheme="http://www.blog-blockchain.xyz/categories/courses/"/>
+    
+    
+    <category term="information" scheme="http://www.blog-blockchain.xyz/tags/information/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Haskell 函数式编程(三) Monad</title>
+    <link href="http://www.blog-blockchain.xyz/pl/monad/"/>
+    <id>http://www.blog-blockchain.xyz/pl/monad/</id>
+    <published>2023-05-26T16:42:33.000Z</published>
+    <updated>2023-05-27T03:17:40.690Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/FP-haskell-2/&quot;&gt;Haskell 入门(二)&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>x86汇编基础</title>
+    <link href="http://www.blog-blockchain.xyz/college-courses/x86-masm/"/>
+    <id>http://www.blog-blockchain.xyz/college-courses/x86-masm/</id>
+    <published>2023-05-11T12:48:22.000Z</published>
+    <updated>2023-05-15T02:44:07.855Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;这是电子科技大学的汇编程序设计的课程复习，由本人总结，主要资源来自 PPT 和自编教材，少部分辅以网上的博客（会给出参考链接）。课程是基于</summary>
+        
+      
+    
+    
+    
+    <category term="courses" scheme="http://www.blog-blockchain.xyz/categories/courses/"/>
+    
+    
+    <category term="assembly" scheme="http://www.blog-blockchain.xyz/tags/assembly/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>操作系统基础</title>
+    <link href="http://www.blog-blockchain.xyz/college-courses/OS/"/>
+    <id>http://www.blog-blockchain.xyz/college-courses/OS/</id>
+    <published>2023-02-13T15:06:22.000Z</published>
+    <updated>2023-02-23T02:15:35.243Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="courses" scheme="http://www.blog-blockchain.xyz/categories/courses/"/>
+    
+    
+    <category term="OS" scheme="http://www.blog-blockchain.xyz/tags/OS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JayPeggers 攻击分析</title>
+    <link href="http://www.blog-blockchain.xyz/defi/JayPeggers-attack/"/>
+    <id>http://www.blog-blockchain.xyz/defi/JayPeggers-attack/</id>
+    <published>2022-12-29T15:34:22.000Z</published>
+    <updated>2022-12-29T15:36:55.814Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;UTU 2022 年 12 月 29 日 5 时（北京时间 13 时），以太坊主网上的 &lt;a href=&quot;https://twitter.com/jaypeggerz&quot;&gt;JayPeggers&lt;/a&gt; 协议遭到重入攻击，损失约 15 ETH。随后攻击者通过 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="defi" scheme="http://www.blog-blockchain.xyz/categories/defi/"/>
+    
+    
+    <category term="defi" scheme="http://www.blog-blockchain.xyz/tags/defi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（九）体验静态分析工具</title>
+    <link href="http://www.blog-blockchain.xyz/pl/static-analysis-tools/"/>
+    <id>http://www.blog-blockchain.xyz/pl/static-analysis-tools/</id>
+    <published>2022-12-23T03:16:30.000Z</published>
+    <updated>2022-12-23T03:18:28.416Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;上一篇文章：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（八）SMT和符号执行</title>
+    <link href="http://www.blog-blockchain.xyz/pl/SMT-and-symbolic-excution/"/>
+    <id>http://www.blog-blockchain.xyz/pl/SMT-and-symbolic-excution/</id>
+    <published>2022-12-23T02:35:30.000Z</published>
+    <updated>2022-12-23T03:18:17.489Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇文章：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/abstract-interpretation/&quot;&gt;（七）抽象解释&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇文章：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（七）抽象解释</title>
+    <link href="http://www.blog-blockchain.xyz/pl/abstract-interpretation/"/>
+    <id>http://www.blog-blockchain.xyz/pl/abstract-interpretation/</id>
+    <published>2022-12-07T03:09:33.000Z</published>
+    <updated>2022-12-23T03:15:48.625Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇文章：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/points-to-analysis/&quot;&gt;（六）指向分析&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇文章：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>信息安全算法基础</title>
+    <link href="http://www.blog-blockchain.xyz/college-courses/cpp-cryptographic-algorithm-basis/"/>
+    <id>http://www.blog-blockchain.xyz/college-courses/cpp-cryptographic-algorithm-basis/</id>
+    <published>2022-12-02T08:15:22.000Z</published>
+    <updated>2023-02-16T09:09:30.061Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="courses" scheme="http://www.blog-blockchain.xyz/categories/courses/"/>
+    
+    
+    <category term="crypto" scheme="http://www.blog-blockchain.xyz/tags/crypto/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（六）指向分析</title>
+    <link href="http://www.blog-blockchain.xyz/pl/points-to-analysis/"/>
+    <id>http://www.blog-blockchain.xyz/pl/points-to-analysis/</id>
+    <published>2022-11-21T13:50:33.000Z</published>
+    <updated>2022-12-07T03:16:05.381Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/Interprocedural-DFA/&quot;&gt;（五）过程间分析&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>默克尔准备金（Merkle Tree Proof of Reserves)</title>
+    <link href="http://www.blog-blockchain.xyz/defi/Merkle-Tree-Proof-of-Reserves/"/>
+    <id>http://www.blog-blockchain.xyz/defi/Merkle-Tree-Proof-of-Reserves/</id>
+    <published>2022-11-19T14:16:22.000Z</published>
+    <updated>2022-11-19T14:16:32.790Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;what-is-Merkle-Tree-Proof-of-Reserves&quot;&gt;&lt;a href=&quot;#what-is-Merkle-Tree-Proof-of-Reserves&quot; class=&quot;headerlink&quot; title=&quot;what is Merkle</summary>
+        
+      
+    
+    
+    
+    <category term="defi" scheme="http://www.blog-blockchain.xyz/categories/defi/"/>
+    
+    
+    <category term="defi" scheme="http://www.blog-blockchain.xyz/tags/defi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>论文阅读-Declarative Smart Contracts</title>
+    <link href="http://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/"/>
+    <id>http://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/</id>
+    <published>2022-11-18T09:03:33.000Z</published>
+    <updated>2022-11-18T09:09:35.830Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h1&gt;&lt;p&gt;摘要：This paper presents DeCon, a declarative programming language for</summary>
+        
+      
+    
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/categories/paper-reading/"/>
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/tags/paper-reading/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DFX Finance 攻击分析</title>
+    <link href="http://www.blog-blockchain.xyz/defi/DFX-Finance-attack/"/>
+    <id>http://www.blog-blockchain.xyz/defi/DFX-Finance-attack/</id>
+    <published>2022-11-11T12:49:22.000Z</published>
+    <updated>2022-11-12T13:55:00.709Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;信息&quot;&gt;&lt;a href=&quot;#信息&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="defi" scheme="http://www.blog-blockchain.xyz/categories/defi/"/>
+    
+    
+    <category term="defi" scheme="http://www.blog-blockchain.xyz/tags/defi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>论文阅读-TokenAware Accurate and Eficient Bookkeeping Recognition for Token Smart Contracts</title>
+    <link href="http://www.blog-blockchain.xyz/paper-reading/TokenAware-%20Accurate-and-Eficient-Bookkeeping-Recognition-for-Token-Smart-Contracts/"/>
+    <id>http://www.blog-blockchain.xyz/paper-reading/TokenAware-%20Accurate-and-Eficient-Bookkeeping-Recognition-for-Token-Smart-Contracts/</id>
+    <published>2022-11-09T01:04:30.000Z</published>
+    <updated>2022-11-09T01:04:37.262Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h1&gt;&lt;p&gt;Tokens have become an essential part of blockchain ecosystem, so</summary>
+        
+      
+    
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/categories/paper-reading/"/>
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/tags/paper-reading/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>论文阅读-Under-Optimized Smart Contracts Devour Your Money</title>
+    <link href="http://www.blog-blockchain.xyz/paper-reading/Under-Optimized-Smart-Contracts-Devour-Your-Money/"/>
+    <id>http://www.blog-blockchain.xyz/paper-reading/Under-Optimized-Smart-Contracts-Devour-Your-Money/</id>
+    <published>2022-11-04T01:42:33.000Z</published>
+    <updated>2022-11-04T01:51:08.579Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h1&gt;&lt;p&gt;Smart contracts are full-fledged programs that run on blockchains</summary>
+        
+      
+    
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/categories/paper-reading/"/>
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/tags/paper-reading/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>论文阅读-A Study of Inline Assembly in Solidity Smart Contracts</title>
+    <link href="http://www.blog-blockchain.xyz/paper-reading/A-Study-of-Inline-Assembly-in-Solidity-Smart-Contracts/"/>
+    <id>http://www.blog-blockchain.xyz/paper-reading/A-Study-of-Inline-Assembly-in-Solidity-Smart-Contracts/</id>
+    <published>2022-11-01T01:30:33.000Z</published>
+    <updated>2022-11-01T15:49:25.734Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h1&gt;&lt;p&gt;This paper presents a large-scale quantitative study of the use of</summary>
+        
+      
+    
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/categories/paper-reading/"/>
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/tags/paper-reading/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>论文阅读-A Bytecode-based Approach for Smart Contract Classification</title>
+    <link href="http://www.blog-blockchain.xyz/paper-reading/A-Bytecode-based-Approach-for-Smart-Contract-Classification/"/>
+    <id>http://www.blog-blockchain.xyz/paper-reading/A-Bytecode-based-Approach-for-Smart-Contract-Classification/</id>
+    <published>2022-10-24T03:30:33.000Z</published>
+    <updated>2022-10-24T15:36:43.327Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;来源&quot;&gt;&lt;a href=&quot;#来源&quot; class=&quot;headerlink&quot; title=&quot;来源&quot;&gt;&lt;/a&gt;来源&lt;/h1&gt;&lt;p&gt;Abstract—With the development of blockchain technologies, the number</summary>
+        
+      
+    
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/categories/paper-reading/"/>
+    
+    
+    <category term="paper-reading" scheme="http://www.blog-blockchain.xyz/tags/paper-reading/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（五）过程间分析</title>
+    <link href="http://www.blog-blockchain.xyz/pl/Interprocedural-DFA/"/>
+    <id>http://www.blog-blockchain.xyz/pl/Interprocedural-DFA/</id>
+    <published>2022-10-23T14:00:33.000Z</published>
+    <updated>2022-11-06T14:10:22.718Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇文章：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/ssa-and-sparse-analysis/&quot;&gt;（四）静态单赋值和稀疏分析&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇文章：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（四）静态单赋值和稀疏分析</title>
+    <link href="http://www.blog-blockchain.xyz/pl/ssa-and-sparse-analysis/"/>
+    <id>http://www.blog-blockchain.xyz/pl/ssa-and-sparse-analysis/</id>
+    <published>2022-10-10T08:40:33.000Z</published>
+    <updated>2022-10-23T14:03:33.403Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇文章：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/LP-souffle/&quot;&gt;（三）Datalog 和程序分析&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇文章：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（三）Datalog和程序分析</title>
+    <link href="http://www.blog-blockchain.xyz/pl/LP-souffle/"/>
+    <id>http://www.blog-blockchain.xyz/pl/LP-souffle/</id>
+    <published>2022-10-04T13:54:33.000Z</published>
+    <updated>2022-11-13T15:31:33.285Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇文章：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/data-flow-analysis/&quot;&gt;（二）数据流分析基础&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇文章：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（二）数据流分析基础</title>
+    <link href="http://www.blog-blockchain.xyz/pl/data-flow-analysis/"/>
+    <id>http://www.blog-blockchain.xyz/pl/data-flow-analysis/</id>
+    <published>2022-10-04T13:30:33.000Z</published>
+    <updated>2023-05-31T15:48:49.105Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇文章：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/understanding-program-analysis/&quot;&gt;（一）初识软件分析&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇文章：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>geth源码学习——介绍</title>
+    <link href="http://www.blog-blockchain.xyz/geth/introduction/"/>
+    <id>http://www.blog-blockchain.xyz/geth/introduction/</id>
+    <published>2022-09-28T08:30:33.000Z</published>
+    <updated>2022-11-12T13:52:15.676Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;项目地址：&lt;a href=&quot;https://github.com/learnerLj/geth-analyze&quot;&gt;https://github.com/learnerLj/geth-analyze&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>乘法逆元</title>
+    <link href="http://www.blog-blockchain.xyz/college-courses/modular-inverses/"/>
+    <id>http://www.blog-blockchain.xyz/college-courses/modular-inverses/</id>
+    <published>2022-09-27T13:49:22.000Z</published>
+    <updated>2023-02-16T09:16:50.005Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;辗转相除法&quot;&gt;&lt;a href=&quot;#辗转相除法&quot; class=&quot;headerlink&quot; title=&quot;辗转相除法&quot;&gt;&lt;/a&gt;辗转相除法&lt;/h1&gt;&lt;p&gt;先温习辗转相除法和裴蜀等式：&lt;/p&gt;
+&lt;script type=&quot;math/tex;</summary>
+        
+      
+    
+    
+    
+    <category term="courses" scheme="http://www.blog-blockchain.xyz/categories/courses/"/>
+    
+    
+    <category term="crypto" scheme="http://www.blog-blockchain.xyz/tags/crypto/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从学生互评到知识的适配性</title>
+    <link href="http://www.blog-blockchain.xyz/personal/students-rate-each-other-for-sholarship/"/>
+    <id>http://www.blog-blockchain.xyz/personal/students-rate-each-other-for-sholarship/</id>
+    <published>2022-09-19T09:30:33.000Z</published>
+    <updated>2022-11-12T13:50:11.655Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;个人生活思考，如果您只对 IT 技术感兴趣，可以略过这篇文章。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;关于互相评价&quot;&gt;&lt;a href=&quot;#关于互相评价&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="experience" scheme="http://www.blog-blockchain.xyz/categories/experience/"/>
+    
+    
+    <category term="read-think" scheme="http://www.blog-blockchain.xyz/tags/read-think/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Haskell 函数式编程(二)</title>
+    <link href="http://www.blog-blockchain.xyz/pl/FP-haskell-2/"/>
+    <id>http://www.blog-blockchain.xyz/pl/FP-haskell-2/</id>
+    <published>2022-08-29T13:50:33.000Z</published>
+    <updated>2023-05-26T16:43:56.565Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/FP-haskell-1/&quot;&gt;Haskell 入门(一)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Haskell 入门(一)</title>
+    <link href="http://www.blog-blockchain.xyz/pl/FP-haskell-1/"/>
+    <id>http://www.blog-blockchain.xyz/pl/FP-haskell-1/</id>
+    <published>2022-08-29T13:30:33.000Z</published>
+    <updated>2023-05-26T16:48:53.316Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;下一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/pl/FP-haskell-2/&quot;&gt;Haskell 入门(二)&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>区块同步</title>
+    <link href="http://www.blog-blockchain.xyz/geth/block-sync/"/>
+    <id>http://www.blog-blockchain.xyz/geth/block-sync/</id>
+    <published>2022-08-25T08:30:33.000Z</published>
+    <updated>2022-11-12T13:51:56.071Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;博主的朋友写的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;看到&lt;code&gt;core&#92;blockchain.go&lt;/code&gt;的时候大量涉及该部分知识，故在此参考大佬博客加之自己的理解先行总结&lt;/li&gt;
+&lt;li&gt;本文仅仅是简单总结了一下文件结构和重要函数功能，详细函</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>区块链基础</title>
+    <link href="http://www.blog-blockchain.xyz/basic/blockchain-basis/"/>
+    <id>http://www.blog-blockchain.xyz/basic/blockchain-basis/</id>
+    <published>2022-08-25T05:30:33.000Z</published>
+    <updated>2022-11-25T02:36:29.991Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;区块链-1-0（基于比特币的说明）&quot;&gt;&lt;a href=&quot;#区块链-1-0（基于比特币的说明）&quot; class=&quot;headerlink&quot; title=&quot;区块链 1.0（基于比特币的说明）&quot;&gt;&lt;/a&gt;&lt;strong&gt;区块链</summary>
+        
+      
+    
+    
+    
+    <category term="basic" scheme="http://www.blog-blockchain.xyz/categories/basic/"/>
+    
+    
+    <category term="basic" scheme="http://www.blog-blockchain.xyz/tags/basic/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MPT树</title>
+    <link href="http://www.blog-blockchain.xyz/geth/MPT-Tree/"/>
+    <id>http://www.blog-blockchain.xyz/geth/MPT-Tree/</id>
+    <published>2022-08-25T04:30:33.000Z</published>
+    <updated>2022-11-12T13:52:20.211Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;由于&lt;strong&gt;MPT</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>forkId 解读</title>
+    <link href="http://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>http://www.blog-blockchain.xyz/geth/forkId/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2022-11-12T13:52:11.930Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;EIP-2124&quot;&gt;&lt;a href=&quot;#EIP-2124&quot; class=&quot;headerlink&quot; title=&quot;EIP-2124&quot;&gt;&lt;/a&gt;EIP-2124&lt;/h2&gt;&lt;p&gt;因为 &lt;code&gt;core/forkId&lt;/code&gt; 包是 EIP-2124</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>布隆过滤器原理</title>
+    <link href="http://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>http://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2022-11-12T13:52:08.232Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;布隆过滤器&lt;/strong&gt;（英语：Bloom Filter）是 1970</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>oracle 原理和实现</title>
+    <link href="http://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
+    <id>http://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2022-11-25T02:38:27.322Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;oracle-介绍&quot;&gt;&lt;a href=&quot;#oracle-介绍&quot; class=&quot;headerlink&quot; title=&quot;oracle 介绍&quot;&gt;&lt;/a&gt;oracle 介绍&lt;/h2&gt;&lt;p&gt;oracle</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>交易池分析</title>
+    <link href="http://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>http://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2022-11-12T13:52:28.226Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;&lt;code&gt;core&#92;txpool.go&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TxList 解读</title>
+    <link href="http://www.blog-blockchain.xyz/geth/txlist/"/>
+    <id>http://www.blog-blockchain.xyz/geth/txlist/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2022-11-12T13:52:36.468Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;本文旨在分析清楚 tx_list.go 中这个工具包里面的重要代码&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;堆排序&quot;&gt;&lt;a href=&quot;#堆排序&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>blockchain核心</title>
+    <link href="http://www.blog-blockchain.xyz/geth/blockchain-core/"/>
+    <id>http://www.blog-blockchain.xyz/geth/blockchain-core/</id>
+    <published>2022-08-25T02:30:33.000Z</published>
+    <updated>2022-11-12T13:52:00.040Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;参考： &lt;a href=&quot;https://www.cnblogs.com/1314xf/articles/13827186.html&quot;&gt;以太坊 blockchain 源码分析 - mindcarver - 博客园</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>理解交易</title>
+    <link href="http://www.blog-blockchain.xyz/geth/understand-tx/"/>
+    <id>http://www.blog-blockchain.xyz/geth/understand-tx/</id>
+    <published>2022-08-25T01:30:33.000Z</published>
+    <updated>2022-11-12T13:52:48.943Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;交易的入门介绍&quot;&gt;&lt;a href=&quot;#交易的入门介绍&quot; class=&quot;headerlink&quot; title=&quot;交易的入门介绍&quot;&gt;&lt;/a&gt;交易的入门介绍&lt;/h2&gt;&lt;p&gt;这里不作额外说明，可以学习&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>理解区块</title>
+    <link href="http://www.blog-blockchain.xyz/geth/blocks/"/>
+    <id>http://www.blog-blockchain.xyz/geth/blocks/</id>
+    <published>2022-08-25T00:30:33.000Z</published>
+    <updated>2022-11-12T13:52:04.150Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;结构定义&quot;&gt;&lt;a href=&quot;#结构定义&quot; class=&quot;headerlink&quot; title=&quot;结构定义&quot;&gt;&lt;/a&gt;结构定义&lt;/h2&gt;&lt;h3 id=&quot;区块&quot;&gt;&lt;a href=&quot;#区块&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>理解收据receipt</title>
+    <link href="http://www.blog-blockchain.xyz/geth/understand-receipt/"/>
+    <id>http://www.blog-blockchain.xyz/geth/understand-receipt/</id>
+    <published>2022-08-24T21:30:33.000Z</published>
+    <updated>2022-11-12T13:52:40.590Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;核心结构&quot;&gt;&lt;a href=&quot;#核心结构&quot; class=&quot;headerlink&quot; title=&quot;核心结构&quot;&gt;&lt;/a&gt;核心结构&lt;/h2&gt;&lt;p&gt;收据主要包括交易类型、交易是否成功的状态码、交易是否成功的编码、直到这笔交易区块消耗的</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>智能合约学习资源</title>
+    <link href="http://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>http://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <published>2022-08-24T17:33:33.000Z</published>
+    <updated>2022-11-25T02:35:56.552Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这些资源主要来自笔者的经历和学习，也参考了许多人的总结，作为自己的系统作结，应该对大家有帮助。&lt;/p&gt;
+&lt;h3 id=&quot;帮助和交流平台&quot;&gt;&lt;a href=&quot;#帮助和交流平台&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="audit" scheme="http://www.blog-blockchain.xyz/categories/audit/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>智能合约安全学习路线</title>
+    <link href="http://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>http://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <published>2022-08-24T17:33:33.000Z</published>
+    <updated>2022-11-12T13:51:10.484Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="audit" scheme="http://www.blog-blockchain.xyz/categories/audit/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>交易的签名</title>
+    <link href="http://www.blog-blockchain.xyz/geth/tx-signature/"/>
+    <id>http://www.blog-blockchain.xyz/geth/tx-signature/</id>
+    <published>2022-08-24T17:30:33.000Z</published>
+    <updated>2022-11-12T13:52:32.666Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在阅读交易的签名之前，请先阅读 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（一）初识软件分析</title>
+    <link href="http://www.blog-blockchain.xyz/pl/understanding-program-analysis/"/>
+    <id>http://www.blog-blockchain.xyz/pl/understanding-program-analysis/</id>
+    <published>2022-08-24T13:30:33.000Z</published>
+    <updated>2022-11-25T02:39:42.547Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;下一篇文章：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/categories/program-language/"/>
+    
+    
+    <category term="program language" scheme="http://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>智能合约的审计工具</title>
+    <link href="http://www.blog-blockchain.xyz/audit/open-source-audit-tools/"/>
+    <id>http://www.blog-blockchain.xyz/audit/open-source-audit-tools/</id>
+    <published>2022-08-24T12:33:33.000Z</published>
+    <updated>2022-11-25T02:36:02.467Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;开源审计工具&quot;&gt;&lt;a href=&quot;#开源审计工具&quot; class=&quot;headerlink&quot; title=&quot;开源审计工具&quot;&gt;&lt;/a&gt;开源审计工具&lt;/h2&gt;&lt;p&gt;建议在 linux 或者 MacOS 下运行。&lt;/p&gt;
+&lt;h3 id=&quot;mythril&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="audit" scheme="http://www.blog-blockchain.xyz/categories/audit/"/>
+    
+    
+    <category term="audit" scheme="http://www.blog-blockchain.xyz/tags/audit/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>智能合约的经典漏洞</title>
+    <link href="http://www.blog-blockchain.xyz/audit/classic-vulnerabilities/"/>
+    <id>http://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</id>
+    <published>2022-08-24T12:30:33.000Z</published>
+    <updated>2022-11-25T02:35:35.749Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;转载请标明出处: &lt;strong&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="audit" scheme="http://www.blog-blockchain.xyz/categories/audit/"/>
+    
+    
+    <category term="audit" scheme="http://www.blog-blockchain.xyz/tags/audit/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（三）函数调用</title>
+    <link href="http://www.blog-blockchain.xyz/evm/function-call/"/>
+    <id>http://www.blog-blockchain.xyz/evm/function-call/</id>
+    <published>2022-08-24T11:30:33.000Z</published>
+    <updated>2022-11-25T02:37:36.405Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/evm/state-variable/&quot;&gt;（二）状态变量的赋值&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;普通函数调用&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/categories/evm/"/>
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/tags/evm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（二）状态变量的赋值</title>
+    <link href="http://www.blog-blockchain.xyz/evm/state-variable/"/>
+    <id>http://www.blog-blockchain.xyz/evm/state-variable/</id>
+    <published>2022-08-24T11:29:33.000Z</published>
+    <updated>2022-11-25T02:37:46.035Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/evm/evm-basic-bytecode/&quot;&gt;（一）初步认识EVM字节码&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/categories/evm/"/>
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/tags/evm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（一）初步认识EVM字节码</title>
+    <link href="http://www.blog-blockchain.xyz/evm/evm-basic-bytecode/"/>
+    <id>http://www.blog-blockchain.xyz/evm/evm-basic-bytecode/</id>
+    <published>2022-08-24T10:29:33.000Z</published>
+    <updated>2022-11-25T02:37:32.261Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;下一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/evm/state-variable/&quot;&gt;（二）状态变量的赋值&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/categories/evm/"/>
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/tags/evm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EVM的设计与原理</title>
+    <link href="http://www.blog-blockchain.xyz/evm/principle-and-disign-of-evm/"/>
+    <id>http://www.blog-blockchain.xyz/evm/principle-and-disign-of-evm/</id>
+    <published>2022-08-23T14:49:22.000Z</published>
+    <updated>2022-11-25T02:37:41.334Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;转载请标明出处: &lt;strong&gt;&lt;a href=&quot;https://github.com/learnerLj/geth-analyze&quot;&gt;geth-analyze&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/categories/evm/"/>
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/tags/evm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>以太坊的数据组织</title>
+    <link href="http://www.blog-blockchain.xyz/evm/data-layout/"/>
+    <id>http://www.blog-blockchain.xyz/evm/data-layout/</id>
+    <published>2022-08-23T13:49:22.000Z</published>
+    <updated>2022-11-25T02:37:28.115Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要介绍以太坊的数据组织形式，构建以太坊各部分数据结构是如何组织的系统观。随后，我将会选取黄皮书中的核心设计思想，写得相对通俗易懂。各部分具体的数据结构，将会在后续的源码解读中给出。&lt;/p&gt;
+&lt;h1 id=&quot;概览&quot;&gt;&lt;a href=&quot;#概览&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/categories/evm/"/>
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/tags/evm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>初步理解以太坊虚拟机</title>
+    <link href="http://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/"/>
+    <id>http://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/</id>
+    <published>2022-08-23T13:49:22.000Z</published>
+    <updated>2023-06-12T09:47:47.415Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;转载请标明出处: &lt;strong&gt;&lt;a href=&quot;https://github.com/learnerLj/geth-analyze&quot;&gt;geth-analyze&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&quot;体系结构&quot;&gt;&lt;a href=&quot;#体系结构&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/categories/evm/"/>
+    
+    
+    <category term="evm" scheme="http://www.blog-blockchain.xyz/tags/evm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（八）合约的高级特性（完）</title>
+    <link href="http://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
+    <id>http://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
+    <published>2022-08-23T12:49:22.000Z</published>
+    <updated>2023-02-01T08:30:42.249Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://www.blog-blockchain.xyz/basic/special-functions/&quot;&gt;（七）特殊函数&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="http://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DeFi攻击事件研究</title>
+    <link href="http://www.blog-blockchain.xyz/defi/defi-attack-cellection/"/>
+    <id>http://www.blog-blockchain.xyz/defi/defi-attack-cellection/</id>
+    <published>2022-08-23T12:49:22.000Z</published>
+    <updated>2022-11-25T02:37:01.110Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前言：本文只为了交流学习，为了快速学习，已有的写的较好的资料直接照抄，并且在参考中注明来源。介绍的都非常简略，但是读者可以根据参考链接得到详细的讲解。&lt;/p&gt;
+&lt;p&gt;来源：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="defi" scheme="http://www.blog-blockchain.xyz/categories/defi/"/>
+    
+    
+    <category term="defi" scheme="http://www.blog-blockchain.xyz/tags/defi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（七）特殊函数</title>
+    <link href="http://www.blog-blockchain.xyz/basic/special-functions/"/>
+    <id>http://www.blog-blockchain.xyz/basic/special-functions/</id>
+    <published>2022-08-23T10:49:22.000Z</published>
+    <updated>2023-02-01T08:30:26.154Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/basic/special-functions/&quot;&gt;（七）特殊函数&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="http://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（六）应用二进制接口</title>
+    <link href="http://www.blog-blockchain.xyz/basic/application-binary-interface/"/>
+    <id>http://www.blog-blockchain.xyz/basic/application-binary-interface/</id>
+    <published>2022-08-23T09:49:22.000Z</published>
+    <updated>2023-02-01T08:30:37.266Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/basic/function-literal-and-unit/&quot;&gt;（五）字面量和内置单位、函数&lt;/a&gt;&lt;br&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="http://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（五）字面量和内置单位、函数</title>
+    <link href="http://www.blog-blockchain.xyz/basic/function-literal-and-unit/"/>
+    <id>http://www.blog-blockchain.xyz/basic/function-literal-and-unit/</id>
+    <published>2022-08-23T07:49:22.000Z</published>
+    <updated>2023-02-01T08:30:31.786Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/basic/types/&quot;&gt;（四）类型&lt;/a&gt;&lt;br&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="http://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（四）类型</title>
+    <link href="http://www.blog-blockchain.xyz/basic/types/"/>
+    <id>http://www.blog-blockchain.xyz/basic/types/</id>
+    <published>2022-08-23T06:49:22.000Z</published>
+    <updated>2023-02-01T08:30:24.009Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/basic/controll-flow/&quot;&gt;（三）控制结构&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="http://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（三）控制结构</title>
+    <link href="http://www.blog-blockchain.xyz/basic/controll-flow/"/>
+    <id>http://www.blog-blockchain.xyz/basic/controll-flow/</id>
+    <published>2022-08-23T04:49:22.000Z</published>
+    <updated>2023-02-01T08:30:39.266Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/basic/program-structure-and-characters/&quot;&gt;（二）代码结构和合约特性&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="http://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（二）代码结构和合约特性</title>
+    <link href="http://www.blog-blockchain.xyz/basic/program-structure-and-characters/"/>
+    <id>http://www.blog-blockchain.xyz/basic/program-structure-and-characters/</id>
+    <published>2022-08-23T03:49:22.000Z</published>
+    <updated>2023-02-01T08:30:28.032Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://www.blog-blockchain.xyz/basic/basic-understanding/&quot;&gt;（一）初步理解智能合约&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="http://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（一）初步理解智能合约</title>
+    <link href="http://www.blog-blockchain.xyz/basic/basic-understanding/"/>
+    <id>http://www.blog-blockchain.xyz/basic/basic-understanding/</id>
+    <published>2022-08-23T02:48:22.000Z</published>
+    <updated>2023-02-01T08:30:34.589Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;下一篇：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="http://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 基础</title>
+    <link href="http://www.blog-blockchain.xyz/tools/linux-basis/"/>
+    <id>http://www.blog-blockchain.xyz/tools/linux-basis/</id>
+    <published>2021-08-23T12:49:22.000Z</published>
+    <updated>2022-09-07T03:55:33.800Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Linux-的基本特点&quot;&gt;&lt;a href=&quot;#Linux-的基本特点&quot; class=&quot;headerlink&quot; title=&quot;Linux 的基本特点&quot;&gt;&lt;/a&gt;Linux 的基本特点&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Linux</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://www.blog-blockchain.xyz/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="http://www.blog-blockchain.xyz/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C语言基础</title>
+    <link href="http://www.blog-blockchain.xyz/college-courses/C-language-basis/"/>
+    <id>http://www.blog-blockchain.xyz/college-courses/C-language-basis/</id>
+    <published>2021-02-02T08:15:22.000Z</published>
+    <updated>2023-01-28T15:51:31.899Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;变量存储&quot;&gt;&lt;a href=&quot;#变量存储&quot; class=&quot;headerlink&quot; title=&quot;变量存储&quot;&gt;&lt;/a&gt;变量存储&lt;/h1&gt;&lt;h2 id=&quot;全局变量与局部变量&quot;&gt;&lt;a href=&quot;#全局变量与局部变量&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="http://www.blog-blockchain.xyz/categories/C/"/>
+    
+    
+    <category term="C" scheme="http://www.blog-blockchain.xyz/tags/C/"/>
+    
+  </entry>
+  
+</feed>
