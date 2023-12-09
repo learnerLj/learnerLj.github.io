@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/fuzzing-introduction/</loc>
+    <loc>https://learnerlj.github.io/pl/fuzzing-introduction/</loc>
     
     <lastmod>2023-12-09</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/data-flow-analysis/</loc>
+    <loc>https://learnerlj.github.io/pl/data-flow-analysis/</loc>
     
     <lastmod>2023-10-21</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/static-analysis-tools/</loc>
+    <loc>https://learnerlj.github.io/pl/static-analysis-tools/</loc>
     
     <lastmod>2023-10-21</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/Geth-Unveiled-Ethereum-Startup/</loc>
+    <loc>https://learnerlj.github.io/geth/Geth-Unveiled-Ethereum-Startup/</loc>
     
     <lastmod>2023-09-13</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
+    <loc>https://learnerlj.github.io/audit/blockchian-study-material/</loc>
     
     <lastmod>2023-09-13</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/college-courses/information-theory/</loc>
+    <loc>https://learnerlj.github.io/college-courses/information-theory/</loc>
     
     <lastmod>2023-08-07</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/about/index.html</loc>
+    <loc>https://learnerlj.github.io/about/index.html</loc>
     
     <lastmod>2023-06-29</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/</loc>
+    <loc>https://learnerlj.github.io/evm/basic-understanding-to-evm/</loc>
     
     <lastmod>2023-06-12</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/monad/</loc>
+    <loc>https://learnerlj.github.io/pl/monad/</loc>
     
     <lastmod>2023-05-27</lastmod>
     
@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/FP-haskell-1/</loc>
+    <loc>https://learnerlj.github.io/pl/FP-haskell-1/</loc>
     
     <lastmod>2023-05-26</lastmod>
     
@@ -92,7 +92,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/FP-haskell-2/</loc>
+    <loc>https://learnerlj.github.io/pl/FP-haskell-2/</loc>
     
     <lastmod>2023-05-26</lastmod>
     
@@ -101,7 +101,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/college-courses/x86-masm/</loc>
+    <loc>https://learnerlj.github.io/college-courses/x86-masm/</loc>
     
     <lastmod>2023-05-15</lastmod>
     
@@ -110,7 +110,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/college-courses/OS/</loc>
+    <loc>https://learnerlj.github.io/college-courses/OS/</loc>
     
     <lastmod>2023-02-23</lastmod>
     
@@ -119,7 +119,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/college-courses/modular-inverses/</loc>
+    <loc>https://learnerlj.github.io/college-courses/modular-inverses/</loc>
     
     <lastmod>2023-02-16</lastmod>
     
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/college-courses/cpp-cryptographic-algorithm-basis/</loc>
+    <loc>https://learnerlj.github.io/college-courses/cpp-cryptographic-algorithm-basis/</loc>
     
     <lastmod>2023-02-16</lastmod>
     
@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/advanced-charactors/</loc>
+    <loc>https://learnerlj.github.io/basic/advanced-charactors/</loc>
     
     <lastmod>2023-02-01</lastmod>
     
@@ -146,7 +146,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/controll-flow/</loc>
+    <loc>https://learnerlj.github.io/basic/controll-flow/</loc>
     
     <lastmod>2023-02-01</lastmod>
     
@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/application-binary-interface/</loc>
+    <loc>https://learnerlj.github.io/basic/application-binary-interface/</loc>
     
     <lastmod>2023-02-01</lastmod>
     
@@ -164,7 +164,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/basic-understanding/</loc>
+    <loc>https://learnerlj.github.io/basic/basic-understanding/</loc>
     
     <lastmod>2023-02-01</lastmod>
     
@@ -173,7 +173,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/function-literal-and-unit/</loc>
+    <loc>https://learnerlj.github.io/basic/function-literal-and-unit/</loc>
     
     <lastmod>2023-02-01</lastmod>
     
@@ -182,7 +182,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/program-structure-and-characters/</loc>
+    <loc>https://learnerlj.github.io/basic/program-structure-and-characters/</loc>
     
     <lastmod>2023-02-01</lastmod>
     
@@ -191,7 +191,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/special-functions/</loc>
+    <loc>https://learnerlj.github.io/basic/special-functions/</loc>
     
     <lastmod>2023-02-01</lastmod>
     
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/types/</loc>
+    <loc>https://learnerlj.github.io/basic/types/</loc>
     
     <lastmod>2023-02-01</lastmod>
     
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/college-courses/C-language-basis/</loc>
+    <loc>https://learnerlj.github.io/college-courses/C-language-basis/</loc>
     
     <lastmod>2023-01-28</lastmod>
     
@@ -218,7 +218,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/defi/JayPeggers-attack/</loc>
+    <loc>https://learnerlj.github.io/defi/JayPeggers-attack/</loc>
     
     <lastmod>2022-12-29</lastmod>
     
@@ -227,7 +227,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/SMT-and-symbolic-excution/</loc>
+    <loc>https://learnerlj.github.io/pl/SMT-and-symbolic-excution/</loc>
     
     <lastmod>2022-12-23</lastmod>
     
@@ -236,7 +236,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/abstract-interpretation/</loc>
+    <loc>https://learnerlj.github.io/pl/abstract-interpretation/</loc>
     
     <lastmod>2022-12-23</lastmod>
     
@@ -245,7 +245,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/points-to-analysis/</loc>
+    <loc>https://learnerlj.github.io/pl/points-to-analysis/</loc>
     
     <lastmod>2022-12-07</lastmod>
     
@@ -254,7 +254,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/understanding-program-analysis/</loc>
+    <loc>https://learnerlj.github.io/pl/understanding-program-analysis/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -263,7 +263,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
+    <loc>https://learnerlj.github.io/geth/oracle-introduction/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -272,7 +272,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/evm/state-variable/</loc>
+    <loc>https://learnerlj.github.io/evm/state-variable/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -281,7 +281,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/evm/principle-and-disign-of-evm/</loc>
+    <loc>https://learnerlj.github.io/evm/principle-and-disign-of-evm/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -290,7 +290,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/evm/function-call/</loc>
+    <loc>https://learnerlj.github.io/evm/function-call/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -299,7 +299,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/evm/evm-basic-bytecode/</loc>
+    <loc>https://learnerlj.github.io/evm/evm-basic-bytecode/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -308,7 +308,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/evm/data-layout/</loc>
+    <loc>https://learnerlj.github.io/evm/data-layout/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -317,7 +317,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/defi/defi-attack-cellection/</loc>
+    <loc>https://learnerlj.github.io/defi/defi-attack-cellection/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -326,7 +326,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/basic/blockchain-basis/</loc>
+    <loc>https://learnerlj.github.io/basic/blockchain-basis/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -335,7 +335,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/audit/open-source-audit-tools/</loc>
+    <loc>https://learnerlj.github.io/audit/open-source-audit-tools/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -344,7 +344,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/audit/learning-resource/</loc>
+    <loc>https://learnerlj.github.io/audit/learning-resource/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -353,7 +353,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
+    <loc>https://learnerlj.github.io/audit/classic-vulnerabilities/</loc>
     
     <lastmod>2022-11-25</lastmod>
     
@@ -362,7 +362,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/defi/Merkle-Tree-Proof-of-Reserves/</loc>
+    <loc>https://learnerlj.github.io/defi/Merkle-Tree-Proof-of-Reserves/</loc>
     
     <lastmod>2022-11-19</lastmod>
     
@@ -371,7 +371,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/</loc>
+    <loc>https://learnerlj.github.io/paper-reading/Declarative-Smart-Contracts/</loc>
     
     <lastmod>2022-11-18</lastmod>
     
@@ -380,7 +380,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/LP-souffle/</loc>
+    <loc>https://learnerlj.github.io/pl/LP-souffle/</loc>
     
     <lastmod>2022-11-13</lastmod>
     
@@ -389,7 +389,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/defi/DFX-Finance-attack/</loc>
+    <loc>https://learnerlj.github.io/defi/DFX-Finance-attack/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -398,7 +398,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/understand-tx/</loc>
+    <loc>https://learnerlj.github.io/geth/understand-tx/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -407,7 +407,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
+    <loc>https://learnerlj.github.io/geth/understand-receipt/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -416,7 +416,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/txlist/</loc>
+    <loc>https://learnerlj.github.io/geth/txlist/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -425,7 +425,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/tx-signature/</loc>
+    <loc>https://learnerlj.github.io/geth/tx-signature/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -434,7 +434,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/tx-pool/</loc>
+    <loc>https://learnerlj.github.io/geth/tx-pool/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -443,7 +443,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/MPT-Tree/</loc>
+    <loc>https://learnerlj.github.io/geth/MPT-Tree/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -452,7 +452,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/introduction/</loc>
+    <loc>https://learnerlj.github.io/geth/introduction/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -461,7 +461,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/forkId/</loc>
+    <loc>https://learnerlj.github.io/geth/forkId/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -470,7 +470,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
+    <loc>https://learnerlj.github.io/geth/bloom-filter/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -479,7 +479,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/blocks/</loc>
+    <loc>https://learnerlj.github.io/geth/blocks/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -488,7 +488,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
+    <loc>https://learnerlj.github.io/geth/blockchain-core/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -497,7 +497,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/geth/block-sync/</loc>
+    <loc>https://learnerlj.github.io/geth/block-sync/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -506,7 +506,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</loc>
+    <loc>https://learnerlj.github.io/audit/smart-contract-learning-path/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -515,7 +515,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/personal/students-rate-each-other-for-sholarship/</loc>
+    <loc>https://learnerlj.github.io/personal/students-rate-each-other-for-sholarship/</loc>
     
     <lastmod>2022-11-12</lastmod>
     
@@ -524,7 +524,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/paper-reading/TokenAware-%20Accurate-and-Eficient-Bookkeeping-Recognition-for-Token-Smart-Contracts/</loc>
+    <loc>https://learnerlj.github.io/paper-reading/TokenAware-%20Accurate-and-Eficient-Bookkeeping-Recognition-for-Token-Smart-Contracts/</loc>
     
     <lastmod>2022-11-09</lastmod>
     
@@ -533,7 +533,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/Interprocedural-DFA/</loc>
+    <loc>https://learnerlj.github.io/pl/Interprocedural-DFA/</loc>
     
     <lastmod>2022-11-06</lastmod>
     
@@ -542,7 +542,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/paper-reading/Under-Optimized-Smart-Contracts-Devour-Your-Money/</loc>
+    <loc>https://learnerlj.github.io/paper-reading/Under-Optimized-Smart-Contracts-Devour-Your-Money/</loc>
     
     <lastmod>2022-11-04</lastmod>
     
@@ -551,7 +551,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/paper-reading/A-Study-of-Inline-Assembly-in-Solidity-Smart-Contracts/</loc>
+    <loc>https://learnerlj.github.io/paper-reading/A-Study-of-Inline-Assembly-in-Solidity-Smart-Contracts/</loc>
     
     <lastmod>2022-11-01</lastmod>
     
@@ -560,7 +560,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/paper-reading/A-Bytecode-based-Approach-for-Smart-Contract-Classification/</loc>
+    <loc>https://learnerlj.github.io/paper-reading/A-Bytecode-based-Approach-for-Smart-Contract-Classification/</loc>
     
     <lastmod>2022-10-24</lastmod>
     
@@ -569,7 +569,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/pl/ssa-and-sparse-analysis/</loc>
+    <loc>https://learnerlj.github.io/pl/ssa-and-sparse-analysis/</loc>
     
     <lastmod>2022-10-23</lastmod>
     
@@ -578,7 +578,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tools/linux-basis/</loc>
+    <loc>https://learnerlj.github.io/tools/linux-basis/</loc>
     
     <lastmod>2022-09-07</lastmod>
     
@@ -587,7 +587,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/index.html</loc>
+    <loc>https://learnerlj.github.io/categories/index.html</loc>
     
     <lastmod>2022-08-30</lastmod>
     
@@ -596,7 +596,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/archives/index.html</loc>
+    <loc>https://learnerlj.github.io/archives/index.html</loc>
     
     <lastmod>2022-08-24</lastmod>
     
@@ -605,7 +605,7 @@
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/index.html</loc>
+    <loc>https://learnerlj.github.io/tags/index.html</loc>
     
     <lastmod>2022-08-23</lastmod>
     
@@ -615,7 +615,7 @@
   
 
   <url>
-    <loc>http://www.blog-blockchain.xyz/</loc>
+    <loc>https://learnerlj.github.io/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -623,105 +623,105 @@
 
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/smart-contract/</loc>
+    <loc>https://learnerlj.github.io/tags/smart-contract/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/basic/</loc>
+    <loc>https://learnerlj.github.io/tags/basic/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/evm/</loc>
+    <loc>https://learnerlj.github.io/tags/evm/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/audit/</loc>
+    <loc>https://learnerlj.github.io/tags/audit/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/geth/</loc>
+    <loc>https://learnerlj.github.io/tags/C/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/paper-reading/</loc>
+    <loc>https://learnerlj.github.io/tags/OS/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/read-think/</loc>
+    <loc>https://learnerlj.github.io/tags/crypto/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/information/</loc>
+    <loc>https://learnerlj.github.io/tags/information/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/C/</loc>
+    <loc>https://learnerlj.github.io/tags/geth/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/crypto/</loc>
+    <loc>https://learnerlj.github.io/tags/assembly/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/OS/</loc>
+    <loc>https://learnerlj.github.io/tags/defi/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/assembly/</loc>
+    <loc>https://learnerlj.github.io/tags/paper-reading/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/program-language/</loc>
+    <loc>https://learnerlj.github.io/tags/read-think/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/Linux/</loc>
+    <loc>https://learnerlj.github.io/tags/program-language/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/tags/defi/</loc>
+    <loc>https://learnerlj.github.io/tags/Linux/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -730,84 +730,84 @@
 
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/smart-contract-basics/</loc>
+    <loc>https://learnerlj.github.io/categories/smart-contract-basics/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/basic/</loc>
+    <loc>https://learnerlj.github.io/categories/basic/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/evm/</loc>
+    <loc>https://learnerlj.github.io/categories/evm/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/audit/</loc>
+    <loc>https://learnerlj.github.io/categories/audit/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/geth/</loc>
+    <loc>https://learnerlj.github.io/categories/C/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/paper-reading/</loc>
+    <loc>https://learnerlj.github.io/categories/courses/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/experience/</loc>
+    <loc>https://learnerlj.github.io/categories/geth/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/courses/</loc>
+    <loc>https://learnerlj.github.io/categories/defi/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/C/</loc>
+    <loc>https://learnerlj.github.io/categories/paper-reading/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/program-language/</loc>
+    <loc>https://learnerlj.github.io/categories/experience/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/Linux/</loc>
+    <loc>https://learnerlj.github.io/categories/program-language/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.blog-blockchain.xyz/categories/defi/</loc>
+    <loc>https://learnerlj.github.io/categories/Linux/</loc>
     <lastmod>2023-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
