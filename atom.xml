@@ -6,7 +6,7 @@
   <link href="http://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="http://www.blog-blockchain.xyz/"/>
-  <updated>2023-11-10T17:26:35.780Z</updated>
+  <updated>2023-12-09T10:01:43.657Z</updated>
   <id>http://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.blog-blockchain.xyz/pl/fuzzing-introduction/"/>
     <id>http://www.blog-blockchain.xyz/pl/fuzzing-introduction/</id>
     <published>2023-10-21T09:00:30.000Z</published>
-    <updated>2023-11-10T17:26:35.780Z</updated>
+    <updated>2023-12-09T10:01:43.657Z</updated>
     
     
       
@@ -891,58 +891,6 @@ ax+by=&#92;mathrm{gcd}&#92;left( a,b &#92;right)&#92;&lt;br&gt;
   </entry>
   
   <entry>
-    <title>oracle 原理和实现</title>
-    <link href="http://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
-    <id>http://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
-    <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2022-11-25T02:38:27.322Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;oracle-介绍&quot;&gt;oracle 介绍&lt;/h2&gt;
-&lt;p&gt;oracle 翻译是预言机，英文中的意思是预卜先知，知晓消息的意思。在区块链里用于合约获取链外的数据。例如你想把比特币转换成美元，如果在链上进行，那么就需要从链外获取比特币和美元的汇率，例如&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
-    
-    
-    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>交易池分析</title>
-    <link href="http://www.blog-blockchain.xyz/geth/tx-pool/"/>
-    <id>http://www.blog-blockchain.xyz/geth/tx-pool/</id>
-    <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2022-11-12T13:52:28.226Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;strong&gt;&lt;code&gt;core&#92;txpool.go&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;h3</summary>
-        
-      
-    
-    
-    
-    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
-    
-    
-    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
-    
-  </entry>
-  
-  <entry>
     <title>forkId 解读</title>
     <link href="http://www.blog-blockchain.xyz/geth/forkId/"/>
     <id>http://www.blog-blockchain.xyz/geth/forkId/</id>
@@ -956,6 +904,32 @@ ax+by=&#92;mathrm{gcd}&#92;left( a,b &#92;right)&#92;&lt;br&gt;
         
     <summary type="html">&lt;h2 id=&quot;EIP-2124&quot;&gt;EIP-2124&lt;/h2&gt;
 &lt;p&gt;因为 &lt;code&gt;core/forkId&lt;/code&gt; 包是 EIP-2124 的实现，因此我们先了解 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>oracle 原理和实现</title>
+    <link href="http://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
+    <id>http://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2022-11-25T02:38:27.322Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;oracle-介绍&quot;&gt;oracle 介绍&lt;/h2&gt;
+&lt;p&gt;oracle 翻译是预言机，英文中的意思是预卜先知，知晓消息的意思。在区块链里用于合约获取链外的数据。例如你想把比特币转换成美元，如果在链上进行，那么就需要从链外获取比特币和美元的汇率，例如&lt;a</summary>
         
       
     
@@ -984,6 +958,32 @@ ax+by=&#92;mathrm{gcd}&#92;left( a,b &#92;right)&#92;&lt;br&gt;
 &lt;p&gt;本文旨在分析清楚 tx_list.go 中这个工具包里面的重要代码&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="http://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>交易池分析</title>
+    <link href="http://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>http://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2022-11-12T13:52:28.226Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;&lt;code&gt;core&#92;txpool.go&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3</summary>
         
       
     
@@ -1102,31 +1102,6 @@ ax+by=&#92;mathrm{gcd}&#92;left( a,b &#92;right)&#92;&lt;br&gt;
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="http://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>http://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
-    <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2022-11-12T13:51:10.484Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="audit" scheme="http://www.blog-blockchain.xyz/categories/audit/"/>
-    
-    
-    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
-    
-  </entry>
-  
-  <entry>
     <title>智能合约学习资源</title>
     <link href="http://www.blog-blockchain.xyz/audit/learning-resource/"/>
     <id>http://www.blog-blockchain.xyz/audit/learning-resource/</id>
@@ -1142,6 +1117,31 @@ ax+by=&#92;mathrm{gcd}&#92;left( a,b &#92;right)&#92;&lt;br&gt;
 &lt;h3 id=&quot;帮助和交流平台&quot;&gt;帮助和交流平台&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="audit" scheme="http://www.blog-blockchain.xyz/categories/audit/"/>
+    
+    
+    <category term="smart contract" scheme="http://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>智能合约安全学习路线</title>
+    <link href="http://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>http://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <published>2022-08-24T17:33:33.000Z</published>
+    <updated>2022-11-12T13:51:10.484Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2</summary>
         
       
     
