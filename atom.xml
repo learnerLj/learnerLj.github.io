@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>技术和思考</title>
+  <title>Blockchain and Program Language</title>
   
-  <subtitle>区块链技术</subtitle>
+  <subtitle>learn and share</subtitle>
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
@@ -851,11 +851,11 @@
   </entry>
   
   <entry>
-    <title>布隆过滤器原理</title>
-    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
-    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:36.158Z</updated>
+    <updated>2024-01-08T13:48:38.960Z</updated>
     
     
       
@@ -877,11 +877,11 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>布隆过滤器原理</title>
+    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:38.960Z</updated>
+    <updated>2024-01-08T13:48:36.158Z</updated>
     
     
       
@@ -1085,11 +1085,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
@@ -1111,11 +1111,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
