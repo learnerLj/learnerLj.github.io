@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-01-08T14:03:00.572Z</updated>
+  <updated>2024-01-08T14:07:27.839Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -21,17 +21,15 @@
     <link href="https://www.blog-blockchain.xyz/fp/Haskell-summary-toolchain/"/>
     <id>https://www.blog-blockchain.xyz/fp/Haskell-summary-toolchain/</id>
     <published>2024-01-08T14:01:33.000Z</published>
-    <updated>2024-01-08T14:03:00.572Z</updated>
+    <updated>2024-01-08T14:07:27.839Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt;总结&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;安装方式：&lt;a href=&quot;https://www.haskell.org/ghcup/&quot;&gt;https://www.haskell.org/ghcup/&lt;/a&gt; 这是最推荐的安装方式，建议都安装上。&lt;/li&gt;
-&lt;li&gt;特性介绍：&lt;a</summary>
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-1/&quot; title=&quot;Haskell(一)入门&quot;&gt;Haskell(一)入门&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-2/&quot;</summary>
         
       
     
@@ -929,11 +927,11 @@
   </entry>
   
   <entry>
-    <title>交易池分析</title>
-    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
-    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <title>TxList 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
+    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:57.842Z</updated>
+    <updated>2024-01-08T13:49:05.705Z</updated>
     
     
       
@@ -955,11 +953,11 @@
   </entry>
   
   <entry>
-    <title>TxList 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
-    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
+    <title>交易池分析</title>
+    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:49:05.705Z</updated>
+    <updated>2024-01-08T13:48:57.842Z</updated>
     
     
       
@@ -1085,11 +1083,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1111,11 +1109,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
