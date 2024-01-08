@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-01-08T13:29:52.422Z</updated>
+  <updated>2024-01-08T14:03:00.572Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Haskell(四)总结和工具链</title>
+    <link href="https://www.blog-blockchain.xyz/fp/Haskell-summary-toolchain/"/>
+    <id>https://www.blog-blockchain.xyz/fp/Haskell-summary-toolchain/</id>
+    <published>2024-01-08T14:01:33.000Z</published>
+    <updated>2024-01-08T14:03:00.572Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;总结&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;安装方式：&lt;a href=&quot;https://www.haskell.org/ghcup/&quot;&gt;https://www.haskell.org/ghcup/&lt;/a&gt; 这是最推荐的安装方式，建议都安装上。&lt;/li&gt;
+&lt;li&gt;特性介绍：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
+    
+    
+    <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
+    
+  </entry>
   
   <entry>
     <title>（十）Fuzzing 基础</title>
@@ -121,11 +149,11 @@
   </entry>
   
   <entry>
-    <title>Haskell 函数式编程(三) Monad</title>
-    <link href="https://www.blog-blockchain.xyz/pl/monad/"/>
-    <id>https://www.blog-blockchain.xyz/pl/monad/</id>
+    <title>Haskell(三) Monad</title>
+    <link href="https://www.blog-blockchain.xyz/fp/monad/"/>
+    <id>https://www.blog-blockchain.xyz/fp/monad/</id>
     <published>2023-05-26T16:42:33.000Z</published>
-    <updated>2024-01-08T13:25:31.714Z</updated>
+    <updated>2024-01-08T14:01:05.035Z</updated>
     
     
       
@@ -133,13 +161,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/pl/FP-haskell-1/&quot; title=&quot;Haskell 入门(一)&quot;&gt;Haskell 入门(一)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/pl/FP-haskell-2/&quot; title=&quot;Haskell</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-1/&quot; title=&quot;Haskell(一)入门&quot;&gt;Haskell(一)入门&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-2/&quot;</summary>
         
       
     
     
     
-    <category term="program language" scheme="https://www.blog-blockchain.xyz/categories/program-language/"/>
+    <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
     
     
     <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
@@ -719,11 +747,11 @@
   </entry>
   
   <entry>
-    <title>Haskell 函数式编程(二)</title>
-    <link href="https://www.blog-blockchain.xyz/pl/FP-haskell-2/"/>
-    <id>https://www.blog-blockchain.xyz/pl/FP-haskell-2/</id>
+    <title>Haskell(二)函数式编程</title>
+    <link href="https://www.blog-blockchain.xyz/fp/FP-haskell-2/"/>
+    <id>https://www.blog-blockchain.xyz/fp/FP-haskell-2/</id>
     <published>2022-08-29T13:50:33.000Z</published>
-    <updated>2024-01-08T13:25:09.689Z</updated>
+    <updated>2024-01-08T14:02:25.338Z</updated>
     
     
       
@@ -731,13 +759,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/pl/FP-haskell-1/&quot; title=&quot;Haskell 入门(一)&quot;&gt;Haskell 入门(一)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/pl/FP-haskell-2/&quot; title=&quot;Haskell</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-1/&quot; title=&quot;Haskell(一)入门&quot;&gt;Haskell(一)入门&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-2/&quot;</summary>
         
       
     
     
     
-    <category term="program language" scheme="https://www.blog-blockchain.xyz/categories/program-language/"/>
+    <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
     
     
     <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
@@ -745,11 +773,11 @@
   </entry>
   
   <entry>
-    <title>Haskell 入门(一)</title>
-    <link href="https://www.blog-blockchain.xyz/pl/FP-haskell-1/"/>
-    <id>https://www.blog-blockchain.xyz/pl/FP-haskell-1/</id>
+    <title>Haskell(一)入门</title>
+    <link href="https://www.blog-blockchain.xyz/fp/FP-haskell-1/"/>
+    <id>https://www.blog-blockchain.xyz/fp/FP-haskell-1/</id>
     <published>2022-08-29T13:30:33.000Z</published>
-    <updated>2024-01-08T13:25:28.230Z</updated>
+    <updated>2024-01-08T14:01:24.010Z</updated>
     
     
       
@@ -757,13 +785,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/pl/FP-haskell-1/&quot; title=&quot;Haskell 入门(一)&quot;&gt;Haskell 入门(一)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/pl/FP-haskell-2/&quot; title=&quot;Haskell</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-1/&quot; title=&quot;Haskell(一)入门&quot;&gt;Haskell(一)入门&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-2/&quot;</summary>
         
       
     
     
     
-    <category term="program language" scheme="https://www.blog-blockchain.xyz/categories/program-language/"/>
+    <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
     
     
     <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
@@ -823,6 +851,32 @@
   </entry>
   
   <entry>
+    <title>布隆过滤器原理</title>
+    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2024-01-08T13:48:36.158Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
     <title>forkId 解读</title>
     <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
     <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
@@ -854,32 +908,6 @@
     <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-01-08T13:48:54.340Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>布隆过滤器原理</title>
-    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
-    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
-    <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:36.158Z</updated>
     
     
       
