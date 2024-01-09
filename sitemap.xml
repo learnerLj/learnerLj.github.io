@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/fp/Haskell-final/</loc>
+    <loc>https://www.blog-blockchain.xyz/fp/Haskell-epilogue/</loc>
     
     <lastmod>2024-01-09</lastmod>
     
@@ -641,7 +641,28 @@
 
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/audit/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/C/</loc>
+    <lastmod>2024-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/crypto/</loc>
+    <lastmod>2024-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/assembly/</loc>
+    <lastmod>2024-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/OS/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -655,7 +676,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/defi/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/audit/</loc>
+    <lastmod>2024-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/information/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -676,21 +704,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/C/</loc>
-    <lastmod>2024-01-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/crypto/</loc>
-    <lastmod>2024-01-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/information/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/defi/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -698,20 +712,6 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/tags/evm/</loc>
-    <lastmod>2024-01-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/OS/</loc>
-    <lastmod>2024-01-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/assembly/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -748,14 +748,21 @@
 
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/audit/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/C/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/defi/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/courses/</loc>
+    <lastmod>2024-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/audit/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -783,14 +790,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/C/</loc>
-    <lastmod>2024-01-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/categories/courses/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/defi/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -818,14 +818,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/program-language/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/experience/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/experience/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/program-language/</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
