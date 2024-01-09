@@ -177,7 +177,7 @@
     <link href="https://www.blog-blockchain.xyz/fp/monad/"/>
     <id>https://www.blog-blockchain.xyz/fp/monad/</id>
     <published>2023-05-26T16:42:33.000Z</published>
-    <updated>2024-01-09T16:57:22.259Z</updated>
+    <updated>2024-01-09T17:08:46.004Z</updated>
     
     
       
@@ -875,11 +875,11 @@
   </entry>
   
   <entry>
-    <title>oracle 原理和实现</title>
-    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
-    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <title>布隆过滤器原理</title>
+    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:54.340Z</updated>
+    <updated>2024-01-08T13:48:36.158Z</updated>
     
     
       
@@ -953,11 +953,11 @@
   </entry>
   
   <entry>
-    <title>布隆过滤器原理</title>
-    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
-    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <title>oracle 原理和实现</title>
+    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
+    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:36.158Z</updated>
+    <updated>2024-01-08T13:48:54.340Z</updated>
     
     
       
@@ -1109,11 +1109,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
@@ -1135,11 +1135,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1353,33 +1353,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="evm" scheme="https://www.blog-blockchain.xyz/categories/evm/"/>
-    
-    
-    <category term="evm" scheme="https://www.blog-blockchain.xyz/tags/evm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>以太坊的数据组织</title>
-    <link href="https://www.blog-blockchain.xyz/evm/data-layout/"/>
-    <id>https://www.blog-blockchain.xyz/evm/data-layout/</id>
-    <published>2022-08-23T13:49:22.000Z</published>
-    <updated>2024-01-08T13:38:35.452Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot;</summary>
         
       
     
@@ -1405,7 +1379,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot;</summary>
         
       
     
@@ -1419,11 +1393,11 @@
   </entry>
   
   <entry>
-    <title>（八）合约的高级特性（完）</title>
-    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
-    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
-    <published>2022-08-23T12:49:22.000Z</published>
-    <updated>2024-01-08T13:42:53.580Z</updated>
+    <title>以太坊的数据组织</title>
+    <link href="https://www.blog-blockchain.xyz/evm/data-layout/"/>
+    <id>https://www.blog-blockchain.xyz/evm/data-layout/</id>
+    <published>2022-08-23T13:49:22.000Z</published>
+    <updated>2024-01-08T13:38:35.452Z</updated>
     
     
       
@@ -1431,16 +1405,16 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot;</summary>
         
       
     
     
     
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    <category term="evm" scheme="https://www.blog-blockchain.xyz/categories/evm/"/>
     
     
-    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    <category term="evm" scheme="https://www.blog-blockchain.xyz/tags/evm/"/>
     
   </entry>
   
@@ -1472,6 +1446,32 @@
     
     
     <category term="defi" scheme="https://www.blog-blockchain.xyz/tags/defi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（八）合约的高级特性（完）</title>
+    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
+    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
+    <published>2022-08-23T12:49:22.000Z</published>
+    <updated>2024-01-08T13:42:53.580Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
     
   </entry>
   
