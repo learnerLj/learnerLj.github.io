@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/pl/data-flow-analysis/</loc>
+    <lastmod>2024-01-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/college-courses/modular-inverses/</loc>
+    <lastmod>2024-01-10</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/fp/monad/</loc>
     <lastmod>2024-01-09</lastmod>
   </url>
@@ -165,10 +173,6 @@
     <lastmod>2024-01-08</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/college-courses/modular-inverses/</loc>
-    <lastmod>2024-01-08</lastmod>
-  </url>
-  <url>
     <loc>https://www.blog-blockchain.xyz/college-courses/OS/</loc>
     <lastmod>2024-01-08</lastmod>
   </url>
@@ -214,10 +218,6 @@
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/pl/LP-souffle/</loc>
-    <lastmod>2024-01-08</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/pl/data-flow-analysis/</loc>
     <lastmod>2024-01-08</lastmod>
   </url>
   <url>
