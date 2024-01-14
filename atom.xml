@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-01-09T17:01:56.664Z</updated>
+  <updated>2024-01-14T14:15:21.238Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Haskell(五) 总结和展望</title>
-    <link href="https://www.blog-blockchain.xyz/fp/Haskell-epilogue/"/>
-    <id>https://www.blog-blockchain.xyz/fp/Haskell-epilogue/</id>
-    <published>2024-01-09T17:02:33.000Z</published>
-    <updated>2024-01-09T17:01:56.664Z</updated>
+    <title>Haskell(六) Project Euler 练习1-100</title>
+    <link href="https://www.blog-blockchain.xyz/fp/project-euler/"/>
+    <id>https://www.blog-blockchain.xyz/fp/project-euler/</id>
+    <published>2024-01-14T12:28:03.000Z</published>
+    <updated>2024-01-14T14:15:21.238Z</updated>
     
     
       
@@ -38,7 +38,33 @@
     <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
     
     
-    <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
+    <category term="Haskell" scheme="https://www.blog-blockchain.xyz/tags/Haskell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Haskell(五) 总结和展望</title>
+    <link href="https://www.blog-blockchain.xyz/fp/Haskell-epilogue/"/>
+    <id>https://www.blog-blockchain.xyz/fp/Haskell-epilogue/</id>
+    <published>2024-01-09T17:02:33.000Z</published>
+    <updated>2024-01-14T13:05:10.308Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-1/&quot; title=&quot;Haskell(一)入门&quot;&gt;Haskell(一)入门&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/fp/FP-haskell-2/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
+    
+    
+    <category term="Haskell" scheme="https://www.blog-blockchain.xyz/tags/Haskell/"/>
     
   </entry>
   
@@ -47,7 +73,7 @@
     <link href="https://www.blog-blockchain.xyz/fp/Haskell-summary-toolchain/"/>
     <id>https://www.blog-blockchain.xyz/fp/Haskell-summary-toolchain/</id>
     <published>2024-01-08T14:01:33.000Z</published>
-    <updated>2024-01-08T14:07:27.839Z</updated>
+    <updated>2024-01-14T13:05:08.644Z</updated>
     
     
       
@@ -64,7 +90,7 @@
     <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
     
     
-    <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
+    <category term="Haskell" scheme="https://www.blog-blockchain.xyz/tags/Haskell/"/>
     
   </entry>
   
@@ -177,7 +203,7 @@
     <link href="https://www.blog-blockchain.xyz/fp/monad/"/>
     <id>https://www.blog-blockchain.xyz/fp/monad/</id>
     <published>2023-05-26T16:42:33.000Z</published>
-    <updated>2024-01-09T17:08:46.004Z</updated>
+    <updated>2024-01-14T13:05:05.962Z</updated>
     
     
       
@@ -194,7 +220,7 @@
     <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
     
     
-    <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
+    <category term="Haskell" scheme="https://www.blog-blockchain.xyz/tags/Haskell/"/>
     
   </entry>
   
@@ -775,7 +801,7 @@
     <link href="https://www.blog-blockchain.xyz/fp/FP-haskell-2/"/>
     <id>https://www.blog-blockchain.xyz/fp/FP-haskell-2/</id>
     <published>2022-08-29T13:50:33.000Z</published>
-    <updated>2024-01-08T14:02:25.338Z</updated>
+    <updated>2024-01-14T13:05:12.812Z</updated>
     
     
       
@@ -792,7 +818,7 @@
     <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
     
     
-    <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
+    <category term="Haskell" scheme="https://www.blog-blockchain.xyz/tags/Haskell/"/>
     
   </entry>
   
@@ -801,7 +827,7 @@
     <link href="https://www.blog-blockchain.xyz/fp/FP-haskell-1/"/>
     <id>https://www.blog-blockchain.xyz/fp/FP-haskell-1/</id>
     <published>2022-08-29T13:30:33.000Z</published>
-    <updated>2024-01-08T14:01:24.010Z</updated>
+    <updated>2024-01-14T13:05:07.394Z</updated>
     
     
       
@@ -818,7 +844,7 @@
     <category term="functional language" scheme="https://www.blog-blockchain.xyz/categories/functional-language/"/>
     
     
-    <category term="program language" scheme="https://www.blog-blockchain.xyz/tags/program-language/"/>
+    <category term="Haskell" scheme="https://www.blog-blockchain.xyz/tags/Haskell/"/>
     
   </entry>
   
@@ -901,11 +927,11 @@
   </entry>
   
   <entry>
-    <title>oracle 原理和实现</title>
-    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
-    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <title>交易池分析</title>
+    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:54.340Z</updated>
+    <updated>2024-01-08T13:48:57.842Z</updated>
     
     
       
@@ -953,11 +979,11 @@
   </entry>
   
   <entry>
-    <title>交易池分析</title>
-    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
-    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <title>oracle 原理和实现</title>
+    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
+    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:57.842Z</updated>
+    <updated>2024-01-08T13:48:54.340Z</updated>
     
     
       
@@ -1109,11 +1135,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
@@ -1135,11 +1161,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1419,32 +1445,6 @@
   </entry>
   
   <entry>
-    <title>（八）合约的高级特性（完）</title>
-    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
-    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
-    <published>2022-08-23T12:49:22.000Z</published>
-    <updated>2024-01-08T13:42:53.580Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
-    
-    
-    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
-    
-  </entry>
-  
-  <entry>
     <title>DeFi攻击事件研究</title>
     <link href="https://www.blog-blockchain.xyz/defi/defi-attack-cellection/"/>
     <id>https://www.blog-blockchain.xyz/defi/defi-attack-cellection/</id>
@@ -1472,6 +1472,32 @@
     
     
     <category term="defi" scheme="https://www.blog-blockchain.xyz/tags/defi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（八）合约的高级特性（完）</title>
+    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
+    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
+    <published>2022-08-23T12:49:22.000Z</published>
+    <updated>2024-01-08T13:42:53.580Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
     
   </entry>
   
