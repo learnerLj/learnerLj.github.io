@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-01-21T17:34:06.588Z</updated>
+  <updated>2024-01-21T18:28:42.513Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Decimal Recurring Cycles and Cyclic Groups</title>
+    <link href="https://www.blog-blockchain.xyz/math/Decimal-Recurring-Cycles%20and-Cyclic-Groups/"/>
+    <id>https://www.blog-blockchain.xyz/math/Decimal-Recurring-Cycles%20and-Cyclic-Groups/</id>
+    <published>2024-01-21T12:28:03.000Z</published>
+    <updated>2024-01-21T18:28:42.513Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.blog-blockchain.xyz/2024/01/cd56c9ab47819ffe8a79fa857256a1ea.png&quot; alt=&quot;image-20240122011802524&quot;&gt;&lt;/p&gt;
+&lt;h1&gt;From the</summary>
+        
+      
+    
+    
+    
+    <category term="group" scheme="https://www.blog-blockchain.xyz/categories/group/"/>
+    
+    
+    <category term="math group" scheme="https://www.blog-blockchain.xyz/tags/math-group/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Haskell(六) Project Euler 练习1-100</title>
     <link href="https://www.blog-blockchain.xyz/fp/project-euler/"/>
     <id>https://www.blog-blockchain.xyz/fp/project-euler/</id>
     <published>2024-01-14T12:28:03.000Z</published>
-    <updated>2024-01-21T17:34:06.588Z</updated>
+    <updated>2024-01-21T18:10:19.369Z</updated>
     
     
       
@@ -901,11 +927,11 @@
   </entry>
   
   <entry>
-    <title>布隆过滤器原理</title>
-    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
-    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:36.158Z</updated>
+    <updated>2024-01-08T13:48:38.960Z</updated>
     
     
       
@@ -927,11 +953,11 @@
   </entry>
   
   <entry>
-    <title>交易池分析</title>
-    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
-    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <title>布隆过滤器原理</title>
+    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:57.842Z</updated>
+    <updated>2024-01-08T13:48:36.158Z</updated>
     
     
       
@@ -979,11 +1005,11 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>交易池分析</title>
+    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:38.960Z</updated>
+    <updated>2024-01-08T13:48:57.842Z</updated>
     
     
       
