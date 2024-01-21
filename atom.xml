@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-01-19T10:29:39.901Z</updated>
+  <updated>2024-01-21T17:31:14.332Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.blog-blockchain.xyz/fp/project-euler/"/>
     <id>https://www.blog-blockchain.xyz/fp/project-euler/</id>
     <published>2024-01-14T12:28:03.000Z</published>
-    <updated>2024-01-19T10:29:39.901Z</updated>
+    <updated>2024-01-21T17:31:14.332Z</updated>
     
     
       
@@ -1135,11 +1135,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1161,11 +1161,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
