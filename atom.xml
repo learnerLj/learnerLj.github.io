@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-01-21T17:31:14.332Z</updated>
+  <updated>2024-01-21T17:34:06.588Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.blog-blockchain.xyz/fp/project-euler/"/>
     <id>https://www.blog-blockchain.xyz/fp/project-euler/</id>
     <published>2024-01-14T12:28:03.000Z</published>
-    <updated>2024-01-21T17:31:14.332Z</updated>
+    <updated>2024-01-21T17:34:06.588Z</updated>
     
     
       
@@ -927,11 +927,11 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>交易池分析</title>
+    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:38.960Z</updated>
+    <updated>2024-01-08T13:48:57.842Z</updated>
     
     
       
@@ -979,11 +979,11 @@
   </entry>
   
   <entry>
-    <title>交易池分析</title>
-    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
-    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:57.842Z</updated>
+    <updated>2024-01-08T13:48:38.960Z</updated>
     
     
       
