@@ -47,7 +47,7 @@
     <link href="https://www.blog-blockchain.xyz/fp/project-euler/"/>
     <id>https://www.blog-blockchain.xyz/fp/project-euler/</id>
     <published>2024-01-14T12:28:03.000Z</published>
-    <updated>2024-01-21T18:10:19.369Z</updated>
+    <updated>2024-01-24T09:07:40.237Z</updated>
     
     
       
@@ -1161,11 +1161,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
@@ -1187,11 +1187,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1471,32 +1471,6 @@
   </entry>
   
   <entry>
-    <title>（八）合约的高级特性（完）</title>
-    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
-    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
-    <published>2022-08-23T12:49:22.000Z</published>
-    <updated>2024-01-08T13:42:53.580Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
-    
-    
-    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
-    
-  </entry>
-  
-  <entry>
     <title>DeFi攻击事件研究</title>
     <link href="https://www.blog-blockchain.xyz/defi/defi-attack-cellection/"/>
     <id>https://www.blog-blockchain.xyz/defi/defi-attack-cellection/</id>
@@ -1524,6 +1498,32 @@
     
     
     <category term="defi" scheme="https://www.blog-blockchain.xyz/tags/defi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（八）合约的高级特性（完）</title>
+    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
+    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
+    <published>2022-08-23T12:49:22.000Z</published>
+    <updated>2024-01-08T13:42:53.580Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
     
   </entry>
   
