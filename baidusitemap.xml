@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.blog-blockchain.xyz/fp/project-euler/</loc>
-    <lastmod>2024-01-24</lastmod>
+    <loc>https://www.blog-blockchain.xyz/math/Decimal-Recurring-Cycles%20and-Cyclic-Groups/</loc>
+    <lastmod>2024-03-12</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/math/Decimal-Recurring-Cycles%20and-Cyclic-Groups/</loc>
-    <lastmod>2024-01-21</lastmod>
+    <loc>https://www.blog-blockchain.xyz/fp/project-euler/</loc>
+    <lastmod>2024-01-24</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/fp/FP-haskell-2/</loc>
@@ -241,32 +241,12 @@
     <lastmod>2022-11-19</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/</loc>
-    <lastmod>2022-11-18</lastmod>
-  </url>
-  <url>
     <loc>https://www.blog-blockchain.xyz/defi/DFX-Finance-attack/</loc>
     <lastmod>2022-11-12</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/personal/students-rate-each-other-for-sholarship/</loc>
     <lastmod>2022-11-12</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/paper-reading/TokenAware-%20Accurate-and-Eficient-Bookkeeping-Recognition-for-Token-Smart-Contracts/</loc>
-    <lastmod>2022-11-09</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/paper-reading/Under-Optimized-Smart-Contracts-Devour-Your-Money/</loc>
-    <lastmod>2022-11-04</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/paper-reading/A-Study-of-Inline-Assembly-in-Solidity-Smart-Contracts/</loc>
-    <lastmod>2022-11-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/paper-reading/A-Bytecode-based-Approach-for-Smart-Contract-Classification/</loc>
-    <lastmod>2022-10-24</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/tools/linux-basis/</loc>

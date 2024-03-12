@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-01-21T18:28:42.513Z</updated>
+  <updated>2024-03-12T13:28:00.892Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.blog-blockchain.xyz/math/Decimal-Recurring-Cycles%20and-Cyclic-Groups/"/>
     <id>https://www.blog-blockchain.xyz/math/Decimal-Recurring-Cycles%20and-Cyclic-Groups/</id>
     <published>2024-01-21T12:28:03.000Z</published>
-    <updated>2024-01-21T18:28:42.513Z</updated>
+    <updated>2024-03-12T13:28:00.892Z</updated>
     
     
       
@@ -35,10 +35,10 @@
     
     
     
-    <category term="group" scheme="https://www.blog-blockchain.xyz/categories/group/"/>
+    <category term="math" scheme="https://www.blog-blockchain.xyz/categories/math/"/>
     
     
-    <category term="math group" scheme="https://www.blog-blockchain.xyz/tags/math-group/"/>
+    <category term="math" scheme="https://www.blog-blockchain.xyz/tags/math/"/>
     
   </entry>
   
@@ -484,32 +484,6 @@
   </entry>
   
   <entry>
-    <title>论文阅读-Declarative Smart Contracts</title>
-    <link href="https://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/"/>
-    <id>https://www.blog-blockchain.xyz/paper-reading/Declarative-Smart-Contracts/</id>
-    <published>2022-11-18T09:03:33.000Z</published>
-    <updated>2022-11-18T09:09:35.830Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;总结&lt;/h1&gt;
-&lt;p&gt;摘要：This paper presents DeCon, a declarative programming language for implementing smart contracts and specifying</summary>
-        
-      
-    
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/categories/paper-reading/"/>
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/tags/paper-reading/"/>
-    
-  </entry>
-  
-  <entry>
     <title>DFX Finance 攻击分析</title>
     <link href="https://www.blog-blockchain.xyz/defi/DFX-Finance-attack/"/>
     <id>https://www.blog-blockchain.xyz/defi/DFX-Finance-attack/</id>
@@ -533,110 +507,6 @@
     
     
     <category term="defi" scheme="https://www.blog-blockchain.xyz/tags/defi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读-TokenAware Accurate and Eficient Bookkeeping Recognition for Token Smart Contracts</title>
-    <link href="https://www.blog-blockchain.xyz/paper-reading/TokenAware-%20Accurate-and-Eficient-Bookkeeping-Recognition-for-Token-Smart-Contracts/"/>
-    <id>https://www.blog-blockchain.xyz/paper-reading/TokenAware-%20Accurate-and-Eficient-Bookkeeping-Recognition-for-Token-Smart-Contracts/</id>
-    <published>2022-11-09T01:04:30.000Z</published>
-    <updated>2022-11-09T01:04:37.262Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;摘要&lt;/h1&gt;
-&lt;p&gt;Tokens have become an essential part of blockchain ecosystem, so recognizing token transfer behaviors is crucial for</summary>
-        
-      
-    
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/categories/paper-reading/"/>
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/tags/paper-reading/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读-Under-Optimized Smart Contracts Devour Your Money</title>
-    <link href="https://www.blog-blockchain.xyz/paper-reading/Under-Optimized-Smart-Contracts-Devour-Your-Money/"/>
-    <id>https://www.blog-blockchain.xyz/paper-reading/Under-Optimized-Smart-Contracts-Devour-Your-Money/</id>
-    <published>2022-11-04T01:42:33.000Z</published>
-    <updated>2022-11-04T01:51:08.579Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;摘要&lt;/h1&gt;
-&lt;p&gt;Smart contracts are full-fledged programs that run on blockchains (e.g., Ethereum, one of the most popular blockchains). In</summary>
-        
-      
-    
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/categories/paper-reading/"/>
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/tags/paper-reading/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读-A Study of Inline Assembly in Solidity Smart Contracts</title>
-    <link href="https://www.blog-blockchain.xyz/paper-reading/A-Study-of-Inline-Assembly-in-Solidity-Smart-Contracts/"/>
-    <id>https://www.blog-blockchain.xyz/paper-reading/A-Study-of-Inline-Assembly-in-Solidity-Smart-Contracts/</id>
-    <published>2022-11-01T01:30:33.000Z</published>
-    <updated>2022-11-01T15:49:25.734Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;摘要&lt;/h1&gt;
-&lt;p&gt;This paper presents a large-scale quantitative study of the use of inline assembly in 6.8𝑀 smart contracts deployed on the</summary>
-        
-      
-    
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/categories/paper-reading/"/>
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/tags/paper-reading/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读-A Bytecode-based Approach for Smart Contract Classification</title>
-    <link href="https://www.blog-blockchain.xyz/paper-reading/A-Bytecode-based-Approach-for-Smart-Contract-Classification/"/>
-    <id>https://www.blog-blockchain.xyz/paper-reading/A-Bytecode-based-Approach-for-Smart-Contract-Classification/</id>
-    <published>2022-10-24T03:30:33.000Z</published>
-    <updated>2022-10-24T15:36:43.327Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;来源&lt;/h1&gt;
-&lt;p&gt;Abstract—With the development of blockchain technologies, the number of smart contracts deployed on blockchain platforms is</summary>
-        
-      
-    
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/categories/paper-reading/"/>
-    
-    
-    <category term="paper-reading" scheme="https://www.blog-blockchain.xyz/tags/paper-reading/"/>
     
   </entry>
   
@@ -927,32 +797,6 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
-    <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:38.960Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
-    
-  </entry>
-  
-  <entry>
     <title>布隆过滤器原理</title>
     <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
     <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
@@ -979,11 +823,11 @@
   </entry>
   
   <entry>
-    <title>oracle 原理和实现</title>
-    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
-    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:54.340Z</updated>
+    <updated>2024-01-08T13:48:38.960Z</updated>
     
     
       
@@ -1036,6 +880,32 @@
     <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-01-08T13:49:05.705Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>oracle 原理和实现</title>
+    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
+    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2024-01-08T13:48:54.340Z</updated>
     
     
       
@@ -1161,11 +1031,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1187,11 +1057,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
@@ -1471,6 +1341,32 @@
   </entry>
   
   <entry>
+    <title>（八）合约的高级特性（完）</title>
+    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
+    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
+    <published>2022-08-23T12:49:22.000Z</published>
+    <updated>2024-01-08T13:42:53.580Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    
+    
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
     <title>DeFi攻击事件研究</title>
     <link href="https://www.blog-blockchain.xyz/defi/defi-attack-cellection/"/>
     <id>https://www.blog-blockchain.xyz/defi/defi-attack-cellection/</id>
@@ -1498,32 +1394,6 @@
     
     
     <category term="defi" scheme="https://www.blog-blockchain.xyz/tags/defi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>（八）合约的高级特性（完）</title>
-    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
-    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
-    <published>2022-08-23T12:49:22.000Z</published>
-    <updated>2024-01-08T13:42:53.580Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
-    
-    
-    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
     
   </entry>
   
