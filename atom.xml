@@ -43,11 +43,11 @@
   </entry>
   
   <entry>
-    <title>Haskell(六) Project Euler 练习1-100</title>
+    <title>Haskell(六) Project Euler 练习1-26</title>
     <link href="https://www.blog-blockchain.xyz/fp/project-euler/"/>
     <id>https://www.blog-blockchain.xyz/fp/project-euler/</id>
     <published>2024-01-14T12:28:03.000Z</published>
-    <updated>2024-01-24T09:07:40.237Z</updated>
+    <updated>2024-03-28T16:15:05.016Z</updated>
     
     
       
@@ -875,11 +875,11 @@
   </entry>
   
   <entry>
-    <title>TxList 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
-    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
+    <title>交易池分析</title>
+    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:49:05.705Z</updated>
+    <updated>2024-01-08T13:48:57.842Z</updated>
     
     
       
@@ -901,11 +901,11 @@
   </entry>
   
   <entry>
-    <title>交易池分析</title>
-    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
-    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <title>TxList 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
+    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:57.842Z</updated>
+    <updated>2024-01-08T13:49:05.705Z</updated>
     
     
       
@@ -1031,11 +1031,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
@@ -1057,11 +1057,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
