@@ -797,11 +797,11 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>oracle 原理和实现</title>
+    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
+    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:38.960Z</updated>
+    <updated>2024-01-08T13:48:54.340Z</updated>
     
     
       
@@ -828,32 +828,6 @@
     <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-01-08T13:48:36.158Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>oracle 原理和实现</title>
-    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
-    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
-    <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:54.340Z</updated>
     
     
       
@@ -906,6 +880,32 @@
     <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-01-08T13:49:05.705Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2024-01-08T13:48:38.960Z</updated>
     
     
       
@@ -1031,11 +1031,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
@@ -1057,11 +1057,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1217,7 +1217,7 @@
     <link href="https://www.blog-blockchain.xyz/evm/state-variable/"/>
     <id>https://www.blog-blockchain.xyz/evm/state-variable/</id>
     <published>2022-08-24T11:29:33.000Z</published>
-    <updated>2024-01-08T13:36:13.104Z</updated>
+    <updated>2024-04-26T03:26:16.030Z</updated>
     
     
       
@@ -1230,6 +1230,8 @@
       
     
     
+    
+    <category term="evm" scheme="https://www.blog-blockchain.xyz/categories/evm/"/>
     
     
     <category term="evm" scheme="https://www.blog-blockchain.xyz/tags/evm/"/>
