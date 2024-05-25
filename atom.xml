@@ -797,11 +797,11 @@
   </entry>
   
   <entry>
-    <title>oracle 原理和实现</title>
-    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
-    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:54.340Z</updated>
+    <updated>2024-01-08T13:48:38.960Z</updated>
     
     
       
@@ -875,11 +875,11 @@
   </entry>
   
   <entry>
-    <title>TxList 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
-    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
+    <title>oracle 原理和实现</title>
+    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
+    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:49:05.705Z</updated>
+    <updated>2024-01-08T13:48:54.340Z</updated>
     
     
       
@@ -901,11 +901,11 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>TxList 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
+    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:38.960Z</updated>
+    <updated>2024-01-08T13:49:05.705Z</updated>
     
     
       
@@ -1031,11 +1031,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1057,11 +1057,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
