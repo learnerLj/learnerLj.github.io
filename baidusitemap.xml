@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/college-courses/information-theory/</loc>
+    <lastmod>2024-06-17</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/evm/state-variable/</loc>
     <lastmod>2024-04-26</lastmod>
   </url>
@@ -190,10 +194,6 @@
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/college-courses/x86-masm/</loc>
-    <lastmod>2024-01-08</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/college-courses/information-theory/</loc>
     <lastmod>2024-01-08</lastmod>
   </url>
   <url>
