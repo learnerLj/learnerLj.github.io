@@ -200,8 +200,8 @@
   
   <entry>
     <title>信息论与编码</title>
-    <link href="https://www.blog-blockchain.xyz/college-courses/information-theory/"/>
-    <id>https://www.blog-blockchain.xyz/college-courses/information-theory/</id>
+    <link href="https://www.blog-blockchain.xyz/cs-courses/information-theory/"/>
+    <id>https://www.blog-blockchain.xyz/cs-courses/information-theory/</id>
     <published>2023-05-29T00:15:22.000Z</published>
     <updated>2024-06-17T18:24:50.562Z</updated>
     
@@ -211,7 +211,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/college-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/modular-inverses/&quot;</summary>
         
       
     
@@ -252,8 +252,8 @@
   
   <entry>
     <title>x86汇编基础</title>
-    <link href="https://www.blog-blockchain.xyz/college-courses/x86-masm/"/>
-    <id>https://www.blog-blockchain.xyz/college-courses/x86-masm/</id>
+    <link href="https://www.blog-blockchain.xyz/cs-courses/x86-masm/"/>
+    <id>https://www.blog-blockchain.xyz/cs-courses/x86-masm/</id>
     <published>2023-05-11T12:48:22.000Z</published>
     <updated>2024-01-08T13:33:24.826Z</updated>
     
@@ -263,7 +263,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/college-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/modular-inverses/&quot;</summary>
         
       
     
@@ -278,8 +278,8 @@
   
   <entry>
     <title>操作系统基础</title>
-    <link href="https://www.blog-blockchain.xyz/college-courses/OS/"/>
-    <id>https://www.blog-blockchain.xyz/college-courses/OS/</id>
+    <link href="https://www.blog-blockchain.xyz/cs-courses/OS/"/>
+    <id>https://www.blog-blockchain.xyz/cs-courses/OS/</id>
     <published>2023-02-13T15:06:22.000Z</published>
     <updated>2024-01-08T13:33:26.045Z</updated>
     
@@ -289,7 +289,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/college-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/modular-inverses/&quot;</summary>
         
       
     
@@ -407,8 +407,8 @@
   
   <entry>
     <title>信息安全算法基础</title>
-    <link href="https://www.blog-blockchain.xyz/college-courses/cpp-cryptographic-algorithm-basis/"/>
-    <id>https://www.blog-blockchain.xyz/college-courses/cpp-cryptographic-algorithm-basis/</id>
+    <link href="https://www.blog-blockchain.xyz/cs-courses/cpp-cryptographic-algorithm-basis/"/>
+    <id>https://www.blog-blockchain.xyz/cs-courses/cpp-cryptographic-algorithm-basis/</id>
     <published>2022-12-02T08:15:22.000Z</published>
     <updated>2024-01-08T13:33:02.962Z</updated>
     
@@ -418,7 +418,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/college-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/modular-inverses/&quot;</summary>
         
       
     
@@ -642,8 +642,8 @@
   
   <entry>
     <title>乘法逆元</title>
-    <link href="https://www.blog-blockchain.xyz/college-courses/modular-inverses/"/>
-    <id>https://www.blog-blockchain.xyz/college-courses/modular-inverses/</id>
+    <link href="https://www.blog-blockchain.xyz/cs-courses/modular-inverses/"/>
+    <id>https://www.blog-blockchain.xyz/cs-courses/modular-inverses/</id>
     <published>2022-09-27T13:49:22.000Z</published>
     <updated>2024-01-10T11:54:33.679Z</updated>
     
@@ -653,7 +653,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/college-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/modular-inverses/&quot;</summary>
         
       
     
@@ -663,32 +663,6 @@
     
     
     <category term="crypto" scheme="https://www.blog-blockchain.xyz/tags/crypto/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从学生互评到知识的适配性</title>
-    <link href="https://www.blog-blockchain.xyz/personal/students-rate-each-other-for-sholarship/"/>
-    <id>https://www.blog-blockchain.xyz/personal/students-rate-each-other-for-sholarship/</id>
-    <published>2022-09-19T09:30:33.000Z</published>
-    <updated>2022-11-12T13:50:11.655Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;个人生活思考，如果您只对 IT</summary>
-        
-      
-    
-    
-    
-    <category term="experience" scheme="https://www.blog-blockchain.xyz/categories/experience/"/>
-    
-    
-    <category term="read-think" scheme="https://www.blog-blockchain.xyz/tags/read-think/"/>
     
   </entry>
   
@@ -797,11 +771,11 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>布隆过滤器原理</title>
+    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:38.960Z</updated>
+    <updated>2024-01-08T13:48:36.158Z</updated>
     
     
       
@@ -823,11 +797,11 @@
   </entry>
   
   <entry>
-    <title>布隆过滤器原理</title>
-    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
-    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:36.158Z</updated>
+    <updated>2024-01-08T13:48:38.960Z</updated>
     
     
       
@@ -875,11 +849,11 @@
   </entry>
   
   <entry>
-    <title>TxList 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
-    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
+    <title>交易池分析</title>
+    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:49:05.705Z</updated>
+    <updated>2024-01-08T13:48:57.842Z</updated>
     
     
       
@@ -901,11 +875,11 @@
   </entry>
   
   <entry>
-    <title>交易池分析</title>
-    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
-    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <title>TxList 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
+    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
     <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-01-08T13:48:57.842Z</updated>
+    <updated>2024-01-08T13:49:05.705Z</updated>
     
     
       
@@ -1031,11 +1005,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:17.675Z</updated>
+    <updated>2024-01-08T13:45:06.820Z</updated>
     
     
       
@@ -1057,11 +1031,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-01-08T13:45:06.820Z</updated>
+    <updated>2024-01-08T13:45:17.675Z</updated>
     
     
       
@@ -1343,6 +1317,32 @@
   </entry>
   
   <entry>
+    <title>（八）合约的高级特性（完）</title>
+    <link href="https://www.blog-blockchain.xyz/contracts/advanced-charactors/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/advanced-charactors/</id>
+    <published>2022-08-23T12:49:22.000Z</published>
+    <updated>2024-07-26T18:09:34.691Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
+    
+    
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
+    
+  </entry>
+  
+  <entry>
     <title>DeFi攻击事件研究</title>
     <link href="https://www.blog-blockchain.xyz/defi/defi-attack-cellection/"/>
     <id>https://www.blog-blockchain.xyz/defi/defi-attack-cellection/</id>
@@ -1374,37 +1374,11 @@
   </entry>
   
   <entry>
-    <title>（八）合约的高级特性（完）</title>
-    <link href="https://www.blog-blockchain.xyz/basic/advanced-charactors/"/>
-    <id>https://www.blog-blockchain.xyz/basic/advanced-charactors/</id>
-    <published>2022-08-23T12:49:22.000Z</published>
-    <updated>2024-01-08T13:42:53.580Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
-    
-    
-    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
-    
-  </entry>
-  
-  <entry>
     <title>（七）特殊函数</title>
-    <link href="https://www.blog-blockchain.xyz/basic/special-functions/"/>
-    <id>https://www.blog-blockchain.xyz/basic/special-functions/</id>
+    <link href="https://www.blog-blockchain.xyz/contracts/special-functions/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/special-functions/</id>
     <published>2022-08-23T10:49:22.000Z</published>
-    <updated>2024-01-08T13:42:47.901Z</updated>
+    <updated>2024-07-26T18:09:19.987Z</updated>
     
     
       
@@ -1412,13 +1386,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
         
       
     
     
     
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
     
     
     <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
@@ -1427,10 +1401,10 @@
   
   <entry>
     <title>（六）应用二进制接口</title>
-    <link href="https://www.blog-blockchain.xyz/basic/application-binary-interface/"/>
-    <id>https://www.blog-blockchain.xyz/basic/application-binary-interface/</id>
+    <link href="https://www.blog-blockchain.xyz/contracts/application-binary-interface/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/application-binary-interface/</id>
     <published>2022-08-23T09:49:22.000Z</published>
-    <updated>2024-01-08T13:42:33.961Z</updated>
+    <updated>2024-07-26T18:09:33.049Z</updated>
     
     
       
@@ -1438,13 +1412,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
         
       
     
     
     
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
     
     
     <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
@@ -1453,10 +1427,10 @@
   
   <entry>
     <title>（五）字面量和内置单位、函数</title>
-    <link href="https://www.blog-blockchain.xyz/basic/function-literal-and-unit/"/>
-    <id>https://www.blog-blockchain.xyz/basic/function-literal-and-unit/</id>
+    <link href="https://www.blog-blockchain.xyz/contracts/function-literal-and-unit/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/function-literal-and-unit/</id>
     <published>2022-08-23T07:49:22.000Z</published>
-    <updated>2024-01-08T13:42:26.601Z</updated>
+    <updated>2024-07-26T18:09:25.163Z</updated>
     
     
       
@@ -1464,13 +1438,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
         
       
     
     
     
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
     
     
     <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
@@ -1479,10 +1453,10 @@
   
   <entry>
     <title>（四）类型</title>
-    <link href="https://www.blog-blockchain.xyz/basic/types/"/>
-    <id>https://www.blog-blockchain.xyz/basic/types/</id>
+    <link href="https://www.blog-blockchain.xyz/contracts/types/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/types/</id>
     <published>2022-08-23T06:49:22.000Z</published>
-    <updated>2024-01-08T13:42:17.240Z</updated>
+    <updated>2024-07-26T18:09:18.275Z</updated>
     
     
       
@@ -1490,13 +1464,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
         
       
     
     
     
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
     
     
     <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
@@ -1505,10 +1479,10 @@
   
   <entry>
     <title>（三）控制结构</title>
-    <link href="https://www.blog-blockchain.xyz/basic/controll-flow/"/>
-    <id>https://www.blog-blockchain.xyz/basic/controll-flow/</id>
+    <link href="https://www.blog-blockchain.xyz/contracts/controll-flow/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/controll-flow/</id>
     <published>2022-08-23T04:49:22.000Z</published>
-    <updated>2024-01-08T13:42:11.669Z</updated>
+    <updated>2024-07-26T18:09:27.236Z</updated>
     
     
       
@@ -1516,13 +1490,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
         
       
     
     
     
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
     
     
     <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
@@ -1531,10 +1505,10 @@
   
   <entry>
     <title>（二）代码结构和合约特性</title>
-    <link href="https://www.blog-blockchain.xyz/basic/program-structure-and-characters/"/>
-    <id>https://www.blog-blockchain.xyz/basic/program-structure-and-characters/</id>
+    <link href="https://www.blog-blockchain.xyz/contracts/program-structure-and-characters/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/program-structure-and-characters/</id>
     <published>2022-08-23T03:49:22.000Z</published>
-    <updated>2024-01-08T13:41:54.655Z</updated>
+    <updated>2024-07-26T18:09:21.229Z</updated>
     
     
       
@@ -1542,13 +1516,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
         
       
     
     
     
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
     
     
     <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
@@ -1557,10 +1531,10 @@
   
   <entry>
     <title>（一）初步理解智能合约</title>
-    <link href="https://www.blog-blockchain.xyz/basic/basic-understanding/"/>
-    <id>https://www.blog-blockchain.xyz/basic/basic-understanding/</id>
+    <link href="https://www.blog-blockchain.xyz/contracts/basic-understanding/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/basic-understanding/</id>
     <published>2022-08-23T02:48:22.000Z</published>
-    <updated>2024-01-08T13:41:55.437Z</updated>
+    <updated>2024-07-26T18:09:30.787Z</updated>
     
     
       
@@ -1568,13 +1542,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
         
       
     
     
     
-    <category term="smart contract basics" scheme="https://www.blog-blockchain.xyz/categories/smart-contract-basics/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
     
     
     <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
@@ -1583,10 +1557,10 @@
   
   <entry>
     <title>区块链基础</title>
-    <link href="https://www.blog-blockchain.xyz/basic/blockchain-basis/"/>
-    <id>https://www.blog-blockchain.xyz/basic/blockchain-basis/</id>
+    <link href="https://www.blog-blockchain.xyz/contracts/blockchain-basis/"/>
+    <id>https://www.blog-blockchain.xyz/contracts/blockchain-basis/</id>
     <published>2021-08-25T05:30:33.000Z</published>
-    <updated>2024-01-08T13:43:36.957Z</updated>
+    <updated>2024-07-26T18:09:29.080Z</updated>
     
     
       
@@ -1594,25 +1568,25 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/basic/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/basic/basic-understanding/&quot;</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/contracts/blockchain-basis/&quot; title=&quot;区块链基础&quot;&gt;区块链基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/contracts/basic-understanding/&quot;</summary>
         
       
     
     
     
-    <category term="basic" scheme="https://www.blog-blockchain.xyz/categories/basic/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/categories/smart-contract/"/>
     
     
-    <category term="basic" scheme="https://www.blog-blockchain.xyz/tags/basic/"/>
+    <category term="smart contract" scheme="https://www.blog-blockchain.xyz/tags/smart-contract/"/>
     
   </entry>
   
   <entry>
     <title>Linux 基础</title>
-    <link href="https://www.blog-blockchain.xyz/tools/linux-basis/"/>
-    <id>https://www.blog-blockchain.xyz/tools/linux-basis/</id>
+    <link href="https://www.blog-blockchain.xyz/cs-courses/linux-basis/"/>
+    <id>https://www.blog-blockchain.xyz/cs-courses/linux-basis/</id>
     <published>2021-08-23T12:49:22.000Z</published>
-    <updated>2022-09-07T03:55:33.800Z</updated>
+    <updated>2024-07-26T18:06:28.237Z</updated>
     
     
       
@@ -1629,7 +1603,7 @@
     
     
     
-    <category term="Linux" scheme="https://www.blog-blockchain.xyz/categories/Linux/"/>
+    <category term="courses" scheme="https://www.blog-blockchain.xyz/categories/courses/"/>
     
     
     <category term="Linux" scheme="https://www.blog-blockchain.xyz/tags/Linux/"/>
@@ -1638,10 +1612,10 @@
   
   <entry>
     <title>C语言基础</title>
-    <link href="https://www.blog-blockchain.xyz/college-courses/C-language-basis/"/>
-    <id>https://www.blog-blockchain.xyz/college-courses/C-language-basis/</id>
+    <link href="https://www.blog-blockchain.xyz/cs-courses/C-language-basis/"/>
+    <id>https://www.blog-blockchain.xyz/cs-courses/C-language-basis/</id>
     <published>2021-02-02T08:15:22.000Z</published>
-    <updated>2024-01-08T13:33:30.382Z</updated>
+    <updated>2024-07-26T18:02:57.241Z</updated>
     
     
       
@@ -1649,13 +1623,13 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/college-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/C-language-basis/&quot; title=&quot;C语言基础&quot;&gt;C语言基础&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/cs-courses/modular-inverses/&quot;</summary>
         
       
     
     
     
-    <category term="C" scheme="https://www.blog-blockchain.xyz/categories/C/"/>
+    <category term="courses" scheme="https://www.blog-blockchain.xyz/categories/courses/"/>
     
     
     <category term="C" scheme="https://www.blog-blockchain.xyz/tags/C/"/>
