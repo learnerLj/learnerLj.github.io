@@ -903,6 +903,32 @@
   </entry>
   
   <entry>
+    <title>oracle 原理和实现</title>
+    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
+    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2024-10-25T02:15:20.643Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
     <title>交易池分析</title>
     <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
     <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
@@ -934,32 +960,6 @@
     <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-10-25T02:15:20.644Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>oracle 原理和实现</title>
-    <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
-    <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
-    <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-10-25T02:15:20.643Z</updated>
     
     
       
@@ -1085,9 +1085,9 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
     <updated>2024-10-25T02:15:20.628Z</updated>
     
@@ -1111,9 +1111,9 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
     <updated>2024-10-25T02:15:20.628Z</updated>
     
