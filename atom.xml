@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-10-25T02:27:50.337Z</updated>
+  <updated>2024-10-28T09:40:20.513Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>包的开发</title>
+    <link href="https://www.blog-blockchain.xyz/dev/python-package/"/>
+    <id>https://www.blog-blockchain.xyz/dev/python-package/</id>
+    <published>2024-10-22T03:18:20.000Z</published>
+    <updated>2024-10-28T09:40:20.513Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Python 包的开发是一项重要的技能，可以帮助你组织代码、实现代码复用，并且将功能模块分发给其他开发者使用。&lt;/p&gt;
+&lt;h1&gt;包和模块是什么&lt;/h1&gt;
+&lt;p&gt;在 Python 中，一个包（Package）就是一个包含多个模块的目录，其中通过</summary>
+        
+      
+    
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/categories/developer/"/>
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/tags/developer/"/>
+    
+  </entry>
   
   <entry>
     <title>docker自动化</title>
@@ -49,7 +76,7 @@
     <link href="https://www.blog-blockchain.xyz/dev/python-env/"/>
     <id>https://www.blog-blockchain.xyz/dev/python-env/</id>
     <published>2024-10-21T03:18:20.000Z</published>
-    <updated>2024-10-28T09:21:40.615Z</updated>
+    <updated>2024-10-28T09:39:47.115Z</updated>
     
     
       
@@ -58,33 +85,6 @@
         
     <summary type="html">&lt;h1&gt;管理 Python 版本&lt;/h1&gt;
 &lt;p&gt;推荐使用 &lt;a href=&quot;https://github.com/pyenv/pyenv&quot;&gt;https://github.com/pyenv/pyenv&lt;/a&gt; 来管理不同版本的 python，但是它不支持</summary>
-        
-      
-    
-    
-    
-    <category term="developer" scheme="https://www.blog-blockchain.xyz/categories/developer/"/>
-    
-    
-    <category term="developer" scheme="https://www.blog-blockchain.xyz/tags/developer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>包的开发</title>
-    <link href="https://www.blog-blockchain.xyz/dev/python-package/"/>
-    <id>https://www.blog-blockchain.xyz/dev/python-package/</id>
-    <published>2024-10-21T03:18:20.000Z</published>
-    <updated>2024-10-28T09:23:12.137Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Python 包的开发是一项重要的技能，可以帮助你组织代码、实现代码复用，并且将功能模块分发给其他开发者使用。&lt;/p&gt;
-&lt;h1&gt;包和模块是什么&lt;/h1&gt;
-&lt;p&gt;在 Python 中，一个包（Package）就是一个包含多个模块的目录，其中通过</summary>
         
       
     
@@ -1112,9 +1112,9 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
     <updated>2024-10-25T02:15:20.628Z</updated>
     
@@ -1138,9 +1138,9 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
     <updated>2024-10-25T02:15:20.628Z</updated>
     
