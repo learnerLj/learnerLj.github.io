@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-10-28T09:40:20.513Z</updated>
+  <updated>2024-10-28T18:53:38.223Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>包的开发</title>
+    <title>(三）Python面向对象设计模式</title>
+    <link href="https://www.blog-blockchain.xyz/dev/python-design/"/>
+    <id>https://www.blog-blockchain.xyz/dev/python-design/</id>
+    <published>2024-10-28T18:53:20.000Z</published>
+    <updated>2024-10-28T18:53:38.223Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;类和对象&lt;/h1&gt;
+&lt;h2 id=&quot;一切都是对象&quot;&gt;一切都是对象&lt;/h2&gt;
+&lt;p&gt;在 Python 中，“一切皆对象”是一个核心理念。简单来说，&lt;strong&gt;Python</summary>
+        
+      
+    
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/categories/developer/"/>
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/tags/developer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>(二）包的开发</title>
     <link href="https://www.blog-blockchain.xyz/dev/python-package/"/>
     <id>https://www.blog-blockchain.xyz/dev/python-package/</id>
     <published>2024-10-22T03:18:20.000Z</published>
-    <updated>2024-10-28T09:40:20.513Z</updated>
+    <updated>2024-10-28T18:53:28.266Z</updated>
     
     
       
@@ -72,11 +99,11 @@
   </entry>
   
   <entry>
-    <title>Python环境配置指南</title>
+    <title>(一）Python环境配置指南</title>
     <link href="https://www.blog-blockchain.xyz/dev/python-env/"/>
     <id>https://www.blog-blockchain.xyz/dev/python-env/</id>
     <published>2024-10-21T03:18:20.000Z</published>
-    <updated>2024-10-28T09:39:47.115Z</updated>
+    <updated>2024-10-28T18:53:39.729Z</updated>
     
     
       
@@ -1112,9 +1139,9 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
     <updated>2024-10-25T02:15:20.628Z</updated>
     
@@ -1138,9 +1165,9 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
     <updated>2024-10-25T02:15:20.628Z</updated>
     
@@ -1358,33 +1385,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="evm" scheme="https://www.blog-blockchain.xyz/categories/evm/"/>
-    
-    
-    <category term="evm" scheme="https://www.blog-blockchain.xyz/tags/evm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>初步理解以太坊虚拟机</title>
-    <link href="https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/"/>
-    <id>https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/</id>
-    <published>2022-08-23T13:49:22.000Z</published>
-    <updated>2024-10-25T02:15:20.637Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
         
       
     
@@ -1410,7 +1411,33 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="evm" scheme="https://www.blog-blockchain.xyz/categories/evm/"/>
+    
+    
+    <category term="evm" scheme="https://www.blog-blockchain.xyz/tags/evm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>初步理解以太坊虚拟机</title>
+    <link href="https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/"/>
+    <id>https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/</id>
+    <published>2022-08-23T13:49:22.000Z</published>
+    <updated>2024-10-25T02:15:20.637Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
         
       
     
