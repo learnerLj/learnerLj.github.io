@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-10-28T18:53:38.223Z</updated>
+  <updated>2024-10-29T16:38:02.359Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git合作指南</title>
+    <link href="https://www.blog-blockchain.xyz/dev/git/"/>
+    <id>https://www.blog-blockchain.xyz/dev/git/</id>
+    <published>2024-10-29T16:21:20.000Z</published>
+    <updated>2024-10-29T16:38:02.359Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;strong&gt;Fork 项目仓库&lt;/strong&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;进入项目的 GitHub 页面，点击右上角的 &lt;strong&gt;Fork&lt;/strong&gt; 按钮，将该项目仓库复制到自己的 GitHub 账户下。&lt;/li&gt;
+&lt;li&gt;这个 Fork</summary>
+        
+      
+    
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/categories/developer/"/>
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/tags/developer/"/>
+    
+  </entry>
   
   <entry>
     <title>(三）Python面向对象设计模式</title>
@@ -1139,9 +1167,9 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
     <updated>2024-10-25T02:15:20.628Z</updated>
     
@@ -1165,9 +1193,9 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
     <updated>2024-10-25T02:15:20.628Z</updated>
     
