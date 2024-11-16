@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-11-16T17:39:33.631Z</updated>
+  <updated>2024-11-16T17:58:45.286Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.blog-blockchain.xyz/dev/macbook/"/>
     <id>https://www.blog-blockchain.xyz/dev/macbook/</id>
     <published>2024-11-16T17:33:20.000Z</published>
-    <updated>2024-11-16T17:39:33.631Z</updated>
+    <updated>2024-11-16T17:58:45.286Z</updated>
     
     
       
@@ -961,9 +961,9 @@
   </entry>
   
   <entry>
-    <title>布隆过滤器原理</title>
-    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
-    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
@@ -987,9 +987,9 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>布隆过滤器原理</title>
+    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
