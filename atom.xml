@@ -961,9 +961,9 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>布隆过滤器原理</title>
+    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
@@ -987,9 +987,9 @@
   </entry>
   
   <entry>
-    <title>布隆过滤器原理</title>
-    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
-    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
@@ -1039,9 +1039,9 @@
   </entry>
   
   <entry>
-    <title>交易池分析</title>
-    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
-    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
+    <title>TxList 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
+    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
@@ -1065,9 +1065,9 @@
   </entry>
   
   <entry>
-    <title>TxList 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/txlist/"/>
-    <id>https://www.blog-blockchain.xyz/geth/txlist/</id>
+    <title>交易池分析</title>
+    <link href="https://www.blog-blockchain.xyz/geth/tx-pool/"/>
+    <id>https://www.blog-blockchain.xyz/geth/tx-pool/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
@@ -1441,33 +1441,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="evm" scheme="https://www.blog-blockchain.xyz/categories/evm/"/>
-    
-    
-    <category term="evm" scheme="https://www.blog-blockchain.xyz/tags/evm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>初步理解以太坊虚拟机</title>
-    <link href="https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/"/>
-    <id>https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/</id>
-    <published>2022-08-23T13:49:22.000Z</published>
-    <updated>2024-11-15T14:30:54.921Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
         
       
     
@@ -1493,7 +1467,33 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/basic-understanding-to-evm/&quot; title=&quot;初步理解以太坊虚拟机&quot;&gt;初步理解以太坊虚拟机&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="evm" scheme="https://www.blog-blockchain.xyz/categories/evm/"/>
+    
+    
+    <category term="evm" scheme="https://www.blog-blockchain.xyz/tags/evm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>初步理解以太坊虚拟机</title>
+    <link href="https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/"/>
+    <id>https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/</id>
+    <published>2022-08-23T13:49:22.000Z</published>
+    <updated>2024-11-15T14:30:54.921Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/evm/data-layout/&quot; title=&quot;以太坊的数据组织&quot;&gt;以太坊的数据组织&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
         
       
     
