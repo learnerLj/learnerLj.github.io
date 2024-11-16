@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>区块链相关学习材料 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1&#123;% series SolAuditResource %&#125; 一些不错的合约相关入门资料。我已经过了这个阶段了，这些书签都要删了，就分享出来。 https:&#x2F;&#x2F;github.com&#x2F;bkrem&#x2F;awesome-solidity https:&#x2F;&#x2F;learnblockchain.cn&#x2F;article&#x2F;2383 https:&#x2F;&#x2F;learnblockchain.cn&#x2F;column&#x2F;1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链相关学习材料">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/audit/blockchian-study-material/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="1&#123;% series SolAuditResource %&#125; 一些不错的合约相关入门资料。我已经过了这个阶段了，这些书签都要删了，就分享出来。 https:&#x2F;&#x2F;github.com&#x2F;bkrem&#x2F;awesome-solidity https:&#x2F;&#x2F;learnblockchain.cn&#x2F;article&#x2F;2383 https:&#x2F;&#x2F;learnblockchain.cn&#x2F;column&#x2F;1">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.blog-blockchain.xyz/images/smart-contract-audit.png">
+<meta property="article:published_time" content="2023-08-09T09:33:33.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:30:54.917Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="smart contract">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog-blockchain.xyz/images/smart-contract-audit.png"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/audit/blockchian-study-material/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '区块链相关学习材料',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">区块链相关学习材料</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">区块链相关学习材料</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-08-09T09:33:33.000Z" title="Created 2023-08-09 17:33:33">2023-08-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-15T14:30:54.917Z" title="Updated 2024-11-15 22:30:54">2024-11-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/audit/">audit</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">351</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>1mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% series SolAuditResource %&#125;</span><br></pre></td></tr></table></figure>
+<p>一些不错的合约相关入门资料。我已经过了这个阶段了，这些书签都要删了，就分享出来。<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/bkrem/awesome-solidity">https://github.com/bkrem/awesome-solidity</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/article/2383">https://learnblockchain.cn/article/2383</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/column/1">https://learnblockchain.cn/column/1</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/eth/">https://learnblockchain.cn/eth/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://solidity-by-example.org/">https://solidity-by-example.org/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://goethereumbook.org/zh/">https://goethereumbook.org/zh/</a></p>
+<p>流行的生态：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://openzeppelin.com/">https://openzeppelin.com/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.trufflesuite.com/">https://www.trufflesuite.com/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://infura.io/dashboard">https://infura.io/dashboard</a></p>
+<p>一些博客：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://hackmd.io/@Nhlanhla">https://hackmd.io/@Nhlanhla</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/blockchainGuide/blockchainguide">https://github.com/blockchainGuide/blockchainguide</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://u.naturaldao.io/be/">https://u.naturaldao.io/be/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.wongssh.cf/">https://blog.wongssh.cf/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.tofreedom.me/">https://www.tofreedom.me/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.wongssh.cf/">https://blog.wongssh.cf/</a></p>
+<p>EVM 字节码和源码相关:<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://ethbook.abyteahead.com/index.html">https://ethbook.abyteahead.com/index.html</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.youtube.com/watch?v=RxL_1AfV7N4&amp;t=1s">https://www.youtube.com/watch?v=RxL_1AfV7N4&amp;t=1s</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/palkeo/panoramix">https://github.com/palkeo/panoramix</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.yaofeiliang.com/tags/#%E5%8C%BA%E5%9D%97%E9%93%BE">https://www.yaofeiliang.com/tags/#区块链</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ZtesoftCS/go-ethereum-code-analysis">https://github.com/ZtesoftCS/go-ethereum-code-analysis</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/books/geth/">https://learnblockchain.cn/books/geth/</a></p>
+<p>问答社区：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://gitter.im/ethereum/home">https://gitter.im/ethereum/home</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/">https://stackoverflow.com/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://forum.openzeppelin.com/c/general/16">https://forum.openzeppelin.com/c/general/16</a></p>
+<p>代码分析：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/zhang971105/article/details/109046458">https://blog.csdn.net/zhang971105/article/details/109046458</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://xiongyingfei.github.io/SA/2022/main.htm">https://xiongyingfei.github.io/SA/2022/main.htm</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://pascal-group.bitbucket.io/teaching.html">https://pascal-group.bitbucket.io/teaching.html</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cs.cmu.edu/~aldrich/courses/17-355-19sp/">https://www.cs.cmu.edu/~aldrich/courses/17-355-19sp/</a></p>
+<p>安全事件和赏金：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU4ODQ3NTM2OA==&amp;action=getalbum&amp;album_id=1378653641065857025">https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU4ODQ3NTM2OA==&amp;action=getalbum&amp;album_id=1378653641065857025</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://immunefi.com/">https://immunefi.com/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://rekt.news/zh/">https://rekt.news/zh/</a></p>
+<p>积极维护的开源审计工具：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/crytic/slither">https://github.com/crytic/slither</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ConsenSys/mythril">https://github.com/ConsenSys/mythril</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/trailofbits/manticore">https://github.com/trailofbits/manticore</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/sc-forks/solidity-coverage">https://github.com/sc-forks/solidity-coverage</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/crytic/echidna">https://github.com/crytic/echidna</a></p>
+<p>反汇编工具：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://library.dedaub.com/">https://library.dedaub.com/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.pnfsoftware.com/jeb/manual/ethereum/">https://www.pnfsoftware.com/jeb/manual/ethereum/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://ethervm.io/decompile">https://ethervm.io/decompile</a></p>
+<p>区块链数据库：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://bitquery.io/">https://bitquery.io/</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/tintinweb/smart-contract-sanctuary-ethereum">https://github.com/tintinweb/smart-contract-sanctuary-ethereum</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://xblock.pro/#/">https://xblock.pro/#/</a></p>
+<p>defi 课程和书：<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.coursera.org/specializations/decentralized-finance-duke">https://www.coursera.org/specializations/decentralized-finance-duke</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://y1cunhui.github.io/uniswapV3-book-zh-cn/">https://y1cunhui.github.io/uniswapV3-book-zh-cn/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/audit/blockchian-study-material/">https://www.blog-blockchain.xyz/audit/blockchian-study-material/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/smart-contract/">smart contract</a></div><div class="post-share"><div class="social-share" data-image="/images/smart-contract-audit.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/cs-courses/information-theory/" title="信息论与编码"><img class="cover" src="/images/info-theory.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">信息论与编码</div></div><div class="info-2"><div class="info-item-1"> C语言基础乘法逆元信息安全算法基础操作系统基础x86汇编基础信息论与编码  前言 这篇总结和系统性学习地笔记，是基于电子科技大学的《信息论与编码》课程，而我写作的初衷是个人的复习。因此，内容可能不是那么详细，但是我会保证基本上我会在自己理解的基础上，完成这篇文章。随着我自己的理解的加深，可能会出现前后不一致的情况，如果读者感到矛盾，那么请在评论区说明，等我有时间时会继续完善的。 离散信源熵 单符号离散信源是最简单的情况，离散是指信源输出是有限个符号，单符号是指每个符号都是独立的，每次只发出一个符号。 随机变量基础 在单符号离散信源中，每个符号的概率分布可以用一个概率向量来表示。例如，一个三个符号的单符号离散信源可以用以下概率分布表示，符号 A、B、C 之间是相互独立的，即一个符号的出现不会影响到其他符号的出现概率。可以如下的方式抽象成数学模型。 离散随机变量集合：a1,a2,a3{a_1,a_2,a_3}a1​,a2​,a3​，对应概率 P(ai)P(a_i)P(ai​)，且 0≤P(ai)≤10 \le P(a_i) \le 10≤P(ai​)≤1 ,...</div></div></div></a><a class="pagination-related" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server"><img class="cover" src="/images/geth.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">How Geth starts its server</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  When starting up, the Geth client begins by parsing the command line parameters. This process kicks off with the geth function: func geth(ctx *cli.Context) error  at cmd/geth/main.go:326 where the geth prepares the metric if enabled. Subsequently, the makeFullNode function takes over. It reads the provided configuration file or command line flags. As a result, it...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/contracts/application-binary-interface/" title="（六）应用二进制接口"><img class="cover" src="/images/solidity.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="info-item-2">（六）应用二进制接口</div></div><div class="info-2"><div class="info-item-1"> 区块链基础（一）初步理解智能合约（二）代码结构和合约特性（三）控制结构（四）类型（五）字面量和内置单位、函数（六）应用二进制接口（七）特殊函数（八）合约的高级特性（完）  接口含义 在地址类型的介绍中提到了底层调用的 call 函数，这里将会介绍它的用法，以及和 ABI 函数的配合。 ABI 全名 Application Binary Interface，翻译为应用二进制接口。它定义了与合约交互的规范，因此底层函数 (如 call) 直接给合约发消息前，需要了解 ABI。 ABI 是由合约生成的，规定与合约交互方式的规则，它是一个接口，常被 web3 等库调用。熟悉 REST API 的读者应该能很快理解。 例如下面是智能合约： 12345678910111213141516171819202122232425262728293031323334353637383940// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;/** * @title Owner * @dev...</div></div></div></a><a class="pagination-related" href="/contracts/advanced-charactors/" title="（八）合约的高级特性（完）"><img class="cover" src="/images/solidity.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="info-item-2">（八）合约的高级特性（完）</div></div><div class="info-2"><div class="info-item-1"> 区块链基础（一）初步理解智能合约（二）代码结构和合约特性（三）控制结构（四）类型（五）字面量和内置单位、函数（六）应用二进制接口（七）特殊函数（八）合约的高级特性（完）  继承 继承的机制和 python 的非常相似，但是存在差异。一般而言使用过 C++, 基本已经掌握。 当合约继承其他的合约时，只会在区块链上生成一个合约，所有相关的合约都会编译进这个合约，调用机制和写在一个合约上一致。 继承时，全局变量无法覆盖，如果出现可见的同名变量会编译错误。通过例子来体会细节，重点理解语法，而不是程序逻辑。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;contract Owned &#123;    constructor() &#123; owner =...</div></div></div></a><a class="pagination-related" href="/contracts/basic-understanding/" title="（一）初步理解智能合约"><img class="cover" src="/images/solidity.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="info-item-2">（一）初步理解智能合约</div></div><div class="info-2"><div class="info-item-1"> 区块链基础（一）初步理解智能合约（二）代码结构和合约特性（三）控制结构（四）类型（五）字面量和内置单位、函数（六）应用二进制接口（七）特殊函数（八）合约的高级特性（完）  前言 这是我学习区块链入门时做的笔记（基于 0.8.7 版本），基本涵盖了编写合约所需常用知识，由于做智能合约安全方面的研究需要精通 Solidity 和 以太坊原理，因此做的笔记比较详实。 这些笔记基于阅读英文文档，参考中文文档和 stack overflow 以及相关教程，我根据学习者的接受新知识的顺序，对文章结构做了适当优化。 这篇文章既可以作为新手入门（因为啃英文文档并且搜索信息并不是容易的事情），也可以作为快捷的检索帮助文档（官方文档的翻译某些部分比较难以理解）。建议使用电脑端阅读。 初稿完成时，都还没学 C 语言，只是一知半解的边学边记。在大二上学期的寒假，我重新整理了一遍，修正了部分错误，将拗口的表述转化成习惯表述，补充了文档中缺少的范例，根据经验突出需要强调的注意事项，使得读者可以跟容易的学习。 本文共计接近 7...</div></div></div></a><a class="pagination-related" href="/contracts/controll-flow/" title="（三）控制结构"><img class="cover" src="/images/solidity.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="info-item-2">（三）控制结构</div></div><div class="info-2"><div class="info-item-1"> 区块链基础（一）初步理解智能合约（二）代码结构和合约特性（三）控制结构（四）类型（五）字面量和内置单位、函数（六）应用二进制接口（七）特殊函数（八）合约的高级特性（完）  表达式和控制结构 Solidity 支持 if, else, while, do, for, break, continue, return这些和 C 语言一样的关键字。 Solidity 还支持 try/catch 语句形式的异常处理， 但仅用于 外部函数调用 和 合约创建调用． 由于不支持非布尔类型值转换成布尔类型，因此if(1)&#123;&#125;是不合法的。 函数调用 内部调用 内部调用再 EVM 中只是简单的跳转（不会产生实际的消息调用），传递当前的内存的引用，效率很高。但是仍然要避免过多的递归，因为每次进入内部函数都会占用一个堆栈槽，而最多只有 1024 个堆栈槽。 外部调用   只有external或者public的函数才可以通过消息调用而不是单纯的跳转调用，外部函数的参数会暂时复制在内存中。   this不可以出现在构造函数里，因为此时合约还没有完成。   调用时可以指定 value 和...</div></div></div></a><a class="pagination-related" href="/contracts/blockchain-basis/" title="区块链基础"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/60e87d5df9aa578a9377306efa2025f3.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-25</div><div class="info-item-2">区块链基础</div></div><div class="info-2"><div class="info-item-1"> 区块链基础（一）初步理解智能合约（二）代码结构和合约特性（三）控制结构（四）类型（五）字面量和内置单位、函数（六）应用二进制接口（七）特殊函数（八）合约的高级特性（完）  区块链 1.0（基于比特币的说明）  内容基本来自这个网站： https://learnmeabitcoin.com/ ，本人大一初学时一边啃一遍记录笔记，于是形成了这一篇文章。  指的是一个不可篡改的，分布式，去中心化账本，没有谁是中央登记员，因为大家都是中央登记员，大家的账本写的东西都一模一样，记着大家所有人的资产信息。（这大概是我们对它的基本认知） 区块链记账，会把上一次交易的账页信息（交易序号，记账(交易)时间，交易记录）作为原始信息，hash 之后的值与本次的账页信息结合在一起，就成了一个区块；（这个数据结构类似于链表——简单地说，既能够存储来自上一个节点的数据，也能够连接下一个节点） 继续推导，下一个区块也会包含本次交易的账页信息 hash 值，和下一次交易的账页信息，这样一来，每一个区块都包含着上一次的账页信息，根据 hash...</div></div></div></a><a class="pagination-related" href="/contracts/function-literal-and-unit/" title="（五）字面量和内置单位、函数"><img class="cover" src="/images/solidity.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="info-item-2">（五）字面量和内置单位、函数</div></div><div class="info-2"><div class="info-item-1"> 区块链基础（一）初步理解智能合约（二）代码结构和合约特性（三）控制结构（四）类型（五）字面量和内置单位、函数（六）应用二进制接口（七）特殊函数（八）合约的高级特性（完）  字面常量 地址 地址的字面常量有 EIP-55 的标准（区分大写字母和小写字母来验证），只有经过校验后才能作为 address 变量。 有理数和整数 十进制的小数字面常量都会带一个.比如1. .1...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>Post Series</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/audit/classic-vulnerabilities/" title="智能合约的经典漏洞"><img src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="智能合约的经典漏洞"></a><div class="content"><a class="title" href="/audit/classic-vulnerabilities/" title="智能合约的经典漏洞">智能合约的经典漏洞</a><time datetime="2022-08-24T12:30:33.000Z" title="Created 2022-08-24 20:30:33">2022-08-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/audit/open-source-audit-tools/" title="智能合约的审计工具"><img src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="智能合约的审计工具"></a><div class="content"><a class="title" href="/audit/open-source-audit-tools/" title="智能合约的审计工具">智能合约的审计工具</a><time datetime="2022-08-24T12:33:33.000Z" title="Created 2022-08-24 20:33:33">2022-08-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/audit/smart-contract-learning-path/" title="智能合约安全学习路线"><img src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="智能合约安全学习路线"></a><div class="content"><a class="title" href="/audit/smart-contract-learning-path/" title="智能合约安全学习路线">智能合约安全学习路线</a><time datetime="2022-08-24T17:33:33.000Z" title="Created 2022-08-25 01:33:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/audit/learning-resource/" title="智能合约学习资源"><img src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="智能合约学习资源"></a><div class="content"><a class="title" href="/audit/learning-resource/" title="智能合约学习资源">智能合约学习资源</a><time datetime="2022-08-24T17:33:33.000Z" title="Created 2022-08-25 01:33:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/audit/blockchian-study-material/" title="区块链相关学习材料"><img src="/images/smart-contract-audit.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块链相关学习材料"></a><div class="content"><a class="title" href="/audit/blockchian-study-material/" title="区块链相关学习材料">区块链相关学习材料</a><time datetime="2023-08-09T09:33:33.000Z" title="Created 2023-08-09 17:33:33">2023-08-09</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/macbook/" title="macbook体验"><img src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="macbook体验"/></a><div class="content"><a class="title" href="/dev/macbook/" title="macbook体验">macbook体验</a><time datetime="2024-11-16T17:33:20.000Z" title="Created 2024-11-17 01:33:20">2024-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/git/" title="Git合作指南"><img src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git合作指南"/></a><div class="content"><a class="title" href="/dev/git/" title="Git合作指南">Git合作指南</a><time datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(三）Python面向对象设计模式"/></a><div class="content"><a class="title" href="/dev/python-design/" title="(三）Python面向对象设计模式">(三）Python面向对象设计模式</a><time datetime="2024-10-28T18:53:20.000Z" title="Created 2024-10-29 02:53:20">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-package/" title="(二）包的开发"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(二）包的开发"/></a><div class="content"><a class="title" href="/dev/python-package/" title="(二）包的开发">(二）包的开发</a><time datetime="2024-10-22T03:18:20.000Z" title="Created 2024-10-22 11:18:20">2024-10-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/docker/" title="docker自动化"><img src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker自动化"/></a><div class="content"><a class="title" href="/dev/docker/" title="docker自动化">docker自动化</a><time datetime="2024-10-21T06:22:20.000Z" title="Created 2024-10-21 14:22:20">2024-10-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '101db685428d09795d7a2bbb42d0193e'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>

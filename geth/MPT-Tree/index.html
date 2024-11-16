@@ -1,0 +1,725 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MPT树 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server   由于MPT 树不属于core部分所以有些地方并没有详细的解读，仅供参考。 由于该部分网上的解读都差异不大，故该文章大部分是进行整合，并且加上个人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MPT树">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/geth/MPT-Tree/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server   由于MPT 树不属于core部分所以有些地方并没有详细的解读，仅供参考。 由于该部分网上的解读都差异不大，故该文章大部分是进行整合，并且加上个人">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.blog-blockchain.xyz/images/geth.png">
+<meta property="article:published_time" content="2022-08-25T04:30:33.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:30:54.923Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="geth">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog-blockchain.xyz/images/geth.png"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/geth/MPT-Tree/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MPT树',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">MPT树</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MPT树</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-08-25T04:30:33.000Z" title="Created 2022-08-25 12:30:33">2022-08-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-15T14:30:54.923Z" title="Updated 2024-11-15 22:30:54">2024-11-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/geth/">geth</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">11k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>41mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><blockquote>
+<ol class="series-items"><li><a href="/geth/tx-signature/" title="交易的签名">交易的签名</a></li><li><a href="/geth/understand-receipt/" title="理解收据receipt">理解收据receipt</a></li><li><a href="/geth/blocks/" title="理解区块">理解区块</a></li><li><a href="/geth/understand-tx/" title="理解交易">理解交易</a></li><li><a href="/geth/blockchain-core/" title="blockchain核心">blockchain核心</a></li><li><a href="/geth/forkId/" title="forkId 解读">forkId 解读</a></li><li><a href="/geth/bloom-filter/" title="布隆过滤器原理">布隆过滤器原理</a></li><li><a href="/geth/oracle-introduction/" title="oracle 原理和实现">oracle 原理和实现</a></li><li><a href="/geth/tx-pool/" title="交易池分析">交易池分析</a></li><li><a href="/geth/txlist/" title="TxList 解读">TxList 解读</a></li><li><a href="/geth/MPT-Tree/" title="MPT树">MPT树</a></li><li><a href="/geth/block-sync/" title="区块同步">区块同步</a></li><li><a href="/geth/introduction/" title="geth源码学习——介绍">geth源码学习——介绍</a></li><li><a href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server">How Geth starts its server</a></li></ol>
+</blockquote>
+<blockquote>
+<p>由于<strong>MPT 树</strong>不属于<strong>core</strong>部分所以有些地方并没有详细的解读，仅供参考。</p>
+<p>由于该部分网上的解读都差异不大，故该文章<strong>大部分是进行整合</strong>，并且加上<strong>个人阅读源码</strong>的一些看法，所有图片都已经上传到个人仓库。</p>
+<p>感谢前辈的精湛分析！</p>
+</blockquote>
+<p><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220327222113848.png" alt="image-20220327222113848"></p>
+<h1>前缀树 Trie</h1>
+<p>前缀树（又称字典树），通常来说，一个前缀树是用来<code>存储字符串</code>的。前缀树的每一个节点代表一个<code>字符串</code>（<code>前缀</code>）。每一个节点会有多个子节点，通往不同子节点的路径上有着不同的字符。子节点代表的字符串是由节点本身的<code>原始字符串</code>，以及<code>通往该子节点路径上所有的字符</code>组成的。如下图所示：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://tva1.sinaimg.cn/large/0081Kckwgy1gm73i6xursj31820qq789.jpg"><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330161620588.png" alt="image-20220330161620588"></a></p>
+<p>Trie 的结点看上去是这样子的：</p>
+<blockquote>
+<p>[ [Ia, Ib, … I*], value]</p>
+</blockquote>
+<p>其中 <code>[Ia, Ib, ... I*]</code> 在本文中我们将其称为结点的 <em>索引数组</em> ，它以 key 中的下一个字符为索引，每个元素<code>I*</code>指向对应的子结点。 <code>value</code> 则代表从根节点到当前结点的路径组成的 key 所对应的值。如果不存在这样一个 key，则 value 的值为空。</p>
+<p>前缀树的性质：</p>
+<ol>
+<li>每一层节点上面的值都不相同；</li>
+<li><strong>根节点不存储值</strong>；除根节点外每一个节点都<strong>只包含一个字符</strong>，代表的字符串是由节点本身的<code>原始字符串</code>，以及<code>通往该子节点路径上所有的字符</code>。</li>
+<li>前缀树的查找效率是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mclose">)</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span>为所查找节点的长度，而哈希表的查找效率为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。且一次查找会有 m 次 <code>IO</code>开销，相比于直接查找，无论是速率、还是对磁盘的压力都比较大。</li>
+<li>当存在一个节点，其内容很长（如一串很长的字符串），当树中没有与他相同前缀的分支时，为了存储该节点，需要创建许多非叶子节点来构建根节点到该节点间的路径，造成了存储空间的浪费。</li>
+</ol>
+<h1>压缩前缀树 Patricia Tree</h1>
+<p><strong>基数树</strong>（也叫<strong>基数特里树</strong>或<strong>压缩前缀树</strong>）是一种数据结构，是一种更节省空间的<strong>前缀树</strong>，其中作为唯一子节点的每个节点都与其父节点合并，边既可以表示为元素序列又可以表示为单个元素。 因此每个内部节点的子节点数最多为基数树的基数 <em>r</em> ，其中 <em>r</em> 为正整数， <em>x</em> 为 2 的幂， <em>x</em>≥1 ，这使得基数树更适用于对于较小的集合（尤其是字符串很长的情况下）和有<strong>很长相同前缀</strong>的字符串集合。</p>
+<ol>
+<li>示例 1：</li>
+</ol>
+<p><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330162035687.png" alt="image-20220330162035687"></p>
+<p>图中可以很容易看出数中所存储的键值对：</p>
+<ul>
+<li><code>6c0a5c71ec20bq3w</code> =&gt; 5</li>
+<li><code>6c0a5c71ec20CX7j</code> =&gt; 27</li>
+<li><code>6c0a5c71781a1FXq</code>=&gt; 18</li>
+<li><code>6c0a5c71781a9Dog</code> =&gt; 64</li>
+<li><code>6c0a8f743b95zUfe</code> =&gt; 30</li>
+<li><code>6c0a8f743b95jx5R</code> =&gt; 2</li>
+<li><code>6c0a8f740d16y03G</code> =&gt; 43</li>
+<li><code>6c0a8f740d16vcc1</code> =&gt; 48</li>
+</ul>
+<ol start="2">
+<li>示例 2：</li>
+</ol>
+<p><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330162102535.png" alt="image-20220330162102535"></p>
+<p>虽然基数树使得以相同字符序列开头的键的值在树中靠得更近，但是它们可能效率很低。 例如，当你有一个超长键且没有其他键与之共享前缀时，<code>即使路径上没有其他值，但你必须在树中移动（并存储）大量节点才能获得该值。 这种低效在以太坊中会更加明显，因为参与树构建的 Key 是一个哈希值有 64 长（32 字节）</code>，则树的最长深度是 64。树中每个节点必须存储 32 字节，一个 Key 就需要至少 2KB 来存储，其中包含大量空白内容。 因此，在经常需要更新的以太坊状态树中，优化改进基数树，以提高效率、降低树的深度和减少 IO 次数，是必要的。</p>
+<h1>默克尔树 Merkle Tree</h1>
+<p><code>Merkle树</code>看起来非常像二叉树，其叶子节点上的值通常为数据块的哈希值，而非叶子节点上的值，所以有时候<code>Merkle tree</code>也表示为<code>Hash tree</code>，如下图所示：<img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330162144911.png" alt="image-20220330162144911"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://tva1.sinaimg.cn/large/0081Kckwgy1gm69qu5vh8j31ba0ragpn.jpg">https://tva1.sinaimg.cn/large/0081Kckwgy1gm69qu5vh8j31ba0ragpn.jpg</a>)</p>
+<p>在构造<code>Merkle</code>树时，首先要计算数据块的哈希值，通常，选用<code>SHA-256</code>等哈希算法。但如果仅仅防止数据不是蓄意的损坏或篡改，可以改用一些安全性低(实际生活中<code>CRC16</code>基本达到 100%的正确率)但效率高的校验和算法，如<code>CRC</code>。然后将数据块计算的哈希值<strong>两两配对（如果是奇数个数，最后一个自己与自己配对）</strong>，计算<strong>上一层哈希</strong>，再重复这个步骤，一直到计算出根哈希值。</p>
+<p>所以我们可以简单总结出<strong>merkle Tree</strong> 有以下几个性质：</p>
+<ul>
+<li>校验整体数据的正确性</li>
+<li>快速定位错误</li>
+<li>快速校验部分数据是否在原始的数据中</li>
+<li>存储空间开销大（<strong>大量中间哈希</strong>）(显然对于以太坊很致命)</li>
+</ul>
+<h1>以太坊的改进方案</h1>
+<h2 id="使用-byte-作为-key-类型">使用[]byte 作为 key 类型</h2>
+<p>在以太坊的 Trie 模块中，key 和 value 都是[]byte 类型。如果要使用其它类型，需要将其转换成[]byte 类型（比如使用<strong>rlp</strong>进行转换）。</p>
+<p><strong>Nibble</strong> ：是 key 的基本单元，是一个四元组（四个 bit 位的组合例如二进制表达的 0010 就是一个四元组）</p>
+<p>在 Trie 模块对外提供的接口中，key 类型是[]byte。但在内部实现里，将 key 中的每个字节按高 4 位和低 4 位拆分成了两个字节。比如你传入的 key 是：</p>
+<blockquote>
+<p>[0x1a, 0x2b, 0x3c, 0x4d]</p>
+</blockquote>
+<p>Trie 内部将这个 key 拆分成：</p>
+<blockquote>
+<p>[0x1, 0xa, 0x2, 0xb, 0x3, 0xc, 0x4, 0xd]</p>
+</blockquote>
+<p>Trie 内部的编码中将拆分后的<strong>每一个字节</strong>称为 <strong>nibble</strong></p>
+<p>如果使用一个完整的 byte 作为 key 的最小单位，那么前文提到的索引数组的大小应该是 256（byte 作为数组的索引，最大值为 255，最小值为 0）（8 位<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>8</mn></msup></mrow><annotation encoding="application/x-tex">2^8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">8</span></span></span></span></span></span></span></span></span></span></span> )。而索引数组的每个元素都是一个 32 字节的哈希,这样每个结点要占用大量的空间。并且索引数组中的元素多数情况下是空的，不指向任何结点。因此这种实现方法占用大量空间而不使用。以太坊的改进方法，可以将索引数组的大小降为 16（4 个 bit 的最大值为 0xF，最小值为 0）(4 位<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">2^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span> ），因此大大减少空间的浪费。</p>
+<h2 id="新增类型节点">新增类型节点</h2>
+<p>前缀树和 merkle 树存在明显的局限性，所以以太坊为 MPT 树新增了几种不同类型的树节点，通过针对不同节点不同操作来解决效率以及存储上的问题。</p>
+<ol>
+<li>
+<p><strong>空白节点</strong> ：简单的表示空，在代码中是一个空串;NULL</p>
+</li>
+<li>
+<p><strong>分支节点</strong> ：分支节点有 17 个元素，回到 Nibble，四元组是 key 的基本单元，<strong>四元组最多有 16 个值</strong>。所以前 16 个必将落入到在其遍历中的键的十六个可能的半字节值中的每一个。第 17 个是存储那些在当前结点<strong>结束了</strong>的节点(例如， 有三个 key,分别是 (abc ,abd, ab) 第 17 个字段储存了 ab 节点的值) ;</p>
+<p><code>branch Node [0,1,…,16,value]</code></p>
+</li>
+<li>
+<p><strong>叶子节点</strong>：只有两个元素，分别为 key 和 value;</p>
+<p><code>leaf Node [key,value]</code></p>
+</li>
+<li>
+<p><strong>扩展节点</strong> ：有两个元素，一个是 key 值，还有一个是 hash 值，这个 hash 值指向下一个节点;</p>
+<p><code> extension Node: [key,value]</code></p>
+</li>
+</ol>
+<p>此外，为了将 MPT 树存储到数据库中，同时还可以把 MPT 树从数据库中恢复出来，<strong>对于 Extension 和 Leaf 的节点类型做了特殊的定义</strong>：如果是一个扩展节点，那么前缀为 0，这个 0 加在 key 前面。如果是一个叶子节点，那么前缀就是 1。同时对<strong>key 的长度就奇偶类型也做了设定</strong>，如果是奇数长度则标示 1，如果是偶数长度则标示 0。</p>
+<p>多种节点类型的不同操作方式，虽然提升了效率，但复杂度被加大。而在 geth 中，为了适应实现，节点类型的设计稍有不同：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//trie/node.go:35</span></span><br><span class="line"><span class="keyword">type</span> (</span><br><span class="line">	fullNode <span class="keyword">struct</span> &#123; <span class="comment">//分支节点</span></span><br><span class="line">		Children [<span class="number">17</span>]node</span><br><span class="line">		flags    nodeFlag</span><br><span class="line">	&#125;</span><br><span class="line">	shortNode <span class="keyword">struct</span> &#123; <span class="comment">//短节点：叶子节点、扩展节点</span></span><br><span class="line">		Key   []<span class="type">byte</span></span><br><span class="line">		Val   node</span><br><span class="line">		flags nodeFlag</span><br><span class="line">	&#125;</span><br><span class="line">	hashNode  []<span class="type">byte</span> <span class="comment">//哈希节点</span></span><br><span class="line">	valueNode []<span class="type">byte</span> <span class="comment">//数据节点,dui&#x27;ying值就是实际的数据值</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">var</span> nilValueNode = valueNode(<span class="literal">nil</span>) <span class="comment">//空白节点</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>fullNode: 分支节点，fullNode[16]的类型是 valueNode。前 16 个元素对应键中可能存在的一个十六进制字符。如果键[key,value]在对应的分支处结束，则在列表末尾存储 value 。</li>
+<li>shortNode: 叶子节点或者扩展节点，当 shortNode.Key 的末尾字节是终止符 <code>16</code> 时表示为叶子节点。当 shortNode 是叶子节点是，Val 是 valueNode。</li>
+<li>hashNode: 应该取名为 collapsedNode 折叠节点更合适些，但因为其值是一个哈希值当做指针使用，所以取名 hashNode。使用这个哈希值可以从数据库读取节点数据展开节点。</li>
+<li>valueNode: 数据节点，实际的业务数据值，严格来说他不属于树中的节点，它只存在于 fullNode.Children 或者 shortNode.Val 中。</li>
+</ul>
+<h2 id="各类-Key">各类 Key</h2>
+<p>在改进过程中，为适应不同场景应用，以太坊定义了几种不同类型的 key 。</p>
+<ol>
+<li>keybytes ：数据的原始 key</li>
+<li>Secure Key: 是 Keccak256(keybytes) 结果，用于规避 key 深度攻击，长度固定为 32 字节。</li>
+<li>Hex Key: 将 Key 进行半字节拆解后的 key ，用于 MPT 的树路径中和降低子节点水平宽度。</li>
+<li>HP Key: Hex 前缀编码(hex prefix encoding)，在节点存持久化时，将对节点 key 进行压缩编码，并加入节点类型标签，以便从存储读取节点数据后可分辨节点类型。</li>
+</ol>
+<p>下图是 key 有特定的使用场景，基本支持逆向编码，在下面的讲解中 Key 在不同语义下特指的类型有所不同</p>
+<h2 id="节点结构改进">节点结构改进</h2>
+<p>当我们把一组数据（romane、romanus、romulus、rubens、ruber、rubicon、rubicunds）写入基数树中时，得到如下一颗基数树：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://img.learnblockchain.cn/book_geth/20191122001418.png!de?width=500px"><img src="https://img.learnblockchain.cn/book_geth/20191122001418.png!de?width=500px" alt="img" style="zoom:50%;" /></a></p>
+<p>在上图的基数树中，持久化节点，有 12 次 IO。数据越多时，节点数越多，IO 次数越多。另外当树很深时，可能需要遍历到树的底部才能查询到数据。 面对此效率问题，以太坊在树中加入了一种名为<strong>分支节点</strong>(branch node) 的节点结构，将其子节点直接包含在自身的数据插槽中。</p>
+<p>这样可缩减树深度和减少 IO 次数，特别是当插槽中均有子节点存在时，改进效果越明显。 下图是上方基数树在采用分支节点后的树节点逻辑布局：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://img.learnblockchain.cn/book_geth/20191122232439.png!de?width=400px&amp;heigth=400px"><img src="https://img.learnblockchain.cn/book_geth/20191122232439.png!de?width=400px&heigth=400px" alt="img" style="zoom: 50%;" /></a></p>
+<p>从图中可以看出节点数量并无改进，仅仅是改变了节点的存放位置，节点的分布变得紧凑。图中大黑圆圈均为分支节点，它包含一个或多个子节点， 这降低了 IO 和查询次数，在上图中，持久化 IO 只有 6 次，低于基数树的 12 次。</p>
+<p>这是因为在持久化分支节点时，并不是将叶子节点分开持久化，而是将其存储在一块。<strong>并将持久化内容的哈希值作为一个新节点来参与树的进一步持久化</strong>，这种新型的节点称之为<code>扩展节点</code>。比如，数据 rubicon(6) 和 rubicunds(7) 是被一起持久化，在查询数据 rubicon 时，将根据 hasNode 值从数据库中读取分支节点内容，并解码成分支节点，内含 rubicon 和 rubicunds。</p>
+<p>另外一个可以参考的官方图：</p>
+<p><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220327222113848.png" alt="image-20220327222113848"></p>
+<p>另外，数据 Key 在进入 MPT 前已转换 Secure Key。 因此，key 长度为 32 字节，每个字节的值范围是[0 - 255]。 如果在分支节点中使用 256 个插槽，空间开销非常高，造成浪费，毕竟空插槽在持久化时也需要占用空间。同时超大容量的插槽，也会可能使得持久化数据过大，可能会造成读取持久化数据时占用过多内存。 如果将 Key 进行<a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/books/geth/part3/mpt.html#hex-encoding">Hex 编码</a>，每个字节值范围被缩小到 [0-15] 内(4bits)。这样，分支节点只需要 16 个插槽来存放子节点。</p>
+<p>上图中 0 - f 插槽索引是半字节值，也是 Key 路径的一部分。虽然一定程度上增加了树高，但降低了分支节点的存储大小，也保证了一定的分支节点合并量。</p>
+<h2 id="以太坊中使用到的-MPT-树结构">以太坊中使用到的 MPT 树结构</h2>
+<ul>
+<li><code>State Trie</code>区块头中的状态树
+<ul>
+<li>key =&gt; sha3(以太坊账户地址 address)</li>
+<li>value =&gt; rlp(账号内容信息 account)</li>
+</ul>
+</li>
+<li><code>Transactions Trie</code> 区块头中的交易树
+<ul>
+<li>key =&gt; rlp(交易的偏移量 transaction index)</li>
+<li>每个块都有各自的交易树，且不可更改</li>
+</ul>
+</li>
+<li><code>Receipts Trie</code>区块头中的收据树
+<ul>
+<li>key = rlp(交易的偏移量 transaction index)</li>
+<li>每个块都有各自的回执树，且不可更改</li>
+</ul>
+</li>
+<li><code>Storage Trie</code>存储树
+<ul>
+<li>存储只能合约状态</li>
+<li>每个账号有自己的 Storage Trie</li>
+</ul>
+</li>
+</ul>
+<p>这两个区块头中，<code>state root</code>、<code>tx root</code>、 <code>receipt root</code>分别存储了这三棵树的树根，第二个区块显示了当账号 17 5 的数据变更(<strong>27 -&gt; 45</strong>)的时候，只需要存储跟这个账号相关的部分数据，而且老的区块中的数据还是可以正常访问。</p>
+<h2 id="key-编码规则">key 编码规则</h2>
+<p>三种编码方式分别为：</p>
+<ol>
+<li><strong>Raw</strong>编码（原生的字符）；</li>
+<li><strong>Hex</strong>编码（扩展的 16 进制编码）；</li>
+<li><strong>Hex-Prefix</strong>编码（16 进制前缀编码）；</li>
+</ol>
+<p><strong>Raw 编码</strong></p>
+<p><strong>Raw</strong>编码就是原生的<strong>key</strong>值，不做任何改变。这种编码方式的<strong>key</strong>，<em>是<strong>MPT</strong>对外提供接口的默认编码方式</em>。</p>
+<blockquote>
+<p>例如一条 key 为“cat”，value 为“dog”的数据项，其 Raw 编码就是[‘c’, ‘a’, ‘t’]，换成 ASCII 表示方式就是[63, 61, 74]</p>
+</blockquote>
+<p><strong>Hex 编码</strong></p>
+<p><em>Hex 编码用于对内存中 MPT 树节点 key 进行编码</em>.</p>
+<p>为了减少分支节点孩子的个数，将数据 key 进行半字节拆解而成。即依次将 key[0],key[1],…,key[n] 分别进行半字节拆分成两个数，再依次存放在长度为 len(key)+1 的数组中。 并在数组末尾写入终止符 <code>16</code>。算法如下：</p>
+<blockquote>
+<p>半字节，在计算机中，通常将 8 位二进制数称为字节，而把 4 位二进制数称为半字节。 高四位和低四位，这里的“位”是针对二进制来说的。比如数字 250 的二进制数为 11111010，则高四位是左边的 1111，低四位是右边的 1010。</p>
+</blockquote>
+<p>从<strong>Raw</strong>编码向<strong>Hex</strong>编码的转换规则是：</p>
+<ul>
+<li><strong>Raw</strong>编码输入的每个字符分解为高 4 位和低 4 位</li>
+<li>如果是<strong>叶子节点</strong>，则在最后加上<strong>Hex</strong>值<code>0x10</code>表示结束</li>
+<li>如果是<strong>扩展节点</strong>不附加任何<strong>Hex</strong>值</li>
+</ul>
+<p>例如：字符串 “romane” 的 bytes 是 <code>[114 111 109 97 110 101]</code>，在 HEX 编码时将其依次处理：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">i</th>
+<th style="text-align:left">key[i]</th>
+<th style="text-align:left">key[i]二进制</th>
+<th style="text-align:left">nibbles[i*2]=高四位</th>
+<th style="text-align:left">nibbles[i*2+1]=低四位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">114</td>
+<td style="text-align:left">01110010</td>
+<td style="text-align:left">0111= 7</td>
+<td style="text-align:left">0010= 2</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">111</td>
+<td style="text-align:left">01101111</td>
+<td style="text-align:left">0110=6</td>
+<td style="text-align:left">1111=15</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">109</td>
+<td style="text-align:left">01101101</td>
+<td style="text-align:left">0110=6</td>
+<td style="text-align:left">1101=13</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">97</td>
+<td style="text-align:left">01100001</td>
+<td style="text-align:left">0110=6</td>
+<td style="text-align:left">0001=1</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">110</td>
+<td style="text-align:left">01101110</td>
+<td style="text-align:left">0110=6</td>
+<td style="text-align:left">1110=14</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">101</td>
+<td style="text-align:left">01100101</td>
+<td style="text-align:left">0110=6</td>
+<td style="text-align:left">0101=5</td>
+</tr>
+</tbody>
+</table>
+<p>最终得到 Hex(“romane”) = <code>[7 2 6 15 6 13 6 1 6 14 6 5 16]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 源码实现</span><br><span class="line">func keybytesToHex(str []byte) []byte &#123;</span><br><span class="line">	l := len(str)*2 + 1</span><br><span class="line">	var nibbles = make([]byte, l)</span><br><span class="line">	for i, b := range str &#123;</span><br><span class="line">		nibbles[i*2] = b / 16   // 高四位</span><br><span class="line">		nibbles[i*2+1] = b % 16 // 低四位</span><br><span class="line">	&#125;</span><br><span class="line">	nibbles[l-1] = 16 // 最后一位存入标示符 代表是hex编码</span><br><span class="line">	return nibbles</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里解释一下为啥 不处理叶子节点和扩展结点的区别，而是直接采用<code>nibbles[l-1]=16</code>，因为扩展节点不储存字符串信息，所以说字符串转换的时候直接按叶子节点处理即可，但是<code>Hex</code>=&gt;<code>Hex Prefix</code>的时候要考虑是不是扩展结点的问题；</p>
+</blockquote>
+<p><strong>Hex-Prefix</strong>编码</p>
+<p><strong>数学公式定义：</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://tva1.sinaimg.cn/large/0081Kckwgy1gm75cvok4yj318s07iwfg.jpg"><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330161849571.png" alt="image-20220330161849571"></a></p>
+<p>Hex-Prefix 编码是一种任意量的半字节转换为数组的有效方式，还可以在存入一个标识符来区分不同节点类型。 因此 HP 编码是在由一个标识符前缀和半字节转换为数组的两部分组成。存入到数据库中存在节点 Key 的只有扩展节点和叶子节点，因此 HP 只用于区分扩展节点和叶子节点，不涉及无节点 key 的分支节点。其编码规则如下图：</p>
+<p><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330162436055.png" alt="image-20220330162436055"></p>
+<p>前缀标识符由两部分组成：节点类型和奇偶标识，并存储在编码后字节的第一个半字节中。 0 表示扩展节点类型，1 表示叶子节点，偶为 0，奇为 1。最终可以得到唯一标识的前缀标识：</p>
+<ul>
+<li>0：偶长度的扩展节点</li>
+<li>1：奇长度的扩展节点</li>
+<li>2：偶长度的叶子节点</li>
+<li>3：奇长度的叶子节点</li>
+</ul>
+<p>当偶长度时，第一个字节的低四位用<code>0</code>填充，当是奇长度时，则将 key[0] 存放在第一个字节的低四位中，这样 HP 编码结果始终是偶长度。 这里为什么要区分节点 key 长度的奇偶呢？这是因为，半字节 <code>1</code> 和 <code>01</code> 在转换为 bytes 格式时都成为<code>&lt;01&gt;</code>，无法区分两者。</p>
+<p>例如，上图 “以太坊 MPT 树的哈希计算”中的控制节点 1 的 key 为 <code>[ 7 2 6 f 6 d]</code>，因为是偶长度，则 HP[0]= (00000000) =0，H[1:]= 解码半字节(key)。 而节点 3 的 key 为 <code>[1 6 e 6 5]</code>，为奇长度，则 HP[0]= (0001 0001)=17。</p>
+<p><strong>HP</strong>编码的规则如下：</p>
+<ul>
+<li>key 结尾为<strong>0x10</strong>，则去掉这个终止符</li>
+<li>key 之前补一个四元组这个 Byte 第 0 位区分奇偶信息，第 1 位区分节点类型</li>
+<li>如果输入<strong>key</strong>的长度是偶数，则再添加一个四元组 0x0 在 flag 四元组后</li>
+<li>将原来的 key 内容压缩，将分离的两个 byte 以高四位低四位进行合并</li>
+</ul>
+<blockquote>
+<p>十六进制前缀编码相当于一个逆向的过程，比如输入的是[6 2 6 15 6 2 16]，</p>
+<p>根据第一个规则去掉终止符 16。根据第二个规则 key 前补一个四元组，从右往左第一位为 1 表示叶子节点，</p>
+<p>从右往左第 0 位如果后面 key 的长度为偶数设置为 0，奇数长度设置为 1，那么四元组 0010 就是 2。</p>
+<p>根据第三个规则，添加一个全 0 的补在后面，那么就是 20.根据第三个规则内容压缩合并，那么结果就是[0x20 0x62 0x6f 0x62]</p>
+</blockquote>
+<p><strong>HP 编码源码实现:</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hexToCompact</span><span class="params">(hex []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	terminator := <span class="type">byte</span>(<span class="number">0</span>) <span class="comment">//初始化一个值为0的byte，它就是我们上面公式中提到的t</span></span><br><span class="line">	<span class="keyword">if</span> hasTerm(hex) &#123;     <span class="comment">//验证hex是否有后缀编码，</span></span><br><span class="line">		terminator = <span class="number">1</span>         <span class="comment">//hex编码有后缀，证明是叶子节点，则t=1</span></span><br><span class="line">		hex = hex[:<span class="built_in">len</span>(hex)<span class="number">-1</span>] <span class="comment">//此处只是去掉后缀部分的hex编码</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//Compact开辟的空间长度为hex编码的一半再加1，这个1对应的空间是Compact的前缀</span></span><br><span class="line">	buf := <span class="built_in">make</span>([]<span class="type">byte</span>, <span class="built_in">len</span>(hex)/<span class="number">2</span>+<span class="number">1</span>)</span><br><span class="line">	<span class="comment">////这一阶段的buf[0]可以理解为公式中的16*f(t)</span></span><br><span class="line">    <span class="comment">//判断节点类型</span></span><br><span class="line">	buf[<span class="number">0</span>] = terminator &lt;&lt; <span class="number">5</span> <span class="comment">// the flag byte</span></span><br><span class="line">    <span class="comment">//判断jiou</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(hex)&amp;<span class="number">1</span> == <span class="number">1</span> &#123;     <span class="comment">//hex 长度为奇数，则逻辑上说明hex有前缀</span></span><br><span class="line">		buf[<span class="number">0</span>] |= <span class="number">1</span> &lt;&lt; <span class="number">4</span> <span class="comment">////这一阶段的buf[0]可以理解为公式中的16*（f(t)+1）</span></span><br><span class="line">		buf[<span class="number">0</span>] |= hex[<span class="number">0</span>] <span class="comment">// first nibble is contained in the first byte</span></span><br><span class="line">		hex = hex[<span class="number">1</span>:]    <span class="comment">//此时获取的hex编码无前缀无后缀</span></span><br><span class="line">	&#125;</span><br><span class="line">	decodeNibbles(hex, buf[<span class="number">1</span>:]) <span class="comment">//将hex编码映射到compact编码中</span></span><br><span class="line">	<span class="keyword">return</span> buf                  <span class="comment">//返回compact编码</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//compact编码转化为Hex编码</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">compactToHex</span><span class="params">(compact []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(compact) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> compact</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//进行展开即可</span></span><br><span class="line">	base := keybytesToHex(compact)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// apply terminator flag</span></span><br><span class="line">	<span class="comment">// base[0]包括四种情况</span></span><br><span class="line">	<span class="comment">// 00000000 扩展节点偶数位</span></span><br><span class="line">	<span class="comment">// 00000001 扩展节点奇数位</span></span><br><span class="line">	<span class="comment">// 00000010 叶子节点偶数位</span></span><br><span class="line">	<span class="comment">// 00000011 叶子节点奇数位</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// delete terminator flag</span></span><br><span class="line">	<span class="keyword">if</span> base[<span class="number">0</span>] &lt; <span class="number">2</span> &#123; <span class="comment">//扩展结点</span></span><br><span class="line">		base = base[:<span class="built_in">len</span>(base)<span class="number">-1</span>]</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// apply odd flag</span></span><br><span class="line">	<span class="comment">//如果是偶数位，chop等于2，否则等于1</span></span><br><span class="line">	chop := <span class="number">2</span> - base[<span class="number">0</span>]&amp;<span class="number">1</span></span><br><span class="line">	<span class="keyword">return</span> base[chop:]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将keybytes 转成十六进制</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">keybytesToHex</span><span class="params">(str []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">    l := <span class="built_in">len</span>(str)*<span class="number">2</span> + <span class="number">1</span></span><br><span class="line">     <span class="comment">//将一个keybyte转化成两个字节</span></span><br><span class="line">    <span class="keyword">var</span> nibbles = <span class="built_in">make</span>([]<span class="type">byte</span>, l)</span><br><span class="line">    <span class="keyword">for</span> i, b := <span class="keyword">range</span> str &#123;</span><br><span class="line">        nibbles[i*<span class="number">2</span>] = b / <span class="number">16</span></span><br><span class="line">        nibbles[i*<span class="number">2</span>+<span class="number">1</span>] = b % <span class="number">16</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//末尾加入Hex标志位16</span></span><br><span class="line">    nibbles[l<span class="number">-1</span>] = <span class="number">16</span></span><br><span class="line">    <span class="keyword">return</span> nibbles</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将十六进制的bibbles转成key bytes，这只能用于偶数长度的key</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hexToKeybytes</span><span class="params">(hex []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> hasTerm(hex) &#123;</span><br><span class="line">        hex = hex[:<span class="built_in">len</span>(hex)<span class="number">-1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(hex)&amp;<span class="number">1</span> != <span class="number">0</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">&quot;can&#x27;t convert hex key of odd length&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    key := <span class="built_in">make</span>([]<span class="type">byte</span>, (<span class="built_in">len</span>(hex)+<span class="number">1</span>)/<span class="number">2</span>)</span><br><span class="line">    decodeNibbles(hex, key)</span><br><span class="line">    <span class="keyword">return</span> key</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">decodeNibbles</span><span class="params">(nibbles []<span class="type">byte</span>, bytes []<span class="type">byte</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> bi, ni := <span class="number">0</span>, <span class="number">0</span>; ni &lt; <span class="built_in">len</span>(nibbles); bi, ni = bi+<span class="number">1</span>, ni+<span class="number">2</span> &#123;</span><br><span class="line">        bytes[bi] = nibbles[ni]&lt;&lt;<span class="number">4</span> | nibbles[ni+<span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回a和b的公共前缀的长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">prefixLen</span><span class="params">(a, b []<span class="type">byte</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> i, length = <span class="number">0</span>, <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(b) &lt; length &#123;</span><br><span class="line">        length = <span class="built_in">len</span>(b)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> ; i &lt; length; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> a[i] != b[i] &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 十六进制key是否有结束标志符</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hasTerm</span><span class="params">(s []<span class="type">byte</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(s) &gt; <span class="number">0</span> &amp;&amp; s[<span class="built_in">len</span>(s)<span class="number">-1</span>] == <span class="number">16</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上三种编码方式的转换关系为：</p>
+<ul>
+<li>Raw 编码：原生的 key 编码，是 MPT 对外提供接口中使用的编码方式，当数据项被插入到<strong>树</strong>中时，<em><em>Raw 编码被转换成 Hex</em><u>编码</u></em>**；</li>
+<li>Hex 编码：16 进制扩展编码，用于对内存中树节点 key 进行编码，当树节点被持久化到<strong>数据库</strong>时，Hex 编码被转换成 HP 编码；</li>
+<li>HP 编码：16 进制前缀编码，用于对数据库中树节点 key 进行编码，当树节点被加载到<strong>内存</strong>时，HP 编码被转换成 Hex 编码；</li>
+</ul>
+<p>如下图：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://tva1.sinaimg.cn/large/0081Kckwgy1gm71rsyyekj319w05ygml.jpg"><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330161823864.png" alt="image-20220330161823864"></a></p>
+<p>以上介绍的 MPT 树，可以用来存储内容为任何长度的<code>key-value</code>数据项。倘若数据项的<code>key</code>长度没有限制时，当树中维护的数据量较大时，仍然会造成整棵树的深度变得越来越深，会造成以下影响：</p>
+<ul>
+<li>查询一个节点可能会需要许多次 IO 读取，效率低下；</li>
+<li>系统易遭受 Dos 攻击，攻击者可以通过在合约中存储特定的数据，“构造”一棵拥有一条很长路径的树，然后不断地调用<code>SLOAD</code>指令读取该树节点的内容，造成系统执行效率极度下降；</li>
+<li>所有的 key 其实是一种明文的形式进行存储；</li>
+</ul>
+<p>为了解决以上问题，以太坊对<strong>MPT</strong>再进行了一次封装，对数据项的<strong>key</strong>进行了一次哈希计算，因此最终作为参数传入到 MPT 接口的数据项其实是<code>(sha3(key), value)</code></p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>传入 MPT 接口的 key 是固定长度的（32 字节），可以避免出现树中出现长度很长的路径；</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>每次树操作需要增加一次哈希计算；</li>
+<li>需要在数据库中存储额外的<code>sha3(key)</code>与<code>key</code>之间的对应关系；</li>
+</ul>
+<p>完整的编码流程如图：</p>
+<p><img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330162503765.png" alt="image-20220330162503765"></p>
+<h2 id="MPT-轻节点">MPT 轻节点</h2>
+<p>上面的 MPT 树，有两个问题：</p>
+<ul>
+<li>每个节点都包含有大量信息，并且叶子节点中还包含有完整的数据信息。如果该 MPT 树并没有发生任何变化，并且没有被使用，则会白白占用一大片空间，想象一个以太坊，有多少个 MPT 树，都在内存中，那还了得。</li>
+<li>并不是任何的客户端都对所有的 MPT 树都感兴趣，若每次都把完整的节点信息都下载下，下载时间长不说，并且会占用大量的磁盘空间。</li>
+</ul>
+<h3 id="解决方式">解决方式</h3>
+<p>为了解决上述问题，以太坊使用了一种缓存机制，可以称为是轻节点机制，大体如下：</p>
+<ul>
+<li>若某节点数据一直没有发生变化，则仅仅保留该节点的 32 位 hash 值，剩下的内容全部释放</li>
+<li>若需要插入或者删除某节点，先通过该 hash 值 db 中查找对应的节点，并加载到内存，之后再进行删除插入操作</li>
+</ul>
+<h3 id="轻节点中添加数据">轻节点中添加数据</h3>
+<p>内存中只有这么一个轻节点，但是我要添加一个数据，也就是要给完整的 MPT 树中添加一个叶子节点，怎么添加？大体如下图所示：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://tva1.sinaimg.cn/large/0081Kckwgy1gm8hgf9f3ij319a0pcgqh.jpg"><img src="https://tva1.sinaimg.cn/large/0081Kckwgy1gm8hgf9f3ij319a0pcgqh.jpg" alt="image-20210101204824090" style="zoom:67%;" /></a></p>
+<hr>
+<p>以上主要介绍了以太坊中的 MPT 树的原理，这篇主要会对 MPT 树涉及的源码进行拆解分析。<code>trie</code>模块主要有以下几个文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">|-encoding.go 主要讲编码之间的转换</span><br><span class="line">|-hasher.go 实现了从某个结点开始计算子树的哈希的功能</span><br><span class="line">|-node.go 定义了一个Trie树中所有结点的类型和解析的代码</span><br><span class="line">|-sync.go 实现了SyncTrie对象的定义和所有方法</span><br><span class="line">|-iterator.go 定义了所有枚举相关接口和实现</span><br><span class="line">|-secure_trie.go 实现了SecureTrie对象</span><br><span class="line">|-proof.go 为key构造一个merkle证明</span><br><span class="line">|-trie.go Trie树的增删改查</span><br><span class="line">|-database.go 对内存中的trie树节点进行引用计数</span><br></pre></td></tr></table></figure>
+<h1>实现概览</h1>
+<h2 id="encoding-go">encoding.go</h2>
+<p>这个主要是讲三种编码（<code>KEYBYTES encoding</code>、<code>HEX encoding</code>、<code>COMPACT encoding</code>）的实现与转换，<code>trie</code>中全程都需要用到这些，该文件中主要实现了如下功能：</p>
+<ol>
+<li>hex 编码转换为 Compact 编码：<code>hexToCompact()</code></li>
+<li>Compact 编码转换为 hex 编码：<code>compactToHex()</code></li>
+<li>keybytes 编码转换为 Hex 编码：<code>keybytesToHex()</code></li>
+<li>hex 编码转换为 keybytes 编码：<code>hexToKeybytes()</code></li>
+<li>获取两个字节数组的公共前缀的长度：<code>prefixLen()</code></li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hexToCompact</span><span class="params">(hex []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">    terminator := <span class="type">byte</span>(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">if</span> hasTerm(hex) &#123; <span class="comment">//检查是否有结尾为0x10 =&gt; 16</span></span><br><span class="line">        terminator = <span class="number">1</span> <span class="comment">//有结束标记16说明是叶子节点</span></span><br><span class="line">        hex = hex[:<span class="built_in">len</span>(hex)<span class="number">-1</span>] <span class="comment">//去除尾部标记</span></span><br><span class="line">    &#125;</span><br><span class="line">    buf := <span class="built_in">make</span>([]<span class="type">byte</span>, <span class="built_in">len</span>(hex)/<span class="number">2</span>+<span class="number">1</span>) <span class="comment">// 字节数组</span></span><br><span class="line"></span><br><span class="line">    buf[<span class="number">0</span>] = terminator &lt;&lt; <span class="number">5</span> <span class="comment">// 标志byte为00000000或者00100000</span></span><br><span class="line">    <span class="comment">//如果长度为奇数，添加奇数位标志1，并把第一个nibble字节放入buf[0]的低四位</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(hex)&amp;<span class="number">1</span> == <span class="number">1</span> &#123;</span><br><span class="line">        buf[<span class="number">0</span>] |= <span class="number">1</span> &lt;&lt; <span class="number">4</span> <span class="comment">// 奇数标志 00110000</span></span><br><span class="line">        buf[<span class="number">0</span>] |= hex[<span class="number">0</span>] <span class="comment">// 第一个nibble包含在第一个字节中 0011xxxx</span></span><br><span class="line">        hex = hex[<span class="number">1</span>:]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将两个nibble字节合并成一个字节</span></span><br><span class="line">    decodeNibbles(hex, buf[<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">return</span> buf</span><br><span class="line"></span><br><span class="line"><span class="comment">//compact编码转化为Hex编码</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">compactToHex</span><span class="params">(compact []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">    base := keybytesToHex(compact)</span><br><span class="line">    base = base[:<span class="built_in">len</span>(base)<span class="number">-1</span>]</span><br><span class="line">     <span class="comment">// apply terminator flag</span></span><br><span class="line">    <span class="comment">// base[0]包括四种情况</span></span><br><span class="line">    <span class="comment">// 00000000 扩展节点偶数位</span></span><br><span class="line">    <span class="comment">// 00000001 扩展节点奇数位</span></span><br><span class="line">    <span class="comment">// 00000010 叶子节点偶数位</span></span><br><span class="line">    <span class="comment">// 00000011 叶子节点奇数位</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// apply terminator flag</span></span><br><span class="line">    <span class="keyword">if</span> base[<span class="number">0</span>] &gt;= <span class="number">2</span> &#123;</span><br><span class="line">       <span class="comment">//如果是叶子节点，末尾添加Hex标志位16</span></span><br><span class="line">        base = <span class="built_in">append</span>(base, <span class="number">16</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// apply odd flag</span></span><br><span class="line">    <span class="comment">//如果是偶数位，chop等于2，否则等于1</span></span><br><span class="line">    chop := <span class="number">2</span> - base[<span class="number">0</span>]&amp;<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> base[chop:]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//compact编码转化为Hex编码</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">compactToHex</span><span class="params">(compact []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">    base := keybytesToHex(compact)</span><br><span class="line">    base = base[:<span class="built_in">len</span>(base)<span class="number">-1</span>]</span><br><span class="line">     <span class="comment">// apply terminator flag</span></span><br><span class="line">    <span class="comment">// base[0]包括四种情况</span></span><br><span class="line">    <span class="comment">// 00000000 扩展节点偶数位</span></span><br><span class="line">    <span class="comment">// 00000001 扩展节点奇数位</span></span><br><span class="line">    <span class="comment">// 00000010 叶子节点偶数位</span></span><br><span class="line">    <span class="comment">// 00000011 叶子节点奇数位</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// apply terminator flag</span></span><br><span class="line">    <span class="keyword">if</span> base[<span class="number">0</span>] &gt;= <span class="number">2</span> &#123;</span><br><span class="line">       <span class="comment">//如果是叶子节点，末尾添加Hex标志位16</span></span><br><span class="line">        base = <span class="built_in">append</span>(base, <span class="number">16</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// apply odd flag</span></span><br><span class="line">    <span class="comment">//如果是偶数位，chop等于2，否则等于1</span></span><br><span class="line">    chop := <span class="number">2</span> - base[<span class="number">0</span>]&amp;<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> base[chop:]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将十六进制的bibbles转成key bytes，这只能用于偶数长度的key</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hexToKeybytes</span><span class="params">(hex []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> hasTerm(hex) &#123;</span><br><span class="line">        hex = hex[:<span class="built_in">len</span>(hex)<span class="number">-1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(hex)&amp;<span class="number">1</span> != <span class="number">0</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">&quot;can&#x27;t convert hex key of odd length&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    key := <span class="built_in">make</span>([]<span class="type">byte</span>, (<span class="built_in">len</span>(hex)+<span class="number">1</span>)/<span class="number">2</span>)</span><br><span class="line">    decodeNibbles(hex, key)</span><br><span class="line">    <span class="keyword">return</span> key</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 返回a和b的公共前缀的长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">prefixLen</span><span class="params">(a, b []<span class="type">byte</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> i, length = <span class="number">0</span>, <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(b) &lt; length &#123;</span><br><span class="line">        length = <span class="built_in">len</span>(b)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> ; i &lt; length; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> a[i] != b[i] &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="node-go">node.go</h2>
+<p>node 接口分四种实现: fullNode，shortNode，valueNode，hashNode，其中只有 fullNode 和 shortNode 可以带有子节点。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> (</span><br><span class="line">	fullNode <span class="keyword">struct</span> &#123;</span><br><span class="line">		Children [<span class="number">17</span>]node <span class="comment">// 分支节点</span></span><br><span class="line">		flags    nodeFlag</span><br><span class="line">	&#125;</span><br><span class="line">	shortNode <span class="keyword">struct</span> &#123; <span class="comment">//扩展节点</span></span><br><span class="line">		Key   []<span class="type">byte</span></span><br><span class="line">		Val   node <span class="comment">//可能指向叶子节点，也可能指向分支节点。</span></span><br><span class="line">		flags nodeFlag</span><br><span class="line">	&#125;</span><br><span class="line">	hashNode  []<span class="type">byte</span></span><br><span class="line">	valueNode []<span class="type">byte</span> <span class="comment">// 叶子节点值，但是该叶子节点最终还是会包装在shortNode中</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="trie-go">trie.go</h2>
+<p>Trie 对象实现了 MPT 树的所有功能，包括(key, value)对的增删改查、计算默克尔哈希，以及将整个树写入数据库中。</p>
+<h2 id="iterator-go">iterator.go</h2>
+<p><code>nodeIterator</code>提供了遍历树内部所有结点的功能。其结构如下：此结构体是在<code>trie.go</code>定义的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> nodeIterator <span class="keyword">struct</span> &#123;</span><br><span class="line">	trie.NodeIterator</span><br><span class="line">	t   *odrTrie</span><br><span class="line">	err <span class="type">error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>里面包含了一个接口<code>NodeIterator</code>，它的实现则是由<code>iterator.go</code>来提供的，其方法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> Next(descend <span class="type">bool</span>) <span class="type">bool</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> Hash() common.Hash</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> Parent() common.Hash</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> Leaf() <span class="type">bool</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> LeafKey() []<span class="type">byte</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> LeafBlob() []<span class="type">byte</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> LeafProof() [][]<span class="type">byte</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> Path() []<span class="type">byte</span> &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> seek(prefix []<span class="type">byte</span>) <span class="type">error</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> peek(descend <span class="type">bool</span>) (*nodeIteratorState, *<span class="type">int</span>, []<span class="type">byte</span>, <span class="type">error</span>)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> nextChild(parent *nodeIteratorState, ancestor common.Hash) (*nodeIteratorState, []<span class="type">byte</span>, <span class="type">bool</span>)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> push(state *nodeIteratorState, parentIndex *<span class="type">int</span>, path []<span class="type">byte</span>)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(it *nodeIterator)</span></span> pop()</span><br></pre></td></tr></table></figure>
+<p><code>NodeIterator</code>的核心是<code>Next</code>方法，每调用一次这个方法，NodeIterator 对象代表的当前节点就会更新至下一个节点，当所有结点遍历结束，<code>Next</code>方法返回<code>false</code>。</p>
+<p>生成 NodeIterator 接口的方法有以下 3 种：</p>
+<p><strong>①：Trie.NodeIterator(start []byte)</strong></p>
+<p>通过<code>start</code>参数指定从哪个路径开始遍历，如果为<code>nil</code>则从头到尾按顺序遍历。</p>
+<p><strong>②：NewDifferenceIterator(a, b NodeIterator)</strong></p>
+<p>当调用<code>NewDifferenceIterator(a, b NodeIterator)</code>后，生成的<code>NodeIterator</code>只遍历存在于 b 但不存在于 a 中的结点。</p>
+<p><strong>③：NewUnionIterator(iters []NodeIterator)</strong></p>
+<p>当调用<code>NewUnionIterator(its []NodeIterator)</code>后，生成的<code>NodeIterator</code>遍历的结点是所有传入的结点的合集。</p>
+<h2 id="database-go">database.go</h2>
+<p><code>Database</code>是<code>trie</code>模块对真正数据库的缓存层，其目的是对缓存的节点进行引用计数，从而实现区块的修剪功能。主要方法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewDatabase</span><span class="params">(diskdb ethdb.KeyValueStore)</span></span> *Database</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewDatabaseWithCache</span><span class="params">(diskdb ethdb.KeyValueStore, cache <span class="type">int</span>)</span></span> *Database</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> DiskDB() ethdb.KeyValueReader</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> InsertBlob(hash common.Hash, blob []<span class="type">byte</span>)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> insert(hash common.Hash, blob []<span class="type">byte</span>, node node)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> insertPreimage(hash common.Hash, preimage []<span class="type">byte</span>)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> node(hash common.Hash) node</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> Node(hash common.Hash) ([]<span class="type">byte</span>, <span class="type">error</span>)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> preimage(hash common.Hash) ([]<span class="type">byte</span>, <span class="type">error</span>)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> secureKey(key []<span class="type">byte</span>) []<span class="type">byte</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> Nodes() []common.Hash</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> Reference(child common.Hash, parent common.Hash)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> Dereference(root common.Hash)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> dereference(child common.Hash, parent common.Hash)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> Cap(limit common.StorageSize) <span class="type">error</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *Database)</span></span> Commit(node common.Hash, report <span class="type">bool</span>) <span class="type">error</span></span><br></pre></td></tr></table></figure>
+<h2 id="security-trie-go">security_trie.go</h2>
+<p>可以理解为加密了的<code>trie</code>的实现，<code>ecurity_trie</code>包装了一下<code>trie</code>树， 所有的<code>key</code>都转换成<code>keccak256</code>算法计算的<code>hash</code>值。同时在数据库里面存储<code>hash</code>值对应的原始的<code>key</code>。<br>
+但是官方在代码里也注释了，这个代码不稳定，除了测试用例，别的地方并没有使用该代码。</p>
+<h2 id="proof-go">proof.go</h2>
+<ul>
+<li>Prove()：根据给定的<code>key</code>，在<code>trie</code>中，将满足<code>key</code>中最大长度前缀的路径上的节点都加入到<code>proofDb</code>（队列中每个元素满足：未编码的 hash 以及对应<code>rlp</code>编码后的节点）</li>
+<li>VerifyProof()：验证<code>proffDb</code>中是否存在满足输入的<code>hash</code>，和对应 key 的节点，如果满足，则返回<code>rlp</code>解码后的该节点。</li>
+</ul>
+<h1>实现细节</h1>
+<p>①：<strong>Trie 树的初始化</strong></p>
+<p>如果<code>root</code>不为空，就通过<code>resolveHash</code>来加载整个<code>Trie</code>树，如果为空，就新建一个<code>Trie</code>树。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(root common.Hash, db *Database)</span></span> (*Trie, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> db == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(<span class="string">&quot;trie.New called without a database&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	trie := &amp;Trie&#123;</span><br><span class="line">		db: db,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> root != (common.Hash&#123;&#125;) &amp;&amp; root != emptyRoot &#123;</span><br><span class="line">		rootnode, err := trie.resolveHash(root[:], <span class="literal">nil</span>)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">		trie.root = rootnode</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> trie, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>②：<strong>Trie 树的插入</strong></p>
+<p>首先 Trie 树的插入是个递归调用的过程，它会从根开始找，一直找到合适的位置插入。</p>
+<img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330162606450.png" alt="image-20220330162606450" style="zoom:50%;" />
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func (t *Trie) insert(n node, prefix, key []byte, value node) (bool, node, error)</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li>n: 当前要插入的节点</li>
+<li>prefix: 当前已经处理完的<strong>key</strong>(节点共有的前缀)</li>
+<li>key: 未处理完的部分<strong>key</strong>，完整的<code>key = prefix + key</code></li>
+<li>value：需要插入的值</li>
+</ul>
+<p>返回值说明：</p>
+<ul>
+<li>bool : 操作是否改变了<strong>Trie</strong>树(<strong>dirty</strong>)</li>
+<li>Node :插入完成后的子树的根节点</li>
+</ul>
+<p>接下来就是分别对<code>shortNode</code>、<code>fullNode</code>、<code>hashNode</code>、<code>nil</code> 几种情况进行说明。</p>
+<p><strong>2.1：节点为 nil</strong></p>
+<p>空树直接返回<code>shortNode</code>， 此时整颗树的根就含有了一个<code>shortNode</code>节点。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="literal">nil</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>, &amp;shortNode&#123;key, value, t.newFlag()&#125;, <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.2 ：节点为 shortNode</strong></p>
+<ul>
+<li>首先计算公共前缀，如果公共前缀就等于<code>key</code>，那么说明这两个<code>key</code>是一样的，如果<code>value</code>也一样的(<code>dirty == false</code>)，那么返回错误。</li>
+<li>如果没有错误就更新<code>shortNode</code>的值然后返回</li>
+<li>如果公共前缀不完全匹配，那么就需要把公共前缀提取出来形成一个独立的节点(扩展节点),扩展节点后面连接一个<code>branch</code>节点，<code>branch</code>节点后面看情况连接两个<code>short</code>节点。</li>
+<li>首先构建一个 branch 节点(branch := &amp;fullNode{flags: t.newFlag()}),然后再 branch 节点的 Children 位置调用 t.insert 插入剩下的两个 short 节点</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">matchlen := prefixLen(key, n.Key)</span><br><span class="line">		<span class="keyword">if</span> matchlen == <span class="built_in">len</span>(n.Key) &#123;</span><br><span class="line">			dirty, nn, err := t.insert(n.Val, <span class="built_in">append</span>(prefix, key[:matchlen]...), key[matchlen:], value)</span><br><span class="line">			<span class="keyword">if</span> !dirty || err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>, n, err</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>, &amp;shortNode&#123;n.Key, nn, t.newFlag()&#125;, <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line">		branch := &amp;fullNode&#123;flags: t.newFlag()&#125;</span><br><span class="line">		<span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line">		_, branch.Children[n.Key[matchlen]], err = t.insert(<span class="literal">nil</span>, <span class="built_in">append</span>(prefix, n.Key[:matchlen+<span class="number">1</span>]...), n.Key[matchlen+<span class="number">1</span>:], n.Val)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>, <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">		_, branch.Children[key[matchlen]], err = t.insert(<span class="literal">nil</span>, <span class="built_in">append</span>(prefix, key[:matchlen+<span class="number">1</span>]...), key[matchlen+<span class="number">1</span>:], value)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>, <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> matchlen == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>, branch, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>, &amp;shortNode&#123;key[:matchlen], branch, t.newFlag()&#125;, <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.3: 节点为 fullNode</strong></p>
+<p>节点是<code>fullNode</code>(也就是分支节点)，那么直接往对应的孩子节点调用<code>insert</code>方法,然后把对应的孩子节点指向新生成的节点。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dirty, nn, err := t.insert(n.Children[key[<span class="number">0</span>]], <span class="built_in">append</span>(prefix, key[<span class="number">0</span>]), key[<span class="number">1</span>:], value)</span><br><span class="line">		<span class="keyword">if</span> !dirty || err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>, n, err</span><br><span class="line">		&#125;</span><br><span class="line">		n = n.<span class="built_in">copy</span>()</span><br><span class="line">		n.flags = t.newFlag()</span><br><span class="line">		n.Children[key[<span class="number">0</span>]] = nn</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>, n, <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.4: 节点为 hashnode</strong></p>
+<p>暂时还在数据库中的节点，先调用 <code>t.resolveHash(n, prefix)</code>来加载到内存，然后调用<code>insert</code>方法来插入。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rn, err := t.resolveHash(n, prefix)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>, <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">		dirty, nn, err := t.insert(rn, prefix, key, value)</span><br><span class="line">		<span class="keyword">if</span> !dirty || err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>, rn, err</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>, nn, <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p>③：<strong>Trie 树查询值</strong></p>
+<p>其实就是根据输入的<code>hash</code>，找到对应的叶子节点的数据。主要看<code>TryGet</code>方法。</p>
+<img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330162644392.png" alt="image-20220330162644392" style="zoom:50%;" />
+<p>参数：</p>
+<ul>
+<li><code>origNode</code>：当前查找的起始<strong>node</strong>位置</li>
+<li><code>key</code>：输入要查找的数据的<strong>hash</strong></li>
+<li><code>pos</code>：当前<strong>hash</strong>匹配到第几位</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Trie)</span></span> tryGet(origNode node, key []<span class="type">byte</span>, pos <span class="type">int</span>) (value []<span class="type">byte</span>, newnode node, didResolve <span class="type">bool</span>, err <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">switch</span> n := (origNode).(<span class="keyword">type</span>) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="literal">nil</span>: <span class="comment">//表示当前trie是空树</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, <span class="literal">nil</span>, <span class="literal">false</span>, <span class="literal">nil</span></span><br><span class="line">	<span class="keyword">case</span> valueNode: <span class="comment">////这就是我们要查找的叶子节点对应的数据</span></span><br><span class="line">		<span class="keyword">return</span> n, n, <span class="literal">false</span>, <span class="literal">nil</span></span><br><span class="line">	<span class="keyword">case</span> *shortNode: <span class="comment">////在叶子节点或者扩展节点匹配</span></span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(key)-pos &lt; <span class="built_in">len</span>(n.Key) || !bytes.Equal(n.Key, key[pos:pos+<span class="built_in">len</span>(n.Key)]) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, n, <span class="literal">false</span>, <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line">		value, newnode, didResolve, err = t.tryGet(n.Val, key, pos+<span class="built_in">len</span>(n.Key))</span><br><span class="line">		<span class="keyword">if</span> err == <span class="literal">nil</span> &amp;&amp; didResolve &#123;</span><br><span class="line">			n = n.<span class="built_in">copy</span>()</span><br><span class="line">			n.Val = newnode</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> value, n, didResolve, err</span><br><span class="line">	<span class="keyword">case</span> *fullNode:<span class="comment">//在分支节点匹配</span></span><br><span class="line">		value, newnode, didResolve, err = t.tryGet(n.Children[key[pos]], key, pos+<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">if</span> err == <span class="literal">nil</span> &amp;&amp; didResolve &#123;</span><br><span class="line">			n = n.<span class="built_in">copy</span>()</span><br><span class="line">			n.Children[key[pos]] = newnode</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> value, n, didResolve, err</span><br><span class="line">	<span class="keyword">case</span> hashNode: <span class="comment">//说明当前节点是轻节点，需要从db中获取</span></span><br><span class="line">		child, err := t.resolveHash(n, key[:pos])</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, n, <span class="literal">true</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">		value, newnode, _, err := t.tryGet(child, key, pos)</span><br><span class="line">		<span class="keyword">return</span> value, newnode, <span class="literal">true</span>, err</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>didResolve</code>用于判断<code>trie</code>树是否会发生变化，<code>tryGet()</code>只是用来获取数据的，当<code>hashNode</code>去<code>db</code>中获取该<code>node</code>值后需要更新现有的 trie，<code>didResolve</code>就会发生变化。其他就是基本的递归查找树操作。</p>
+<h2 id="删除数据">删除数据</h2>
+<p>从 MPT 中删除数据节点，这比插入数据更加复杂。从树中删除一个节点是容易的，但在 MPT 中删除节点后需要根据前面的改进方案调整结构。 比如，原本是一个分支节点下有两个子节点，现在删除一个子节点后，只有一个子节点的分支节点的存储是无意义的，需要移除并将剩余的子节点上移。 下图是 MPT 中删除数据的流程图。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://img.learnblockchain.cn/book_geth/20191203160005.png!de?width=600px"><img src="https://img.learnblockchain.cn/book_geth/20191203160005.png!de?width=600px" alt="以太坊技术与实现-图- MPT中删除数据的流程图"></a>同样，删除数据也是深度递归遍历。先深度查找，抵达数据应处位置，再从下向上依次更新此路径上的节点。 在删除过程中，主要是对删除后节点的调整。有两个原则：</p>
+<ol>
+<li>分支节点至少要有两个子节点，如果只有一个子节点或者没有则需要调整。</li>
+<li>shortNode 的 value 是 shortNode 时可合并。</li>
+</ol>
+<p>删除数据也涉及路径上节点的更新，图中的绿色虚线是表示递归删除节点。</p>
+<h2 id="树更新实例">树更新实例</h2>
+<p>下面，我演示依次将一组数据 romane、romanus、romulus、rubens、ruber、rubicon、rubicunds 插入到 MPT 中时的树结构的变化情况。</p>
+<p>首先依次写入：romane、romanus、romulus 后树的变化如下：</p>
+<img src="https://lky-img.obs.cn-east-2.myhuaweicloud.com/image-20220330162716451.png" alt="image-20220330162716451" style="zoom:50%;" />
+<p>图中的每一个圆圈均代表一个节点，只是节点的类型不同。需要注意的是，图中的红色字部分，实际是一个短节点（shortNode）。 比如，红色的“roman“ 短节点的 key 为 roman, value 是分支节点。继续写入 rubens、ruber、rubicon 的变化过程如下：</p>
+<p><img src="https://img.learnblockchain.cn/book_geth/20191127165900.png!de" alt="以太坊技术与实现-图-20191127165900.png"></p>
+<h2 id="将节点写入到-Trie-的内存数据库">将节点写入到 Trie 的内存数据库</h2>
+<p>如果要把节点写入到内存数据库，需要序列化，可以先去了解下以太坊的 Rlp 编码。这部分工作由<code>trie.Commit()</code>完成，当<code>trie.Commit(nil)</code>，会执行序列化和缓存等操作，序列化之后是使用的<code>Compact Encoding</code>进行编码，从而达到节省空间的目的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Trie)</span></span> Commit(onleaf LeafCallback) (root common.Hash, err <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> t.db == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(<span class="string">&quot;commit called on trie with nil database&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	hash, cached, err := t.hashRoot(t.db, onleaf)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> common.Hash&#123;&#125;, err</span><br><span class="line">	&#125;</span><br><span class="line">	t.root = cached</span><br><span class="line">	<span class="keyword">return</span> common.BytesToHash(hash.(hashNode)), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码大概讲了这些：</p>
+<ul>
+<li>每次执行<code>Commit()</code>，该 trie 的<code>cachegen</code>就会加 1</li>
+<li><code>Commit()</code>方法返回的是<code>trie.root</code>所指向的<code>node</code>的<code>hash</code>（未编码）</li>
+<li>其中的<code>hashRoot()</code>方法目的是<code>返回trie.root所指向的node的hash</code>以及<code>每个节点都带有各自hash的trie树的root</code>。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//为每个node生成一个hash</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Trie)</span></span> hashRoot(db *Database, onleaf LeafCallback) (node, node, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> t.root == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> hashNode(emptyRoot.Bytes()), <span class="literal">nil</span>, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	h := newHasher(onleaf)</span><br><span class="line">	<span class="keyword">defer</span> returnHasherToPool(h)</span><br><span class="line">	<span class="keyword">return</span> h.hash(t.root, db, <span class="literal">true</span>) <span class="comment">//为每个节点生成一个未编码的hash</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而<code>hashRoot</code>的核心方法就是 <code>h.hash</code>，它返回了头节点的<code>hash</code>以及每个子节点都带有<code>hash</code>的头节点（Trie.root 指向它），大致做了以下几件事：</p>
+<p>①：<em>如果我们不存储节点，而只是哈希，则从缓存中获取数据</em></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> hash, dirty := n.cache(); hash != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> db == <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> hash, n, <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> !dirty &#123;</span><br><span class="line">			<span class="keyword">switch</span> n.(<span class="keyword">type</span>) &#123;</span><br><span class="line">			<span class="keyword">case</span> *fullNode, *shortNode:</span><br><span class="line">				<span class="keyword">return</span> hash, hash, <span class="literal">nil</span></span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				<span class="keyword">return</span> hash, n, <span class="literal">nil</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>②：<em>递归调用<code>h.hashChildren</code>，求出所有的子节点的<code>hash</code>值，再把原有的子节点替换成现在子节点的<code>hash</code>值</em></p>
+<p><strong>2.1:如果节点是<code>shortNode</code></strong></p>
+<p>首先把<code>collapsed.Key从Hex Encoding</code> 替换成 <code>Compact Encoding</code>, 然后递归调用<code>hash</code>方法计算子节点的<code>hash</code>和<code>cache</code>，从而把子节点替换成了子节点的<code>hash</code>值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">collapsed, cached := n.<span class="built_in">copy</span>(), n.<span class="built_in">copy</span>()</span><br><span class="line">		collapsed.Key = hexToCompact(n.Key)</span><br><span class="line">		cached.Key = common.CopyBytes(n.Key)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> _, ok := n.Val.(valueNode); !ok &#123;</span><br><span class="line">			collapsed.Val, cached.Val, err = h.hash(n.Val, db, <span class="literal">false</span>)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> original, original, err</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> collapsed, cached, <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.2:节点是 fullNode</strong></p>
+<p>遍历每个子节点，把子节点替换成子节点的<code>Hash</code>值，否则的化这个节点没有<code>children</code>。直接返回。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">collapsed, cached := n.<span class="built_in">copy</span>(), n.<span class="built_in">copy</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">16</span>; i++ &#123;</span><br><span class="line">	<span class="keyword">if</span> n.Children[i] != <span class="literal">nil</span> &#123;</span><br><span class="line">		collapsed.Children[i], cached.Children[i], err = h.hash(n.Children[i], db, <span class="literal">false</span>)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> original, original, err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">cached.Children[<span class="number">16</span>] = n.Children[<span class="number">16</span>]</span><br><span class="line"><span class="keyword">return</span> collapsed, cached, <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p>③：<em>存储节点 n 的哈希值，如果我们指定了存储层，它会写对应的键/值对</em></p>
+<p>store()方法主要就做了两件事：</p>
+<ul>
+<li><code>rlp</code>序列化<code>collapsed</code>节点并将其插入 db 磁盘中</li>
+<li>生成当前节点的<code>hash</code></li>
+<li>将节点哈希插入<code>db</code></li>
+</ul>
+<p><strong>3.1：空数据或者 hashNode，则不处理</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if _, isHash := n.(hashNode); n == nil || isHash &#123;</span><br><span class="line">		return n, nil</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3.2:生成节点的 RLP 编码</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">h.tmp.Reset()                                 // 缓存初始化</span><br><span class="line">	if err := rlp.Encode(&amp;h.tmp, n); err != nil &#123; //将当前node序列化</span><br><span class="line">		panic(&quot;encode error: &quot; + err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">	if len(h.tmp) &lt; 32 &amp;&amp; !force &#123;</span><br><span class="line">		return n, nil // Nodes smaller than 32 bytes are stored inside their parent 编码后的node长度小于32，若force为true，则可确保所有节点都被编码</span><br><span class="line">	&#125;</span><br><span class="line">//长度过大的，则都将被新计算出来的hash取代</span><br><span class="line">	hash, _ := n.cache() //取出当前节点的hash</span><br><span class="line">	if hash == nil &#123;</span><br><span class="line">		hash = h.makeHashNode(h.tmp) //生成哈希node</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3.3:将 Trie 节点合并到中间内存缓存中</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">hash := common.BytesToHash(hash)</span><br><span class="line">		db.lock.Lock()</span><br><span class="line">		db.insert(hash, h.tmp, n)</span><br><span class="line">		db.lock.Unlock()</span><br><span class="line">		// Track external references from account-&gt;storage trie</span><br><span class="line">		//跟踪帐户-&gt;存储Trie中的外部引用</span><br><span class="line">		if h.onleaf != nil &#123;</span><br><span class="line">			switch n := n.(type) &#123;</span><br><span class="line">			case *shortNode:</span><br><span class="line">				if child, ok := n.Val.(valueNode); ok &#123;  //指向的是分支节点</span><br><span class="line">					h.onleaf(child, hash) //用于统计当前节点的信息，比如当前节点有几个子节点，当前有效的节点数</span><br><span class="line">				&#125;</span><br><span class="line">			case *fullNode:</span><br><span class="line">				for i := 0; i &lt; 16; i++ &#123;</span><br><span class="line">					if child, ok := n.Children[i].(valueNode); ok &#123;</span><br><span class="line">						h.onleaf(child, hash)</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>到此为止将节点写入到<code>Trie</code>的内存数据库就已经完成了。</p>
+<p><em>如果觉得文章不错可以关注公众号：<strong>区块链技术栈</strong>，详细的所有以太坊源码分析文章内容以及代码资料都在其中。</em></p>
+<h2 id="Trie-树缓存机制">Trie 树缓存机制</h2>
+<p><code>Trie</code>树的结构里面有两个参数， 一个是<code>cachegen</code>,一个是<code>cachelimit</code>。这两个参数就是<code>cache</code>控制的参数。 <code>Trie</code>树每一次调用<code>Commit</code>方法，会导致当前的<code>cachegen</code>增加 1。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Trie)</span></span> Commit(onleaf LeafCallback) (root common.Hash, err <span class="type">error</span>) &#123;</span><br><span class="line">   ...</span><br><span class="line">    t.cachegen++</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在<code>Trie</code>树插入的时候，会把当前的<code>cachegen</code>存放到节点中。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Trie)</span></span> insert(n node, prefix, key []<span class="type">byte</span>, value node) (<span class="type">bool</span>, node, <span class="type">error</span>) &#123;</span><br><span class="line">            ....</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>, &amp;shortNode&#123;n.Key, nn, t.newFlag()&#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Trie)</span></span> newFlag() nodeFlag &#123;</span><br><span class="line">    <span class="keyword">return</span> nodeFlag&#123;dirty: <span class="literal">true</span>, gen: t.cachegen&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果 <code>trie.cachegen - node.cachegen &gt; cachelimit</code>，就可以把节点从内存里面拿掉。 也就是说节点经过几次<code>Commit</code>，都没有修改，那么就把节点从内存里面干掉。 只要<code>trie</code>路径上新增或者删除一个节点，整个路径的节点都需要重新实例化，也就是节点中的<code>nodeFlag</code>被初始化了。都需要重新更新到<code>db</code>磁盘。</p>
+<p>拿掉节点过程在 <code>hasher.hash</code>方法中， 这个方法是在<code>commit</code>的时候调用。如果方法的<code>canUnload</code>方法调用返回真，那么就拿掉节点，如果只返回了<code>hash</code>节点，而没有返回<code>node</code>节点，这样节点就没有引用，不久就会被 gc 清除掉。 节点被拿掉之后，会用一个<code>hashNode</code>节点来表示这个节点以及其子节点。 如果后续需要使用，可以通过方法把这个节点加载到内存里面来。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *hasher)</span></span> hash(n node, db *Database, force <span class="type">bool</span>) (node, node, <span class="type">error</span>) &#123;</span><br><span class="line">   	....</span><br><span class="line">       <span class="comment">// 从缓存中卸载节点。它的所有子节点将具有较低或相等的缓存世代号码。</span></span><br><span class="line">       cacheUnloadCounter.Inc(<span class="number">1</span>)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1>参考资料：</h1>
+<ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/books/geth/part3/mpt.html">详解以太坊默克尔压缩前缀树-MPT :: 以太坊技术与实现 (learnblockchain.cn)</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mindcarver.cn/2021/01/06/%E6%AD%BB%E7%A3%95%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BMPT%E6%A0%91-%E4%B8%8A/">死磕以太坊源码分析之 MPT 树-上 | mindcarver</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mindcarver.cn/2021/01/06/%E6%AD%BB%E7%A3%95%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BMPT%E6%A0%91-%E4%B8%8B/">死磕以太坊源码分析之 MPT 树-下 | mindcarver</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/geth/MPT-Tree/">https://www.blog-blockchain.xyz/geth/MPT-Tree/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/geth/">geth</a></div><div class="post-share"><div class="social-share" data-image="/images/geth.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/geth/forkId/" title="forkId 解读"><img class="cover" src="/images/geth.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">forkId 解读</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  EIP-2124 因为 core/forkId 包是 EIP-2124 的实现，因此我们先了解 EIP-2124 的内容。 目的  记住以太坊是向后兼容！  以太坊节点之前寻找其他节点的方式是：随机的选择可以连接的节点，再去判断节点是否对自己有用。但是其他的节点可能是主网节点、测试网节点、私网节点、共识机制不一致的节点，这样“盲目”的寻找会浪费资源。 于是这个提案希望在连接前，其他节点可以发送自己的链配置，实现精确连接到有用节点。这个传递的信息在提案中被称作 fork identifier，它实现如下功能：  如果两个节点在不同的网络上，他们不应该考虑连接。 如果硬分叉通过，升级的节点应该拒绝未升级的节点。 如果两条链有相同的创世区块配置和链配置，但没有分叉（ETH /...</div></div></div></a><a class="pagination-related" href="/geth/block-sync/" title="区块同步"><img class="cover" src="/images/geth.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">区块同步</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server   博主的朋友写的  看到core\blockchain.go的时候大量涉及该部分知识，故在此参考大佬博客加之自己的理解先行总结 本文仅仅是简单总结了一下文件结构和重要函数功能，详细函数分析请参考downloader 同步   文件结构 downloader 模块的代码位于 eth/downloader 目录下。主要的功能代码分别是：   downloader.go ：实现了区块同步逻辑   peer.go ：对区块各个阶段的组装，下面的各个FetchXXX 就是很依赖这个模块。   queue.go ：对eth/peer.go的封装   statesync.go ：同步state对象   注意：   downloader是一个下载器，从远程网络节点中获取 hashes 和...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-13</div><div class="info-item-2">How Geth starts its server</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  When starting up, the Geth client begins by parsing the command line parameters. This process kicks off with the geth function: func geth(ctx *cli.Context) error  at cmd/geth/main.go:326 where the geth prepares the metric if enabled. Subsequently, the makeFullNode function takes over. It reads the provided configuration file or command line flags. As a result, it...</div></div></div></a><a class="pagination-related" href="/geth/blockchain-core/" title="blockchain核心"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">blockchain核心</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server   参考： 以太坊 blockchain 源码分析 - mindcarver - 博客园 (cnblogs.com)   主要部分转载：以太坊 blockchain 源码分析  blockchain 关键元素  db：持久化到底层数据储存，即 leveldb（注意不是 MySQL）（源码core/rawdb）；(参考文章：)Leveldb 基本介绍和使用指南 - 知乎 (zhihu.com) 以及对应的百科 [LevelDB_百度百科 (baidu.com)](https://baike.baidu.com/item/LevelDB/6416354#:~:text= Leveldb 是一个 google 实现的非常高效的 kv 数据库，目前的版本 1.2 能够支持 billion 级别的数据量了。...</div></div></div></a><a class="pagination-related" href="/geth/forkId/" title="forkId 解读"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">forkId 解读</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  EIP-2124 因为 core/forkId 包是 EIP-2124 的实现，因此我们先了解 EIP-2124 的内容。 目的  记住以太坊是向后兼容！  以太坊节点之前寻找其他节点的方式是：随机的选择可以连接的节点，再去判断节点是否对自己有用。但是其他的节点可能是主网节点、测试网节点、私网节点、共识机制不一致的节点，这样“盲目”的寻找会浪费资源。 于是这个提案希望在连接前，其他节点可以发送自己的链配置，实现精确连接到有用节点。这个传递的信息在提案中被称作 fork identifier，它实现如下功能：  如果两个节点在不同的网络上，他们不应该考虑连接。 如果硬分叉通过，升级的节点应该拒绝未升级的节点。 如果两条链有相同的创世区块配置和链配置，但没有分叉（ETH /...</div></div></div></a><a class="pagination-related" href="/geth/blocks/" title="理解区块"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">理解区块</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  结构定义 区块  首先我们需要明白区块的结构。 123456789101112131415161718192021// Block represents an entire block in the Ethereum blockchain.type Block struct &#123;   header       *Header      //区块头   uncles       []*Header    //引用的叔块   transactions Transactions //交易   // caches   hash atomic.Value //区块哈希   size atomic.Value //区块大小   // Td is used by package core to store the total...</div></div></div></a><a class="pagination-related" href="/geth/bloom-filter/" title="布隆过滤器原理"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">布隆过滤器原理</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  介绍  布隆过滤器（英语：Bloom Filter）是 1970 年由布隆提出的。它实际上是一个很长的二进制向量和一系列随机映射函数。布隆过滤器可以用于检索一个元素是否在一个集合中。它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。  可见，它解决的核心问题是 检索一个元素是否在一个集合中。原理大致如下： 当一个元素被加入集合时，通过 K 个散列函数将这个元素映射成一个二进制数组中的 K 个位置，把这些位置的值设置为 1。检索时，我们只要观察这些对应的位置的值是不是都是 1 就（大约）知道集合中有没有检索的元素：如果这 K 个位置中有任何一个 0，则被检索元素一定不在集合中；如果都是...</div></div></div></a><a class="pagination-related" href="/geth/oracle-introduction/" title="oracle 原理和实现"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">oracle 原理和实现</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  oracle 介绍 oracle 翻译是预言机，英文中的意思是预卜先知，知晓消息的意思。在区块链里用于合约获取链外的数据。例如你想把比特币转换成美元，如果在链上进行，那么就需要从链外获取比特币和美元的汇率，例如price feed oracles。但是以太坊是封闭的系统，直接与外界交互很容易破坏 EVM 安全性，因此才用了预言机作为中间层，沟通链上和链外。详细可见chainlink 的文档和官方文档。 在以太坊上，oracle 是已经部署的智能合约和链外组件，它可以查询 API 提供的信息，然后给其他合约发消息，更新合约的数据。但是只相信唯一的数据源也是很不可靠的方式，通常是多个数据源。我们可以自己创建，也可以直接使用服务商提供的服务。 一般 oracle...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前缀树 Trie</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">压缩前缀树 Patricia Tree</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">默克尔树 Merkle Tree</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">以太坊的改进方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-byte-%E4%BD%9C%E4%B8%BA-key-%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">使用[]byte 作为 key 类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E%E7%B1%BB%E5%9E%8B%E8%8A%82%E7%82%B9"><span class="toc-number">4.2.</span> <span class="toc-text">新增类型节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%B1%BB-Key"><span class="toc-number">4.3.</span> <span class="toc-text">各类 Key</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E7%BB%93%E6%9E%84%E6%94%B9%E8%BF%9B"><span class="toc-number">4.4.</span> <span class="toc-text">节点结构改进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%88%B0%E7%9A%84-MPT-%E6%A0%91%E7%BB%93%E6%9E%84"><span class="toc-number">4.5.</span> <span class="toc-text">以太坊中使用到的 MPT 树结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#key-%E7%BC%96%E7%A0%81%E8%A7%84%E5%88%99"><span class="toc-number">4.6.</span> <span class="toc-text">key 编码规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MPT-%E8%BD%BB%E8%8A%82%E7%82%B9"><span class="toc-number">4.7.</span> <span class="toc-text">MPT 轻节点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F"><span class="toc-number">4.7.1.</span> <span class="toc-text">解决方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%BB%E8%8A%82%E7%82%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="toc-number">4.7.2.</span> <span class="toc-text">轻节点中添加数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">实现概览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#encoding-go"><span class="toc-number">5.1.</span> <span class="toc-text">encoding.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node-go"><span class="toc-number">5.2.</span> <span class="toc-text">node.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#trie-go"><span class="toc-number">5.3.</span> <span class="toc-text">trie.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iterator-go"><span class="toc-number">5.4.</span> <span class="toc-text">iterator.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#database-go"><span class="toc-number">5.5.</span> <span class="toc-text">database.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#security-trie-go"><span class="toc-number">5.6.</span> <span class="toc-text">security_trie.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proof-go"><span class="toc-number">5.7.</span> <span class="toc-text">proof.go</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">实现细节</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="toc-number">6.1.</span> <span class="toc-text">删除数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E6%9B%B4%E6%96%B0%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.2.</span> <span class="toc-text">树更新实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E8%8A%82%E7%82%B9%E5%86%99%E5%85%A5%E5%88%B0-Trie-%E7%9A%84%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">6.3.</span> <span class="toc-text">将节点写入到 Trie 的内存数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Trie-%E6%A0%91%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6"><span class="toc-number">6.4.</span> <span class="toc-text">Trie 树缓存机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">参考资料：</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>Post Series</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/geth/tx-signature/" title="交易的签名"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交易的签名"></a><div class="content"><a class="title" href="/geth/tx-signature/" title="交易的签名">交易的签名</a><time datetime="2022-08-24T17:30:33.000Z" title="Created 2022-08-25 01:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/understand-receipt/" title="理解收据receipt"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解收据receipt"></a><div class="content"><a class="title" href="/geth/understand-receipt/" title="理解收据receipt">理解收据receipt</a><time datetime="2022-08-24T21:30:33.000Z" title="Created 2022-08-25 05:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/blocks/" title="理解区块"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解区块"></a><div class="content"><a class="title" href="/geth/blocks/" title="理解区块">理解区块</a><time datetime="2022-08-25T00:30:33.000Z" title="Created 2022-08-25 08:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/understand-tx/" title="理解交易"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解交易"></a><div class="content"><a class="title" href="/geth/understand-tx/" title="理解交易">理解交易</a><time datetime="2022-08-25T01:30:33.000Z" title="Created 2022-08-25 09:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/blockchain-core/" title="blockchain核心"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="blockchain核心"></a><div class="content"><a class="title" href="/geth/blockchain-core/" title="blockchain核心">blockchain核心</a><time datetime="2022-08-25T02:30:33.000Z" title="Created 2022-08-25 10:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/forkId/" title="forkId 解读"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="forkId 解读"></a><div class="content"><a class="title" href="/geth/forkId/" title="forkId 解读">forkId 解读</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/bloom-filter/" title="布隆过滤器原理"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="布隆过滤器原理"></a><div class="content"><a class="title" href="/geth/bloom-filter/" title="布隆过滤器原理">布隆过滤器原理</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/oracle-introduction/" title="oracle 原理和实现"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="oracle 原理和实现"></a><div class="content"><a class="title" href="/geth/oracle-introduction/" title="oracle 原理和实现">oracle 原理和实现</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/tx-pool/" title="交易池分析"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交易池分析"></a><div class="content"><a class="title" href="/geth/tx-pool/" title="交易池分析">交易池分析</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/txlist/" title="TxList 解读"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TxList 解读"></a><div class="content"><a class="title" href="/geth/txlist/" title="TxList 解读">TxList 解读</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/MPT-Tree/" title="MPT树"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MPT树"></a><div class="content"><a class="title" href="/geth/MPT-Tree/" title="MPT树">MPT树</a><time datetime="2022-08-25T04:30:33.000Z" title="Created 2022-08-25 12:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/block-sync/" title="区块同步"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块同步"></a><div class="content"><a class="title" href="/geth/block-sync/" title="区块同步">区块同步</a><time datetime="2022-08-25T08:30:33.000Z" title="Created 2022-08-25 16:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/introduction/" title="geth源码学习——介绍"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="geth源码学习——介绍"></a><div class="content"><a class="title" href="/geth/introduction/" title="geth源码学习——介绍">geth源码学习——介绍</a><time datetime="2022-09-28T08:30:33.000Z" title="Created 2022-09-28 16:30:33">2022-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="How Geth starts its server"></a><div class="content"><a class="title" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server">How Geth starts its server</a><time datetime="2023-09-13T15:02:10.000Z" title="Created 2023-09-13 23:02:10">2023-09-13</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/macbook/" title="macbook体验"><img src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="macbook体验"/></a><div class="content"><a class="title" href="/dev/macbook/" title="macbook体验">macbook体验</a><time datetime="2024-11-16T17:33:20.000Z" title="Created 2024-11-17 01:33:20">2024-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/git/" title="Git合作指南"><img src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git合作指南"/></a><div class="content"><a class="title" href="/dev/git/" title="Git合作指南">Git合作指南</a><time datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(三）Python面向对象设计模式"/></a><div class="content"><a class="title" href="/dev/python-design/" title="(三）Python面向对象设计模式">(三）Python面向对象设计模式</a><time datetime="2024-10-28T18:53:20.000Z" title="Created 2024-10-29 02:53:20">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-package/" title="(二）包的开发"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(二）包的开发"/></a><div class="content"><a class="title" href="/dev/python-package/" title="(二）包的开发">(二）包的开发</a><time datetime="2024-10-22T03:18:20.000Z" title="Created 2024-10-22 11:18:20">2024-10-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/docker/" title="docker自动化"><img src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker自动化"/></a><div class="content"><a class="title" href="/dev/docker/" title="docker自动化">docker自动化</a><time datetime="2024-10-21T06:22:20.000Z" title="Created 2024-10-21 14:22:20">2024-10-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'b48b60ca121dcc48ae2360f9b9356cb1'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>

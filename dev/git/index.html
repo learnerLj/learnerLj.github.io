@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Git合作指南 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Fork 项目仓库  进入项目的 GitHub 页面，点击右上角的 Fork 按钮，将该项目仓库复制到自己的 GitHub 账户下。 这个 Fork 的副本是你对项目的个人副本，你可以在上面进行改动而不会影响原项目。  Clone 项目到本地   在你的 GitHub 账户中找到刚刚 Fork 的仓库，复制仓库的链接。   在本地执行以下命令将仓库克隆到你的电脑： 1git clone &lt;y">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git合作指南">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/dev/git/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="Fork 项目仓库  进入项目的 GitHub 页面，点击右上角的 Fork 按钮，将该项目仓库复制到自己的 GitHub 账户下。 这个 Fork 的副本是你对项目的个人副本，你可以在上面进行改动而不会影响原项目。  Clone 项目到本地   在你的 GitHub 账户中找到刚刚 Fork 的仓库，复制仓库的链接。   在本地执行以下命令将仓库克隆到你的电脑： 1git clone &lt;y">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png">
+<meta property="article:published_time" content="2024-10-29T16:21:20.000Z">
+<meta property="article:modified_time" content="2024-11-15T17:02:18.266Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="developer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/dev/git/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git合作指南',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">Git合作指南</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Git合作指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-15T17:02:18.266Z" title="Updated 2024-11-16 01:02:18">2024-11-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/developer/">developer</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1><strong>Fork 项目仓库</strong></h1>
+<ul>
+<li>进入项目的 GitHub 页面，点击右上角的 <strong>Fork</strong> 按钮，将该项目仓库复制到自己的 GitHub 账户下。</li>
+<li>这个 Fork 的副本是你对项目的个人副本，你可以在上面进行改动而不会影响原项目。</li>
+</ul>
+<h1><strong>Clone 项目到本地</strong></h1>
+<ul>
+<li>
+<p>在你的 GitHub 账户中找到刚刚 Fork 的仓库，复制仓库的链接。</p>
+</li>
+<li>
+<p>在本地执行以下命令将仓库克隆到你的电脑：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;your-forked-repo-url&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1><strong>添加上游仓库 (Upstream)</strong></h1>
+<ul>
+<li>
+<p>为了保持你的 Fork 和原项目的同步，需要添加原项目的仓库地址作为 “上游仓库”。</p>
+</li>
+<li>
+<p>进入克隆的项目文件夹，运行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream &lt;original-repo-url&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1><strong>同步上游仓库的更新</strong></h1>
+<ul>
+<li>
+<p>在进行更改之前，确保你的分支是最新的。可以通过以下命令拉取上游仓库的更新并合并到本地：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout main</span><br><span class="line">git merge upstream/main</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>这样可以确保你的本地仓库包含最新的代码，避免冲突。</p>
+</li>
+</ul>
+<h1><strong>创建新分支</strong></h1>
+<ul>
+<li>
+<p>不要在 <code>main</code> 分支上直接进行改动，建议为每个功能或修复创建一个新的分支。</p>
+</li>
+<li>
+<p>创建并切换到新分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b feature-branch-name</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>给分支起一个描述性的名字，比如 <code>fix-typo</code> 或 <code>add-new-feature</code>。</p>
+</li>
+</ul>
+<h1><strong>进行改动并提交</strong></h1>
+<ul>
+<li>
+<p>按照项目的规范进行代码更改、添加功能或修复 bug。</p>
+</li>
+<li>
+<p>完成后，将改动添加并提交：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;描述性的提交信息，如修复了某个问题或添加了某个功能&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>一般来说，<strong>每个提交应当专注于一个小而清晰的更改</strong>。以下情况通常是提交的好时机：</p>
+<ul>
+<li>
+<p><strong>完成一个小的功能或逻辑</strong>：例如实现一个函数、方法或模块。</p>
+</li>
+<li>
+<p><strong>修复一个 Bug</strong>：当你修复了一个特定的问题时，可以单独提交，以便追踪问题。</p>
+</li>
+<li>
+<p><strong>文档更新</strong>：当你更新了 README、注释或其他文档文件时。</p>
+</li>
+<li>
+<p><strong>代码重构</strong>：对代码结构进行了调整，但没有改变功能时。</p>
+</li>
+<li>
+<p><strong>测试用例更新</strong>：添加或修改了测试用例。</p>
+</li>
+</ul>
+<p>避免以下情况频繁提交：</p>
+<ul>
+<li><strong>过于细碎的改动</strong>：比如一行代码的微调，除非是重要的修复。</li>
+<li><strong>未经测试的代码</strong>：提交前应当确保改动是稳定的，或者明确标注为“临时提交”。</li>
+</ul>
+<p>常见的动词包括：</p>
+<p><strong>修复 (Fix)</strong>：修复 Bug 或问题，例如 <code>Fix login error in login page</code></p>
+<p><strong>添加 (Add)</strong>：添加新功能或模块，例如 <code>Add user authentication module</code></p>
+<p><strong>修改 (Update)</strong>：改进已有功能或文档，例如 <code>Update README with setup instructions</code></p>
+<p><strong>重构 (Refactor)</strong>：代码结构调整，例如 <code>Refactor authentication module for clarity</code></p>
+<p><strong>删除 (Remove)</strong>：删除不需要的代码或文件，例如 <code>Remove deprecated API call</code></p>
+<p>如果项目涉及到的文件比较多，那么可以加入前缀，比如在哪个包内做的修改。</p>
+<h1><strong>将更改推送到 Fork 的仓库</strong></h1>
+<ul>
+<li>
+<p>将改动推送到你自己 Fork 仓库的对应分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin feature-branch-name</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1><strong>创建 Pull Request (PR)</strong></h1>
+<ul>
+<li>回到你的 GitHub 仓库页面，会看到一个 <strong>Compare &amp; Pull Request</strong> 的按钮，点击它。</li>
+<li>在 Pull Request 页面中，填写你的改动描述，包括做了哪些更改、为什么进行这些更改等。</li>
+<li>提交 Pull Request，等待项目维护者的审核。</li>
+</ul>
+<h1><strong>与项目维护者沟通</strong></h1>
+<ul>
+<li>项目维护者可能会对你的 Pull Request 提出建议或要求你修改。根据反馈进行调整，并再次提交到你的分支。</li>
+<li>更新 PR 时不需要重新创建 PR，直接推送到同一个分支即可。</li>
+</ul>
+<h1>Git 常用命令</h1>
+<h2 id="怎么提交">怎么提交</h2>
+<p>git commit -m：仅提交已在暂存区的文件，不影响未暂存的文件。<br>
+git commit -am：将所有已跟踪文件的改动添加到暂存区并提交，但不包含新文件。</p>
+<h2 id="合并-Commit">合并 Commit</h2>
+<p><strong>场景一：将指定提交后的所有提交合并到该提交。</strong></p>
+<ol>
+<li>
+<p>找到目标提交的哈希值：首先，使用以下命令查看提交历史，找到要保留的提交（即你希望将后续更改合并到的提交）。<code>git log --oneline</code></p>
+</li>
+<li>
+<p>重置到指定提交：使用 git reset 将分支回退到指定提交。这样会取消指定提交后的所有提交，但保留文件改动在工作区中。<code>git reset --soft &lt;commit-hash&gt;</code><br>
+其中 <commit-hash> 是目标提交的哈希值，例如 abc1234。<br>
+–soft 参数确保保留所有更改在暂存区，以便进行下一步的合并提交。hard 就会删除，请不要使用！</p>
+</li>
+<li>
+<p>重新提交所有更改：现在，所有更改都在暂存区中，你可以将它们合并为一个新的提交。<code>git commit -m &quot;将所有更改合并为一次提交&quot;</code></p>
+</li>
+</ol>
+<p><strong>场景二：将未提交的更改合并到上一次提交。</strong><br>
+如果在最近的提交之后还有未提交的更改，并希望将它们合并到该提交中，可以使用 git commit --amend。</p>
+<ol>
+<li>暂存未提交的更改：首先，将所有未提交的更改添加到暂存区。<code>git add .</code></li>
+<li>使用 --amend 更新上一个提交：将这些暂存的更改添加到上一个提交中。<code>git commit --amend -m &quot;更新上一个提交的信息&quot;</code></li>
+<li>这将打开编辑器，允许你修改上一次提交的信息。如果你希望保留原始信息，只需保存并关闭编辑器即可。</li>
+</ol>
+<h2 id="要复原某个文件或者上次提交">要复原某个文件或者上次提交</h2>
+<p>场景一：将文件从暂存区移除，但保留在工作区中，改动还存在，但是 git 不记录。<code>git reset &lt;filename&gt;</code><br>
+场景二：直接复原文件到上次提交。<code>git checkout -- &lt;filename&gt;</code><br>
+场景三：直接复原整个项目到上次提交。<code>git reset --hard HEAD</code></p>
+<blockquote>
+<p>合并修改，建议在 IDE 里进行，很方便。更多的遇到的时候再学习吧。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/dev/git/">https://www.blog-blockchain.xyz/dev/git/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">(三）Python面向对象设计模式</div></div><div class="info-2"><div class="info-item-1">类和对象 一切都是对象 在 Python 中，“一切皆对象”是一个核心理念。简单来说，Python 中的所有东西都是对象，无论是数值、字符串、函数、类，甚至是模块和代码本身。Python 对象有三个特征：身份、类型和值。  身份：对象在内存中的地址，可以通过 id() 函数查看，例如 id(obj)。 类型：对象的类别，可以通过 type() 函数查看。例如，type(5) 返回 &lt;class 'int'&gt;。 值：对象的实际内容或数据，直接调用变量名即可查看。  1234i = 2print(id(i))      # 输出 i 的存储地址print(type(i))    # 输出 &lt;class &#x27;int&#x27;&gt;print(i)          # 输出变量 i...</div></div></div></a><a class="pagination-related" href="/dev/macbook/" title="macbook体验"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">macbook体验</div></div><div class="info-2"><div class="info-item-1">为什么我喜欢MacBook 我喜欢MacBook有以下几个原因：  优秀的硬件质量： MacBook以其出色的工艺和耐用性著称，铝制一体化机身既美观又坚固。 休眠与唤醒的无缝体验： MacBook合上盖子即可快速休眠，打开盖子能立即恢复工作状态，不会出现无法休眠或休眠后无法唤醒的问题，提供流畅、稳定的使用体验。 长续航时间： MacBook的电池续航能力一直是业界领先，特别是M系列芯片的推出更是大幅提升了续航表现。 出色的显示屏： Retina显示屏提供高分辨率和准确的色彩还原，非常适合设计和视频编辑工作。 适合开发的Unix基础： macOS基于Unix，为开发者提供了强大的命令行工具和兼容性。 丰富的软件生态系统： MacBook拥有大量高质量的软件选择，包括众多开源项目和优秀的商业软件。特别是在编程领域，MacBook提供了全面而强大的开发工具和环境支持，满足各种专业需求和日常应用。  我最近购买了一台MacBook Pro 14英寸，配备M4...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/career/become-good-coder/" title="如何成为优秀的软件工程师"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-09</div><div class="info-item-2">如何成为优秀的软件工程师</div></div><div class="info-2"><div class="info-item-1">要成为一名优秀的软件工程师，需要掌握广泛的技能和知识，包括基础的数据结构、高级架构设计和良好的编程实践。本文将为你详细介绍如何全面提升自己的编程能力，成为卓越的软件工程师。 深入掌握数据结构与算法 TODO: 我的数据结构和算法的笔记，每一类数据结构怎么用。 数据结构和算法是软件工程的核心基础。深入理解数组、链表、堆栈、队列、树、图等基础数据结构，可以帮助你高效地解决复杂问题。你不仅需要理解它们的工作原理，还要清楚它们的优缺点、本质特性以及适用的应用场景。 数组是一种连续存储的结构，适合需要快速随机访问的场景，访问的时间复杂度为 O(1)。但它在插入和删除操作时需要移动大量数据，时间复杂度为 O(n)，因此不适合频繁插入和删除的场景。数组通常用于需要快速访问的应用，例如排行榜和固定大小的数据集合。 链表是一种由节点组成的结构，每个节点包含数据和指向下一个节点的指针。链表在已知位置时，插入和删除操作非常高效，时间复杂度为 O(1)，但随机访问的效率较低，为...</div></div></div></a><a class="pagination-related" href="/dev/docker/" title="docker自动化"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">docker自动化</div></div><div class="info-2"><div class="info-item-1">了解背景 Docker 是一种轻量级的容器化技术，主要用于应用程序的环境迁移和一致性。你需要知道下面的基本概念：  了解镜像、容器的基本概念：https://yeasy.gitbook.io/docker_practice/basic_concept 数据卷的基本概念：https://yeasy.gitbook.io/docker_practice/data_management/volume 网络方面，端口映射、docker compose 容器互联：https://yeasy.gitbook.io/docker_practice/network/port_mapping  OK，上面三个基本概念，你就足够使用 docker 了，然后我们来了解 docker 最实用的地方：  环境迁移，在不同的机器上保持一致性，一次创建或配置，可以在任意地方正常运行。。 直接在 docker 内利用 linux 环境和路径挂载来开发。  隔离依赖、统一开发环境、快速启动。 利用 Linux 容器作为开发环境：在不同平台（Windows、Mac、Linux）上保持一致的开发环境。 通过...</div></div></div></a><a class="pagination-related" href="/dev/macbook/" title="macbook体验"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-17</div><div class="info-item-2">macbook体验</div></div><div class="info-2"><div class="info-item-1">为什么我喜欢MacBook 我喜欢MacBook有以下几个原因：  优秀的硬件质量： MacBook以其出色的工艺和耐用性著称，铝制一体化机身既美观又坚固。 休眠与唤醒的无缝体验： MacBook合上盖子即可快速休眠，打开盖子能立即恢复工作状态，不会出现无法休眠或休眠后无法唤醒的问题，提供流畅、稳定的使用体验。 长续航时间： MacBook的电池续航能力一直是业界领先，特别是M系列芯片的推出更是大幅提升了续航表现。 出色的显示屏： Retina显示屏提供高分辨率和准确的色彩还原，非常适合设计和视频编辑工作。 适合开发的Unix基础： macOS基于Unix，为开发者提供了强大的命令行工具和兼容性。 丰富的软件生态系统： MacBook拥有大量高质量的软件选择，包括众多开源项目和优秀的商业软件。特别是在编程领域，MacBook提供了全面而强大的开发工具和环境支持，满足各种专业需求和日常应用。  我最近购买了一台MacBook Pro 14英寸，配备M4...</div></div></div></a><a class="pagination-related" href="/dev/python-package/" title="(二）包的开发"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-22</div><div class="info-item-2">(二）包的开发</div></div><div class="info-2"><div class="info-item-1">Python 包的开发是一项重要的技能，可以帮助你组织代码、实现代码复用，并且将功能模块分发给其他开发者使用。 包和模块是什么 在 Python 中，一个包（Package）就是一个包含多个模块的目录，其中通过 __init__.py 文件来表明它是一个包。包允许你将代码逻辑分解为多个文件，并且通过模块的方式进行导入和复用。  模块：一个 Python 文件（*.py 文件）就是一个模块。模块可以包含函数、类和变量。 包：包是包含多个模块的文件夹。包使得模块之间可以被组织起来，以便更好的管理。  目录结构示例： 1234my_package/    ├── __init__.py        # 包初始化文件    ├── module_a.py        # 模块 A    ├── module_b.py        # 模块 B 在代码中使用包（如果要供外部使用，推荐使用相对路径）： 12345# 导入包中的模块from my_package import module_a# 使用模块中的函数module_a.some_function() 一个典型的 python...</div></div></div></a><a class="pagination-related" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-29</div><div class="info-item-2">(三）Python面向对象设计模式</div></div><div class="info-2"><div class="info-item-1">类和对象 一切都是对象 在 Python 中，“一切皆对象”是一个核心理念。简单来说，Python 中的所有东西都是对象，无论是数值、字符串、函数、类，甚至是模块和代码本身。Python 对象有三个特征：身份、类型和值。  身份：对象在内存中的地址，可以通过 id() 函数查看，例如 id(obj)。 类型：对象的类别，可以通过 type() 函数查看。例如，type(5) 返回 &lt;class 'int'&gt;。 值：对象的实际内容或数据，直接调用变量名即可查看。  1234i = 2print(id(i))      # 输出 i 的存储地址print(type(i))    # 输出 &lt;class &#x27;int&#x27;&gt;print(i)          # 输出变量 i...</div></div></div></a><a class="pagination-related" href="/dev/python-env/" title="(一）Python环境配置指南"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">(一）Python环境配置指南</div></div><div class="info-2"><div class="info-item-1">管理 Python 版本 推荐使用 https://github.com/pyenv/pyenv 来管理不同版本的 python，但是它不支持 windows，如果你使用 windows，请使用 https://github.com/pyenv-win/pyenv-win 。 如果你需要使用特定版本的 python，先安装它，类似于 1pyenv install 3.9.6 随后在项目的根目录，使用 1pyenv local 3.9.6 它会生成一个配置文件 .python-version ，就会让进入项目根目录，就会自动切换到 3.9.6 的版本。 管理虚拟环境 Poetry 适合现代 Python 项目开发、个人或小型团队开发、需要发布到 PyPI 的项目。 特点：  自动化依赖管理：Poetry 能够自动处理依赖冲突，生成 pyproject.toml 和 poetry.lock 文件，确保依赖一致性。 内置虚拟环境管理：Poetry 会自动为每个项目创建虚拟环境，隔离项目依赖，保证项目间的互不干扰。 简化的发布流程：通过 poetry build 和 poetry...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Fork 项目仓库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">Clone 项目到本地</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">添加上游仓库 (Upstream)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">同步上游仓库的更新</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">创建新分支</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">进行改动并提交</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">将更改推送到 Fork 的仓库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">8.</span> <span class="toc-text">创建 Pull Request (PR)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">9.</span> <span class="toc-text">与项目维护者沟通</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">10.</span> <span class="toc-text">Git 常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E6%8F%90%E4%BA%A4"><span class="toc-number">10.1.</span> <span class="toc-text">怎么提交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E5%B9%B6-Commit"><span class="toc-number">10.2.</span> <span class="toc-text">合并 Commit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E5%A4%8D%E5%8E%9F%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E6%88%96%E8%80%85%E4%B8%8A%E6%AC%A1%E6%8F%90%E4%BA%A4"><span class="toc-number">10.3.</span> <span class="toc-text">要复原某个文件或者上次提交</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/macbook/" title="macbook体验"><img src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="macbook体验"/></a><div class="content"><a class="title" href="/dev/macbook/" title="macbook体验">macbook体验</a><time datetime="2024-11-16T17:33:20.000Z" title="Created 2024-11-17 01:33:20">2024-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/git/" title="Git合作指南"><img src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git合作指南"/></a><div class="content"><a class="title" href="/dev/git/" title="Git合作指南">Git合作指南</a><time datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(三）Python面向对象设计模式"/></a><div class="content"><a class="title" href="/dev/python-design/" title="(三）Python面向对象设计模式">(三）Python面向对象设计模式</a><time datetime="2024-10-28T18:53:20.000Z" title="Created 2024-10-29 02:53:20">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-package/" title="(二）包的开发"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(二）包的开发"/></a><div class="content"><a class="title" href="/dev/python-package/" title="(二）包的开发">(二）包的开发</a><time datetime="2024-10-22T03:18:20.000Z" title="Created 2024-10-22 11:18:20">2024-10-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/docker/" title="docker自动化"><img src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker自动化"/></a><div class="content"><a class="title" href="/dev/docker/" title="docker自动化">docker自动化</a><time datetime="2024-10-21T06:22:20.000Z" title="Created 2024-10-21 14:22:20">2024-10-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '980cc1c3c495a46854e8b3800c599fa5'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>

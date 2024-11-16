@@ -1,0 +1,483 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>交易池分析 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  core\txpool.go 前言   这篇文章是博主的朋友写的。 在写这篇文章的时候，笔者已经完完全全看完该代码文件的每一行代码，但是由于代码量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交易池分析">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/geth/tx-pool/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  core\txpool.go 前言   这篇文章是博主的朋友写的。 在写这篇文章的时候，笔者已经完完全全看完该代码文件的每一行代码，但是由于代码量">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.blog-blockchain.xyz/images/geth.png">
+<meta property="article:published_time" content="2022-08-25T03:30:33.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:30:54.924Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="geth">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog-blockchain.xyz/images/geth.png"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/geth/tx-pool/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '交易池分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">交易池分析</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">交易池分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-15T14:30:54.924Z" title="Updated 2024-11-15 22:30:54">2024-11-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/geth/">geth</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">5.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>20mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><blockquote>
+<ol class="series-items"><li><a href="/geth/tx-signature/" title="交易的签名">交易的签名</a></li><li><a href="/geth/understand-receipt/" title="理解收据receipt">理解收据receipt</a></li><li><a href="/geth/blocks/" title="理解区块">理解区块</a></li><li><a href="/geth/understand-tx/" title="理解交易">理解交易</a></li><li><a href="/geth/blockchain-core/" title="blockchain核心">blockchain核心</a></li><li><a href="/geth/forkId/" title="forkId 解读">forkId 解读</a></li><li><a href="/geth/bloom-filter/" title="布隆过滤器原理">布隆过滤器原理</a></li><li><a href="/geth/oracle-introduction/" title="oracle 原理和实现">oracle 原理和实现</a></li><li><a href="/geth/tx-pool/" title="交易池分析">交易池分析</a></li><li><a href="/geth/txlist/" title="TxList 解读">TxList 解读</a></li><li><a href="/geth/MPT-Tree/" title="MPT树">MPT树</a></li><li><a href="/geth/block-sync/" title="区块同步">区块同步</a></li><li><a href="/geth/introduction/" title="geth源码学习——介绍">geth源码学习——介绍</a></li><li><a href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server">How Geth starts its server</a></li></ol>
+</blockquote>
+<p><strong><code>core\txpool.go</code></strong></p>
+<h3 id="前言">前言</h3>
+<blockquote>
+<ul>
+<li>这篇文章是博主的朋友写的。</li>
+<li>在写这篇文章的时候，笔者已经完完全全看完该代码文件的每一行代码，但是由于代码量过于庞大，所以自然存在边看边忘的情况，所以在此写下这篇文章记录自己的理解以及收获，笔者能力有限，错误之处在所难免，还望包容</li>
+<li>由于该文件代码量过大，而且笔者还同时在看该仓库其他的代码文件，所以笔者决定分期写，一边阅读其他的源码文件，一边回顾<code>txPool.go</code>同时写下阅读笔记</li>
+<li>而且大部分的理解已经记录在源码文件中了，所以阅读源码中的笔记更能帮助理解</li>
+</ul>
+</blockquote>
+<h3 id="一些重要概念">一些重要概念</h3>
+<ol>
+<li><code>可执行交易和非可执行交易</code>。<code>可执行交易</code>是指从交易池中择优选出的一部分交易可以被执行，打包到区块中。<code>非可执行交易</code>则相反，任何刚进入交易池的交易均属于非可执行状态，在某一个时刻才会提升为可执行状态。</li>
+</ol>
+<hr>
+<ol start="2">
+<li><code>本地交易</code> 在交易池中将交易标记为 local 的有多种用途：
+<ol>
+<li>在本地磁盘存储已发送的交易。这样，本地交易不会丢失，重启节点时可以重新加载到交易池，实时广播出去。</li>
+<li>可以作为外部程序和以太坊沟通的一个渠道。外部程序只需要监听文件内容变化，则可以获得交易清单。</li>
+<li><code>local交易</code>可优先于 <code>remote 交易</code>。对交易量的限制等操作，不影响 <code>local</code> 下的账户和交易。</li>
+</ol>
+</li>
+</ol>
+<hr>
+<ol start="3">
+<li><code>nonce</code>总结:
+<ol>
+<li>以太坊中有两种<code>nonce</code>，一种是在<code>区块中的nonce</code>，主要是调整挖矿难度；一种是每笔<code>交易中nonce</code>。</li>
+<li>每个外部账户（私钥控制的账户）都有一个<code>nonce</code>值，从 0 开始连续累加，每累加一次，代表一笔交易。</li>
+<li>某一地址的某一交易的<code>nonce</code>值如果大于当前的<code>nonce</code>，该交易会被放到交易池的<code>queue</code>列表中，直到缺失的<code>nonce</code>被提交到交易池中。</li>
+<li>地址的<code>nonce</code>值是一个连续的整数，起设计的主要目的是防止双花。</li>
+<li>在发生一笔交易时，如果不指定<code>nonce</code>值时，节点会根据当前交易池的交易自动计算该笔交易的<code>nonce</code>。有可能会出现节点 A 和节点 B 计算的<code>nonce</code>值不一样的情况。</li>
+</ol>
+</li>
+</ol>
+<hr>
+<ol start="4">
+<li>
+<p>时隙 (<code>slots</code>) 和时段 (<code>epochs</code>)</p>
+<ol>
+<li>
+<p>信标链是以太坊 2.0 的心脏，它令以太坊系统在和谐与共识中有序运行。每个 slot 为 12 秒，每个 epoch 由 32 个 slots 组成，即 6.4 分钟。</p>
+</li>
+<li>
+<p>Epoch 0 中的前 32 个 slots，创世区块在 Slot 0 中产生</p>
+</li>
+<li>
+<p>在每个 slot 中，在信标链和分片中都可能新增一个区块。我们可以想象，信标链和分片链有序且紧密地排列在一起，当系统在理想情况下运转时，每 12 秒就有一个信标（链）区块和 64 个分片区块产生。验证者大致按照这个时间同步。</p>
+</li>
+<li>
+<p>我们可以将一个 slot 看作是区块生成时间，不同的是 slots 内可以没有区块。信标链和分片的创世区块都在 Slot 0 中产生。分片将在信标链 epoch 0 的下一个 epoch 中开始运作，但无论是分片链还是信标链，都有自己的 epoch 0，且包含其创世区块。</p>
+</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h3 id="一些-go-语言的奇妙用法">一些 go 语言的奇妙用法</h3>
+<ol>
+<li>
+<p><code>...</code>其实是 go 的一种语法糖。第一个用法主要是用于函数有多个不定参数的情况，可以接受多个不确定数量的参数。第二个用法是 slice 可以被打散进行传递。</p>
+<p>这个是一个关于该语法的一篇博客可以参考： <a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/jeffrey11223/article/details/79166724">Go 中…的用法</a></p>
+</li>
+</ol>
+<hr>
+<ol start="2">
+<li><code>Go语言等待组（sync.WaitGroup）</code>对于我来说是一个几乎不曾见过的 go 语言的语法知识，所以在此进行查找记录一下，个人理解：该等待组在本 go 语言程序中的作用是调用<code>wg.Wait()</code>时阻塞使得等在组里面的所有的 go 协程都运行完毕，然后才恢复，也是一种同步携程的方法。具体请看这篇文章：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/81987971">sync 包——WaitGroup</a></li>
+</ol>
+<hr>
+<h3 id="关于交易中的nonce的深入剖析">关于交易中的<code>nonce</code>的深入剖析:</h3>
+<p><em>参考文章:</em> 1. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/noding2001/article/details/104051284">一文讲清楚以太坊的 nonce</a> 2. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jianshu.com/p/6df7f2adc424">以太坊交易中的 Nonce 详解</a></p>
+<hr>
+<h3 id="交易池源码解析-core-txpool-go">交易池源码解析 (<code>core/txpool.go</code>)</h3>
+<h4 id="前提参数">前提参数</h4>
+<blockquote>
+<p>我们可以通过源码看到前面定义了一大堆参数，初看时毫无头绪，但是等你将&gt;这两千行代码完整的看完之时，你基本上就可以理解大部分参数的含义了</p>
+</blockquote>
+<ul>
+<li>以下的这些参数我还不理解，等会补充：</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	<span class="comment">// chainHeadChanSize is the size of channel listening to ChainHeadEvent.</span></span><br><span class="line">	chainHeadChanSize = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// txSlotSize is used to calculate how many data slots a single transaction</span></span><br><span class="line">	<span class="comment">// takes up based on its size. The slots are used as DoS protection, ensuring</span></span><br><span class="line">	<span class="comment">// that validating a new transaction remains a constant operation (in reality</span></span><br><span class="line">	<span class="comment">// O(maxslots), where max slots are 4 currently).</span></span><br><span class="line">	txSlotSize = <span class="number">32</span> * <span class="number">1024</span><span class="comment">//32KB</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// txMaxSize is the maximum size a single transaction can have. This field has</span></span><br><span class="line">	<span class="comment">// non-trivial consequences: larger transactions are significantly harder and</span></span><br><span class="line">	<span class="comment">// more expensive to propagate; larger transactions also take more resources</span></span><br><span class="line">	<span class="comment">// to validate whether they fit into the pool or not.</span></span><br><span class="line">	txMaxSize = <span class="number">4</span> * txSlotSize <span class="comment">// 128KB</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>一些错误处理的<code>error</code>变量</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	<span class="comment">// ErrAlreadyKnown is returned if the transactions is already contained</span></span><br><span class="line">	<span class="comment">// within the pool.</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//交易池中已经存在的 错误处理</span></span><br><span class="line">	ErrAlreadyKnown = errors.New(<span class="string">&quot;already known&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ErrInvalidSender is returned if the transaction contains an invalid signature.</span></span><br><span class="line">	<span class="comment">//无效签名的 错误处理</span></span><br><span class="line">	ErrInvalidSender = errors.New(<span class="string">&quot;invalid sender&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ErrUnderpriced is returned if a transaction&#x27;s gas price is below the minimum</span></span><br><span class="line">	<span class="comment">// configured for the transaction pool.</span></span><br><span class="line">	<span class="comment">//定价过低</span></span><br><span class="line">	ErrUnderpriced = errors.New(<span class="string">&quot;transaction underpriced&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ErrTxPoolOverflow is returned if the transaction pool is full and can&#x27;t accpet</span></span><br><span class="line">	<span class="comment">// another remote transaction.</span></span><br><span class="line">	<span class="comment">//交易池已经满了</span></span><br><span class="line">	ErrTxPoolOverflow = errors.New(<span class="string">&quot;txpool is full&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ErrReplaceUnderpriced is returned if a transaction is attempted to be replaced</span></span><br><span class="line">	<span class="comment">// with a different one without the required price bump.</span></span><br><span class="line">	ErrReplaceUnderpriced = errors.New(<span class="string">&quot;replacement transaction underpriced&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ErrGasLimit is returned if a transaction&#x27;s requested gas limit exceeds the</span></span><br><span class="line">	<span class="comment">// maximum allowance of the current block.</span></span><br><span class="line">	ErrGasLimit = errors.New(<span class="string">&quot;exceeds block gas limit&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ErrNegativeValue is a sanity error to ensure no one is able to specify a</span></span><br><span class="line">	<span class="comment">// transaction with a negative value.</span></span><br><span class="line">	ErrNegativeValue = errors.New(<span class="string">&quot;negative value&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ErrOversizedData is returned if the input data of a transaction is greater</span></span><br><span class="line">	<span class="comment">// than some meaningful limit a user might use. This is not a consensus error</span></span><br><span class="line">	<span class="comment">// making the transaction invalid, rather a DOS protection.</span></span><br><span class="line">	ErrOversizedData = errors.New(<span class="string">&quot;oversized data&quot;</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>度量参数(或者说是计数器)</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	<span class="comment">// Metrics for the pending pool</span></span><br><span class="line">	<span class="comment">//待处理池</span></span><br><span class="line">	pendingDiscardMeter   = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/pending/discard&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	pendingReplaceMeter   = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/pending/replace&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	pendingRateLimitMeter = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/pending/ratelimit&quot;</span>, <span class="literal">nil</span>) <span class="comment">// Dropped due to rate limiting</span></span><br><span class="line">	pendingNofundsMeter   = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/pending/nofunds&quot;</span>, <span class="literal">nil</span>)   <span class="comment">// Dropped due to out-of-funds</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Metrics for the queued pool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//排队池</span></span><br><span class="line">	queuedDiscardMeter   = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/queued/discard&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	queuedReplaceMeter   = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/queued/replace&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	queuedRateLimitMeter = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/queued/ratelimit&quot;</span>, <span class="literal">nil</span>) <span class="comment">// Dropped due to rate limiting</span></span><br><span class="line">	queuedNofundsMeter   = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/queued/nofunds&quot;</span>, <span class="literal">nil</span>)   <span class="comment">// Dropped due to out-of-funds</span></span><br><span class="line">	queuedEvictionMeter  = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/queued/eviction&quot;</span>, <span class="literal">nil</span>)  <span class="comment">// Dropped due to lifetime</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// General tx metrics</span></span><br><span class="line">	knownTxMeter       = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/known&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	validTxMeter       = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/valid&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	invalidTxMeter     = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/invalid&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	underpricedTxMeter = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/underpriced&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	overflowedTxMeter  = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/overflowed&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	<span class="comment">// throttleTxMeter counts how many transactions are rejected due to too-many-changes between</span></span><br><span class="line">	<span class="comment">// txpool reorgs.</span></span><br><span class="line">	throttleTxMeter = metrics.NewRegisteredMeter(<span class="string">&quot;txpool/throttle&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	<span class="comment">// reorgDurationTimer measures how long time a txpool reorg takes.</span></span><br><span class="line">	reorgDurationTimer = metrics.NewRegisteredTimer(<span class="string">&quot;txpool/reorgtime&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	<span class="comment">// dropBetweenReorgHistogram counts how many drops we experience between two reorg runs. It is expected</span></span><br><span class="line">	<span class="comment">// that this number is pretty low, since txpool reorgs happen very frequently.</span></span><br><span class="line">	dropBetweenReorgHistogram = metrics.NewRegisteredHistogram(<span class="string">&quot;txpool/dropbetweenreorg&quot;</span>, <span class="literal">nil</span>, metrics.NewExpDecaySample(<span class="number">1028</span>, <span class="number">0.015</span>))</span><br><span class="line"></span><br><span class="line">	pendingGauge = metrics.NewRegisteredGauge(<span class="string">&quot;txpool/pending&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	queuedGauge  = metrics.NewRegisteredGauge(<span class="string">&quot;txpool/queued&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	localGauge   = metrics.NewRegisteredGauge(<span class="string">&quot;txpool/local&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	slotsGauge   = metrics.NewRegisteredGauge(<span class="string">&quot;txpool/slots&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">	reheapTimer = metrics.NewRegisteredTimer(<span class="string">&quot;txpool/reheap&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="交易池配置">交易池配置</h4>
+<blockquote>
+<p>交易池配置不多，但每项配置均直接影响交易池对交易的处理行为。配置信息由 TxPoolConfig 所定义，相关的解释已经在源码中</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TxPoolConfig are the configuration parameters of the transaction pool.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//交易池配置(以太坊 geth 节点允许在启动节点时，通过参数修改以下配置)</span></span><br><span class="line"><span class="keyword">type</span> TxPoolConfig <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">//定义了一组视为local交易的账户地址。</span></span><br><span class="line">	<span class="comment">//任何来自此清单的交易默认均被视为 local 交易</span></span><br><span class="line">	Locals    []common.Address <span class="comment">// Addresses that should be treated by default as local</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//是否禁止local交易处理。默认为 fasle,允许 local 交易。</span></span><br><span class="line">	<span class="comment">//如果禁止,则来自 local 的交易均视为 remote 交易处理</span></span><br><span class="line">	NoLocals  <span class="type">bool</span>             <span class="comment">// Whether local transaction handling should be disabled</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//存储local交易记录的文件名，默认是 ./transactions.rlp</span></span><br><span class="line">	Journal   <span class="type">string</span>           <span class="comment">// Journal of local transactions to survive node restarts</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//定期将local交易存储文件中的时间间隔。默认为每小时一次</span></span><br><span class="line">	Rejournal time.Duration    <span class="comment">// Time interval to regenerate the local transaction journal</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// remote交易进入交易池的最低 Price 要求。此设置对 local 交易无效。默认值1</span></span><br><span class="line">	PriceLimit <span class="type">uint64</span> <span class="comment">// Minimum gas price to enforce for acceptance into the pool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//替换交易时所要求的价格上调涨幅比例最低要求。任何低于要求的替换交易均被拒绝。</span></span><br><span class="line">	PriceBump  <span class="type">uint64</span> <span class="comment">// Minimum price bump percentage to replace an already existing transaction (nonce)</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//当交易池中可执行交易（是已在等待矿工打包的交易）量超标时，允许每个账户可以保留在交易池最低交易数。默认值是 16 笔。</span></span><br><span class="line">	AccountSlots <span class="type">uint64</span> <span class="comment">// Number of executable transaction slots guaranteed per account</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//交易池中所允许的可执行交易量上限，高于上限时将释放部分交易。默认是 4096 笔交易。</span></span><br><span class="line">	GlobalSlots  <span class="type">uint64</span> <span class="comment">// Maximum number of executable transaction slots for all accounts</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//交易池中单个账户 非可执行交易 上限，默认是64笔。</span></span><br><span class="line">	AccountQueue <span class="type">uint64</span> <span class="comment">// Maximum number of non-executable transaction slots permitted per account</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//交易池中所有非可执行交易上限，默认 1024 笔。</span></span><br><span class="line">	GlobalQueue  <span class="type">uint64</span> <span class="comment">// Maximum number of non-executable transaction slots for all accounts</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 允许 remote 的非可执行交易可在交易池存活的最长时间。</span></span><br><span class="line">	<span class="comment">//交易池每分钟检查一次，一旦发现有超期的remote 账户，则移除该账户下的所有非可执行交易。默认为3小时。</span></span><br><span class="line">	Lifetime time.Duration <span class="comment">// Maximum amount of time non-executable transaction are queued</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上有解释过的默认配置(如: <code>PriceLimit=1</code> <code>PriceBump=10</code>)在下面已经被定义成常量：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> DefaultTxPoolConfig = TxPoolConfig&#123;</span><br><span class="line">	Journal:   <span class="string">&quot;transactions.rlp&quot;</span>,</span><br><span class="line">	Rejournal: time.Hour,</span><br><span class="line"></span><br><span class="line">	PriceLimit: <span class="number">1</span>,</span><br><span class="line">	PriceBump:  <span class="number">10</span>,</span><br><span class="line"></span><br><span class="line">	AccountSlots: <span class="number">16</span>,</span><br><span class="line">	GlobalSlots:  <span class="number">4096</span> + <span class="number">1024</span>, <span class="comment">// urgent + floating queue capacity with 4:1 ratio</span></span><br><span class="line">	AccountQueue: <span class="number">64</span>,</span><br><span class="line">	GlobalQueue:  <span class="number">1024</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//默认的remote的生命周期 交易池每隔一分钟检查一次</span></span><br><span class="line">	Lifetime: <span class="number">3</span> * time.Hour,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>该结构体被用于<code>Txpool</code>中：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TxPool contains all currently known transactions. Transactions</span></span><br><span class="line"><span class="comment">// enter the pool when they are received from the network or submitted</span></span><br><span class="line"><span class="comment">// locally. They exit the pool when they are included in the blockchain.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// The pool separates processable transactions (which can be applied to the</span></span><br><span class="line"><span class="comment">// current state) and future transactions. Transactions move between those</span></span><br><span class="line"><span class="comment">// two states over time as they are received and processed.</span></span><br><span class="line"><span class="keyword">type</span> TxPool <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">//配置信息</span></span><br><span class="line">	config TxPoolConfig</span><br><span class="line">	<span class="comment">//链配置</span></span><br><span class="line">	chainconfig *params.ChainConfig <span class="comment">//param(中文-&gt;参数)</span></span><br><span class="line">	<span class="comment">//当前链</span></span><br><span class="line">	chain blockChain</span><br><span class="line">	<span class="comment">//最低的gas价格</span></span><br><span class="line">	gasPrice *big.Int</span><br><span class="line">	<span class="comment">//通过txFedd订阅TxPool的信息</span></span><br><span class="line">	txFeed event.Feed</span><br><span class="line">	<span class="comment">//提供了同时取消多个订阅的功能</span></span><br><span class="line">	scope event.SubscriptionScope</span><br><span class="line"></span><br><span class="line">	<span class="comment">//对事物进行签名处理</span></span><br><span class="line">	signer types.Signer</span><br><span class="line">	<span class="comment">//读写互斥锁</span></span><br><span class="line">	mu sync.RWMutex</span><br><span class="line"></span><br><span class="line">	istanbul <span class="type">bool</span> <span class="comment">// Fork indicator whether we are in the istanbul stage.</span></span><br><span class="line">	eip2718  <span class="type">bool</span> <span class="comment">// Fork indicator whether we are using EIP-2718 type transactions.</span></span><br><span class="line">	eip1559  <span class="type">bool</span> <span class="comment">// Fork indicator whether we are using EIP-1559 type transactions.</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//区块链头部的当前状态</span></span><br><span class="line">	currentState  *state.StateDB <span class="comment">// Current state in the blockchain head</span></span><br><span class="line">	pendingNonces *txNoncer      <span class="comment">// Pending state tracking virtual nonces</span></span><br><span class="line">	currentMaxGas <span class="type">uint64</span>         <span class="comment">// Current gas limit for transaction caps</span></span><br><span class="line"></span><br><span class="line">	locals  *accountSet <span class="comment">// Set of local transaction to exempt from eviction rules</span></span><br><span class="line">	journal *txJournal  <span class="comment">// Journal of local transaction to back up to disk</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//可执行队列</span></span><br><span class="line">	pending <span class="keyword">map</span>[common.Address]*txList <span class="comment">// All currently processable transactions</span></span><br><span class="line">	<span class="comment">//排队队列</span></span><br><span class="line">	queue <span class="keyword">map</span>[common.Address]*txList   <span class="comment">// Queued but non-processable transactions</span></span><br><span class="line">    <span class="comment">//每个账户对应的最后一笔交易进入的pending队列的时刻</span></span><br><span class="line">	beats <span class="keyword">map</span>[common.Address]time.Time <span class="comment">// Last heartbeat from each known account</span></span><br><span class="line">    <span class="comment">//储存全部的交易</span></span><br><span class="line">	all   *txLookup                    <span class="comment">// All transactions to allow lookups</span></span><br><span class="line">	<span class="comment">//所有按价格排序的交易</span></span><br><span class="line">	priced *txPricedList <span class="comment">// All transactions sorted by price</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//当有了新的区块的产生会收到消息，订阅区块头消息</span></span><br><span class="line">	chainHeadCh <span class="keyword">chan</span> ChainHeadEvent</span><br><span class="line">	<span class="comment">//区块头消息订阅器</span></span><br><span class="line">	chainHeadSub    event.Subscription</span><br><span class="line">	reqResetCh      <span class="keyword">chan</span> *txpoolResetRequest</span><br><span class="line">	reqPromoteCh    <span class="keyword">chan</span> *accountSet</span><br><span class="line">	queueTxEventCh  <span class="keyword">chan</span> *types.Transaction</span><br><span class="line">	reorgDoneCh     <span class="keyword">chan</span> <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line">	reorgShutdownCh <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;  <span class="comment">// requests shutdown of scheduleReorgLoop</span></span><br><span class="line">	wg              sync.WaitGroup <span class="comment">// tracks loop, scheduleReorgLoop</span></span><br><span class="line">	initDoneCh      <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;  <span class="comment">// is closed once the pool is initialized (for tests)</span></span><br><span class="line"></span><br><span class="line">	changesSinceReorg <span class="type">int</span> <span class="comment">// A counter for how many drops we&#x27;ve performed in-between reorg.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就像上面的交易配置，再结合下面的图像：<br>
+<img src="https://gitee.com/xyjjyyy/myimg/raw/master/img/202203190237870.png" style="zoom: 33%;"></p>
+<p>我们可以发现，以太坊将交易按状态分为两部分：可执行交易和非可执行交易。分别记录在<code>pending</code>容器中和<code> queue</code>容器，交易池先采用一个 <code>txLookup</code> (内部为 map）跟踪所有交易。同时将交易根据本地优先，价格优先原则将交易划分为两部分 <code>queue </code>和 <code>pending</code>。而这两部交易则按账户分别跟踪</p>
+<h4 id="Txpool初始化"><code>Txpool</code>初始化</h4>
+<blockquote>
+<p>**func NewTxPool(config TxPoolConfig, chainconfig *params.ChainConfig, chain blockChain) *TxPool **</p>
+</blockquote>
+<p><big>1. 检查配置，配置有问题的话就用默认配置初始化</big></p>
+<p><code>config = (&amp;config).sanitize()</code></p>
+<hr>
+<p><big>2. 初始化本地账户： </big></p>
+<p><code>pool.locals = newAccountSet(pool.signer)</code></p>
+<p>相关函数为详情为：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newAccountSet</span><span class="params">(signer types.Signer, addrs ...common.Address)</span></span> *accountSet &#123;</span><br><span class="line">	as := &amp;accountSet&#123;</span><br><span class="line">		accounts: <span class="built_in">make</span>(<span class="keyword">map</span>[common.Address]<span class="keyword">struct</span>&#123;&#125;),</span><br><span class="line">		signer:   signer,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//逐个加入地址</span></span><br><span class="line">	<span class="keyword">for</span> _, addr := <span class="keyword">range</span> addrs &#123;</span><br><span class="line">		as.add(addr)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//返回创建的AccountSet</span></span><br><span class="line">	<span class="keyword">return</span> as</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><big>3. 将配置的本地账户地址加入进去 </big></p>
+<pre><code>pool.locals.add(addr)
+</code></pre>
+<p>我们在安装以太坊客户端可以指定一个数据存储目录，此目录便会存储着所有我们导入的或者通过本地客户端创建的帐户 keystore 文件。而这个加载过程便是从该目录加载帐户数据</p>
+<hr>
+<p><big> 4. 更新交易池：</big></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//reset检索区块链的当前状态，并确保交易池的内容相对于链状态有效。</span></span><br><span class="line">pool.reset(<span class="literal">nil</span>, chain.CurrentBlock().Header())</span><br></pre></td></tr></table></figure>
+<p>更新交易池使用的<code>reset</code>函数非常关键,我们要进行讲解:</p>
+<p>首先是<code>reset</code>函数的目的是：</p>
+<ul>
+<li>
+<p>对应<code>oldHead=nil</code>的情况时:</p>
+<p>一般发生在刚创建交易池的时候,我们会用<code>chain.CurrentBlock().Header()</code>(就是当前的区块头)来进行替换,说是复制也可以，达到<code>reset</code>函数的目的;</p>
+</li>
+<li>
+<p>对应<code>oldHead!=nil</code>的情况时:<br>
+<strong>发生原因：</strong> 由于以太坊是分布式系统，当本地节点已经挑选出最优的交易，准备广播给整个网络，这个时候矿工已经打包了一个区块，本地节点的区块头就是旧的了，本地筛选的交易有可能已经被打包，如果已经被打包生成了新区块，再将这个交易广播已经没有任何的意义，甚至我们费尽心思准备好的 pending 缓冲区里的交易都是无效的。<br>
+<strong>解决方法：</strong> 为了避免以上的情况发生我们就需要监听链是否有新区块产生，也就是<code>ChainHeadEvent</code>事件(相关调用的函数为<code>runReorg</code>函数)，监听到之后就要回退，现在这里不是我们这讨论的范畴；<br>
+具体代码就是这样完成的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Subscribe events from blockchain and start the main event loop.</span></span><br><span class="line"><span class="comment">//在交易池启动后，将订阅链的区块头事件</span></span><br><span class="line">pool.chainHeadSub = pool.chain.SubscribeChainHeadEvent(pool.chainHeadCh)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>pool.wg.Add(1)</code>关于这行代码的解释请看 go 语言语法知识<code>go语言等待组</code>那一块，这里不再讲解；</p>
+</li>
+<li>
+<p><code>go pool.scheduleReorgLoop()</code>文件给出的解释是这样的，与后面加载本地日志的操作相呼应 <code> Start the reorg loop early so it can handle requests generated during journal loading.</code></p>
+</li>
+<li>
+<p>如果本地交易开启 那么从本地磁盘加载本地交易:</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// If local transactions and journaling is enabled, load from disk</span></span><br><span class="line"><span class="comment">//允许local交易 并且储存了journal</span></span><br><span class="line"><span class="keyword">if</span> !config.NoLocals &amp;&amp; config.Journal != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">	<span class="comment">//在启动交易池时根据配置开启本地交易存储能力</span></span><br><span class="line">	<span class="comment">//主要是从config中读出</span></span><br><span class="line">	pool.journal = newTxJournal(config.Journal)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//load 从磁盘加载已有交易到交易池中。</span></span><br><span class="line">	<span class="keyword">if</span> err := pool.journal.load(pool.AddLocals); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Warn(<span class="string">&quot;Failed to load transaction journal&quot;</span>, <span class="string">&quot;err&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//对 journal 文件执行 rotate，将交易池中的本地交易写入journal文件，并丢弃旧数据。</span></span><br><span class="line">	<span class="keyword">if</span> err := pool.journal.rotate(pool.local()); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Warn(<span class="string">&quot;Failed to rotate transaction journal&quot;</span>, <span class="string">&quot;err&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>开启主循环</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//启动事件循环并返回</span></span><br><span class="line">	pool.wg.Add(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//是txPool的一个goroutine.也是主要的事件循环.（下一个函数）</span></span><br><span class="line">	<span class="comment">//等待和响应外部区块链事件以及各种报告和交易驱逐事件</span></span><br><span class="line">	<span class="keyword">go</span> pool.loop()</span><br></pre></td></tr></table></figure>
+<p><strong>到此初始化结束</strong></p>
+<hr>
+<h4 id="添加交易到交易池">添加交易到交易池</h4>
+<blockquote>
+<p>交易池中交易的来源一方面是其他节点广播过来的，一方面是本地提交的，追根到源代码一个是<code>AddLocal()</code>，一个是<code>AddRemote()</code>,不管哪个都会调用<code>addTxs()</code>。所以我们对添加交易的讨论就会从这个函数开始，然后逐步引出全局</p>
+</blockquote>
+<p>先看下面这一张图简要说明一下操作的流程：</p>
+<img src="https://gitee.com/xyjjyyy/myimg/raw/master/img/202203190237304.png" style="zoom:33%;" align=left >
+<hr>
+<ol>
+<li>首先是遍历整个<code>交易map(txs)</code>，将其中已经存在的和无效签名的交易过滤出去，注意同时其中要进行相关数据的记录</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i, tx := <span class="keyword">range</span> txs &#123;</span><br><span class="line">		<span class="comment">// If the transaction is known, pre-set the error slot</span></span><br><span class="line">		<span class="comment">//使用的Get()很简单就不多言</span></span><br><span class="line">		<span class="keyword">if</span> pool.all.Get(tx.Hash()) != <span class="literal">nil</span> &#123;</span><br><span class="line">			errs[i] = ErrAlreadyKnown</span><br><span class="line">			knownTxMeter.Mark(<span class="number">1</span>)</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// Exclude transactions with invalid signatures as soon as</span></span><br><span class="line">		<span class="comment">// possible and cache senders in transactions before</span></span><br><span class="line">		<span class="comment">// obtaining lock</span></span><br><span class="line">		_, err := types.Sender(pool.signer, tx)</span><br><span class="line">		<span class="comment">//错误签名</span></span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			errs[i] = ErrInvalidSender</span><br><span class="line">			invalidTxMeter.Mark(<span class="number">1</span>)</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// Accumulate all unknown transactions for deeper processing</span></span><br><span class="line">		news = <span class="built_in">append</span>(news, tx)</span><br><span class="line">	&#125;</span><br><span class="line">		<span class="comment">//如果排查完之后news里面没有交易</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(news) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> errs</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<ol start="2">
+<li>将交易进行添加的操作：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//上锁防止冲突</span></span><br><span class="line">pool.mu.Lock()</span><br><span class="line">newErrs, dirtyAddrs := pool.addTxsLocked(news, local)</span><br><span class="line">pool.mu.Unlock()</span><br></pre></td></tr></table></figure>
+<p>于是乎我们就必须进入<code>addTxsLocked()</code>函数中去了解其进行的操作，代码不长，于是全部放在下面：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// addTxsLocked attempts to queue a batch of transactions if they are valid.</span></span><br><span class="line"><span class="comment">// The transaction pool lock must be held.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pool *TxPool)</span></span> addTxsLocked(txs []*types.Transaction, local <span class="type">bool</span>) ([]<span class="type">error</span>, *accountSet) &#123;</span><br><span class="line">	dirty := newAccountSet(pool.signer)</span><br><span class="line">	errs := <span class="built_in">make</span>([]<span class="type">error</span>, <span class="built_in">len</span>(txs))</span><br><span class="line">	<span class="keyword">for</span> i, tx := <span class="keyword">range</span> txs &#123;</span><br><span class="line">		replaced, err := pool.add(tx, local)</span><br><span class="line">		errs[i] = err</span><br><span class="line">		<span class="comment">//加入交易池成功并且没有替换老交易</span></span><br><span class="line">		<span class="keyword">if</span> err == <span class="literal">nil</span> &amp;&amp; !replaced &#123;</span><br><span class="line">			dirty.addTx(tx)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	validTxMeter.Mark(<span class="type">int64</span>(<span class="built_in">len</span>(dirty.accounts)))</span><br><span class="line">	<span class="keyword">return</span> errs, dirty</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们发现除了一些初始化和计数器的操作，还有一个至关重要的<code>add()</code>函数，它是将交易添加到<code>queue</code>中，等待后面的<code>promote</code>，到<code>pending</code>中去。如果在<code>queue</code>或者<code>pending</code>中已经存在，并且它的``gas price`更高时，将覆盖之前的交易。我们来了解一下该函数的具体操作步骤：</p>
+<blockquote>
+<p>以下按照源码顺序编写，所以不贴源码了，请对照源码观看</p>
+</blockquote>
+<ol>
+<li>
+<p>过滤交易池中已有的交易，记住是通过<code>hash值</code>进行的判断,因为即便两笔交易<code>nonce</code>值一样，<code>hash</code>值也断然不会相同;</p>
+</li>
+<li>
+<p>判断<code>local</code>标记，并进行共识性验证<code>validateTx()</code></p>
+<p>validateTx: 主要做了以下几件事<br>
+[ ]交易大小不能超过 32kb</p>
+<ul>
+<li>交易金额不能为负</li>
+<li>交易 gas 值不能超出当前交易池设定的 gaslimit</li>
+<li>交易签名必须正确</li>
+<li>如果交易为远程交易，则需验证其 gasprice 是否小于交易池 gasprice 最小值，如果是本地，优先打包，不管 gasprice</li>
+<li>判断当前交易 nonce 值是否过低</li>
+<li>交易所需花费的转帐手续费是否大于帐户余额 cost == V + GP * GL</li>
+<li>判断交易花费 gas 是否小于其预估花费 gas</li>
+</ul>
+</li>
+<li>
+<p>如果交易池已满，丢弃价格过低的交易，注意这边的<code>GlobalSlots</code>和<code>GlobalQueue</code> ，就是我们说的<code>pending</code>和<code>queue</code>的最大容量，如果交易池的交易数超过两者之和，就要丢弃价格过低的交易。</p>
+</li>
+<li>
+<p>进入一个重要的<code>if</code>语句进行判断：</p>
+<ul>
+<li>判断当前交易在<code>pending</code>队列中是否存在<code>nonce值</code>相同的交易。存在则判断当前交易所设置的<code>gasprice</code>是否超过设置的<code>PriceBump(为10)</code>百分比，超过则替换覆盖已存在的交易<code>old==nil</code>和<code>nil</code>，否则报错返回<code>false</code>和错误信息替换交易<code>gasprice</code>过低;无论如何返回，该函数都已经在此处退出。</li>
+<li>不存在的话就把它扔到<code>queue</code>队列中(通过<code>enqueueTx()</code>函数)。</li>
+</ul>
+</li>
+<li>
+<p>对该笔交易进行一些<code>local</code>的操作。</p>
+</li>
+<li>
+<p>交易晋升</p>
+<blockquote>
+<p>接着我们还是回到<code>addTxs()</code>这个函数中来，我们发现我们又是遇上一个极为重要的函数 <code>requestPromoteExecutables()</code>,下面进行相关的剖析：</p>
+</blockquote>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/geth/tx-pool/">https://www.blog-blockchain.xyz/geth/tx-pool/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/geth/">geth</a></div><div class="post-share"><div class="social-share" data-image="/images/geth.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/geth/txlist/" title="TxList 解读"><img class="cover" src="/images/geth.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">TxList 解读</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server   本文旨在分析清楚 tx_list.go 中这个工具包里面的重要代码  堆排序 以下为tx_list.go中的heap.Interface的全部实现代码，非常标准，和默认的一样； 123456789101112131415161718//heap的整个实现过程type nonceHeap []uint64func (h nonceHeap) Len() int           &#123; return len(h) &#125;func (h nonceHeap) Less(i, j int) bool &#123; return h[i] &lt; h[j] &#125;func (h nonceHeap) Swap(i, j int)      &#123; h[i], h[j] = h[j], h[i]...</div></div></div></a><a class="pagination-related" href="/geth/oracle-introduction/" title="oracle 原理和实现"><img class="cover" src="/images/geth.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">oracle 原理和实现</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  oracle 介绍 oracle 翻译是预言机，英文中的意思是预卜先知，知晓消息的意思。在区块链里用于合约获取链外的数据。例如你想把比特币转换成美元，如果在链上进行，那么就需要从链外获取比特币和美元的汇率，例如price feed oracles。但是以太坊是封闭的系统，直接与外界交互很容易破坏 EVM 安全性，因此才用了预言机作为中间层，沟通链上和链外。详细可见chainlink 的文档和官方文档。 在以太坊上，oracle 是已经部署的智能合约和链外组件，它可以查询 API 提供的信息，然后给其他合约发消息，更新合约的数据。但是只相信唯一的数据源也是很不可靠的方式，通常是多个数据源。我们可以自己创建，也可以直接使用服务商提供的服务。 一般 oracle...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-13</div><div class="info-item-2">How Geth starts its server</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  When starting up, the Geth client begins by parsing the command line parameters. This process kicks off with the geth function: func geth(ctx *cli.Context) error  at cmd/geth/main.go:326 where the geth prepares the metric if enabled. Subsequently, the makeFullNode function takes over. It reads the provided configuration file or command line flags. As a result, it...</div></div></div></a><a class="pagination-related" href="/geth/blockchain-core/" title="blockchain核心"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">blockchain核心</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server   参考： 以太坊 blockchain 源码分析 - mindcarver - 博客园 (cnblogs.com)   主要部分转载：以太坊 blockchain 源码分析  blockchain 关键元素  db：持久化到底层数据储存，即 leveldb（注意不是 MySQL）（源码core/rawdb）；(参考文章：)Leveldb 基本介绍和使用指南 - 知乎 (zhihu.com) 以及对应的百科 [LevelDB_百度百科 (baidu.com)](https://baike.baidu.com/item/LevelDB/6416354#:~:text= Leveldb 是一个 google 实现的非常高效的 kv 数据库，目前的版本 1.2 能够支持 billion 级别的数据量了。...</div></div></div></a><a class="pagination-related" href="/geth/forkId/" title="forkId 解读"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">forkId 解读</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  EIP-2124 因为 core/forkId 包是 EIP-2124 的实现，因此我们先了解 EIP-2124 的内容。 目的  记住以太坊是向后兼容！  以太坊节点之前寻找其他节点的方式是：随机的选择可以连接的节点，再去判断节点是否对自己有用。但是其他的节点可能是主网节点、测试网节点、私网节点、共识机制不一致的节点，这样“盲目”的寻找会浪费资源。 于是这个提案希望在连接前，其他节点可以发送自己的链配置，实现精确连接到有用节点。这个传递的信息在提案中被称作 fork identifier，它实现如下功能：  如果两个节点在不同的网络上，他们不应该考虑连接。 如果硬分叉通过，升级的节点应该拒绝未升级的节点。 如果两条链有相同的创世区块配置和链配置，但没有分叉（ETH /...</div></div></div></a><a class="pagination-related" href="/geth/blocks/" title="理解区块"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">理解区块</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  结构定义 区块  首先我们需要明白区块的结构。 123456789101112131415161718192021// Block represents an entire block in the Ethereum blockchain.type Block struct &#123;   header       *Header      //区块头   uncles       []*Header    //引用的叔块   transactions Transactions //交易   // caches   hash atomic.Value //区块哈希   size atomic.Value //区块大小   // Td is used by package core to store the total...</div></div></div></a><a class="pagination-related" href="/geth/bloom-filter/" title="布隆过滤器原理"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">布隆过滤器原理</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  介绍  布隆过滤器（英语：Bloom Filter）是 1970 年由布隆提出的。它实际上是一个很长的二进制向量和一系列随机映射函数。布隆过滤器可以用于检索一个元素是否在一个集合中。它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。  可见，它解决的核心问题是 检索一个元素是否在一个集合中。原理大致如下： 当一个元素被加入集合时，通过 K 个散列函数将这个元素映射成一个二进制数组中的 K 个位置，把这些位置的值设置为 1。检索时，我们只要观察这些对应的位置的值是不是都是 1 就（大约）知道集合中有没有检索的元素：如果这 K 个位置中有任何一个 0，则被检索元素一定不在集合中；如果都是...</div></div></div></a><a class="pagination-related" href="/geth/oracle-introduction/" title="oracle 原理和实现"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">oracle 原理和实现</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  oracle 介绍 oracle 翻译是预言机，英文中的意思是预卜先知，知晓消息的意思。在区块链里用于合约获取链外的数据。例如你想把比特币转换成美元，如果在链上进行，那么就需要从链外获取比特币和美元的汇率，例如price feed oracles。但是以太坊是封闭的系统，直接与外界交互很容易破坏 EVM 安全性，因此才用了预言机作为中间层，沟通链上和链外。详细可见chainlink 的文档和官方文档。 在以太坊上，oracle 是已经部署的智能合约和链外组件，它可以查询 API 提供的信息，然后给其他合约发消息，更新合约的数据。但是只相信唯一的数据源也是很不可靠的方式，通常是多个数据源。我们可以自己创建，也可以直接使用服务商提供的服务。 一般 oracle...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">一些重要概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B-go-%E8%AF%AD%E8%A8%80%E7%9A%84%E5%A5%87%E5%A6%99%E7%94%A8%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">一些 go 语言的奇妙用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%A4%E6%98%93%E4%B8%AD%E7%9A%84nonce%E7%9A%84%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">关于交易中的nonce的深入剖析:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E6%B1%A0%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-core-txpool-go"><span class="toc-number">5.</span> <span class="toc-text">交易池源码解析 (core&#x2F;txpool.go)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E5%8F%82%E6%95%B0"><span class="toc-number">5.1.</span> <span class="toc-text">前提参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E6%B1%A0%E9%85%8D%E7%BD%AE"><span class="toc-number">5.2.</span> <span class="toc-text">交易池配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Txpool%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">5.3.</span> <span class="toc-text">Txpool初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%BA%A4%E6%98%93%E5%88%B0%E4%BA%A4%E6%98%93%E6%B1%A0"><span class="toc-number">5.4.</span> <span class="toc-text">添加交易到交易池</span></a></li></ol></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>Post Series</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/geth/tx-signature/" title="交易的签名"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交易的签名"></a><div class="content"><a class="title" href="/geth/tx-signature/" title="交易的签名">交易的签名</a><time datetime="2022-08-24T17:30:33.000Z" title="Created 2022-08-25 01:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/understand-receipt/" title="理解收据receipt"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解收据receipt"></a><div class="content"><a class="title" href="/geth/understand-receipt/" title="理解收据receipt">理解收据receipt</a><time datetime="2022-08-24T21:30:33.000Z" title="Created 2022-08-25 05:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/blocks/" title="理解区块"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解区块"></a><div class="content"><a class="title" href="/geth/blocks/" title="理解区块">理解区块</a><time datetime="2022-08-25T00:30:33.000Z" title="Created 2022-08-25 08:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/understand-tx/" title="理解交易"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解交易"></a><div class="content"><a class="title" href="/geth/understand-tx/" title="理解交易">理解交易</a><time datetime="2022-08-25T01:30:33.000Z" title="Created 2022-08-25 09:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/blockchain-core/" title="blockchain核心"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="blockchain核心"></a><div class="content"><a class="title" href="/geth/blockchain-core/" title="blockchain核心">blockchain核心</a><time datetime="2022-08-25T02:30:33.000Z" title="Created 2022-08-25 10:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/forkId/" title="forkId 解读"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="forkId 解读"></a><div class="content"><a class="title" href="/geth/forkId/" title="forkId 解读">forkId 解读</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/bloom-filter/" title="布隆过滤器原理"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="布隆过滤器原理"></a><div class="content"><a class="title" href="/geth/bloom-filter/" title="布隆过滤器原理">布隆过滤器原理</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/oracle-introduction/" title="oracle 原理和实现"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="oracle 原理和实现"></a><div class="content"><a class="title" href="/geth/oracle-introduction/" title="oracle 原理和实现">oracle 原理和实现</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/tx-pool/" title="交易池分析"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交易池分析"></a><div class="content"><a class="title" href="/geth/tx-pool/" title="交易池分析">交易池分析</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/txlist/" title="TxList 解读"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TxList 解读"></a><div class="content"><a class="title" href="/geth/txlist/" title="TxList 解读">TxList 解读</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/MPT-Tree/" title="MPT树"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MPT树"></a><div class="content"><a class="title" href="/geth/MPT-Tree/" title="MPT树">MPT树</a><time datetime="2022-08-25T04:30:33.000Z" title="Created 2022-08-25 12:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/block-sync/" title="区块同步"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块同步"></a><div class="content"><a class="title" href="/geth/block-sync/" title="区块同步">区块同步</a><time datetime="2022-08-25T08:30:33.000Z" title="Created 2022-08-25 16:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/introduction/" title="geth源码学习——介绍"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="geth源码学习——介绍"></a><div class="content"><a class="title" href="/geth/introduction/" title="geth源码学习——介绍">geth源码学习——介绍</a><time datetime="2022-09-28T08:30:33.000Z" title="Created 2022-09-28 16:30:33">2022-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="How Geth starts its server"></a><div class="content"><a class="title" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server">How Geth starts its server</a><time datetime="2023-09-13T15:02:10.000Z" title="Created 2023-09-13 23:02:10">2023-09-13</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/macbook/" title="macbook体验"><img src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="macbook体验"/></a><div class="content"><a class="title" href="/dev/macbook/" title="macbook体验">macbook体验</a><time datetime="2024-11-16T17:33:20.000Z" title="Created 2024-11-17 01:33:20">2024-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/git/" title="Git合作指南"><img src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git合作指南"/></a><div class="content"><a class="title" href="/dev/git/" title="Git合作指南">Git合作指南</a><time datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(三）Python面向对象设计模式"/></a><div class="content"><a class="title" href="/dev/python-design/" title="(三）Python面向对象设计模式">(三）Python面向对象设计模式</a><time datetime="2024-10-28T18:53:20.000Z" title="Created 2024-10-29 02:53:20">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-package/" title="(二）包的开发"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(二）包的开发"/></a><div class="content"><a class="title" href="/dev/python-package/" title="(二）包的开发">(二）包的开发</a><time datetime="2024-10-22T03:18:20.000Z" title="Created 2024-10-22 11:18:20">2024-10-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/docker/" title="docker自动化"><img src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker自动化"/></a><div class="content"><a class="title" href="/dev/docker/" title="docker自动化">docker自动化</a><time datetime="2024-10-21T06:22:20.000Z" title="Created 2024-10-21 14:22:20">2024-10-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'f71f3d811b9b9eff3d8c9c7e00178fda'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>

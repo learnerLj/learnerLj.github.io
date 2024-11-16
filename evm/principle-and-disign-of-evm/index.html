@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>EVM的设计与原理 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="初步理解以太坊虚拟机以太坊的数据组织EVM的设计与原理  前言 在阅读这篇文章之前，请您先阅读初步理解以太坊虚拟机和以太坊的数据组织，它将会介绍 EVM 的基本知识，帮助您形成基本的认识。在开始之前，假设您已经掌握了上文中的基础，我们根据黄皮书进一步地补充理论基础。由于原始的黄皮书公式过多，不易阅读，可以参考按照论文重写后的版本。其次，本文使用的图片来自其他资料，会在参考资料部分注明。 非常推荐">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EVM的设计与原理">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/evm/principle-and-disign-of-evm/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="初步理解以太坊虚拟机以太坊的数据组织EVM的设计与原理  前言 在阅读这篇文章之前，请您先阅读初步理解以太坊虚拟机和以太坊的数据组织，它将会介绍 EVM 的基本知识，帮助您形成基本的认识。在开始之前，假设您已经掌握了上文中的基础，我们根据黄皮书进一步地补充理论基础。由于原始的黄皮书公式过多，不易阅读，可以参考按照论文重写后的版本。其次，本文使用的图片来自其他资料，会在参考资料部分注明。 非常推荐">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.blog-blockchain.xyz/images/evm.png">
+<meta property="article:published_time" content="2022-08-23T14:49:22.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:30:54.922Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="evm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog-blockchain.xyz/images/evm.png"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/evm/principle-and-disign-of-evm/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'EVM的设计与原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">EVM的设计与原理</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">EVM的设计与原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-08-23T14:49:22.000Z" title="Created 2022-08-23 22:49:22">2022-08-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-15T14:30:54.922Z" title="Updated 2024-11-15 22:30:54">2024-11-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/evm/">evm</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>10mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><blockquote>
+<ol class="series-items"><li><a href="/evm/basic-understanding-to-evm/" title="初步理解以太坊虚拟机">初步理解以太坊虚拟机</a></li><li><a href="/evm/data-layout/" title="以太坊的数据组织">以太坊的数据组织</a></li><li><a href="/evm/principle-and-disign-of-evm/" title="EVM的设计与原理">EVM的设计与原理</a></li></ol>
+</blockquote>
+<h1>前言</h1>
+<p>在阅读这篇文章之前，请您先阅读<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/EVM%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%8E%9F%E7%90%86/%E5%88%9D%E6%AD%A5%E7%90%86%E8%A7%A3%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA.md">初步理解以太坊虚拟机</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/EVM%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%8E%9F%E7%90%86/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87.md">以太坊的数据组织</a>，它将会介绍 EVM 的基本知识，帮助您形成基本的认识。在开始之前，假设您已经掌握了上文中的基础，我们根据黄皮书进一步地补充理论基础。由于原始的黄皮书公式过多，不易阅读，可以参考按照论文<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/chronaeon/beigepaper">重写后的版本</a>。其次，本文使用的图片来自其他资料，会在参考资料部分注明。</p>
+<p>非常推荐读者观看这个视频：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.youtube.com/watch?v=RxL_1AfV7N4&amp;t=1s">EVM: From Solidity to byte code, memory and storage</a> ，这是配套的 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://slack-files.com/T9C7VSRBN-F0154NTUM3L-3eefe73def">PDF</a>。</p>
+<p>它梳理源码到字节码的流程，演示操作码的变化，非常棒。如果读者通过前面提到的文章以及理解 EVM 的存储空间布局的话，这个视频可以为您提供字节码编写合约的基础:smirk_cat:.请善用 Remix IDE 的单步调试功能，可以通过实操，大大加深理解。</p>
+<h1>EVM 设计原理</h1>
+<p>以太坊可以抽象的分成两部分，一部分是状态，另外一部分是用于改变状态的 EVM。因此，以太坊在整体上可以看作一个<strong>基于交易的状态机</strong>：起始于一个创世区块（Genesis）状态，然后随着交易的执行，状态逐步改变。</p>
+<p><img src="https://cdn.blog-blockchain.xyz/202203301028001.png" alt="image-20220330102802873"></p>
+<p>关于<strong>不可篡改性</strong>，黄皮书的重写版的表述不错：</p>
+<blockquote>
+<p>Ethereum programs can be trusted to execute without any interference from external non-network forces.</p>
+</blockquote>
+<blockquote>
+<p>Rather than storing program code in generally-accessible memory or storage, it is stored separately in a virtual ROM interactable only through specialized instructions</p>
+</blockquote>
+<p>不允许外部的任何干扰，特殊的读取程序的方式。</p>
+<h2 id="基本概念">基本概念</h2>
+<h3 id="以太币："><strong>以太币</strong>：</h3>
+<p>以太坊发行自身的货币，用于衡量计算消耗，它不仅是作为金融工具，更是要作为世界计算机，为所有的应用服务。所有的交易在机器层面都是以 wei 作为单位。</p>
+<h3 id="世界状态："><strong>世界状态</strong>：</h3>
+<p>世界状态可以被视作以太坊地址到账户状态的映射。存储时，地址和值经过 RLP 编码，以键值对的形式，通过 MPT 的组织方式存储在数据库中。这个数据库被称作<strong>状态数据库</strong>。</p>
+<p><img src="https://cdn.blog-blockchain.xyz/202203301028818.png" alt="image-20220330102850761"></p>
+<h3 id="MPT："><strong>MPT</strong>：</h3>
+<p>前辈们的分析非常精湛，建议仔细阅读我们整合、修正过的 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/MPT%E6%A0%91.md">MPT 树</a>.</p>
+<h3 id="RLP："><strong>RLP</strong>：</h3>
+<p>我们在<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/EVM%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%8E%9F%E7%90%86/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87.md">以太坊的数据组织</a>中介绍了 RLP 的编码规则，适合对数据组织的方式形成基本的认识。</p>
+<h3 id="账户状态："><strong>账户状态</strong>：</h3>
+<p>前面提到了状态是以键值对的方式存储，账户状态也是以键值对存储，主要包括：nonce、balance、storage root(256 位的的账户数的 MPT 树根)、code hash(字节码的哈希，当账户接收到消息后改变)</p>
+<p><img src="https://cdn.blog-blockchain.xyz/202203301033775.png" alt="image-20220330103327705"></p>
+<h3 id="布隆过滤器："><strong>布隆过滤器</strong>：</h3>
+<p>我们尝试解读过，但是由于缺乏工程经验，对于并发和调度不熟悉，因此只是半成品，但是也有一定的参考意义。可见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.md">这篇文章</a>。</p>
+<h3 id="区块："><strong>区块</strong>：</h3>
+<p>请阅读这篇<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%90%86%E8%A7%A3%E5%8C%BA%E5%9D%97.md">笔记</a>。</p>
+<h3 id="收据："><strong>收据</strong>：</h3>
+<p>收据可以用于索引、零知识证明等方面，它是交易执行中某些信息的编码。详细内容请阅读博客——<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%90%86%E8%A7%A3%E6%94%B6%E6%8D%AE.md">理解收据</a>。</p>
+<h2 id="交易的处理和执行">交易的处理和执行</h2>
+<p>交易是以太坊账户之间通信的最基本的方式，可以视作是签名后发送给 EVM 的执行指令。每一笔交易都会造成以太坊状态的改变以及产生临时存储的状态。</p>
+<p><img src="https://cdn.blog-blockchain.xyz/202204021922731.png" alt="image-20220402192210613"></p>
+<p>交易的组成如下</p>
+<ul>
+<li>nonce: 由交易发送者发出的的交易的数量。</li>
+<li>gasPrice: 每单位 gas 的价格</li>
+<li>gasLimit: 用于执行这个交易的最大 gas 数量。</li>
+<li>to: 160 位的消息调用接收者地址；创建合约时为 0 地址。</li>
+<li>value: 转移到接收者账户的 Wei 的数量；如果是创建合约，则代表给新建合约地址的初始余额。</li>
+<li>v, r, s: 与交易签名相符的若干数值，用于确定交易 的发送者。</li>
+<li>init： 一个不限制大小的字节数组，用来指定账户初始化程序的 EVM 代码。它仅会在合约创建时被执行一 次，然后就会被丢弃，不会存在链上。</li>
+<li>data: 一个不限制大小的字节数组，用来指定消息调用的输入数据</li>
+</ul>
+<p><img src="https://cdn.blog-blockchain.xyz/202203301657199.png" alt="image-20220330165714893"></p>
+<p>请注意，这是最开始的设计思路，后面经过诸多的 EIP 后，有些改变，更详细的内容可见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%90%86%E8%A7%A3%E4%BA%A4%E6%98%93.md">理解交易</a>。</p>
+<h3 id="交易费的设置">交易费的设置</h3>
+<p>交易费的收取可以分成三部分，<strong>第一部分</strong>是最普遍的基础费用和指令消耗。<strong>第二部分</strong>是用于交易中的子消息调用或者创建合约。<strong>第三类</strong>是内存拓展的开销。当交易执行时，需要多少内存并不是预定的，而是根据操作的需要，拓展 32 字节一组的 slot。存储是抱着能省就省的目的，因此清除存储中的某一项内容，不但不消耗交易费，反而会退回一部分手续费。</p>
+<h3 id="运行前检查">运行前检查</h3>
+<p>交易的执行是以太坊协议中最复杂的部分。首先<strong>任意交易在执行之前必须通过初始的有效性测试</strong>。包括：</p>
+<ol>
+<li>
+<p>交易是 RLP 格式数据，没有多余的后缀字节；</p>
+</li>
+<li>
+<p>交易的签名是有效的；</p>
+</li>
+<li>
+<p>交易的 nonce 是有效的（等于发送者账户当前的 nonce）；</p>
+</li>
+<li>
+<p>gas 上限不小于交易所要使用的 gas;</p>
+</li>
+<li>
+<p>发送者账户的 balance 应该不少于实际费用，且需要提前支付。</p>
+</li>
+</ol>
+<h3 id="子状态和临时状态">子状态和临时状态</h3>
+<p>交易的执行过程中会累积产生一些特定的信 息，我们称为交易子状态，它包括四部分：</p>
+<ol>
+<li>自毁集合：一组应该在交易完成后被删除的账户。</li>
+<li>一系列的日志：这是一些归档的、可索引的“检查点”，允许在区块链以外，简单地跟踪合约调用。</li>
+<li>交易所接触过的账户集合，其中的空账户可以在交易结束时删除。</li>
+<li>最后是应该返还的余额；</li>
+</ol>
+<p>在交易执行后，确定最终的状态前，会处于一个临时状态，在这个状态中，操作码会逐步执行。这个状态包括：</p>
+<ul>
+<li>临时状态</li>
+<li>操作码计算开销</li>
+<li>相关子状态</li>
+<li>在交易完成后，执行 selfdestruct 时，接受合约余额账户。</li>
+<li>一系列日志，包括布隆过滤器和收据，用于外部应用的跟踪执行过程和查询。</li>
+<li>将返回的余额（例如 gas 剩余、销毁操作返回。</li>
+</ul>
+<p>如果交易失败，这些状态将会重置为空，因此达到了回滚的目的，执行失败的交易不影响世界状态。因此，为了改变世界状态，交易要么完整的执行完毕，要么毫无作用。</p>
+<h3 id="交易的收据">交易的收据</h3>
+<p>前面提到的子状态中包括日志，日志中有比较特殊的一项，叫做交易的收据，<strong>用于记录交易的执行结果</strong>。日志的集合与包含事件的布隆过滤器，都存储在收据中。交易执行后的状态码和使用的 gas 也在收据中。</p>
+<p>为了方便读者理解，下面是 geth 中的定义：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Receipt <span class="keyword">struct</span> &#123;</span><br><span class="line">   <span class="comment">// Consensus fields: These fields are defined by the Yellow Paper</span></span><br><span class="line">   Type      <span class="type">uint8</span>  <span class="string">`json:&quot;type,omitempty&quot;`</span> <span class="comment">//交易类型</span></span><br><span class="line">   PostState []<span class="type">byte</span> <span class="string">`json:&quot;root&quot;`</span>           <span class="comment">//交易成功/失败时的 RLP 编码</span></span><br><span class="line">   Status    <span class="type">uint64</span> <span class="string">`json:&quot;status&quot;`</span>         <span class="comment">//交易成功/失败的状态码</span></span><br><span class="line">   <span class="comment">//区块中直到这一笔交易累积使用的 gas</span></span><br><span class="line">   CumulativeGasUsed <span class="type">uint64</span> <span class="string">`json:&quot;cumulativeGasUsed&quot; gencodec:&quot;required&quot;`</span></span><br><span class="line">   <span class="comment">//布隆过滤器</span></span><br><span class="line">   Bloom Bloom <span class="string">`json:&quot;logsBloom&quot;         gencodec:&quot;required&quot;`</span></span><br><span class="line">   <span class="comment">//合约的日志列表</span></span><br><span class="line">   Logs []*Log <span class="string">`json:&quot;logs&quot;              gencodec:&quot;required&quot;`</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">//处理交易时的字段</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// Implementation fields: These fields are added by geth when processing a transaction.</span></span><br><span class="line">   <span class="comment">// They are stored in the chain database.</span></span><br><span class="line">   TxHash          common.Hash    <span class="string">`json:&quot;transactionHash&quot; gencodec:&quot;required&quot;`</span></span><br><span class="line">   ContractAddress common.Address <span class="string">`json:&quot;contractAddress&quot;`</span></span><br><span class="line">   GasUsed         <span class="type">uint64</span>         <span class="string">`json:&quot;gasUsed&quot; gencodec:&quot;required&quot;`</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">//记录区块信息和交易索引，用于叫检查交易与对应收据的兼容性</span></span><br><span class="line">   <span class="comment">// Inclusion information: These fields provide information about the inclusion of the</span></span><br><span class="line">   <span class="comment">// transaction corresponding to this receipt.</span></span><br><span class="line">   BlockHash        common.Hash <span class="string">`json:&quot;blockHash,omitempty&quot;`</span></span><br><span class="line">   BlockNumber      *big.Int    <span class="string">`json:&quot;blockNumber,omitempty&quot;`</span></span><br><span class="line">   TransactionIndex <span class="type">uint</span>        <span class="string">`json:&quot;transactionIndex&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="消息调用">消息调用</h3>
+<p>消息调用很类似于交易的执行，黄皮书上定义<strong>合约账户接到指令后调用其他对象的行为是消息调用</strong>。执行时会创建运行时的子对象，每个子对象对应子状态，必须等所有的子对象都完成计算后，才能确定最终的状态。</p>
+<p>消息调用的环境参数包括：</p>
+<ul>
+<li>account_address：当前上下文字节码所在的账户。</li>
+<li>sender_address：发起消息调用的账户。</li>
+<li>originator_price：最初确定的 gasPrice</li>
+<li>input_data：确定调用行为的指令数据，例如执行那个函数，输入什么参数。</li>
+<li>newstate_value：消息调用的转账金额。</li>
+<li>code：将要执行的机器码，<code>account_address</code> 所有。</li>
+<li>block_header：当前消息调用的区块头。</li>
+<li>stack_depth：从最开始的执行计算，执行路径上 call 指令的底层调用的次数，也就是调用的堆栈深度。</li>
+</ul>
+<p><img src="https://ethbook.abyteahead.com/_images/Picture50.png" alt="../_images/Picture50.png"></p>
+<p>注意创建合约的交易和调用合约的交易，在处理上是非常不一样的。创建合约的交易的 <code>to</code> 字段为空。</p>
+<p><img src="https://cdn.blog-blockchain.xyz/202204021923501.png" alt="image-20220402192357434"></p>
+<p>总而言之，交易的执行可以抽象成运行的执行状态和系统状态逐步改变的过程。运行时的执行状态叫做 <code>machine_state</code> ，它包括：</p>
+<ul>
+<li>可使用的 gas</li>
+<li>程序计数器 PC</li>
+<li>内存的内容</li>
+<li>使用的内存的长度</li>
+<li>栈的内容</li>
+</ul>
+<p>具体的执行过程，请阅读 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze/blob/main/analyzeSourceCode/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1.md#%E6%B7%B1%E5%85%A5%E5%AD%97%E8%8A%82%E7%A0%81%E5%88%86%E6%9E%90">智能合约审计的深入字节码分析部分</a>。</p>
+<p>在消息调用时有几个预编译的合约，作为链的基础架构的一部分。</p>
+<p>详细可见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.evm.codes/precompiled">https://www.evm.codes/precompiled</a></p>
+<p><img src="https://cdn.blog-blockchain.xyz/202204021040002.png" alt="image-20220402104011700"></p>
+<h3 id="执行终止">执行终止</h3>
+<p><strong>交易具有原子性</strong>，要么完全的执行成功，如果执行过程某部分执行异常，会立即注销状态。异常终止并不是通过操作码实现，而是通过一系列的检查完成的，有以下情况：</p>
+<ul>
+<li>gas 不足。</li>
+<li>指令错误</li>
+<li>栈溢出，超过 1024 的限制</li>
+<li>PC 跳转错误。</li>
+<li>静态调用中尝试修改状态。</li>
+</ul>
+<p><img src="https://cdn.blog-blockchain.xyz/202204021930555.png" alt="image-20220402193054481"></p>
+<p>具体的说，</p>
+<ol>
+<li>每执行一条指令，就扣除相应的 gas。这里从 <code>machine_status</code> 中获取当前 gas。</li>
+<li>对每个循环附带布尔标志。true 表示循环时异常终止；false 表示正常完成，如果直到需要执行的交易的集合全部转换成栈操作的序列时，仍然保持 false，表示可以通过控制流正常终止。</li>
+</ol>
+<p>正常终止可以分成两种情况：</p>
+<ol>
+<li>RETURN 或者 REVERT，二者都会在终止时会执行特殊的终止函数。</li>
+<li>STOP 或者 SELFDESTRUCT，他们会直接终止，销毁执行时的状态。</li>
+</ol>
+<h2 id="区块的形成">区块的形成</h2>
+<p>以太坊的区块链可以视作是一棵从树根到叶子的区块树，分叉是树的分叉，主网选择区块树的工作量最大的路径以保持共识。一般而言，这条路径上的叶子是最多的，每个叶子对应一个成功验证的有效区块。路径越长，挖矿所需要的努力就越多。</p>
+<p>形成区块的流程如下：</p>
+<ol>
+<li>验证叔块。每个叔块的区块头必须是有效的，而且需要在前 6 个区块以内。至多引用两个叔块。</li>
+<li>验证交易。区块的 gasUsed 必须和交易的 gasUsed 之和相等。</li>
+<li>发放挖矿奖励。如果引用叔块，那么叔块的挖矿者和当前块的挖矿者都会得到奖励。如果被引用的叔块 A 引用了叔块 B，而 A、B 都被当前区块引用，那么 B 的奖励可以叠加。</li>
+<li>校验状态和区块 nonce.</li>
+</ol>
+<h2 id="架构解析">架构解析</h2>
+<p><img src="https://cypherpunks-core.github.io/ethereumbook/images/evm-architecture.png" alt="以太坊虚拟机 (EVM) 架构和执行上下文"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-90964a7f9d10855d21287c768875068d_1440w.jpg" alt="img"></p>
+<h1>参考</h1>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ethereum.github.io/yellowpaper/paper.pdf">https://ethereum.github.io/yellowpaper/paper.pdf</a> ，也有<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/riversyang/ethereum_yellowpaper">中文翻译版本</a>，但是版本较旧。黄皮书在提出后经过许多次的修订。</li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://cypherpunks-core.github.io/ethereumbook/13evm.html">https://cypherpunks-core.github.io/ethereumbook/13evm.html</a></li>
+<li>黄皮书的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/chronaeon/beigepaper">论文重写版本</a>，但是它的语言写的不易懂，为了信息量写了很多很长的句子，句子结构也很复杂，读起来可能还不如原版舒服。</li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://takenobu-hs.github.io/downloads/ethereum_evm_illustrated.pdf">https://takenobu-hs.github.io/downloads/ethereum_evm_illustrated.pdf</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ethbook.abyteahead.com/ch7/call.html">https://ethbook.abyteahead.com/ch7/call.html</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/evm/principle-and-disign-of-evm/">https://www.blog-blockchain.xyz/evm/principle-and-disign-of-evm/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/evm/">evm</a></div><div class="post-share"><div class="social-share" data-image="/images/evm.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/evm/basic-understanding-to-evm/" title="初步理解以太坊虚拟机"><img class="cover" src="/images/evm.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">初步理解以太坊虚拟机</div></div><div class="info-2"><div class="info-item-1"> 初步理解以太坊虚拟机以太坊的数据组织EVM的设计与原理  体系结构  存储层 一般的客户端采用 LevelDB 数据库，而 OpenEthereum 采用了 RocksDB。LevelDB 是 Key-Value 的、基于 Log-Structured Merge Tree 的非关系数据库。例如 geth 的所有区块数据都是存储在 LevelDB 中，而 LevelDB 的实现在源代码的 ethdb 包内。 数据层 以太坊的数据层主要定义了数据结构、数据模型、哈希函数、签名算法等。以太坊采用独特的数据结构保护区块头和区块体，区块头含有交易的 Merkle 根哈希值，还有账户状态的 Merkle 根哈希值、日志的 Merkle 根哈希值。以太坊中 Merkle 根哈希值是采用 Merkle Patricia Tree 计算的。哈希函数使用 keccak256，数字签名采用 ECDSA。 网络层 以太坊节点通信采用的 p2p 协议是 DEVp2p，包含了 RLPx、Discv4 等子协议。RLPx 是安全的数据传输协议，采用 ECIES(Elliptic Curve...</div></div></div></a><a class="pagination-related" href="/evm/evm-basic-bytecode/" title="（一）初步认识EVM字节码"><img class="cover" src="/images/evm-bytecode.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">（一）初步认识EVM字节码</div></div><div class="info-2"><div class="info-item-1"> （一）初步认识EVM字节码（二）状态变量的赋值（三）函数调用  前言 在开始之前，我们默认读者已经初步理解 EVM, 包括字节码、操作码、堆栈、内存、存储、calldata。理解 ABI，能够根据文档计算对应变量的 ABI，并且具有一定的编译基础。因此，如果阅读过程中觉得困难，请先阅读 EVM 的其他文章，如 初步理解以太坊虚拟机。 本文编译器版本采用 0.8.10，EVM 版本是 London。没有特殊说明的条件下，默认关闭编译优化。建议读者复现时采用相同的编译器和 EVM，避免不一样的结果，虽然一般而言小版本的变化区别不大。 合约创建 字节码和运行时字节码 我们首先部署一个空的合约 Empty.sol，观察合约部署的字节码。这里需要注意区分运行时代码和部署时代码，creation bytecode 在部署后被舍弃，RETURN 的运行时字节码写入区块链。 123456// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;contract Empty &#123;&#125; 在...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/evm/basic-understanding-to-evm/" title="初步理解以太坊虚拟机"><img class="cover" src="/images/evm.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="info-item-2">初步理解以太坊虚拟机</div></div><div class="info-2"><div class="info-item-1"> 初步理解以太坊虚拟机以太坊的数据组织EVM的设计与原理  体系结构  存储层 一般的客户端采用 LevelDB 数据库，而 OpenEthereum 采用了 RocksDB。LevelDB 是 Key-Value 的、基于 Log-Structured Merge Tree 的非关系数据库。例如 geth 的所有区块数据都是存储在 LevelDB 中，而 LevelDB 的实现在源代码的 ethdb 包内。 数据层 以太坊的数据层主要定义了数据结构、数据模型、哈希函数、签名算法等。以太坊采用独特的数据结构保护区块头和区块体，区块头含有交易的 Merkle 根哈希值，还有账户状态的 Merkle 根哈希值、日志的 Merkle 根哈希值。以太坊中 Merkle 根哈希值是采用 Merkle Patricia Tree 计算的。哈希函数使用 keccak256，数字签名采用 ECDSA。 网络层 以太坊节点通信采用的 p2p 协议是 DEVp2p，包含了 RLPx、Discv4 等子协议。RLPx 是安全的数据传输协议，采用 ECIES(Elliptic Curve...</div></div></div></a><a class="pagination-related" href="/evm/data-layout/" title="以太坊的数据组织"><img class="cover" src="/images/evm.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="info-item-2">以太坊的数据组织</div></div><div class="info-2"><div class="info-item-1"> 初步理解以太坊虚拟机以太坊的数据组织EVM的设计与原理  这篇文章主要介绍以太坊的数据组织形式，构建以太坊各部分数据结构是如何组织的系统观。随后，我将会选取黄皮书中的核心设计思想，写得相对通俗易懂。各部分具体的数据结构，将会在后续的源码解读中给出。 概览 以太坊的区块由区块头和区块体构成，区块头存储元数据，通过区块哈希形成链式结构。区块体用于存储交易的集合和其他数据，大致结构如下：  Trie Tree Trie Tree 被称作字典树，或者 前缀树 (prefix Tree)，用于管理键值对类型的多叉树。字典树的 Key 不是直接保存在某一个节点，而是通过节点在树中的位置确定，类似于哈夫曼编码树。因此，可知子节点都有相同的前缀。只有叶子节点才存放 Value，从根节点到叶子节点形成的路径上的节点，按照顺序排列构成 Value 的 Key.  假如 节点 d 存储 Value，则 and 是它的 Key 总体如下：  根节点不包含字符，根节点外的所有节点都只包含一个字符。 从根节点到某个节点，路径上经过的的字符连起来，为该节点对应的 Key. 每个节点的 Key...</div></div></div></a><a class="pagination-related" href="/evm/function-call/" title="（三）函数调用"><img class="cover" src="/images/evm-bytecode.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-24</div><div class="info-item-2">（三）函数调用</div></div><div class="info-2"><div class="info-item-1"> （一）初步认识EVM字节码（二）状态变量的赋值（三）函数调用  普通函数调用 简单赋值 注意：需要区分部署时和运行时字节码，参考下面这张图。虽然现在的字节码有小改动，但是仍然有参考意义。  所以在编译成字节码是应该使用 solc --bin-runtime FILE_NAME 12345678910111213141516// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;contract Storage &#123;    uint256 number;    function store(uint256 num) public &#123;        number = num;    &#125;    function retrieve() public view returns (uint256)&#123;        return number;    &#125;&#125; 我们在部署时字节码正常的流程中是看不到函数的调用流程的。虽然 solc 产生的汇编使用...</div></div></div></a><a class="pagination-related" href="/evm/state-variable/" title="（二）状态变量的赋值"><img class="cover" src="/images/evm-bytecode.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-24</div><div class="info-item-2">（二）状态变量的赋值</div></div><div class="info-2"><div class="info-item-1"> （一）初步认识EVM字节码（二）状态变量的赋值（三）函数调用  状态变量的字节码 对于最简单的情况，我们观察它部署时的情况 123456// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;contract Empty&#123;    uint a;&#125; EVM 汇编如下 1234567891011121314151617181920212223242526272829303132======= Empty.sol:Empty =======EVM assembly:    /* &quot;Empty.sol&quot;:69:95  contract Empty&#123;... */  mstore(0x40, 0x80)  callvalue  dup1  iszero  tag_1  jumpi  0x00  dup1  reverttag_1:  pop  dataSize(sub_0)  dup1  dataOffset(sub_0)  0x00 ...</div></div></div></a><a class="pagination-related" href="/evm/evm-basic-bytecode/" title="（一）初步认识EVM字节码"><img class="cover" src="/images/evm-bytecode.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-24</div><div class="info-item-2">（一）初步认识EVM字节码</div></div><div class="info-2"><div class="info-item-1"> （一）初步认识EVM字节码（二）状态变量的赋值（三）函数调用  前言 在开始之前，我们默认读者已经初步理解 EVM, 包括字节码、操作码、堆栈、内存、存储、calldata。理解 ABI，能够根据文档计算对应变量的 ABI，并且具有一定的编译基础。因此，如果阅读过程中觉得困难，请先阅读 EVM 的其他文章，如 初步理解以太坊虚拟机。 本文编译器版本采用 0.8.10，EVM 版本是 London。没有特殊说明的条件下，默认关闭编译优化。建议读者复现时采用相同的编译器和 EVM，避免不一样的结果，虽然一般而言小版本的变化区别不大。 合约创建 字节码和运行时字节码 我们首先部署一个空的合约 Empty.sol，观察合约部署的字节码。这里需要注意区分运行时代码和部署时代码，creation bytecode 在部署后被舍弃，RETURN 的运行时字节码写入区块链。 123456// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;contract Empty &#123;&#125; 在...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">EVM 设计原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%B8%81%EF%BC%9A"><span class="toc-number">2.1.1.</span> <span class="toc-text">以太币：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%96%E7%95%8C%E7%8A%B6%E6%80%81%EF%BC%9A"><span class="toc-number">2.1.2.</span> <span class="toc-text">世界状态：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MPT%EF%BC%9A"><span class="toc-number">2.1.3.</span> <span class="toc-text">MPT：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RLP%EF%BC%9A"><span class="toc-number">2.1.4.</span> <span class="toc-text">RLP：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7%E7%8A%B6%E6%80%81%EF%BC%9A"><span class="toc-number">2.1.5.</span> <span class="toc-text">账户状态：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%9A"><span class="toc-number">2.1.6.</span> <span class="toc-text">布隆过滤器：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%EF%BC%9A"><span class="toc-number">2.1.7.</span> <span class="toc-text">区块：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E6%8D%AE%EF%BC%9A"><span class="toc-number">2.1.8.</span> <span class="toc-text">收据：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E7%9A%84%E5%A4%84%E7%90%86%E5%92%8C%E6%89%A7%E8%A1%8C"><span class="toc-number">2.2.</span> <span class="toc-text">交易的处理和执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E8%B4%B9%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">交易费的设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%89%8D%E6%A3%80%E6%9F%A5"><span class="toc-number">2.2.2.</span> <span class="toc-text">运行前检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E7%8A%B6%E6%80%81%E5%92%8C%E4%B8%B4%E6%97%B6%E7%8A%B6%E6%80%81"><span class="toc-number">2.2.3.</span> <span class="toc-text">子状态和临时状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E7%9A%84%E6%94%B6%E6%8D%AE"><span class="toc-number">2.2.4.</span> <span class="toc-text">交易的收据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%B0%83%E7%94%A8"><span class="toc-number">2.2.5.</span> <span class="toc-text">消息调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E7%BB%88%E6%AD%A2"><span class="toc-number">2.2.6.</span> <span class="toc-text">执行终止</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E7%9A%84%E5%BD%A2%E6%88%90"><span class="toc-number">2.3.</span> <span class="toc-text">区块的形成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90"><span class="toc-number">2.4.</span> <span class="toc-text">架构解析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>Post Series</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/evm/basic-understanding-to-evm/" title="初步理解以太坊虚拟机"><img src="/images/evm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="初步理解以太坊虚拟机"></a><div class="content"><a class="title" href="/evm/basic-understanding-to-evm/" title="初步理解以太坊虚拟机">初步理解以太坊虚拟机</a><time datetime="2022-08-23T13:49:22.000Z" title="Created 2022-08-23 21:49:22">2022-08-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/evm/data-layout/" title="以太坊的数据组织"><img src="/images/evm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="以太坊的数据组织"></a><div class="content"><a class="title" href="/evm/data-layout/" title="以太坊的数据组织">以太坊的数据组织</a><time datetime="2022-08-23T13:49:22.000Z" title="Created 2022-08-23 21:49:22">2022-08-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/evm/principle-and-disign-of-evm/" title="EVM的设计与原理"><img src="/images/evm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EVM的设计与原理"></a><div class="content"><a class="title" href="/evm/principle-and-disign-of-evm/" title="EVM的设计与原理">EVM的设计与原理</a><time datetime="2022-08-23T14:49:22.000Z" title="Created 2022-08-23 22:49:22">2022-08-23</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/macbook/" title="macbook体验"><img src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="macbook体验"/></a><div class="content"><a class="title" href="/dev/macbook/" title="macbook体验">macbook体验</a><time datetime="2024-11-16T17:33:20.000Z" title="Created 2024-11-17 01:33:20">2024-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/git/" title="Git合作指南"><img src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git合作指南"/></a><div class="content"><a class="title" href="/dev/git/" title="Git合作指南">Git合作指南</a><time datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(三）Python面向对象设计模式"/></a><div class="content"><a class="title" href="/dev/python-design/" title="(三）Python面向对象设计模式">(三）Python面向对象设计模式</a><time datetime="2024-10-28T18:53:20.000Z" title="Created 2024-10-29 02:53:20">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-package/" title="(二）包的开发"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(二）包的开发"/></a><div class="content"><a class="title" href="/dev/python-package/" title="(二）包的开发">(二）包的开发</a><time datetime="2024-10-22T03:18:20.000Z" title="Created 2024-10-22 11:18:20">2024-10-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/docker/" title="docker自动化"><img src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker自动化"/></a><div class="content"><a class="title" href="/dev/docker/" title="docker自动化">docker自动化</a><time datetime="2024-10-21T06:22:20.000Z" title="Created 2024-10-21 14:22:20">2024-10-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'cb94762193257bc786ef62e33c7039a0'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>

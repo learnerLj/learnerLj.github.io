@@ -1,0 +1,412 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>geth源码学习——介绍 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  项目地址：https:&#x2F;&#x2F;github.com&#x2F;learnerLj&#x2F;geth-analyze 环境准备 为了方便修改源码后进行调试，建议在 Lin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="geth源码学习——介绍">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/geth/introduction/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  项目地址：https:&#x2F;&#x2F;github.com&#x2F;learnerLj&#x2F;geth-analyze 环境准备 为了方便修改源码后进行调试，建议在 Lin">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.blog-blockchain.xyz/images/geth.png">
+<meta property="article:published_time" content="2022-09-28T08:30:33.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:30:54.924Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="geth">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog-blockchain.xyz/images/geth.png"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/geth/introduction/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'geth源码学习——介绍',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">geth源码学习——介绍</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">geth源码学习——介绍</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-09-28T08:30:33.000Z" title="Created 2022-09-28 16:30:33">2022-09-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-15T14:30:54.924Z" title="Updated 2024-11-15 22:30:54">2024-11-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/geth/">geth</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>11mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><blockquote>
+<ol class="series-items"><li><a href="/geth/tx-signature/" title="交易的签名">交易的签名</a></li><li><a href="/geth/understand-receipt/" title="理解收据receipt">理解收据receipt</a></li><li><a href="/geth/blocks/" title="理解区块">理解区块</a></li><li><a href="/geth/understand-tx/" title="理解交易">理解交易</a></li><li><a href="/geth/blockchain-core/" title="blockchain核心">blockchain核心</a></li><li><a href="/geth/forkId/" title="forkId 解读">forkId 解读</a></li><li><a href="/geth/bloom-filter/" title="布隆过滤器原理">布隆过滤器原理</a></li><li><a href="/geth/oracle-introduction/" title="oracle 原理和实现">oracle 原理和实现</a></li><li><a href="/geth/tx-pool/" title="交易池分析">交易池分析</a></li><li><a href="/geth/txlist/" title="TxList 解读">TxList 解读</a></li><li><a href="/geth/MPT-Tree/" title="MPT树">MPT树</a></li><li><a href="/geth/block-sync/" title="区块同步">区块同步</a></li><li><a href="/geth/introduction/" title="geth源码学习——介绍">geth源码学习——介绍</a></li><li><a href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server">How Geth starts its server</a></li></ol>
+</blockquote>
+<p>项目地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze">https://github.com/learnerLj/geth-analyze</a></p>
+<h1>环境准备</h1>
+<p>为了方便修改源码后进行调试，建议在 Linux 系统运行，阅读源码时用主机系统可能相对方便。</p>
+<p><strong>安装虚拟机</strong>：建议 Ubuntu20.04，具体安装教程可见其他教程。希望读者有一定的 Linux 基础，熟悉常用命令，理解 Linux 配置文件的思想，会阅读命令行提示信息。安装好虚拟机后可设置代理（学习区块链必须要学会设置代理），自行寻找教程。</p>
+<p><strong>准备环境</strong>：安装 nodejs、npm、goland、typora、中文输入法（可以用百度输入法）、vscode、goland、git，新手自行寻找教程，很容易找到。</p>
+<p>建议使用 godoc，然后输入命令 <code>godoc --http localhost:6060</code>，可以方便地看到自动生成的文档。</p>
+<p><strong>配置 go 编译器</strong>：ubuntu apt 包管理工具的 go 编译器版本太低，需要手动升级。</p>
+<ol>
+<li>
+<p>下载二进制包，可在这里<a target="_blank" rel="noopener external nofollow noreferrer" href="https://studygolang.com/dl">下载</a>，然后解压、复制到 <code>/usr/local</code>，这是我们一般放软件的地方，然后设置环境变量，建议学习 Linux 的环境变量如何设置，有什么作用。这个目录就是 GOROOT 目录，GOPATH 目录可以通过 <code>go env</code> 找到。</p>
+</li>
+<li>
+<p>下载 go-ethereum，建议使用 apt 下载，因为不用额外的配置，并且附带了一些好用的工具。</p>
+<p>添加源：<code>sudo add-apt-repository -y ppa:ethereum/ethereum</code></p>
+<p>更新软件表：<code>sudo apt-get update</code></p>
+<p>安装稳定版：<code>sudo apt-get install ethereum</code></p>
+<p>遇见问题参考 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://geth.ethereum.org/docs/install-and-build/installing-geth">官方教程</a> 和博客。注意如果未设置代理，下载速度会很慢，耐心等待。关于如何设置代理，请自行查找教程。</p>
+</li>
+<li>
+<p>克隆仓库，开始工作。配置好自己的 Git，不会使用请自行寻找教程。然后 VSCode、goland 配置好相关环境（自行寻找教程）</p>
+</li>
+<li>
+<p>安装翻译插件，辅助阅读英文注释，推荐 JetBrain 系的 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://yiiguxing.github.io/TranslationPlugin/index.html">Transaction</a> 和 VSCode 的 Comment Translate。</p>
+</li>
+</ol>
+<hr>
+<p><strong>请注意：仓库基于较新的 geth 源码，本教程和源码都只用于学习，并且只负责解读以及如何修改，不会做实质性的改变</strong></p>
+<h1>以太坊术语</h1>
+<p>在开始解读以太坊前，先了解以太坊中常见术语和名词。以便更好的学习后续内容。大部分内容来自 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/books/geth/part0/term.html">博客</a>，本人补充和完善。</p>
+<h2 id="专有名词">专有名词</h2>
+<ul>
+<li>外部账户：EOAs（External Owned Accounts），关联个人掌握的私钥。可以用于发送交易（转移以太币或发送消息），形同一张带数字 ID 的储蓄卡。</li>
+<li>合约账户：Contracts Accounts，可以在以太坊上存储合约代码与合约数据的账户，外部不能直接操作此账户。只能由外部账户直接或间接调用。</li>
+<li>账户状态： account state，表示一个账户在以太坊中的状态。账户状态在账户数据变化时变化。账户状态包含四项信息：nonce、余额、账户存储内容根哈希值、账户代码哈希值。状态数据不直接存储在区块上。</li>
+<li>账户 Nonce: 账户随机数，是账户的交易计数。以防止重放攻击。</li>
+<li>智能合约：Smart Contract，是以太坊成为区块链 2.0 的立足点。以太坊支持通过图灵完备的高级编程语言编写智能合约代码。部署在链上后，可以接受来自外部的交易请求和事件，以触发执行特定的合约代码逻辑，进一步生成新的交易和事件。甚至调用其他的智能合约。</li>
+<li>世界状态：state，管理账户地址到账户状态的映射关系。所有账户的状态构成整个区块链状态。</li>
+<li>交易：Transaction，是外部与以太坊交互的唯一途径，必须由外部账户签名，矿工执行交易，最终打包到区块中。</li>
+<li>交易收据：Receipt，是方便对交易进行零知识证明、索引和搜索，将交易执行过程中的一些特定信息编码为交易收据。</li>
+<li>区块：block，是由一组交易和一些辅助信息（简称区块头）、其他区块头哈希构成的数据块。其他区块头哈希表示父区块或者叔区块。</li>
+<li>叔块：Uncle Block，不能成为主链一部分的孤儿区块，如果有幸被后来的区块收留进区块链就变成了叔块。收留了孤块的区块有额外的奖励。孤块一旦成为叔块，该区块统一可获得奖励。通过叔块奖励机制，来降低以太坊软分叉和平衡网速慢的矿工利益。</li>
+<li>随机数：nonce，记录在区块头中，努力工作的证明。</li>
+<li>Gas：燃料是交易打包到区块时，在 EVM 运行所消耗的资源量的一种形象化概念，比喻需要燃料才能运行 EVM。在以太坊中，将 CPU 资源、存储资源按内置的规则，统一使用 Gas 作为资源单位表达。每执行一次虚拟机指令，均消耗一定的 Gas。</li>
+<li>GasPrice: 燃料价格，任何交易都需要包含一个愿意支付的燃料单价，最终根据交易消耗的燃料量，计算手续费 (usedGas*gasPrice) 支付给矿工。</li>
+<li>价格预测：GPO(Gas Price Oracle)，Gas 价格预测，根据历史交易的 GasPrice 预测未来 GasPrice 走势。</li>
+</ul>
+<h2 id="技术术语">技术术语</h2>
+<ul>
+<li>ZKP: Zero Knowledge Proof，零知识证明。</li>
+<li>EVM：Ethereum Virtual Machine，以太坊虚拟机是执行交易的一个轻量级沙盒虚拟机。</li>
+<li>Message：消息，是一个不能序列化的，并且只存在于以太坊运行环境中的虚拟对象，一条消息主要包括：消息的发送方、接收方、gasLimit 等等；</li>
+<li>序列化：将数据使用 RLP 编码为一组字节数据，便于数据交换与存储。</li>
+<li>RLP: 递归长度前缀编码，一种能够压缩数据的数据编码协议，在以太坊中常用于序列化数据。</li>
+<li>MPT：默克尔压缩前缀树， Merkle Patricia Tree，是一种经过改良的、融合了默克尔树和前缀树两种树结构优点的数据结构，是以太坊中用来组织管理账户数据、生成交易集合哈希的重要数据结构。</li>
+<li>Patricia Trie: 一种压缩前缀树，是一种更节省空间的树，对于 trie 的每个节点，如果该节点是其父节点唯一的儿子的话，就和父节点结合；</li>
+<li>Merkle Tree: 默克尔树，也称为 Hash Tree，默克尔树叶子节点的 value 是数据项的内容，或者是数据项的哈希值；非叶子节点的 value 根据其孩子节点的信息，然后按照 Hash 算法计算而得出的。</li>
+<li>Whisper：密语，是一种依托于 P2P 的通信协议，通过 Whisper 协议，节点可以将信息发送给某个特定节点，实现双节点私聊和按主题在多个节点上通信。主要用于大规模的点对点数据发现、信号协商、最小传输通信、完全隐私保护的 DApp 而设计的。</li>
+<li>LES： Light Ethereum Subprotocol，以太坊客户端的轻量级的子协议，只需要下载区块头，其他详细信息可以按需获取；LES Wiki</li>
+<li>Swarm： 蜂巢，是一个分布式存储平台和内容分发服务，是以太坊 web 3 技术栈的本地基础层服务;</li>
+<li>LLL，Sperpent、Mutan 和 Solidity：用于编写智能合约代码的的编程语言，能被编译成 EVM 代码。</li>
+<li>ERC20: 可以理解成 Ethereum 的一个 Token 协议规范，所有基于 Ethereum 开发的 Token 合约都遵守这个规范。遵守 ERC20 协议规范的 Token 可以被各种 Ethereum 钱包支持。</li>
+<li>ERC721: 是在 ERC20 标准上建立的 Token 协议规范，是针对不可互换 Token(non-fungible tokens 简称 NFT)做的智能合约标准。</li>
+</ul>
+<h1>源码分析准备</h1>
+<h2 id="cmd-目录里自带的工具"><code>cmd</code> 目录里自带的工具.</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong><code>geth</code></strong></td>
+<td>命令行主程序，使用参考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://knarfeh.com/2018/03/10/go-ethereum%20%E6%BA%90%E7%A0%81%E7%AC%94%E8%AE%B0%EF%BC%88cmd%20%E6%A8%A1%E5%9D%97-geth%20%E5%91%BD%E4%BB%A4%EF%BC%89/">博客 1</a> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/blockchainGuide/blockchainguide/blob/main/source_code_analysis/ethereum/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3.md">博客 2</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://geth.ethereum.org/docs/interface/command-line-options">官方文档</a>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>clef</code></td>
+<td>签名工具，可以在后端为<code>geth</code>签名.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>devp2p</code></td>
+<td>P2P 开发工具，不用运行全节点就可以和其他节点通信。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>abigen</code></td>
+<td>代码生成器，把合约封装成易用 Golang 的包.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>bootnode</code></td>
+<td>客户端的精简版，只实现了网络节点协议, 可以在私有网络中辅助寻找节点。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>evm</code></td>
+<td>以太坊虚拟机 EVM 的开发程序 能够在可配置的环境中运行底层的字节码片段，方便细致的调试以太坊操作码，深入执行过程。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>rlpdump</code></td>
+<td>以以太坊协议的编码 RLP (<a target="_blank" rel="noopener external nofollow noreferrer" href="https://eth.wiki/en/fundamentals/rlp">Recursive Length Prefix</a>) 格式输出。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>puppeth</code></td>
+<td>创建新的以太坊网络时的引导。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="项目结构">项目结构</h2>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br></pre></td><td class="code"><pre><span class="line">├── accounts	<span class="comment">//账户管理</span></span><br><span class="line">│   ├── abi		<span class="comment">//实现 abi</span></span><br><span class="line">│   │   └── bind <span class="comment">//生成 合约的 go 语言封装</span></span><br><span class="line">│   │       └── backends</span><br><span class="line">│   ├── external</span><br><span class="line">│   ├── keystore <span class="comment">//私钥管理，采用 secp256k 加密</span></span><br><span class="line">│   │   └── testdata</span><br><span class="line">│   │       ├── dupes</span><br><span class="line">│   │       ├── keystore</span><br><span class="line">│   │       │   └── foo</span><br><span class="line">│   │       └── v1</span><br><span class="line">│   │           └── cb61d5a9c4896fb9658090b597ef0e7be6f7b67e</span><br><span class="line">│   ├── scwallet</span><br><span class="line">│   └── usbwallet <span class="comment">//硬件钱包，通过 USB 插入</span></span><br><span class="line">│       └── trezor	<span class="comment">//硬件钱包的协议</span></span><br><span class="line">├── build	<span class="comment">//用于编译和构建的脚本</span></span><br><span class="line">│   ├── bin</span><br><span class="line">│   └── deb</span><br><span class="line">│       └── ethereum</span><br><span class="line">├── cmd	<span class="comment">//命令行工具</span></span><br><span class="line">│   ├── abidump</span><br><span class="line">│   ├── abigen</span><br><span class="line">│   ├── bootnode</span><br><span class="line">│   ├── checkpoint-admin</span><br><span class="line">│   ├── clef</span><br><span class="line">│   │   ├── docs</span><br><span class="line">│   │   │   └── qubes</span><br><span class="line">│   │   ├── testdata</span><br><span class="line">│   │   └── tests</span><br><span class="line">│   ├── devp2p</span><br><span class="line">│   │   └── internal</span><br><span class="line">│   │       ├── ethtest</span><br><span class="line">│   │       │   └── testdata</span><br><span class="line">│   │       ├── v4test</span><br><span class="line">│   │       └── v5test</span><br><span class="line">│   ├── ethkey</span><br><span class="line">│   ├── evm</span><br><span class="line">│   │   ├── internal</span><br><span class="line">│   │   │   ├── compiler</span><br><span class="line">│   │   │   └── t8ntool</span><br><span class="line">│   │   └── testdata</span><br><span class="line">│   │       ├── <span class="number">1</span></span><br><span class="line">│   │       ├── <span class="number">10</span></span><br><span class="line">│   │       ├── <span class="number">11</span></span><br><span class="line">│   │       ├── <span class="number">12</span></span><br><span class="line">│   │       ├── <span class="number">13</span></span><br><span class="line">│   │       ├── <span class="number">14</span></span><br><span class="line">│   │       ├── <span class="number">15</span></span><br><span class="line">│   │       ├── <span class="number">16</span></span><br><span class="line">│   │       ├── <span class="number">17</span></span><br><span class="line">│   │       ├── <span class="number">18</span></span><br><span class="line">│   │       ├── <span class="number">19</span></span><br><span class="line">│   │       ├── <span class="number">2</span></span><br><span class="line">│   │       ├── <span class="number">3</span></span><br><span class="line">│   │       ├── <span class="number">4</span></span><br><span class="line">│   │       ├── <span class="number">5</span></span><br><span class="line">│   │       ├── <span class="number">7</span></span><br><span class="line">│   │       ├── <span class="number">8</span></span><br><span class="line">│   │       └── <span class="number">9</span></span><br><span class="line">│   ├── faucet <span class="comment">//轻量级的水龙头（用于取测试币）</span></span><br><span class="line">│   ├── geth</span><br><span class="line">│   │   └── testdata</span><br><span class="line">│   │       └── vcheck</span><br><span class="line">│   │           ├── minisig-sigs</span><br><span class="line">│   │           ├── signify-sigs</span><br><span class="line">│   │           └── sigs</span><br><span class="line">│   ├── p2psim <span class="comment">//模拟 HTTP API 的调用</span></span><br><span class="line">│   ├── puppeth <span class="comment">//构建私链相关</span></span><br><span class="line">│   │   └── testdata</span><br><span class="line">│   ├── rlpdump <span class="comment">//格式化 rlp 编码，更加漂亮的输出</span></span><br><span class="line">│   └── utils <span class="comment">//一些转化、辅助工具</span></span><br><span class="line">├── common	<span class="comment">//工具类</span></span><br><span class="line">│   ├── bitutil <span class="comment">//快速的按位操作</span></span><br><span class="line">│   ├── compiler<span class="comment">//封装 Solidity 和 Vyper 的字节码</span></span><br><span class="line">│   ├── fdlimit</span><br><span class="line">│   ├── hexutil <span class="comment">//十六进制编码</span></span><br><span class="line">│   ├── math <span class="comment">//整数的相关数学工具</span></span><br><span class="line">│   ├── mclock <span class="comment">//用于计时的固定点</span></span><br><span class="line">│   └── prque <span class="comment">//优先队列数据结构</span></span><br><span class="line">├── consensus <span class="comment">//共识算法部分</span></span><br><span class="line">│   ├── clique <span class="comment">//POA</span></span><br><span class="line">│   ├── ethash <span class="comment">//POW</span></span><br><span class="line">│   └── misc</span><br><span class="line">├── console	<span class="comment">//控制台</span></span><br><span class="line">│   ├── prompt</span><br><span class="line">│   └── testdata</span><br><span class="line">├── contracts	<span class="comment">//合约部分</span></span><br><span class="line">│   └── checkpointoracle</span><br><span class="line">│       └── contract</span><br><span class="line">├── core	<span class="comment">//核心数据结构，包括状态机、链式结构、虚拟机等</span></span><br><span class="line">│   ├── asm <span class="comment">//解析汇编指令</span></span><br><span class="line">│   ├── bloombits <span class="comment">//布隆过滤器批量处理</span></span><br><span class="line">│   ├── forkid <span class="comment">//EIP-2124 (https://eips.ethereum.org/EIPS/eip-2124) 的实现</span></span><br><span class="line">│   ├── rawdb <span class="comment">//底层数据库访问</span></span><br><span class="line">│   │   └── testdata</span><br><span class="line">│   ├── state <span class="comment">//以太坊状态树的缓存</span></span><br><span class="line">│   │   ├── pruner</span><br><span class="line">│   │   └── snapshot <span class="comment">//动态状态存储</span></span><br><span class="line">│   ├── types <span class="comment">//共识机制中的数据类型</span></span><br><span class="line">│   └── vm <span class="comment">//EVM 的实现</span></span><br><span class="line">│       ├── runtime <span class="comment">//负责字节码的执行</span></span><br><span class="line">│       └── testdata</span><br><span class="line">│           └── precompiles</span><br><span class="line">├── crypto	<span class="comment">//哈希算法和密码学</span></span><br><span class="line">│   ├── blake2b</span><br><span class="line">│   ├── bls12381</span><br><span class="line">│   ├── bn256</span><br><span class="line">│   │   ├── cloudflare</span><br><span class="line">│   │   └── google</span><br><span class="line">│   ├── ecies</span><br><span class="line">│   ├── secp256k1</span><br><span class="line">│   │   └── libsecp256k1</span><br><span class="line">│   │       ├── build-aux</span><br><span class="line">│   │       │   └── m4</span><br><span class="line">│   │       ├── contrib</span><br><span class="line">│   │       ├── include</span><br><span class="line">│   │       ├── obj</span><br><span class="line">│   │       ├── sage</span><br><span class="line">│   │       └── src</span><br><span class="line">│   │           ├── asm</span><br><span class="line">│   │           ├── java</span><br><span class="line">│   │           │   └── org</span><br><span class="line">│   │           │       └── bitcoin</span><br><span class="line">│   │           └── modules</span><br><span class="line">│   │               ├── ecdh</span><br><span class="line">│   │               └── recovery</span><br><span class="line">│   └── signify</span><br><span class="line">├── docs	<span class="comment">//部分说明文档</span></span><br><span class="line">│   ├── audits</span><br><span class="line">│   └── postmortems</span><br><span class="line">├── eth	<span class="comment">//以太坊协议</span></span><br><span class="line">│   ├── catalyst <span class="comment">//RPC 相关</span></span><br><span class="line">│   ├── downloader <span class="comment">//全节点同步</span></span><br><span class="line">│   ├── ethconfig <span class="comment">//以太坊配置文件和轻节点配置文件</span></span><br><span class="line">│   ├── fetcher <span class="comment">//获取同步时的区块头、交易等</span></span><br><span class="line">│   ├── filters <span class="comment">//区块、日志、事件、交易的过滤</span></span><br><span class="line">│   ├── gasprice</span><br><span class="line">│   ├── protocols</span><br><span class="line">│   │   ├── eth</span><br><span class="line">│   │   └── snap</span><br><span class="line">│   └── tracers <span class="comment">//跟踪交易</span></span><br><span class="line">│       ├── internal</span><br><span class="line">│       │   └── tracetest</span><br><span class="line">│       │       └── testdata</span><br><span class="line">│       │           ├── call_tracer</span><br><span class="line">│       │           └── call_tracer_legacy</span><br><span class="line">│       ├── js <span class="comment">//js 写的交易跟踪器</span></span><br><span class="line">│       │   └── internal</span><br><span class="line">│       │       └── tracers</span><br><span class="line">│       └── native <span class="comment">//go 写的交易跟踪器</span></span><br><span class="line">├── ethclient	<span class="comment">//RPC 调用的客户端</span></span><br><span class="line">│   └── gethclient</span><br><span class="line">├── ethdb	<span class="comment">//数据库</span></span><br><span class="line">│   ├── dbtest</span><br><span class="line">│   ├── leveldb <span class="comment">//leveldb 数据库实现</span></span><br><span class="line">│   └── memorydb <span class="comment">//内存映射的数据库实现</span></span><br><span class="line">├── ethstats	<span class="comment">//网络状态显示</span></span><br><span class="line">├── event	<span class="comment">//处理实时事件</span></span><br><span class="line">├── graphql	<span class="comment">//提供 GraphQL 的借口</span></span><br><span class="line">├── internal	<span class="comment">//内部的一些组件</span></span><br><span class="line">│   ├── build</span><br><span class="line">│   ├── cmdtest</span><br><span class="line">│   ├── debug</span><br><span class="line">│   ├── ethapi</span><br><span class="line">│   ├── flags</span><br><span class="line">│   ├── guide</span><br><span class="line">│   ├── jsre</span><br><span class="line">│   │   └── deps</span><br><span class="line">│   ├── syncx</span><br><span class="line">│   ├── testlog</span><br><span class="line">│   ├── utesting</span><br><span class="line">│   └── web3ext</span><br><span class="line">├── les	<span class="comment">//轻量级以太坊子协议(LES)</span></span><br><span class="line">│   ├── checkpointoracle</span><br><span class="line">│   ├── downloader</span><br><span class="line">│   ├── fetcher</span><br><span class="line">│   ├── flowcontrol</span><br><span class="line">│   ├── utils</span><br><span class="line">│   └── vflux</span><br><span class="line">│       ├── client</span><br><span class="line">│       └── server</span><br><span class="line">├── light <span class="comment">//向轻量级客户端提供按需检索的功能</span></span><br><span class="line">├── log	<span class="comment">//日志</span></span><br><span class="line">├── metrics	<span class="comment">//磁盘读写相关</span></span><br><span class="line">│   ├── exp</span><br><span class="line">│   ├── influxdb</span><br><span class="line">│   ├── librato</span><br><span class="line">│   └── prometheus</span><br><span class="line">├── miner	<span class="comment">//区块生成和挖矿</span></span><br><span class="line">│   └── stress</span><br><span class="line">│       ├── <span class="number">1559</span> <span class="comment">//EIP1559 的压力测试</span></span><br><span class="line">│       ├── clique <span class="comment">//Clique 的压测</span></span><br><span class="line">│       └── ethash <span class="comment">//ethash 的压测</span></span><br><span class="line">├── mobile <span class="comment">//为移动端设置的简化版 API</span></span><br><span class="line">├── node	<span class="comment">//节点协议</span></span><br><span class="line">├── p2p	<span class="comment">//P2P 网络协议</span></span><br><span class="line">│   ├── discover <span class="comment">//节点发现协议</span></span><br><span class="line">│   │   ├── v4wire <span class="comment">//v4 版本</span></span><br><span class="line">│   │   └── v5wire <span class="comment">//v5 版本</span></span><br><span class="line">│   │       └── testdata</span><br><span class="line">│   ├── dnsdisc <span class="comment">//EIP1459 提出的发现协议</span></span><br><span class="line">│   ├── enode</span><br><span class="line">│   ├── enr <span class="comment">//EIP778 提出的节点记录</span></span><br><span class="line">│   ├── msgrate <span class="comment">//估计节点吞吐量实现更平衡的传输</span></span><br><span class="line">│   ├── nat <span class="comment">//端口映射</span></span><br><span class="line">│   ├── netutil</span><br><span class="line">│   ├── nodestate</span><br><span class="line">│   ├── rlpx <span class="comment">//RLPx 传输协议</span></span><br><span class="line">│   ├── simulations</span><br><span class="line">│   │   ├── adapters</span><br><span class="line">│   │   ├── examples</span><br><span class="line">│   │   └── pipes</span><br><span class="line">│   └── tracker</span><br><span class="line">├── params	<span class="comment">//参数规定</span></span><br><span class="line">├── rlp	<span class="comment">//RLP 序列化格式</span></span><br><span class="line">├── rpc	<span class="comment">//双向 JSON-RPC 2.0</span></span><br><span class="line">│   └── testdata</span><br><span class="line">├── signer	<span class="comment">//数字签名部分</span></span><br><span class="line">│   ├── core</span><br><span class="line">│   │   ├── apitypes</span><br><span class="line">│   │   └── testdata</span><br><span class="line">│   │       └── fuzzing</span><br><span class="line">│   ├── fourbyte</span><br><span class="line">│   ├── rules</span><br><span class="line">│   └── storage</span><br><span class="line">├── swarm	<span class="comment">//swarm 群节点</span></span><br><span class="line">├── tests	<span class="comment">//测试数据</span></span><br><span class="line">│   ├── fuzzers</span><br><span class="line">│   │   ├── abi</span><br><span class="line">│   │   ├── bitutil</span><br><span class="line">│   │   ├── bls12381</span><br><span class="line">│   │   │   └── testdata</span><br><span class="line">│   │   ├── bn256</span><br><span class="line">│   │   ├── difficulty</span><br><span class="line">│   │   │   └── debug</span><br><span class="line">│   │   ├── keystore</span><br><span class="line">│   │   │   └── corpus</span><br><span class="line">│   │   ├── les</span><br><span class="line">│   │   │   └── debug</span><br><span class="line">│   │   ├── rangeproof</span><br><span class="line">│   │   │   ├── corpus</span><br><span class="line">│   │   │   └── debug</span><br><span class="line">│   │   ├── rlp</span><br><span class="line">│   │   │   └── corpus</span><br><span class="line">│   │   ├── runtime</span><br><span class="line">│   │   ├── secp256k1</span><br><span class="line">│   │   ├── stacktrie</span><br><span class="line">│   │   │   └── debug</span><br><span class="line">│   │   ├── trie</span><br><span class="line">│   │   │   └── corpus</span><br><span class="line">│   │   ├── txfetcher</span><br><span class="line">│   │   │   └── corpus</span><br><span class="line">│   │   └── vflux</span><br><span class="line">│   │       └── debug</span><br><span class="line">│   ├── solidity</span><br><span class="line">│   │   ├── contracts</span><br><span class="line">│   │   ├── migrations</span><br><span class="line">│   │   └── test</span><br><span class="line">│   └── testdata</span><br><span class="line">└── trie	<span class="comment">//区块的重要数据结构 MPT</span></span><br></pre></td></tr></table></figure>
+<h1>底层源码参考</h1>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jianshu.com/u/572268941378">简书博客</a>，最初发表的文章主要是以太坊源码分析，对以太坊的函数做了说明。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/blockchainGuide/blockchainguide/tree/main/source_code_analysis/ethereum/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90">最近的源码分析文章</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ZtesoftCS/go-ethereum-code-analysis">GitHub - ZtesoftCS/go-ethereum-code-analysis</a> 4 年前的源码分析汇总</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Billy1900/Ethereum-tutorial">Ethereum-tutorial</a></p>
+</li>
+<li>
+<p>[go-ethereum 源码笔记（概览）](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://knarfeh.com/2018/03/10/go-ethereum">https://knarfeh.com/2018/03/10/go-ethereum</a> 源码笔记（概览）/) 四年前的博客</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://goethereumbook.org/zh/">Introduction · Ethereum Development with Go</a> 跟着用 Go 写简单区块链</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://geth.ethereum.org/docs/">Geth Documentation | Go Ethereum</a> geth 使用说明，调试程序，使用自带工具的参考。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.evm.codes/">操作码详解和模拟</a>。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/books/geth/">以太坊技术与实现</a>，作者作了整体性的说明，适合作为大致参考。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/geth-analyze">笔者的源码分析和理论基础、调试实操</a>。</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/geth/introduction/">https://www.blog-blockchain.xyz/geth/introduction/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/geth/">geth</a></div><div class="post-share"><div class="social-share" data-image="/images/geth.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/cs-courses/modular-inverses/" title="乘法逆元"><img class="cover" src="/images/cryptology.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">乘法逆元</div></div><div class="info-2"><div class="info-item-1"> C语言基础乘法逆元信息安全算法基础操作系统基础x86汇编基础信息论与编码  辗转相除法 先温习辗转相除法和裴蜀等式： {ax+by=gcd(a,b)(b  mod a)x+ay  =  gcd(a,b)(a  mod(b  mod a))x+(b  mod a)y  =  gcd(a,b)((b  mod a)  mod(a  mod(b  mod a)))x+(a  mod(b  mod a))y=gcd(a,b)\begin{cases} 	ax+by=\mathrm{gcd}\left( a,b \right)\\ 	\left( b\,\,\mathrm{mod}\ a \right) x+ay\,\,=\,\,\mathrm{gcd}\left( a,b \right)\\ 	\left( a\,\,\mathrm{mod} \left( b\,\,\mathrm{mod} \ a \right) \right) x+\left( b\,\,\mathrm{mod}\ a \right) y\,\,=\,\,\mathrm{gcd}\left( a,b...</div></div></div></a><a class="pagination-related" href="/pl/data-flow-analysis/" title="（二）数据流分析基础"><img class="cover" src="/images/pa.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">（二）数据流分析基础</div></div><div class="info-2"><div class="info-item-1"> （一）初识软件分析（二）数据流分析基础（三）Datalog和程序分析（四）静态单赋值和稀疏分析（五）过程间分析（六）指向分析（七）抽象解释（八）SMT和符号执行（九）体验静态分析工具（十）Fuzzing 基础  数据流分析 基本思想：程序视作状态和状态的转移两部分组成，忽视状态转移的条件，分析状态转移时的变化。 近似的两种方案：  忽略程序的条件判断，认为程序的所有分支都有可能到达。 **控制流分叉合并。**这会大大的减少计算量。  这些性质在后面会解释。 符号分析 思想：对变量进行抽象，分析输入的符号和输出的符号，得到抽象的结果。在此基础上可自定义分类和类似地拓展，用更加抽象和概括的符号。例如，对于整数类型，我们可以分成零、正、负、未知四种输入和结果，而不考虑具体的数值。 按照状态转移，我们可能有多条执行路径能够到达目的点 A。例如，if 语句是典型的区分执行路径的的方式。由于未知结果的函数 func1 和 func2，a 最终的符号可能是正、负或者未知。那么，我们可以得到 2 条可能的执行路径(0、5、1、未知)或者执行路径(0、-1、1、...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-13</div><div class="info-item-2">How Geth starts its server</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  When starting up, the Geth client begins by parsing the command line parameters. This process kicks off with the geth function: func geth(ctx *cli.Context) error  at cmd/geth/main.go:326 where the geth prepares the metric if enabled. Subsequently, the makeFullNode function takes over. It reads the provided configuration file or command line flags. As a result, it...</div></div></div></a><a class="pagination-related" href="/geth/blockchain-core/" title="blockchain核心"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">blockchain核心</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server   参考： 以太坊 blockchain 源码分析 - mindcarver - 博客园 (cnblogs.com)   主要部分转载：以太坊 blockchain 源码分析  blockchain 关键元素  db：持久化到底层数据储存，即 leveldb（注意不是 MySQL）（源码core/rawdb）；(参考文章：)Leveldb 基本介绍和使用指南 - 知乎 (zhihu.com) 以及对应的百科 [LevelDB_百度百科 (baidu.com)](https://baike.baidu.com/item/LevelDB/6416354#:~:text= Leveldb 是一个 google 实现的非常高效的 kv 数据库，目前的版本 1.2 能够支持 billion 级别的数据量了。...</div></div></div></a><a class="pagination-related" href="/geth/forkId/" title="forkId 解读"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">forkId 解读</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  EIP-2124 因为 core/forkId 包是 EIP-2124 的实现，因此我们先了解 EIP-2124 的内容。 目的  记住以太坊是向后兼容！  以太坊节点之前寻找其他节点的方式是：随机的选择可以连接的节点，再去判断节点是否对自己有用。但是其他的节点可能是主网节点、测试网节点、私网节点、共识机制不一致的节点，这样“盲目”的寻找会浪费资源。 于是这个提案希望在连接前，其他节点可以发送自己的链配置，实现精确连接到有用节点。这个传递的信息在提案中被称作 fork identifier，它实现如下功能：  如果两个节点在不同的网络上，他们不应该考虑连接。 如果硬分叉通过，升级的节点应该拒绝未升级的节点。 如果两条链有相同的创世区块配置和链配置，但没有分叉（ETH /...</div></div></div></a><a class="pagination-related" href="/geth/blocks/" title="理解区块"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">理解区块</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  结构定义 区块  首先我们需要明白区块的结构。 123456789101112131415161718192021// Block represents an entire block in the Ethereum blockchain.type Block struct &#123;   header       *Header      //区块头   uncles       []*Header    //引用的叔块   transactions Transactions //交易   // caches   hash atomic.Value //区块哈希   size atomic.Value //区块大小   // Td is used by package core to store the total...</div></div></div></a><a class="pagination-related" href="/geth/bloom-filter/" title="布隆过滤器原理"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">布隆过滤器原理</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  介绍  布隆过滤器（英语：Bloom Filter）是 1970 年由布隆提出的。它实际上是一个很长的二进制向量和一系列随机映射函数。布隆过滤器可以用于检索一个元素是否在一个集合中。它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。  可见，它解决的核心问题是 检索一个元素是否在一个集合中。原理大致如下： 当一个元素被加入集合时，通过 K 个散列函数将这个元素映射成一个二进制数组中的 K 个位置，把这些位置的值设置为 1。检索时，我们只要观察这些对应的位置的值是不是都是 1 就（大约）知道集合中有没有检索的元素：如果这 K 个位置中有任何一个 0，则被检索元素一定不在集合中；如果都是...</div></div></div></a><a class="pagination-related" href="/geth/oracle-introduction/" title="oracle 原理和实现"><img class="cover" src="/images/geth.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-25</div><div class="info-item-2">oracle 原理和实现</div></div><div class="info-2"><div class="info-item-1"> 交易的签名理解收据receipt理解区块理解交易blockchain核心forkId 解读布隆过滤器原理oracle 原理和实现交易池分析TxList 解读MPT树区块同步geth源码学习——介绍How Geth starts its server  oracle 介绍 oracle 翻译是预言机，英文中的意思是预卜先知，知晓消息的意思。在区块链里用于合约获取链外的数据。例如你想把比特币转换成美元，如果在链上进行，那么就需要从链外获取比特币和美元的汇率，例如price feed oracles。但是以太坊是封闭的系统，直接与外界交互很容易破坏 EVM 安全性，因此才用了预言机作为中间层，沟通链上和链外。详细可见chainlink 的文档和官方文档。 在以太坊上，oracle 是已经部署的智能合约和链外组件，它可以查询 API 提供的信息，然后给其他合约发消息，更新合约的数据。但是只相信唯一的数据源也是很不可靠的方式，通常是多个数据源。我们可以自己创建，也可以直接使用服务商提供的服务。 一般 oracle...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">以太坊术语</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E6%9C%89%E5%90%8D%E8%AF%8D"><span class="toc-number">2.1.</span> <span class="toc-text">专有名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%9C%AF%E8%AF%AD"><span class="toc-number">2.2.</span> <span class="toc-text">技术术语</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">源码分析准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#cmd-%E7%9B%AE%E5%BD%95%E9%87%8C%E8%87%AA%E5%B8%A6%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-number">3.1.</span> <span class="toc-text">cmd 目录里自带的工具.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">项目结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">底层源码参考</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>Post Series</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/geth/tx-signature/" title="交易的签名"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交易的签名"></a><div class="content"><a class="title" href="/geth/tx-signature/" title="交易的签名">交易的签名</a><time datetime="2022-08-24T17:30:33.000Z" title="Created 2022-08-25 01:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/understand-receipt/" title="理解收据receipt"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解收据receipt"></a><div class="content"><a class="title" href="/geth/understand-receipt/" title="理解收据receipt">理解收据receipt</a><time datetime="2022-08-24T21:30:33.000Z" title="Created 2022-08-25 05:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/blocks/" title="理解区块"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解区块"></a><div class="content"><a class="title" href="/geth/blocks/" title="理解区块">理解区块</a><time datetime="2022-08-25T00:30:33.000Z" title="Created 2022-08-25 08:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/understand-tx/" title="理解交易"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="理解交易"></a><div class="content"><a class="title" href="/geth/understand-tx/" title="理解交易">理解交易</a><time datetime="2022-08-25T01:30:33.000Z" title="Created 2022-08-25 09:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/blockchain-core/" title="blockchain核心"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="blockchain核心"></a><div class="content"><a class="title" href="/geth/blockchain-core/" title="blockchain核心">blockchain核心</a><time datetime="2022-08-25T02:30:33.000Z" title="Created 2022-08-25 10:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/forkId/" title="forkId 解读"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="forkId 解读"></a><div class="content"><a class="title" href="/geth/forkId/" title="forkId 解读">forkId 解读</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/bloom-filter/" title="布隆过滤器原理"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="布隆过滤器原理"></a><div class="content"><a class="title" href="/geth/bloom-filter/" title="布隆过滤器原理">布隆过滤器原理</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/oracle-introduction/" title="oracle 原理和实现"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="oracle 原理和实现"></a><div class="content"><a class="title" href="/geth/oracle-introduction/" title="oracle 原理和实现">oracle 原理和实现</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/tx-pool/" title="交易池分析"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交易池分析"></a><div class="content"><a class="title" href="/geth/tx-pool/" title="交易池分析">交易池分析</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/txlist/" title="TxList 解读"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TxList 解读"></a><div class="content"><a class="title" href="/geth/txlist/" title="TxList 解读">TxList 解读</a><time datetime="2022-08-25T03:30:33.000Z" title="Created 2022-08-25 11:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/MPT-Tree/" title="MPT树"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MPT树"></a><div class="content"><a class="title" href="/geth/MPT-Tree/" title="MPT树">MPT树</a><time datetime="2022-08-25T04:30:33.000Z" title="Created 2022-08-25 12:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/block-sync/" title="区块同步"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块同步"></a><div class="content"><a class="title" href="/geth/block-sync/" title="区块同步">区块同步</a><time datetime="2022-08-25T08:30:33.000Z" title="Created 2022-08-25 16:30:33">2022-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/introduction/" title="geth源码学习——介绍"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="geth源码学习——介绍"></a><div class="content"><a class="title" href="/geth/introduction/" title="geth源码学习——介绍">geth源码学习——介绍</a><time datetime="2022-09-28T08:30:33.000Z" title="Created 2022-09-28 16:30:33">2022-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server"><img src="/images/geth.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="How Geth starts its server"></a><div class="content"><a class="title" href="/geth/Geth-Unveiled-Ethereum-Startup/" title="How Geth starts its server">How Geth starts its server</a><time datetime="2023-09-13T15:02:10.000Z" title="Created 2023-09-13 23:02:10">2023-09-13</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/macbook/" title="macbook体验"><img src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="macbook体验"/></a><div class="content"><a class="title" href="/dev/macbook/" title="macbook体验">macbook体验</a><time datetime="2024-11-16T17:33:20.000Z" title="Created 2024-11-17 01:33:20">2024-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/git/" title="Git合作指南"><img src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git合作指南"/></a><div class="content"><a class="title" href="/dev/git/" title="Git合作指南">Git合作指南</a><time datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(三）Python面向对象设计模式"/></a><div class="content"><a class="title" href="/dev/python-design/" title="(三）Python面向对象设计模式">(三）Python面向对象设计模式</a><time datetime="2024-10-28T18:53:20.000Z" title="Created 2024-10-29 02:53:20">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-package/" title="(二）包的开发"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(二）包的开发"/></a><div class="content"><a class="title" href="/dev/python-package/" title="(二）包的开发">(二）包的开发</a><time datetime="2024-10-22T03:18:20.000Z" title="Created 2024-10-22 11:18:20">2024-10-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/docker/" title="docker自动化"><img src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker自动化"/></a><div class="content"><a class="title" href="/dev/docker/" title="docker自动化">docker自动化</a><time datetime="2024-10-21T06:22:20.000Z" title="Created 2024-10-21 14:22:20">2024-10-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '18a837a29756a395f97ac2314a1d891b'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>

@@ -1,0 +1,1128 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>DeFi攻击事件研究 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言：本文只为了交流学习，为了快速学习，已有的写的较好的资料直接照抄，并且在参考中注明来源。介绍的都非常简略，但是读者可以根据参考链接得到详细的讲解。 汇总表格    发生时间 名字 类型 损失金额 简述原因 代码 txhash     2022 年 07 月 25 日 LPC BNB 约 45,715 美元 实际的账户余额在后续操作中变化了，但是变量 recipientBalance 没有再次更">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeFi攻击事件研究">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/defi/defi-attack-cellection/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="前言：本文只为了交流学习，为了快速学习，已有的写的较好的资料直接照抄，并且在参考中注明来源。介绍的都非常简略，但是读者可以根据参考链接得到详细的讲解。 汇总表格    发生时间 名字 类型 损失金额 简述原因 代码 txhash     2022 年 07 月 25 日 LPC BNB 约 45,715 美元 实际的账户余额在后续操作中变化了，但是变量 recipientBalance 没有再次更">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.blog-blockchain.xyz/images/defi.jpg">
+<meta property="article:published_time" content="2022-08-23T12:49:22.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:30:54.920Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="defi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog-blockchain.xyz/images/defi.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/defi/defi-attack-cellection/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'DeFi攻击事件研究',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">DeFi攻击事件研究</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">DeFi攻击事件研究</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-08-23T12:49:22.000Z" title="Created 2022-08-23 20:49:22">2022-08-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-15T14:30:54.920Z" title="Updated 2024-11-15 22:30:54">2024-11-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/defi/">defi</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">11.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>46mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>前言：本文只为了交流学习，为了快速学习，已有的写的较好的资料直接照抄，并且在参考中注明来源。介绍的都非常简略，但是读者可以根据参考链接得到详细的讲解。</p>
+<h1>汇总表格</h1>
+<table>
+<thead>
+<tr>
+<th>发生时间</th>
+<th>名字</th>
+<th>类型</th>
+<th>损失金额</th>
+<th>简述原因</th>
+<th>代码</th>
+<th>txhash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022 年 07 月 25 日</td>
+<td>LPC</td>
+<td>BNB</td>
+<td>约 45,715 美元</td>
+<td>实际的账户余额在后续操作中变化了，但是变量 recipientBalance 没有再次更新，导致后续计算余额偏大。</td>
+<td></td>
+<td>0x0e970ed84424d8ea51f6460ce6105ab68441d4450a80bc8d749fdf01e504ed8c</td>
+</tr>
+<tr>
+<td>2022 年 06 月 27 日</td>
+<td><strong>XCarnival NFT</strong></td>
+<td>ETH，业务逻辑漏洞</td>
+<td>约 380 万美元</td>
+<td>未考虑抵押物被取出不能借款的业务逻辑，主要是 isWithdraw(bool) 未在 borrow 过程中考虑</td>
+<td><a target="_blank" rel="noopener external nofollow noreferrer" href="https://1drv.ms/u/s!At0_LwVPvookhu8F7kEfcAwJijxpxQ?e=bkBbg4">onedrive</a></td>
+<td>0x51cbfd46f21afb44da4fa971f220bd28a14530e1d5da5009cfbdfee012e57e35，0x20396765bbeacb5062edf7a18d90016dfaf61a05229e17f9c432c1a2af429dde，0x2d785de160e2cd2148041926d643b9fa39f6724cfa82d9aabe4628711f096844，0xcc3fda1e5540486de15f707ccc82a6f9c8c78e0ef3ef02e4318b3bea24ace701，0xd46e881c78ad0cc18b8076063fb6dcf29346eabe49dc9d1435e6a47af953747f，0xa7affbd744f7a96715fa4904e4b9f8cab0357cefc269e3d9fe6b68524482f703，0xc129fefaa52c65bc31d5b5581f70ffe891deb518e2c79e8e6683bb3b58b3e008，0xc129fefaa52c65bc31d5b5581f70ffe891deb518e2c79e8e6683bb3b58b3e008，0xf12eafb1c48f0b0d793e9e88ba2a3ad0a90112771e580ec92b07daa6e2ddc5d0</td>
+</tr>
+<tr>
+<td>2022 年 04 月 15 日</td>
+<td>Rikkei Finance</td>
+<td>BSC, oracle，鉴权</td>
+<td></td>
+<td>oracle 未鉴权，导致恶意设置 oracle，导致代币汇率恶意调整</td>
+<td></td>
+<td>0x93a9b022df260f1953420cd3e18789e7d1e095459e36fe2eb534918ed1687492</td>
+</tr>
+<tr>
+<td>2022 年 03 月 29 日</td>
+<td>Ronin Network</td>
+<td>侧链，私钥泄露</td>
+<td>6.1 亿美元</td>
+<td>为了方便而设置的私钥未及时收回权限，后来私钥被黑，并且权限控制没做好，导致黑客通过一个私钥获取到了 5/9 私钥的权限，大额取出资金。</td>
+<td></td>
+<td>0xa442188adf18a5b46064b15b4425751cafca157e7812a2b770e06f9f555844cb, 0x2a2942caeec35d5543bbff5dbd794c37f0cb5d14fd0ee552eb280f4680c51a60, 0x47798dbe0585d1c5635ecbd7b16d18ad5d81577f523e2ea42d87190bcbda0715, 0xbca767de1cd8617b48b0c889779242cc5ebf77746930ae5ffd8bd9ade4e5591f</td>
+</tr>
+<tr>
+<td>2022 年 3 月 21 日</td>
+<td>OneRing Finance</td>
+<td>Fantom，汇率</td>
+<td>约 146 万美元</td>
+<td>经济学模型漏洞，根据 pool 的储备量计算价格，导致巨额转账操纵汇率。</td>
+<td><a target="_blank" rel="noopener external nofollow noreferrer" href="https://1drv.ms/u/s!At0_LwVPvookhu8HlNtgQ2HsDotpeg?e=uFLhaH">onedrive</a></td>
+<td>0xca8dd33850e29cf138c8382e17a19e77d7331b57c7a8451648788bbb26a70145</td>
+</tr>
+<tr>
+<td>2021 年 08 月 10 日</td>
+<td>Poly Network</td>
+<td>跨链协议，鉴权</td>
+<td>6.1 亿美元</td>
+<td>验证区块头的合约处理执行交易的跨链请求，但是这个合约具备修改中继验证者的权限，导致可以通过构造哈希碰撞，修改了验证者。</td>
+<td></td>
+<td>无法定位，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://bscscan.com/txs?a=0x0d6e286a7cfd25e0c01fee9756765d8033b32c71&amp;p=105">https://bscscan.com/txs?a=0x0d6e286a7cfd25e0c01fee9756765d8033b32c71&amp;p=105</a></td>
+</tr>
+<tr>
+<td>2022 年 03 月 16 日</td>
+<td>Hundred Finance</td>
+<td>xdai 稳定币链，重入</td>
+<td></td>
+<td>借贷合约采用 ERC667，但是未加互斥锁，导致重入，借走大量钱。</td>
+<td></td>
+<td>0x534b84f657883ddc1b66a314e8b392feb35024afdec61dfe8e7c510cfac1a098</td>
+</tr>
+<tr>
+<td>2022 年 03 月 13 日</td>
+<td>Paraluni</td>
+<td>BSC，重入</td>
+<td>约 170 万美元</td>
+<td>LP token 具备 _pid 标识，但是未校验一致性（小问题）。主要问题是，计算流动行未考虑重入。</td>
+<td></td>
+<td>0x70f367b9420ac2654a5223cc311c7f9c361736a39fd4e7dff9ed1b85bab7ad54</td>
+</tr>
+<tr>
+<td>2022 年 03 月 03 日</td>
+<td>TreasureDAO NFT</td>
+<td>Arbitrum</td>
+<td></td>
+<td>ERC721 和 ERC1155 交易在同一个函数中进行，忽视转账 NFT 数量为 0 时，ERC721 转账仍然进行。</td>
+<td><a target="_blank" rel="noopener external nofollow noreferrer" href="https://1drv.ms/u/s!At0_LwVPvookhu8ItYWq3RuVnGLUKw?e=lhTSK3">onedrive</a></td>
+<td>0x82a5ff772c186fb3f62bf9a8461aeadd8ea0904025c3330a4d247822ff34bc02</td>
+</tr>
+<tr>
+<td>2022 年 01 月 28 日</td>
+<td><strong>QBridge</strong></td>
+<td>ETH</td>
+<td>约 8000 万美金</td>
+<td>ERC token 对应一个 ID，用于选取 handler，但是 bytes-&gt;address 的映射如果 key 不存在，handler 为默认的零地址，绕过了转账流程，零地址也恰好绕过了三重检查。</td>
+<td></td>
+<td>0x478d83f2ad909c64a9a3d807b3d8399bb67a997f9721fc5580ae2c51fab92acf，</td>
+</tr>
+<tr>
+<td>2021 年 11 ⽉ 30 ⽇</td>
+<td><strong>MonoX Finance</strong></td>
+<td>ETH, polygon，经济学模型，鉴权</td>
+<td>约 3100 万美元</td>
+<td>消除流动性未鉴权；反复 MONO swap MONO ，导致 MONO 价格极端高。</td>
+<td><a target="_blank" rel="noopener external nofollow noreferrer" href="https://1drv.ms/u/s!At0_LwVPvookhu86C9EWmwyh3zTQew?e=3JFoZf">onedrive</a></td>
+<td>0x9f14d093a2349de08f02fc0fb018dadb449351d0cdb7d0738ff69cc6fef5f299</td>
+</tr>
+<tr>
+<td>2021 年 10 月 27 日</td>
+<td><strong>Cream Finance</strong></td>
+<td>ETH</td>
+<td>约 1.3 亿美元</td>
+<td>流动性股价计算是 (总代币资产+股份资产)/股票数量，攻击者利用闪电贷和杠杆添加大量流动性股票，然后转入大量代币资产拉高股价。</td>
+<td></td>
+<td>0x0fe2542079644e107cbf13690eb9c2c65963ccb79089ff96bfaf8dced2331c92</td>
+</tr>
+<tr>
+<td>2021 年 9 月 12 日</td>
+<td>Zabu Finance</td>
+<td>Avalanche</td>
+<td></td>
+<td>抵押存在手续费，但是合约中记录的抵押没有先扣除手续费，导致提现的代币比实际抵押的多。代币总量减少使得抵押奖励极大</td>
+<td></td>
+<td>抵押：0xf76b37ed46c218d4b791e9769b139c3e1f43d1888f375f0a647c7a8bb58528fb, 攻击：0x0d65ce5c 7a0c072b14ec5da08488d07778f334a7ddb6b7 a30df97f274f3e1eb3, 获利：0x8b3042e55a63f39bb388240a089cf4d51 e59abe7 cb0bff303c6dbb19eaeb75ac</td>
+</tr>
+<tr>
+<td>2021 年 08 月 30 日</td>
+<td><strong>Cream Finance</strong></td>
+<td>ETH</td>
+<td>约 1800 万美元</td>
+<td>攻击者从 crETH 借贷后，借 AMP 合约重入 crETH 合约，同时借贷大量 AMP 代币。</td>
+<td></td>
+<td>0xa9a1b8ea288eb9ad315088f17f7c7386b9989c95b4d13c81b69d5ddad7ffe61e</td>
+</tr>
+<tr>
+<td>2021 年 08 月 12 日</td>
+<td><strong>DAO Maker</strong></td>
+<td>ETH、私钥泄露</td>
+<td></td>
+<td>私钥泄露导致管理员权限授予攻击合约。</td>
+<td></td>
+<td>0x33d1e2700eb2b5626e09a89008a7b445b34dfc72112c0500e80b97057688e236, 0x10caabf9130b1264ed2094c1dc6d35cee7587b35387cdac703e32e41c8ccfea9</td>
+</tr>
+<tr>
+<td>2021 年 08 月 04 日</td>
+<td><strong>Popsicle</strong></td>
+<td>ETH</td>
+<td>超 2100 万美元</td>
+<td>LP token 可以转让，合约按照 LP token 和已支付款项发放奖励，导致 LP token 转让后能多次更新奖励</td>
+<td><a target="_blank" rel="noopener external nofollow noreferrer" href="https://1drv.ms/u/s!At0_LwVPvookhu8_9yByfj7L-V9qYg?e=SsUudM">onedrive</a></td>
+<td>0xcd7dae143a4c0223349c16237ce4cd7696b1638d116a72755231ede872ab70fc</td>
+</tr>
+<tr>
+<td>2021 年 08 月 04 日</td>
+<td>Wault.Finance</td>
+<td>bsc</td>
+<td>93 万美元</td>
+<td>WEX 池子似乎是 WEX 数量越少，则 WEX 价格越高。而攻击者利用闪电贷大量质押，导致价格变动。</td>
+<td></td>
+<td>0x31262f15a5b82999bf8d9d0f7e58dcb1656108e6031a2797b612216a95e1670e</td>
+</tr>
+<tr>
+<td>2021 年 07 月 17 日</td>
+<td>PancakeBunny</td>
+<td>Polygon</td>
+<td></td>
+<td>闪电贷之后质押权益人设置为 VaultSushiFlipToFlip，导致合约 balance 异常大，与用户持有的 LP 相乘后得到异常大值，最后铸币出额外的 polyBUNNY 代币。</td>
+<td><a target="_blank" rel="noopener external nofollow noreferrer" href="https://1drv.ms/u/s!At0_LwVPvookhu9ENkaAl2THB-ymQA?e=NMDYCC">onedrive</a></td>
+<td>0x25e5d9ea359be7fc50358d18c2b6d429d27620fe665a99ba7ad0ea460e50ae55</td>
+</tr>
+<tr>
+<td>2021 年 06 月 28 日</td>
+<td>SafeDollar</td>
+<td>Polygon</td>
+<td></td>
+<td>项目参考 SUSHI 的 MasterChef 合约，它每次存入代币都会 burn 一部分，但是取出是存入的数量。反复抵押提现使得 PL 及其小，使得铸币奖励异常多</td>
+<td></td>
+<td>0x55dad44a7ed31d1637e70879af66e02290d39aea54554f8411e6ec19c03a074b, 0x4dda5f3338457dfb6648e8b959e70ca1513e434299eebfebeb9dc862db3722f3, 0xd78ff27f33576ff7ece3a58943f3e74caaa9321bcc3238e4cf014eca2e89ce3f, 0x1360315a16aec1c7403d369bd139f0fd55a99578d117cb5637b234a0a0ee5c14</td>
+</tr>
+<tr>
+<td>2021 年 06 月 21 日</td>
+<td>Impossible Finance</td>
+<td>BSC, 不可信外部调用</td>
+<td></td>
+<td>项目为了省 gas 实现了必须由 Router 才能调用的 cheapSwap，但是攻击者通过创建自己的 Pair，在 pair 中就 swap，而后续的 cheapSwap 未检查 K</td>
+<td><a target="_blank" rel="noopener external nofollow noreferrer" href="https://1drv.ms/u/s!At0_LwVPvookhu9GovQTE7HWAzvGwg?e=r36rQB">onedrive</a></td>
+<td>0x0220704a99ddfb982d26e65cc337f26b77dc057930b7aa1d848cc48ec77984a8</td>
+</tr>
+<tr>
+<td>2021 年 06 月 16 日</td>
+<td><strong>Alchemix</strong></td>
+<td>ETH，项目方操作错误</td>
+<td></td>
+<td>操作流程失误导致资金损失。</td>
+<td></td>
+<td><em>0x3cc071f9f40294bb250fc7b9aa6b2d7e6ca5707ce4d6d222157d7a0feef618b3</em></td>
+</tr>
+<tr>
+<td>2021 年 05 月 28 日</td>
+<td>BurgerSwap</td>
+<td>BSC</td>
+<td></td>
+<td>pair 合约完全依赖 PlatForm（类似 router）的检查，本身未检查 K 值，重入 swapExactTokensForTokens 滑点不变</td>
+<td></td>
+<td>0xac8a739c1f668b13d065d56a03c37a686e0aa1c9339e79fcbc5a2d0a6311e333</td>
+</tr>
+<tr>
+<td>2021 年 05 月 20 日</td>
+<td>PancakeBunny</td>
+<td>BSC</td>
+<td></td>
+<td>LP token 的价值计算依赖池子中的代币比例，而这较为容易被闪电贷操控。</td>
+<td></td>
+<td>0x897c2de73dd55d7701e1b69ffb3a17b0f4801ced88b0c75fe1551c5fcce6a979</td>
+</tr>
+<tr>
+<td>2021 年 5 月 20 日</td>
+<td><strong>Rari</strong></td>
+<td>ETH</td>
+<td>近 1500 万美元</td>
+<td><code>ibETH.work</code> 函数可以调用任何合约，导致中途充值 ETH，使得 totalETH 增大，导致 ibETH 代币价值升高，然后在同一笔交易中取出。</td>
+<td></td>
+<td>0x171072422efb5cd461546bfe986017d9b5aa427ff1c07ebe8acc064b13a7b7be</td>
+</tr>
+<tr>
+<td>2021 年 03 月 08 日</td>
+<td><strong>DODO</strong></td>
+<td>ETH</td>
+<td>212 万美元</td>
+<td>资金池合约初始化函数没有任何鉴权以及防止重复调用初始化的限制，导致攻击者利用闪电贷将真币借出，然后通过重新对合约初始化将资金池代币对替换为攻击者创建的假币，从而绕过闪电贷资金归还检查将真币收入囊中</td>
+<td></td>
+<td>0x395675b56370a9f5fe8b32badfa80043f5291443bd6c8273900476880fb5221e</td>
+</tr>
+<tr>
+<td>2021 年 03 月 06 日</td>
+<td><strong>Paid Network</strong></td>
+<td>ETH</td>
+<td></td>
+<td>私钥泄露或者项目内部原因，导致任意 mint。</td>
+<td></td>
+<td>0x4bb10927ea7afc2336033574b74ebd6f73ef35ac0db1bb96229627c9d77555a0</td>
+</tr>
+<tr>
+<td>2021 年 02 月 27 日</td>
+<td><strong>Furucombo</strong></td>
+<td>ETH</td>
+<td>超 1500 万美元</td>
+<td>未初始化代理合约，导致被黑客初始化，更改了 implementation 合约</td>
+<td></td>
+<td>0x6a14869266a1dcf3f51b102f44b7af7d0a56f1766e5b1908ac80a6a23dbaf449</td>
+</tr>
+<tr>
+<td>2021 年 01 月 27 日</td>
+<td><strong>SushiSwap</strong></td>
+<td>ETH</td>
+<td></td>
+<td>DIGG 没有设置兑换路径，而默认的是 WETH，于是攻击者创建交易对，控制价格，导致手续费兑换过程中产生了巨大的滑点。</td>
+<td></td>
+<td>0x0af5a6d2d8b49f68dcfd4599a0e767450e76e08a5aeba9b3d534a604d308e60b</td>
+</tr>
+<tr>
+<td>2020 年 04 月 18 日</td>
+<td><a target="_blank" rel="noopener external nofollow noreferrer" href="http://Lendf.Me">Lendf.Me</a></td>
+<td>ETH</td>
+<td></td>
+<td>ERC777 回调时导致业务逻辑含义相同但存储位置不同的变量被覆盖。</td>
+<td></td>
+<td>0xe49304cd3edccf32069dcbbb5df7ac3b8678daad34d0ad1927aa725a8966d52a</td>
+</tr>
+</tbody>
+</table>
+<h1>攻击分析</h1>
+<h2 id="LPC">LPC</h2>
+<p>参考官方的报导即可：</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Brief analysis of <a target="_blank" rel="noopener external nofollow noreferrer" href="https://twitter.com/search?q=%24LPC&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$LPC</a> flashloan attack:<br/>The attacker first borrowed 1,353,900 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://twitter.com/search?q=%24LPCs&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$LPCs</a> via flashloan from Pancake, then called the _transfer function in the LPC contract to transfer to himself. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://t.co/Fxn9O0MTn8">https://t.co/Fxn9O0MTn8</a></p>&mdash; Beosin Alert (@BeosinAlert) <a target="_blank" rel="noopener external nofollow noreferrer" href="https://twitter.com/BeosinAlert/status/1551535854681718784?ref_src=twsrc%5Etfw">July 25, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h2 id="XCarnival-NFT">XCarnival NFT</h2>
+<p>详细介绍可见：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/F2hpBNRzhZmfCn7BQanGOA">熊市新考验 —— XCarnival NFT 借贷协议漏洞分析 </a>和 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://s3cunda.github.io/2022/06/28/XCarnical-%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90.html">XCarnical 攻击事件分析</a>，我来补充代码逻辑。</p>
+<ol>
+<li>用户 A 需要抵押 cellection 合约上的 NFT。cellection 必须是白名单。</li>
+<li>每个 xtoken 合约都是一个 pool，有自己的借贷容量。</li>
+<li>每个抵押物都会生成 order，这是核心数据结构。后面借款操作都是根据 order 进行。</li>
+<li>拍卖是清算的唯一手段，抵押者也可以参与拍卖，这个叫做赎回。</li>
+<li>另外，拍卖卖出前，抵押者可以还清贷款，取回抵押物。但是会花费一些手续费。</li>
+</ol>
+<h2 id="Rikkei-Finance">Rikkei Finance</h2>
+<p>参考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/W4fn5tVOUGmX_brGLFXgeQ">慢雾</a></p>
+<h2 id="Ronin-Network">Ronin Network</h2>
+<p>参考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/0U58Chw970X2GWcj2fvLPg">慢雾</a>；简单了解<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.binance.com/zh-CN/news/top/7115028">侧链</a>；</p>
+<h2 id="OneRing-Finance">OneRing Finance</h2>
+<p>总而言之，经济学模型的漏洞，根据瞬时储备量计算价格，利用闪电贷制造巨大差值，导致汇率变化。在这个案例中，攻击者的操作相当的复杂，需要熟悉很多流程才可以。</p>
+<p>这里的收获是：我熟悉了 uniswap 和 flash loan 的基本思路。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/MyR_O8wuZJUT1S6eIMH9TA">慢雾：OneRing Finance 被黑分析</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dashboard.tenderly.co/tx/fantom/0xca8dd33850e29cf138c8382e17a19e77d7331b57c7a8451648788bbb26a70145?trace=0.2.2">跟踪交易</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ftmscan.com/address/0x6a6d593ed7458b8213fa71f1adc4a9e5fd0b5a58">攻击合约</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.blocktempo.com/onering-finance-is-exploited/">https://www.blocktempo.com/onering-finance-is-exploited/</a></li>
+</ul>
+<h2 id="Poly-Network">Poly Network</h2>
+<p>Poly Network 是由 Neo、Ontology、Switcheo 基金会共同作为创始成员，分布科技作为技术提供方共同发起的跨链组织。</p>
+<p>如下图，通过官方的介绍我们可以清楚的看出 Poly Network 的架构设计：用户可以在源链上发起跨链交易，交易确认后由源链 Relayer 将区块头信息同步至 Poly Chain，之后由 Poly Chain 将区块头信息同步至目标链 Relayer，目标链 Relayer 将验证信息转至目标链上，随后在目标链进行区块头验证，并执行用户预期的交易。</p>
+<img src="http://cdn.blog-blockchain.xyz/202210302339761.png" alt="图片"  />
+<p>攻击核心： <code>EthCrossChainManager </code>合约用于验证 Poly Chain 同步来的区块头以确认跨链信息的真实。<code>EthCrossChainData</code> 合约用于存储跨链数据，中继链验证人 (即 Keeper) 的公钥也存储在这个合约中。<code>LockProxy</code> 则用于资产管理。<code>EthCrossChainManager</code> 执行交易时没有检验 to 和 _method，导致构造哈希碰撞，修改了中继链验证人.</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/MyR_O8wuZJUT1S6eIMH9TA">https://mp.weixin.qq.com/s/MyR_O8wuZJUT1S6eIMH9TA</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.blocktempo.com/onering-finance-is-exploited/">https://www.blocktempo.com/onering-finance-is-exploited/</a></li>
+</ul>
+<h2 id="Hundred-Finance">Hundred Finance</h2>
+<p>Hundred Finance 是一个去中心化应用程序（DApp），它支持加密货币的借贷。它是一种多链协议，与 Chainlink 预言机集成，以确保市场健康和稳定，同时专门为长尾资产提供市场。</p>
+<p>见参考链接</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/tlXn3IDSbeoxXQfNe_dH3A">https://mp.weixin.qq.com/s/tlXn3IDSbeoxXQfNe_dH3A</a></li>
+</ul>
+<h2 id="Paraluni">Paraluni</h2>
+<p>Paraluni 是 BSC 链上的一个元宇宙金融（DeFi）项目。用户可以质押代币添加流动性获取收益。详细见参考链接。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/a5fFI5sFNAyuDxGqTFmC2A">https://mp.weixin.qq.com/s/a5fFI5sFNAyuDxGqTFmC2A</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dashboard.tenderly.co/tx/bsc/0x70f367b9420ac2654a5223cc311c7f9c361736a39fd4e7dff9ed1b85bab7ad54">https://dashboard.tenderly.co/tx/bsc/0x70f367b9420ac2654a5223cc311c7f9c361736a39fd4e7dff9ed1b85bab7ad54</a></li>
+</ul>
+<h2 id="TreasureDAO-NFT">TreasureDAO NFT</h2>
+<p>TreasureDAO 是一个基于 Arbitrum（L2）上的 NFT 项目。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/SEbXWmugJBz0C00vyzYcCw">https://mp.weixin.qq.com/s/SEbXWmugJBz0C00vyzYcCw</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dashboard.tenderly.co/tx/arbitrum/0x82a5ff772c186fb3f62bf9a8461aeadd8ea0904025c3330a4d247822ff34bc02">https://dashboard.tenderly.co/tx/arbitrum/0x82a5ff772c186fb3f62bf9a8461aeadd8ea0904025c3330a4d247822ff34bc02</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://arbiscan.io/address/0x812cda2181ed7c45a35a691e0c85e231d218e273#code">https://arbiscan.io/address/0x812cda2181ed7c45a35a691e0c85e231d218e273#code</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://arbiscan.io/address/0x2e3b85f85628301a0bce300dee3a6b04195a15ee">https://arbiscan.io/address/0x2e3b85f85628301a0bce300dee3a6b04195a15ee</a></li>
+</ul>
+<h2 id="QBridge">QBridge</h2>
+<p>首先了解 blockchain bridge，可以参考附录。<strong>Tornado</strong> Cash Classic is A fully decentralized protocol for private transactions on Ethereum.</p>
+<p>黑客从 tonado 获得最初资产，尽力避免被追踪。</p>
+<p>resourceID 是资产的 ID（比如某种 token），如果名单中不存在这类资产，则返回零地址（用映射实现）。</p>
+<p>跨链资产转移包括了 ECR token 和 native token(ETH)，但是它们共用相同的事件。在 ERC token 转账时，忽视了映射中不存在的 key 对应 default value，这里时 0x0，导致绕过转账检测。</p>
+<hr>
+<p>In the QBridgeHandler contract, tokenAddress in L127 is <strong>address(0).</strong> There are 3 statements to ensure the correctness of the <em>data</em> parameter. However, none of them failed</p>
+<p>-Line 128: As <strong>address(0)</strong> is whitelisted, Line 128 would be bypassed</p>
+<p>-Line 134: As the amount is 190 ETH (bigger than minAmounts), Line 134 would be bypassed</p>
+<p>-Line 135: <strong>As address(0)</strong> is an externally owned address (EOA), the low level call from safeTransferFrom() would return successfully</p>
+<p><img src="https://miro.medium.com/max/1400/0*sTvpjyy3xEQcuXH7" alt="img"></p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/PLbuI9JFxyFRlDlj9rPvmQ">https://mp.weixin.qq.com/s/PLbuI9JFxyFRlDlj9rPvmQ</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/article/3649">https://learnblockchain.cn/article/3649</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.tornado.cash/general/readme">https://docs.tornado.cash/general/readme</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://etherscan.io/address/0x99309d2e7265528dc7c3067004cc4a90d37b7cc3#code">https://etherscan.io/address/0x99309d2e7265528dc7c3067004cc4a90d37b7cc3#code</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dashboard.tenderly.co/tx/mainnet/0xac7292e7d0ec8ebe1c94203d190874b2aab30592327b6cc875d00f18de6f3133">https://dashboard.tenderly.co/tx/mainnet/0xac7292e7d0ec8ebe1c94203d190874b2aab30592327b6cc875d00f18de6f3133</a></li>
+</ul>
+<h2 id="MonoX-Finance">MonoX Finance</h2>
+<p>MonoX 是⼀种新的 DeFi 协议，使⽤单⼀代币设计⽤于流动性池。这是通过将存⼊的代币与 vCASH 稳定币组合成⼀个虚拟交易对来实现的。其中的单⼀代币流动性池的第⼀个应⽤是⾃动做市商系统 - Monoswap，它在 2021 年 10 ⽉时推出。</p>
+<p>详细过程见：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.freebuf.com/news/306917.html">https://www.freebuf.com/news/306917.html</a></p>
+<p>主要漏洞点有两个，第一个移出流动性未鉴权，<code>Monoswap.sol </code>中的 <code>removeLiquidity</code> 函数。这导致有人可以恶意移出其他人的流动性，让自己独享收益。</p>
+<p>第二个，<code>Monoswap.sol </code> 中的 <code>swapExactTokenForToken</code> 函数可以影响汇率，经济模型设计问题。只要反复 swap 相同的代币，就会让这个代币的价格指数升高。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/s0tO1aqOKGlRcXjyZFU_3Q">https://mp.weixin.qq.com/s/s0tO1aqOKGlRcXjyZFU_3Q</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.freebuf.com/news/306917.html">https://www.freebuf.com/news/306917.html</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://etherscan.io/address/0xa1fba7f2079131acb3e2073563ec53c8d43bc144#code">https://etherscan.io/address/0xa1fba7f2079131acb3e2073563ec53c8d43bc144#code</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dashboard.tenderly.co/tx/mainnet/0x9f14d093a2349de08f02fc0fb018dadb449351d0cdb7d0738ff69cc6fef5f299">https://dashboard.tenderly.co/tx/mainnet/0x9f14d093a2349de08f02fc0fb018dadb449351d0cdb7d0738ff69cc6fef5f299</a></li>
+</ul>
+<h2 id="Cream-Finance">Cream Finance</h2>
+<p>简单地说，计算合约中抵押物的价格时，会把池子中所有的代币总数作为依据，而攻击者利用闪电贷借空了池子。</p>
+<p>具体步骤：</p>
+<ol>
+<li>从 DssFlash 中闪电贷借出 5 亿个 DAI，然后抵押他们获得 4.5 亿个 yDAI，再把 yDAI 作为流动性代币添加到多个池子里，得到新的流动性代币 yUSD。</li>
+<li>再 向 Cream 的 crYUSD 池子抵押 yUSD。</li>
+<li>从 AAVE 闪电贷借出约 52.4 万个 WETH，并将其抵押到 Cream 的 crETH 池子。再结合第二步抵押的代币，将 crYUSD 池子里的 yUSD 借空。</li>
+<li>crYUSD 允许杠杆借贷，于是反复循环使得池子中抵押的 yUSD 极端多。</li>
+<li>攻击者另外一部分借贷的 1,873 个 ETH 先转换成 745 万个 USDC，再转换成 338 万 个 DUSD，用于赎回第一步用 yDAI 抵押的 ownership token，用 ownership token 再从池子中取出 yDAI 等代币。这些代币又被转入 yUSD 的池子中（而不是抵押），直接拉高了流动性分红时股份的价格，攻击者自身抵押 yUSD 得到的<strong>股份价格就高了</strong>，因此可以用他们在其他池子中借出更多的资金。</li>
+<li>反复这样的操作，导致抵押物价格巨高无比，将 15 个池子都借空。</li>
+</ol>
+<p>股份价格是通过 总资产/股份数量 计算的，而 总资产=代币资产+抵押资产，所以只要拉高 代币资产，而抵押资产所占有的股份不变， 就可以提高股份单价。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/ykz63ZtfbObwRs3UTE3toQ">https://mp.weixin.qq.com/s/ykz63ZtfbObwRs3UTE3toQ</a></li>
+</ul>
+<h2 id="Zabu-Finance">Zabu Finance</h2>
+<p>Zabu Finance 是 Avalanche 上的下一代去中心化金融 (DeFi) 项目。Zabu Finance 成熟的生态系统包括收益聚合、收益耕作、抵押、筹款。</p>
+<p>详细分析见参考，写的很好。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/article/3287">https://learnblockchain.cn/article/3287</a></li>
+</ul>
+<h2 id="Cream-Finance-2">Cream Finance</h2>
+<p>2021 年 8 月 30 日的攻击。慢雾写的不怎么好，可以参考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blockcast.it/2021/08/31/amber-group-reentrancy-attack-explained/%EF%BC%8C%E5%9C%A8%E6%9C%80%E5%90%8E%E9%9D%A2%E5%86%99%E7%9A%84%E5%BE%88%E6%B8%85%E6%A5%9A%E3%80%82">https://blockcast.it/2021/08/31/amber-group-reentrancy-attack-explained/，在最后面写的很清楚。</a></p>
+<p>这是重入攻击。攻击者从 crETH 借贷后，借 AMP 合约重入 crETH 合约，同时借贷大量 AMP 代币。接着还清第一次 crtETH 的借贷，还闪电贷，最终得到 41 WETH + 9.74M AMP。</p>
+<ol>
+<li>Exp.trigger() 函数中第 94 行先是一个 UniswapV2 的闪电贷，借出了 500 WETH。实际执行的流程在 uniswapV2Call() 函数 完成。</li>
+</ol>
+<p><img src="https://cdni.blockcast.it/wp-content/uploads/2021/08/31143722/image8-768x159.png" alt="img"></p>
+<ol start="3">
+<li>
+<p>由于闪电贷借的是 WETH 而 crETH 需要使用 ETH 才能铸造，因此在第 105 行，先将 WETH 换成 ETH，接下来将换出的 ETH 全数发给 crETH 合约铸造出 crETH cTokens。在 113 调用一次 <code>Comptroller.enterMarkets()</code> 将 crETH 激活以便后续的操作。</p>
+<p><img src="https://cdni.blockcast.it/wp-content/uploads/2021/08/31143736/image9-768x186.png" alt="img"></p>
+</li>
+<li>
+<p>将 crETH Tokens 抵押，得到 <strong>19,480,000 AMP tokens</strong>，在 crAMP.borrow() 函数（121 行）中把 AMP 代币转给攻击合约。</p>
+<p><img src="https://cdni.blockcast.it/wp-content/uploads/2021/08/31143358/image18-768x149.png" alt="img"></p>
+</li>
+<li>
+<p>攻击合约收到 AMP tokens 时， <code>tokensReceived()</code> 中的回调函数会重入 crETH 合约 ，造成抵押的 crETH Tokens 双花，再次<strong>借贷 355 个 ETH</strong>。</p>
+</li>
+<li>
+<p>随后攻击者使用另外一个合约 (0x0ec3) 对已经爆仓的合约 (0x38c4) 进行清算，在 <code>Liquidator.trigger() </code> 函数里，攻击者<strong>用部分 AMP 代币清算了自身创造的不良资产</strong>，获得 crETH 抵押品（第 60 行），随后将 crETH 换成 <strong>187.58 ETH</strong>（第 61 行），并发回给 owner，即攻击合约。</p>
+</li>
+</ol>
+<p><img src="https://cdni.blockcast.it/wp-content/uploads/2021/08/31143717/image7-768x164.png" alt="img"></p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blockcast.it/2021/08/31/amber-group-reentrancy-attack-explained/">https://blockcast.it/2021/08/31/amber-group-reentrancy-attack-explained/</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/a9s61_u30f4X8310A952_Q">https://mp.weixin.qq.com/s/a9s61_u30f4X8310A952_Q</a></li>
+</ul>
+<h2 id="DAO-Maker">DAO Maker</h2>
+<p>参考链接讲得不错。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/N-afjgJD3R3JhlcrFxx12A">https://mp.weixin.qq.com/s/N-afjgJD3R3JhlcrFxx12A</a></li>
+</ul>
+<h2 id="Popsicle">Popsicle</h2>
+<p>Popsicle Finance 是专注于自动做市（AMM）流动性提供商（LP）的下一代跨链收益提高平台。旨在成为一个完全分散的平台，由其用户（ICE 治理令牌的持有者）管理。ICE 令牌将用于对协议更新，资产池包含，费用管理以及协议其他关键运营方面的提案进行投票。</p>
+<p><strong>攻击信息</strong></p>
+<p>通过初步追踪分析，攻击者创建了 3 个攻击合约，进行了 1 笔攻击交易，共盗取资金价值超 2100 万美元，攻击信息如下：</p>
+<p>_攻击者钱包地址：_<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cn.etherscan.com/address/0xf9E3D08196F76f5078882d98941b71C0884BEa52">https://cn.etherscan.com/address/0xf9E3D08196F76f5078882d98941b71C0884BEa52</a></p>
+<p><em>攻击者合约地址：</em></p>
+<p>合约 1：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cn.etherscan.com/address/0xdFb6faB7f4bc9512d5620e679E90D1C91C4EAdE6">https://cn.etherscan.com/address/0xdFb6faB7f4bc9512d5620e679E90D1C91C4EAdE6</a></p>
+<p>合约 2：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cn.etherscan.com/address/0x576cf5f8ba98e1643a2c93103881d8356c3550cf">https://cn.etherscan.com/address/0x576cf5f8ba98e1643a2c93103881d8356c3550cf</a></p>
+<p>合约 3：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cn.etherscan.com/address/0xd282f740bb0ff5d9e0a861df024fcbd3c0bd0dc8">https://cn.etherscan.com/address/0xd282f740bb0ff5d9e0a861df024fcbd3c0bd0dc8</a></p>
+<p>_攻击交易：_<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cn.etherscan.com/tx/0xcd7dae143a4c0223349c16237ce4cd7696b1638d116a72755231ede872ab70fc">https://cn.etherscan.com/tx/0xcd7dae143a4c0223349c16237ce4cd7696b1638d116a72755231ede872ab70fc</a></p>
+<p>_SorbettoFragola 合**约地址：_<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cn.etherscan.com/address/0xc4ff55a4329f84f9Bf0F5619998aB570481EBB48#contracts">https://cn.etherscan.com/address/0xc4ff55a4329f84f9Bf0F5619998aB570481EBB48#contracts</a></p>
+<p><strong>攻击过程</strong></p>
+<p>攻击者在一笔交易中，利用同一攻击手法进行了多次获利，下面分步解析该笔交易，方便读者更清晰的了解攻击过程。</p>
+<p>第一步：攻击合约 1 从 Aave 利用闪电贷借出 3000 万枚 USDT,1.3 万枚 ETH,1400 枚 BTC,3000 万枚 USDC,300 万枚 DAI,20 万枚 UNI。</p>
+<p>第二步：攻击者合约 1 通过 Uniswap V3 协议使用 5492 枚 WETH 和 3000 枚 USDT 添加流动性并获取 10.52 枚 Popsicle LP。</p>
+<p>第三步：攻击者合约 1 将获取的 10.52 枚 Popsicle LP 发送至攻击者合约 2，后者又将 LP 发送至攻击者合约 3，最后将 LP 归还至攻击者合约 1。</p>
+<p>第四步：攻击者合约 1 归还获取 10.52 枚 Popsicle LP,得到添加流动性的 5492 枚 WETH 和 3000 枚 USDT。</p>
+<p>第五步：攻击者合约 2 和合约 3 分别从 Uniswap V3 优化器 SorbettoFragola 得到 392 枚 ETH 和 215 万枚 USDT（凭空获利）。</p>
+<p>交易信息中，攻击中循环执行 8 次同样的攻击（第二步至第五步）。</p>
+<p>第六步：攻击者合约 2 和合约 3 将获取到的资金全部转至攻击者合约 1。</p>
+<p>第七步：攻击者归还闪电贷的 3000 万枚 USDT,1.3 万枚 ETH,1400 枚 BTC,3000 万枚 USDC,300 万枚 DAI,20 万枚 UNI 及其手续费。</p>
+<p>第八步：攻击者将获取的资金统一转至攻击者钱包。</p>
+<p>具体成功原因见慢雾的分析。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.xilian.link/depth/75760.html">http://www.xilian.link/depth/75760.html</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/O6gJeXVgYqodTXyh8h9FFg">https://mp.weixin.qq.com/s/O6gJeXVgYqodTXyh8h9FFg</a></li>
+</ul>
+<h2 id="Wault-Finance">Wault.Finance</h2>
+<p>Wault Finance 是一个去中心化的金融中心平台，它将所有主要 DeFi 用例连接到一个简单的生态系统中，位于币安智能链上。简而言之，这是一个多合一的 DeFi 平台。</p>
+<p>WUSDMaster 是一个质押 BSC_USDT 换取 WUSD 的合约，可以通过质押 (stake) BSC_USDT 来获得 WUSD， 通过赎回 (redeem) 将 WUSD 燃烧，然后换成 BSC_USDT，在这过程中一部分资金会转给金库 (Treasury)， WUSDMaster 会用 WEX 补贴给用户。</p>
+<p>下图显示了 WAULTx（治理代币）、WEX（农业代币）和 WaultSwap（去中心化交易所）如何整合在一起形成 Wault 金融生态系统。</p>
+<img src="https://www.aqniu.com/wp-content/uploads/2021/08/image003-5-1024x1024.png" alt="img" style="zoom:67%;" />
+<ol>
+<li>首先攻击者在 WaultSwapPair (BSC_BUSD-WUSD) 中通过闪电贷借了 16,839,004 枚 WUSD，并在 WUSDMaster 合约中的赎回 (redeem) 函数，将闪电贷借到的 WUSD 燃烧掉，从而得到 15,037,230 BUSD +106,502,606 WEX。而在这里，其 WEX 的获得<strong>成本约等于 0.015 BUSD/WEX</strong>。</li>
+<li>去 PancakePair (WBNB-BSC_USDT) 中通过闪电贷借了 40,000,000 枚 BSC_USDT，共使用 23, 000, 000BUSD 购买了 517,938,118 个 WEX。在这一步，其 WEX 的获得<strong>成本为 0.044 BUSD/WEX</strong>。同时，也是这一步使得 WEX 的价格变得非常的高。</li>
+<li>在完成上述的准备后，攻击者 68 次调用 WUSDMaster 合约中的质押(stake)函数，质押 BUSD 获得 WUSD。stake 函数会执行 <code>wswapRouter.swapExactTokensForTokensSupportingFeeOnTransferTokens</code> 会按一定比率换出 WEX 代币。这里由于第二步中攻击者将 WEX 的价格拉高，池子的 WEX 获得<strong>成本大约为 0.131BUSD/WEX</strong>。</li>
+<li>攻击者在此时卖出手中所有的 WEX，这里卖出的均价为 0.041BUSD/WEX。</li>
+<li>归还闪电贷，并将获利转换为 ETH 跨链离场。</li>
+</ol>
+<p><strong>能够操纵价格的原因：</strong></p>
+<p>WEX 池子似乎是 WEX 数量越少，则 WEX 价格越高。而攻击者利用闪电贷大量质押，导致价格变动。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function stake(uint256 amount) external nonReentrant &#123;</span><br><span class="line">    require(amount &lt;= maxStakeAmount, &#x27;amount too high&#x27;);</span><br><span class="line">    usdt.safeTransferFrom(msg.sender, address(this), amount); //抵押</span><br><span class="line">    if(feePermille &gt; 0) &#123; //扣除手续费</span><br><span class="line">        uint256 feeAmount = amount * feePermille / 1000;</span><br><span class="line">        usdt.safeTransfer(treasury, feeAmount); //转给金库</span><br><span class="line">        amount = amount - feeAmount;</span><br><span class="line">    &#125;</span><br><span class="line">    uint256 wexAmount = amount * wexPermille / 1000;</span><br><span class="line">    usdt.approve(address(wswapRouter), wexAmount); // usdt 授权给 router</span><br><span class="line">    wswapRouter.swapExactTokensForTokensSupportingFeeOnTransferTokens( //router 转 wex 给</span><br><span class="line">        wexAmount,</span><br><span class="line">        0,</span><br><span class="line">        swapPath,</span><br><span class="line">        address(this),</span><br><span class="line">        block.timestamp</span><br><span class="line">    );</span><br><span class="line">    wusd.mint(msg.sender, amount);</span><br><span class="line"></span><br><span class="line">    emit Stake(msg.sender, amount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.aqniu.com/vendor/76328.html">https://www.aqniu.com/vendor/76328.html</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/aFSnSDPk4RYlcKz6Qr_CmQ">https://mp.weixin.qq.com/s/aFSnSDPk4RYlcKz6Qr_CmQ</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://bscscan.com/address/0xa79Fe386B88FBee6e492EEb76Ec48517d1eC759a#code">https://bscscan.com/address/0xa79Fe386B88FBee6e492EEb76Ec48517d1eC759a#code</a></li>
+</ul>
+<h2 id="PancakeBunny">PancakeBunny</h2>
+<p>这里我们来学习分析交易。</p>
+<ol>
+<li>
+<p>首选是闪电贷，这是通过代理合约调用的，接着进入闪电贷，在 <code>LendingPool/contracts/protocol/lendingpool/LendingPool.sol</code> 的 <code>flashLoan</code> 函数借出许多代币，</p>
+</li>
+<li>
+<p>然后在 <code>UniswapV2Router02/contract/UniswapV2Router02.sol</code> 添加流动性，通过 <code>0x4b1f1e2435a9c96f7330faea190ef6a7c8d70001</code> 的 <code>mint</code> 函数获取 SLP.</p>
+</li>
+<li>
+<p>然后通过 <code>VaultSushiFlipToFlip.deposit</code> 函数抵押小部分的 LP，权益人设置为攻击合约。</p>
+</li>
+<li>
+<p>通过 <code>MiniChefV2.deposit</code> 函数抵押大部分 LP，权益人设置为 <code>VaultSushiFlipToFlip</code>（实际上是它的代理合约）</p>
+</li>
+<li>
+<p>通过 0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff 的 <code>swapExactTokensForTokens</code> 函数，将 100,000 WETH 转换成 30,027,861.276 WMATIC.</p>
+</li>
+<li>
+<p>通过 <code>VaultSushiFlipToFlip.withdrawAll</code> 函数，获得之前的 LP 和 polyBUNNY 代币奖励。但是 VaultSushiFlipToFlip 合约总共的 amount 被第 4 步改变了。</p>
+<ol>
+<li>之后影响到 <code>profit</code>，再影响到 <code>performanceFee</code>，<code>_minter.mintForV2</code> 铸造大量的 polyBUNNY 奖励。</li>
+<li>具体逻辑在 <code>BunnyMinterV2/contracts/bunny/BunnyMinterV2.sol</code>，调用里面的 <code>mintForV2</code>, 它调用了 <code>mintFor</code> 函数，接着进入了 <code>if (marketBuy == false)</code> 部分的 <code>_zapAssets</code> 函数。</li>
+<li>进入 <code>else if</code> 分支，先通过调用 SushiSwap Router 合约的 <code>removeLiquidity </code>函数进行移除流动性，然后调用 <code>_tokenToAsset</code> 将移除流动性获得 USDC 与 USDT 代币分别在 QuickSwap 中兑换成 polyBUNNY 与 WETH 代币并在 QuickSwap 中添加流动性。</li>
+<li>然后进入 <code>ZapPolygon/contracts/zap/ZapPolygon.sol</code> 的 <code>zapInToken</code> 函数，而第 5 步 得到大量的 WMATIC 会让价格下降，因此接下来通过 <code>_swapMATICToFlip</code> 函数将 WMATIC 代币兑换成的 WETH 与 polyBUNNY 代币就会较少，导致最后转给 BUNNY_POOL 的 LP 会较少，达到减少消耗攻击者付出的 SLP 目的，最终减少了一部分攻击成本。</li>
+</ol>
+</li>
+</ol>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/f2kD_l9Cs1mHQXBQYemwvQ">https://mp.weixin.qq.com/s/f2kD_l9Cs1mHQXBQYemwvQ</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.tuoniaox.com/news/p-509322.html">https://www.tuoniaox.com/news/p-509322.html</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dashboard.tenderly.co/tx/polygon/0x25e5d9ea359be7fc50358d18c2b6d429d27620fe665a99ba7ad0ea460e50ae55">https://dashboard.tenderly.co/tx/polygon/0x25e5d9ea359be7fc50358d18c2b6d429d27620fe665a99ba7ad0ea460e50ae55</a></li>
+</ul>
+<h2 id="SafeDollar">SafeDollar</h2>
+<p>看的比较大略。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/3_qOkt6rlp1seRlu6L1Hfg">https://mp.weixin.qq.com/s/3_qOkt6rlp1seRlu6L1Hfg</a></li>
+</ul>
+<h2 id="Impossible-Finance">Impossible Finance</h2>
+<p>Impossible Finance 的 DEX 架构参考了 Uniswap v2，但在 Pair 的实现上有所不同。Impossible Pair 分别实现了 cheapSwap 与 swap 两个接口。cheapSwap 函数限制了只由 Router 合约可进行调用，swap 函数则是任意用户都可调用进行代币兑换操作。</p>
+<p>为了节省用户支付的交易费，项目方需要尽量精简智能合约中的逻辑（执行的代码越少，则消耗的 Gas 减少，最终需要支付的交易费也随之降低）。 为了实现低交易费（相对别的平台低），Impossible Finance 在 Uniswap V2 的基础上做了一些优化，而在此次事件中被利用的漏洞正与这些优化密切相关。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://impossible.finance/">Impossible Finance</a>: 与 PancakeSwap 核心业务基本相同，但是有 Low Fees （交易费低）的特色。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/CXqGxmXEJ4DeSYb8qv8vVw">https://mp.weixin.qq.com/s/CXqGxmXEJ4DeSYb8qv8vVw</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/388231258">https://zhuanlan.zhihu.com/p/388231258</a> （这个写的最好）</li>
+</ul>
+<h2 id="Alchemix">Alchemix</h2>
+<p>类型特殊，不做分析。</p>
+<h2 id="BurgerSwap">BurgerSwap</h2>
+<p>BurgerSwap 是一个仿 Uniswap AMM 项目，但是和 Uniswap 架构有所区别。BurgerSwap 架构总体分成【Delegate -&gt; lpPlatForm -&gt; Pair】。其中 Delegate 层管理了所有的 Pair 的信息，并负责创建 lpPlatForm 层。然后 lpPlatForm 层再往下创建对应的 Pair 合约。在整个架构中，lpPlatForm 层充当了 Uniswap 中 Router 的角色，负责将计算交易数据和要兑换的代币转发到 Pair 合约中，完成兑换。</p>
+<ol>
+<li><strong>次攻击开始于 Pancake 的闪电贷</strong>，攻击者从 Pancake 中借出了大量的 WBNB</li>
+<li>将这些 WBNB 通过 BurgerSwap 兑换成 Burger 代币</li>
+<li>攻击者使用自己控制的代币(攻击合约本身) 和 Burger 代币通过 Delegate 层创建了一个交易对并添加流动性。</li>
+<li>通过 PaltForm 层的 swapExactTokensForTokens 函数发起了兑换，兑换路径为【攻击者自己控制的代币 -&gt; Burger -&gt; WBNB】</li>
+<li>攻击者创建的交易对的 <code>_innerTransferFrom</code> 函数会调用攻击者控制的代币合约，于是攻击者从 <code>_innerTransferFrom</code> 函数中重入 <code>swapExactTokensForTokens</code> 函数。</li>
+<li>因为 pair 合约没有在兑换后根据恒定乘积公式检查兑换后的数值，完全依赖了 PlatForm 层的数据进行兑换。在重入的兑换过程中，兑换的数量没有因为滑点的关系而导致兑换数量的减少。</li>
+</ol>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/p16-rCxvqQaxj3SWvw0hXw">https://mp.weixin.qq.com/s/p16-rCxvqQaxj3SWvw0hXw</a></li>
+</ul>
+<h2 id="PancakeBunny-2">PancakeBunny</h2>
+<p>21 年 5 月。</p>
+<ol>
+<li>
+<p>使用 0.5 个 WBNB 与约 189 个 USDT 在 PancakeSwap 中添加流动性并获取对应的 LP。将 LP 抵押至 PancakeBunny 项目的 VaultFlipToFlip 合约中。</p>
+</li>
+<li>
+<p>攻击者再次发起另一笔交易，从 PancakeSwap 的多个流动性池子中闪电贷借出约 232 万枚 BNB 代币，并从 Fortube 项目的闪电贷模块借出 296 万 USDT 代币。</p>
+</li>
+<li>
+<p>借来的 296 万 USDT 代币与 7744 WBNB 代币在 PancakeSwap 的 WBNB-USDT 池子添加流动性，并把获得的 14 万 LP 留在 WBNB-USDT 池子中。</p>
+</li>
+<li>
+<p>将步骤 2 中借到的剩余 231.5 万枚 WBNB 在 PancakeSwap 池中兑换为 382 万枚 USDT。（<strong>这里已经可以控制价格，大量 BNB 代币进入池子，BNB 价格变的极低</strong>）</p>
+</li>
+<li>
+<p>因为步骤 1 抵押了 LP，攻击者直接调用 VaultFlipToFlip 合约的 getReward 函数，来获取 BUNNY 代币奖励。 <code>getReward</code> 不仅会取出质押的 LP，还会取出存放在 pair 中的 LP。以下都是 getReward 方法调用的相关过程：</p>
+<p><img src="https://cdn.blog-blockchain.xyz/202207292244403.png" alt="image-20220729224402316"></p>
+<p><img src="https://cdn.blog-blockchain.xyz/202207292252242.png" alt="image-20220729225221172"></p>
+<ol>
+<li>进入 mintForV2 操作，其会先将一定量 (performanceFee) 的 LP 转至 WBNB-USDT 池子中移除流动性，在 <code>_zapAssetsToBunnyBNB</code> 函数，取出步骤 3 中加入的流动性资金 296 万枚 USDT 和 7744 枚 BNB。</li>
+<li>在完成移除流动性后，调用 <code>zapBSC.zapInToken</code> 函数，分别把上一步中收到的 WBNB 与 USDT 代币转入 zapBSC 合约中。</li>
+<li>在 zapInToken 操作中，其会通过 <code>_swapTokenForBNB</code> 在 PancakeSwap 的 WBNB-USDT 池子中把转入的 USDT 兑换成 WBNB。</li>
+<li>再通过 <code>_swapBNBToFlip</code> 将刚才得到的 WBNB 的一半，在 PancakeSwap 的 WBNB-BUNNY 池子中兑换成 BUNNY 代币，并将得到的 BUNNY 代币与剩余的 WBNB 代币在 WBNB-BUNNY 池子中添加流动性获得 LP， receiver 是 mintForV2 合约。此时 WBNB 的数量非常多。</li>
+<li>接着，<code>_zapAssetsToBunnyBNB</code> 函数 会计算 BunnyMinterV2 合约当前收到的 WBNB-BUNNY LP 数量，并将其返回给 mintForV2。</li>
+<li>随后将会调用 <code>priceCalculator.valueOfAsset</code> 函数来计算这些 LP 的价值，计算公式为 <code>amount.mul(IBEP20(WBNB).balanceOf(address(asset))).mul(2).div(IPancakePair(asset).totalSupply())</code>，单价是 BNB 数量 * 2 / 总 LP 数量，由于 BNB 数量非常多，LP 对 BNB 的价格很高。</li>
+<li>然后使用 LP 铸币，意外出现很多很多 BUNNY 代币。</li>
+</ol>
+</li>
+</ol>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/O2j5OyUh2qJZSRhnMD5KTg">https://mp.weixin.qq.com/s/O2j5OyUh2qJZSRhnMD5KTg</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.freebuf.com/articles/compliance/274621.html">https://www.freebuf.com/articles/compliance/274621.html</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dashboard.tenderly.co/tx/bsc/0x897c2de73dd55d7701e1b69ffb3a17b0f4801ced88b0c75fe1551c5fcce6a979">https://dashboard.tenderly.co/tx/bsc/0x897c2de73dd55d7701e1b69ffb3a17b0f4801ced88b0c75fe1551c5fcce6a979</a></li>
+</ul>
+<h2 id="Rari">Rari</h2>
+<p>The Rari Capital Ethereum Pool deposits ETH into Alpha Finance’s ibETH token as one of our yield-generating strategies. This strategy tracks the value of its ibETH as <code>ibETH.totalETH() / ibETH.totalSupply()</code>.</p>
+<p>According to Alpha Finance, <code>ibETH.totalETH()</code> is vulnerable to manipulation inside the <code>ibETH.work</code> function, and a user of <code>ibETH.work</code> can call any contract it wants to inside <code>ibETH.work</code>, including the Rari Capital Ethereum Pool deposit and withdrawal functions.</p>
+<p>The attacker repeatedly executed the following steps inside of <code>ibETH.work</code> (simplified explanation):</p>
+<ol>
+<li>Flashloan ETH from dYdX.</li>
+<li>Deposit that ETH into the Rari Capital Ethereum Pool.</li>
+<li>Manipulate the value of <code>ibETH.totalETH()</code> by pushing it artificially high.</li>
+<li>Withdraw more ETH from the Rari Capital Ethereum Pool than the attacker deposited because the Rari Capital Ethereum Pool’s balances are artifically inflated (because <code>ibETH.totalETH()</code> is artificially inflated).</li>
+<li>At the end of <code>ibETH.work</code>, the value of <code>ibETH.totalETH()</code> returns to its true value, leading the Rari Capital Ethereum Pool’s balances to values lower than they were before the attack as a result of the attacker withdrawing more than they deposited while their balance was artificially inflated.</li>
+</ol>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://medium.com/rari-capital/5-8-2021-rari-ethereum-pool-post-mortem-60aab6a6f8f9">https://medium.com/rari-capital/5-8-2021-rari-ethereum-pool-post-mortem-60aab6a6f8f9</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/0Lwjf14hW5ahz3Om6jXRug">https://mp.weixin.qq.com/s/0Lwjf14hW5ahz3Om6jXRug</a></li>
+</ul>
+<h2 id="DODO">DODO</h2>
+<p>资金池合约初始化函数没有任何鉴权以及防止重复调用初始化的限制，导致攻击者利用闪电贷将真币借出，然后通过重新对合约初始化将资金池代币对替换为攻击者创建的假币，从而绕过闪电贷资金归还检查将真币收入囊中</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/1OrH7Ucqyt9sl7lkBBmb_g">https://mp.weixin.qq.com/s/1OrH7Ucqyt9sl7lkBBmb_g</a></li>
+</ul>
+<h2 id="Paid-Network">Paid Network</h2>
+<p>私钥泄露或者项目内部原因，导致任意 mint。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/iw4GdF1KbPmlQOm8Z3qrFA">https://mp.weixin.qq.com/s/iw4GdF1KbPmlQOm8Z3qrFA</a></li>
+</ul>
+<h2 id="SushiSwap">SushiSwap</h2>
+<p>主要看这个即可：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/CUholEeD8AWL15psz1-9tQ">https://mp.weixin.qq.com/s/CUholEeD8AWL15psz1-9tQ</a></p>
+<h1>附录</h1>
+<h2 id="经验">经验</h2>
+<ol>
+<li>
+<p>报导有时候可能不准确，描述上可能省略部分细节。另外，由于调用栈非常深，文字描述有些难以体现调用的层次和顺序。</p>
+</li>
+<li>
+<p>tenderly 是很好用的工具，结合 debugger 和 overview 能够较为清楚的了解调用顺序。但是这需要你熟悉 uniswap 的结构，清楚流动性、质押等相关内容。</p>
+</li>
+<li>
+<p>某些项目多次被攻击，搜索相关资料时可以限制时间段。</p>
+</li>
+<li>
+<p>工具网站：</p>
+<ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dashboard.tenderly.co/explorer">https://dashboard.tenderly.co/explorer</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://tools.blocksec.com/tx">https://tools.blocksec.com/tx</a></li>
+</ol>
+</li>
+<li>
+<p>漏洞报导主要来源：</p>
+<ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/SunWeb3Sec/DeFiHackLabs">https://github.com/SunWeb3Sec/DeFiHackLabs</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.slowmist.com/zh/news.html">https://www.slowmist.com/zh/news.html</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.zhihu.com/org/ling-shi-ke-ji-43">https://www.zhihu.com/org/ling-shi-ke-ji-43</a></li>
+<li>相关项目的负责人，可能会在 medium 或者 推特上宣告漏洞细节。</li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.zhihu.com/org/cheng-du-lian-an-ke-ji-28/posts">https://www.zhihu.com/org/cheng-du-lian-an-ke-ji-28/posts</a></li>
+</ol>
+</li>
+</ol>
+<h2 id="DeFi-涉及到的合约标准">DeFi 涉及到的合约标准</h2>
+<h3 id="ERC165">ERC165</h3>
+<p>判断合约是否实现某个接口，详情见 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified">https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified</a></p>
+<h3 id="ERC20">ERC20</h3>
+<p>这是相对简单的代币标准，存在时间非常久了，最主要的功能是：</p>
+<ul>
+<li>transfer tokens from one account to another</li>
+<li>get the current token balance of an account</li>
+<li>get the total supply of the token available on the network</li>
+<li>approve whether an amount of token from an account can be spent by a third-party account</li>
+</ul>
+<p>主要方法有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function name() public view returns (string)</span><br><span class="line">function symbol() public view returns (string)</span><br><span class="line">function decimals() public view returns (uint8)</span><br><span class="line">function totalSupply() public view returns (uint256)</span><br><span class="line">function balanceOf(address _owner) public view returns (uint256 balance)</span><br><span class="line">function transfer(address _to, uint256 _value) public returns (bool success)</span><br><span class="line">function transferFrom(address _from, address _to, uint256 _value) public returns (bool success)</span><br><span class="line">function approve(address _spender, uint256 _value) public returns (bool success)</span><br><span class="line">function allowance(address _owner, address _spender) public view returns (uint256 remaining)</span><br></pre></td></tr></table></figure>
+<p>这些函数的含义很容易理解，特别注意：</p>
+<ul>
+<li><code>transfer</code> 允许 value=0 的情况。</li>
+<li><code>transferFrom</code> 和 <code>approve</code> 配套，<code>allowance</code> 返回授权金额。</li>
+</ul>
+<p>代码实现：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol">https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol</a></p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://eips.ethereum.org/EIPS/eip-20">https://eips.ethereum.org/EIPS/eip-20</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/">https://ethereum.org/en/developers/docs/standards/tokens/erc-20/</a></li>
+</ul>
+<h3 id="ERC721">ERC721</h3>
+<p>基本介绍：We’ll use ERC721 to track items in our game, which will each have their own unique attributes. Whenever one is to be awarded to a player, it will be minted and sent to them. Players are free to keep their token or trade it with other people as they see fit, as they would any other asset on the blockchain!</p>
+<p>存在拓展：The <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.openzeppelin.com/contracts/3.x/api/token/ERC721#ERC721"><code>ERC721</code></a> contract includes all standard extensions (<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.openzeppelin.com/contracts/3.x/api/token/ERC721#IERC721Metadata"><code>IERC721Metadata</code></a> and <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.openzeppelin.com/contracts/3.x/api/token/ERC721#IERC721Enumerable"><code>IERC721Enumerable</code></a>). That’s where the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.openzeppelin.com/contracts/3.x/api/token/ERC721#ERC721-_setTokenURI-uint256-string-"><code>_setTokenURI</code></a> method comes from: we use it to store an item’s metadata.主要是元素据和添加 url</p>
+<p>基本接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.20;</span><br><span class="line"></span><br><span class="line">///  Note: the ERC-165 identifier for this interface is 0x80ac58cd.</span><br><span class="line">interface ERC721 is ERC165 &#123;</span><br><span class="line"></span><br><span class="line">    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);</span><br><span class="line">    event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);</span><br><span class="line">    event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);</span><br><span class="line">    function balanceOf(address _owner) external view returns (uint256);</span><br><span class="line">    function ownerOf(uint256 _tokenId) external view returns (address);</span><br><span class="line">    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;</span><br><span class="line">    function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;</span><br><span class="line">    function transferFrom(address _from, address _to, uint256 _tokenId) external payable;</span><br><span class="line">    function approve(address _approved, uint256 _tokenId) external payable;</span><br><span class="line">    function setApprovalForAll(address _operator, bool _approved) external;</span><br><span class="line">    function getApproved(uint256 _tokenId) external view returns (address);</span><br><span class="line">    function isApprovedForAll(address _owner, address _operator) external view returns (bool);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface ERC165 &#123;</span><br><span class="line">    function supportsInterface(bytes4 interfaceID) external view returns (bool);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>拓展：提供 url</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface ERC721Metadata is ERC721 &#123;</span><br><span class="line">    function name() external view returns (string _name);</span><br><span class="line"></span><br><span class="line">    function symbol() external view returns (string _symbol);</span><br><span class="line">    function tokenURI(uint256 _tokenId) external view returns (string);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>拓展：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/// @title ERC-721 Non-Fungible Token Standard, optional enumeration extension</span><br><span class="line">/// @dev See https://eips.ethereum.org/EIPS/eip-721</span><br><span class="line">///  Note: the ERC-165 identifier for this interface is 0x780e9d63.</span><br><span class="line">interface ERC721Enumerable is ERC721  &#123;</span><br><span class="line">    function totalSupply() external view returns (uint256);</span><br><span class="line">    function tokenByIndex(uint256 _index) external view returns (uint256);</span><br><span class="line">    function tokenOfOwnerByIndex(address _owner, uint256 _index) external view returns (uint256);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li><code>from=0</code> 表示铸造，<code>to=0</code> 表示销毁，但是创建合约时不会触发 <code>transfer</code> 事件。转账后撤销对应 <code>approval</code></li>
+<li>已授权后，<code>Aproval</code> 还是可以多次调用，表示再确认。</li>
+<li>如果 <code>safeTransferFrom</code> 的接收者是合约，那么合约必须实现 <code>onERC721Received</code>， <code>bytes data</code> 指定调用转账接收合约的函数。重载的函数，相当于调用接收合约的 fallback 或者 receive。<code>transferFrom</code> 就没有这项检查</li>
+<li><code>ERC165</code> 检查合约是否实现某个接口</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.openzeppelin.com/contracts/3.x/erc721">https://docs.openzeppelin.com/contracts/3.x/erc721</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://eips.ethereum.org/EIPS/eip-721">https://eips.ethereum.org/EIPS/eip-721</a></li>
+</ul>
+<h3 id="ERC1155">ERC1155</h3>
+<p>这是一个标准接口，支持开发同质化的、半同质化的、非同质化的代币和其他配置的通用智能合约。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.5.9;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">    @title ERC-1155 Multi Token Standard</span><br><span class="line">    @dev See https://eips.ethereum.org/EIPS/eip-1155</span><br><span class="line">    Note: The ERC-165 identifier for this interface is 0xd9b67a26.</span><br><span class="line"> */</span><br><span class="line">interface ERC1155 is ERC165 &#123;</span><br><span class="line">    event TransferSingle(address indexed _operator, address indexed _from, address indexed _to, uint256 _id, uint256 _value);</span><br><span class="line"></span><br><span class="line">    event TransferBatch(address indexed _operator, address indexed _from, address indexed _to, uint256[] _ids, uint256[] _values);</span><br><span class="line"></span><br><span class="line">    event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);</span><br><span class="line"></span><br><span class="line">    event URI(string _value, uint256 indexed _id);</span><br><span class="line"></span><br><span class="line">    function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data) external;</span><br><span class="line"></span><br><span class="line">    function safeBatchTransferFrom(address _from, address _to, uint256[] calldata _ids, uint256[] calldata _values, bytes calldata _data) external;</span><br><span class="line"></span><br><span class="line">    function balanceOf(address _owner, uint256 _id) external view returns (uint256);</span><br><span class="line"></span><br><span class="line">    function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids) external view returns (uint256[] memory);</span><br><span class="line"></span><br><span class="line">    function setApprovalForAll(address _operator, bool _approved) external;</span><br><span class="line"></span><br><span class="line">    function isApprovedForAll(address _owner, address _operator) external view returns (bool);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pragma solidity ^0.5.9;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">    Note: The ERC-165 identifier for this interface is 0x4e2312e0.</span><br><span class="line">*/</span><br><span class="line">interface ERC1155TokenReceiver &#123;</span><br><span class="line"></span><br><span class="line">    function onERC1155Received(address _operator, address _from, uint256 _id, uint256 _value, bytes calldata _data) external returns(bytes4);</span><br><span class="line"></span><br><span class="line">    function onERC1155BatchReceived(address _operator, address _from, uint256[] calldata _ids, uint256[] calldata _values, bytes calldata _data) external returns(bytes4);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>ERC 1155 不同 id 表示不同的代币，这样用户可以拥有多种类型的代币。 <code>TransferBatch</code> 只是通过数组表达出 id[], amount[]，实现批量转 token</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://eips.ethereum.org/EIPS/eip-1155">https://eips.ethereum.org/EIPS/eip-1155</a></li>
+</ul>
+<h3 id="ERC677">ERC677</h3>
+<p>ERC677 在 token 进行转账之后，会回调到目标合约的 <code>onTokenTransfer</code> 方法. 简单的说就是对 ERC20 的补充，是的它能够向后兼容 ERC223。</p>
+<p>ERC677 除了包含了 ERC20 的所有方法和事件之外，增加了一个 <code>transferAndCall</code> 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">transferAndCall</span>(<span class="params">address receiver, uint amount, bytes data</span>) <span class="title function_">returns</span> (bool success)</span><br></pre></td></tr></table></figure>
+<p>完成转账和记录日志之后，代币合约还会调用接收合约的 <code>onTokenTransfer</code> 方法，用来触发接收合约的逻辑。这就要就接收 ERC677 代币的合约必须实现 <code>onTokenTransfer</code> 方法，用来给代币合约调用。<code>onTokenTransfer</code> 方法定义如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">onTokenTransfer</span>(<span class="params">address <span class="keyword">from</span>, uint256 amount, bytes data</span>) <span class="title function_">returns</span> (bool success)</span><br></pre></td></tr></table></figure>
+<p>接收合约就可以在这个方法中定义自己的业务逻辑，可以在发生转账的时候自动触发。换句话说，智能合约中的业务逻辑，可以通过代币转账的方式来触发自动运行。这就给了智能合约的应用场景有了很大的想象空间。</p>
+<hr>
+<p>Allow tokens to be transferred to contracts and have the contract trigger logic for how to respond to receiving the tokens within a single transaction. This adds a new function to <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ethereum/EIPs/issues/20">ERC20</a> token contracts, <code>transferAndCall</code> which can be called to transfer tokens to a contract and then call the contract with the additional data provided. Once the token is transferred, the token contract calls the receiving contract’s function <code>onTokenTransfer(address,uint256,bytes)</code> and triggers an event <code>Transfer(address,address,uint,bytes)</code>, following the convention set in <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ethereum/EIPs/issues/223">ERC223</a>.</p>
+<p>ERC223 changes the behavior of ERC20’s <code>transfer(address,uint256)</code>, specifying that it should throw if transferring to a contract that does not implement <code>onTokenTransfer</code>. This is problematic because there are deployed contracts in use that assume they can safely call <code>transfer(address,uint256)</code> to move tokens to their recipient. If one of these deployed contracts were to transfer an ERC223 token to a contract(e.g. a multisig wallet) the tokens would effectively become stuck in the transferring contract.</p>
+<p><code>transferAndCall</code> behaves similarly to <code>transfer(address,uint256,bytes)</code>, but allows implementers to gain the functionality without the risk of inadvertently locking up tokens in non-ERC223 compatible contracts. <strong>It is distinct from ERC223’s <code>transfer(address,uint256,bytes)</code> only in name</strong>, but this distinction allows for easy distinguishability between tokens that are ERC223 and tokens that are simply ERC20 + ERC667.</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ethereum/EIPs/issues/677">https://github.com/ethereum/EIPs/issues/677</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.codeleading.com/article/18155158318/">https://www.codeleading.com/article/18155158318/</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://segmentfault.com/a/1190000022775687">https://segmentfault.com/a/1190000022775687</a></li>
+</ul>
+<h3 id="ERC1820">ERC1820</h3>
+<h3 id="ERC777">ERC777</h3>
+<p>建议自行寻找官方文档，不赘述。</p>
+<h3 id="ERC-2612">ERC 2612</h3>
+<p>因为 uniswapERC20 用到了这一部分的内容，所以补上。</p>
+<p>However, a limiting factor in this design stems from the fact that the ERC-20 <code>approve</code> function itself is defined in terms of <code>msg.sender</code>. This means that user’s <em>initial action</em> involving ERC-20 tokens must be performed by an EOA (<em>but see Note below</em>). If the user needs to interact with a smart contract, then they need to make 2 transactions (<code>approve</code> and the smart contract call which will internally call <code>transferFrom</code>). Even in the simple use case of paying another person, they need to hold ETH to pay for transaction gas costs.</p>
+<p><strong>This ERC extends the ERC-20 standard with a new function <code>permit</code>, which allows users to modify the <code>allowance</code> mapping using a signed message, instead of through <code>msg.sender</code>.</strong></p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://eips.ethereum.org/EIPS/eip-2612">https://eips.ethereum.org/EIPS/eip-2612</a></li>
+</ul>
+<h2 id="glossary">glossary</h2>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.futurelearn.com/links/f/2xqu0bc09qdqou8wmdjgtn57qqmbxtc">https://www.futurelearn.com/links/f/2xqu0bc09qdqou8wmdjgtn57qqmbxtc</a></li>
+</ul>
+<h2 id="auction">auction</h2>
+<p>拍卖是 defi 中常遇到的基本组件，所以有必要进行一定的学习。</p>
+<p>简单介绍：Auctions are platforms for selling goods in a public forum through open and competitive bidding. Commonly, the auction winner is the bidder who submitted the highest price, however, there are a variety of other rules to determine the winner. <strong>The auctioneer leads the auction according to the rules and always charge a fee to the vendor for his services, usually a percentage of the gross selling price of the good</strong>.</p>
+<p>总而言之，需要明确三方身份 auctioneer, seller. buyer</p>
+<p>拍卖的分类有如下：</p>
+<ul>
+<li>English auction, also called open ascending price auction, where participants bid openly against one another, with each subsequent bid required to be higher than the previous bid.</li>
+<li>Dutch auction, also called open descending price auction, used for perishable commodities such as ﬂowers, ﬁsh and tobacco. In the traditional Dutch auction, the auctioneer begins with a high price and then continously lowers it until a bidder is willing to accept the auctioneer’s price, or until the seller’s reserve price is met.</li>
+<li>First-price sealed-bid auction (FPSB), also called blind auction, where all bidders submit bids in a sealed envelop to the auctioneer, so that no bidder knows the bid of any other participant. Later, the auctioneer opens the envelope to determine the winner who submitted the higher bid.</li>
+<li>Vickrey auction, also known as Second-price sealed-bid auction (SPSB), which is identical to the ﬁrst-price sealed-bid auction, with the exception that the winning bidder pays the second-highest bid rather than his own.</li>
+</ul>
+<p>实际拍卖可能还有时间限制，拍卖者撤回，拍卖者底价等因素。</p>
+<p>参考：</p>
+<ol>
+<li>Braghin, Chiara &amp; Cimato, Stelvio &amp; Damiani, Ernesto &amp; Baronchelli, Michael. (2020). Designing Smart-Contract Based Auctions. 10.1007/978-3-030-16946-6_5.</li>
+</ol>
+<h2 id="Liquidations">Liquidations</h2>
+<p>基本介绍：Loans on a blockchain typically operate as follows. Lenders with a surplus of money provide assets to a lending smart contract. Borrowers then provide a security deposit, known as collateral, to borrow cryptocurrency.</p>
+<p>当抵押物信用不够时(e.g., below 150% of the debt value )，就会采用如下三种方式收回债务:</p>
+<ol>
+<li>a loan can be made available for liquidation by the smart contract. Liquidators then pay back the debt in exchange for receiving the collateral at a discount (i.e., liquidation spread), or the collateral is liquidated through an auction.</li>
+<li>Debt can also be rescued by “topping up” the collateral, such that the loan is sufficiently collateralized.</li>
+<li>Finally, the borrower can repay parts of their debt.</li>
+</ol>
+<p>参考：</p>
+<ol>
+<li>Kaihua Qin, Liyi Zhou, Pablo Gamito, Philipp Jovanovic, and Arthur Gervais. 2021. An Empirical Study of DeFi Liquidations: Incentives, Risks, and Instabilities. In ACM Internet Measurement Conference (IMC ’21), November 2–4, 2021, Virtual Event, USA. ACM, New York, NY, USA, 15 pages. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://doi.org/10.1145/3487552.3487811">https://doi.org/10.1145/3487552.3487811</a></li>
+</ol>
+<h2 id="uniswap">uniswap</h2>
+<h3 id="基本原理">基本原理</h3>
+<p>看官方文档即可：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.uniswap.org/protocol/V2/concepts/protocol-overview/how-uniswap-works">https://docs.uniswap.org/protocol/V2/concepts/protocol-overview/how-uniswap-works</a></p>
+<h3 id="代码实现">代码实现</h3>
+<p>Uniswap has 4 smart contracts in total. They are divided into <strong>core</strong> and <strong>periphery</strong>.</p>
+<ol>
+<li><strong>Core</strong> is for storing the funds (the tokens) and exposing functions for swapping tokens, adding funds, getting rewards, etc.</li>
+<li><strong>Periphery</strong> is for interacting with the <strong>core</strong>.</li>
+</ol>
+<p><strong>Core</strong> consists of the following smart contracts:</p>
+<img src="https://miro.medium.com/max/1400/1*WbCK5HMsPexKYuZxujx1Rg.png" alt="img" style="zoom:50%;" />
+<ol>
+<li><strong>Pair</strong> — a smart contract that implements the functionality for swapping, minting, burning of tokens. This contract is created for every exchange pair like <em>Dogecoin ↔ Shiba</em>.</li>
+<li><strong>Factory</strong> — creates and keeps track of all Pair contracts</li>
+<li><strong>ERC20</strong> — for keeping track of ownership of pool. Think of the pool as a property. When liquidity providers provide funds to the pool, they get “pool ownership tokens” in return. These ownership tokens earn rewards (by traders paying a small percentage for each trade). When liquidity providers want their funds back, they just submit the ownership tokens back and get their funds + the rewards that were accumulated. The <strong>ERC20</strong> contract keeps track of the ownership tokens.</li>
+</ol>
+<p><strong>Periphery</strong> consists of just one smart contract:</p>
+<ol>
+<li><strong>Router</strong> is for interacting with the core. Provides functions such as <code>swapExactETHForTokens</code>, <code>swapETHForExactTokens</code>, etc.</li>
+</ol>
+<p>The main functionality is the following:</p>
+<ol>
+<li><strong>Managing the funds</strong> (how tokens such as Dogecoin and Shiba are managed in the pool)</li>
+<li>Functions for <strong>liquidity providers —</strong> deposit more funds and withdraw the funds along with the rewards</li>
+<li>Functions for <strong>traders</strong> — swapping</li>
+<li><strong>Managing pool ownership tokens</strong></li>
+<li><strong>Protocol fee</strong> — Uniswap v2 introduced a switchable protocol fee. This protocol fee goes to the Uniswap team for their efforts in maintaining Uniswap. At the moment, this protocol fee is turned off but it can be turned on in the future. When it’s on, the traders will still pay the same fee for trading but 1/6 of this fee（1/6 of 0.3%） will now go to the Uniswap team and the rest 5/6 will go to the liquidity providers as the reward for providing their funds.</li>
+</ol>
+<p>Another functionality that is not core to Uniswap but it’s a useful helper for other contracts in the Ethereum ecosystem:</p>
+<p><strong>Price oracle</strong> — Uniswap tracks prices of tokens relative to each other and can be used as a price oracle for other smart contracts in the Ethereum ecosystem.</p>
+<h4 id="pair">pair</h4>
+<p>The Pair contract implements the exchange between a pair of tokens such as Dogecoin and Shiba. The full code of the Pair smart contract can be found on Github under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol">v2-core/contracts/UniswapV2Pair.sol</a></p>
+<p>pair 中的 token 和 ERC20 的关系：</p>
+<img src="https://miro.medium.com/max/1400/1*j4T8KVmNZhDekIC8O_zNtw.png" alt="img" style="zoom:50%;" />
+<p>更多的见参考文章，写的很不错。</p>
+<p>最推荐看白皮书以及下面的代码详解。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ethereum.org/es/developers/tutorials/uniswap-v2-annotated-code/">https://ethereum.org/es/developers/tutorials/uniswap-v2-annotated-code/</a></p>
+<p>讲解视频：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.youtube.com/watch?v=bxV0OKPz-G4">https://www.youtube.com/watch?v=bxV0OKPz-G4</a></p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/255190320">https://zhuanlan.zhihu.com/p/255190320</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/269205336">https://zhuanlan.zhihu.com/p/269205336</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hackmd.io/@HaydenAdams/HJ9jLsfTz#%F0%9F%A6%84-Uniswap-Whitepaper">https://hackmd.io/@HaydenAdams/HJ9jLsfTz#🦄-Uniswap-Whitepaper</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://betterprogramming.pub/uniswap-smart-contract-breakdown-ea20edf1a0ff">https://betterprogramming.pub/uniswap-smart-contract-breakdown-ea20edf1a0ff</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://betterprogramming.pub/uniswap-smart-contract-breakdown-part-2-b9ea2fca65d1">https://betterprogramming.pub/uniswap-smart-contract-breakdown-part-2-b9ea2fca65d1</a></li>
+</ul>
+<h2 id="Flash-Loans">Flash Loans</h2>
+<p>闪电贷：一种不需要用户抵押资金的贷款，但是必须在发放资金的<strong>同一交易中</strong>偿还贷款人。</p>
+<p>可以参考</p>
+<p>参考：</p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/360131349">https://zhuanlan.zhihu.com/p/360131349</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.tuoluo.cn/article/detail-9991688.html">https://www.tuoluo.cn/article/detail-9991688.html</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.alchemy.com/overviews/creating-a-flash-loan-using-aave#flash-i">实践</a></p>
+</li>
+</ul>
+<h2 id="DEX-Aggregators">DEX Aggregators</h2>
+<p>参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.lcx.com/role-of-dex-aggregators-in-defi/">https://www.lcx.com/role-of-dex-aggregators-in-defi/</a></p>
+<p>写的很好。</p>
+<h2 id="代理合约">代理合约</h2>
+<p>登链社区的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/article/1102">帖子</a>写的很好，足够简单了解了。</p>
+<p>大部分的 proxy pattern 里 合约状态（存储内容什么的）都在 proxy 合约里，implementation 合约除了代码没有任何状态。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://learnblockchain.cn/article/1102">https://learnblockchain.cn/article/1102</a></li>
+</ul>
+<h2 id="blockchain-bridge">blockchain bridge</h2>
+<p>A blockchain bridge, otherwise known as a cross-chain bridge, connects two blockchains and allows users to send cryptocurrency from one chain to the other. Basically, if you have bitcoin but want to spend it like Ethereum, you can do that through the bridge. Blockchain bridges solve this problem by enabling token transfers, smart contracts and data exchange, and other feedback and instructions between two independent platforms.</p>
+<p>This concept is a lot similar to Layer 2 solutions even though the two systems have different purposes. Layer 2 is built on top of an existing blockchain so while it does improve speed, the lack of interoperability remains. Cross-chain bridges are also independent entities that don’t belong to any blockchain.</p>
+<p>Blockchain bridges can do a lot of cool stuff like converting smart contracts and sending data, but the most common utility is token transfer. When you have bitcoin and want to transfer some of it to Ethereum, the blockchain bridge will hold your coin and create equivalents in ETH for you to use. None of the crypto involved actually moves anywhere. Rather, the amount of BTC you want to transfer gets locked in a smart contract while you gain access to an equal amount of ETH. When you want to convert back to BTC, the ETH you had or whatever’s left of it will get burned and an equal amount of BTC goes back to your wallet.</p>
+<p>拓展链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.liquid.com/blockchain-cross-chain-bridge">https://blog.liquid.com/blockchain-cross-chain-bridge</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://finance.sina.com.cn/blockchain/roll/2022-06-14/doc-imizirau8337864.shtml">https://finance.sina.com.cn/blockchain/roll/2022-06-14/doc-imizirau8337864.shtml</a></li>
+</ul>
+<h2 id="爆仓">爆仓</h2>
+<p>所谓爆仓，是指投资者保证金账户中的客户权益为负值。在市场行情发生较大变化时，如果投资者保证金账户中资金的绝大部分都被交易保证金所占用，而且交易方向又与市场走势相反时，由于保证金交易的杠杆效应，就很容易出现爆仓。</p>
+<p>爆仓的发生实际上是投资者资金链断裂的结果。为避免这种情况的发生，需要特别控制好头寸，合理地进行资金管理，切忌像股票交易中可能出现的满仓操作；并且与股票交易不同，投资者必须对股指期货行情进行及时跟踪。如果爆仓导致了亏空且由投资者的原因引起，投资者需要将亏空补足，否则会面临法律追索。</p>
+<p>总而言之，杠杠高，借钱投资，需要保证金，如果因为投资亏损，保证金不足，就会爆仓。</p>
+<p><strong>实例分析：</strong></p>
+<p>某客户帐户原有保证金 200000 元，8 月 9 日，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E5%BC%80%E4%BB%93">开仓</a>买进 9 月<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E6%B2%AA%E6%B7%B1300%E6%8C%87%E6%95%B0%E6%9C%9F%E8%B4%A7%E5%90%88%E7%BA%A6/12803638">沪深 300 指数期货合约</a>15 手，均价 1200 点（每点 100 元），手续费为单边每手 10 元，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E5%BD%93%E6%97%A5%E7%BB%93%E7%AE%97%E4%BB%B7">当日结算价</a>为 1195 点，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E4%BF%9D%E8%AF%81%E9%87%91%E6%AF%94%E4%BE%8B">保证金比例</a>为 8%。</p>
+<p>当日开仓持仓盈亏=（1195-1200）×15×100=-7500 元</p>
+<p>手续费=10×15=150 元</p>
+<p>当日权益=200000-7500-150=192350 元</p>
+<p>保证金占用=1195×15×100×8%=143400 元</p>
+<p>资金余额（即可交易资金）=192350-143400=48950 元</p>
+<p>8 月 10 日，该客户没有交易，但 9 月沪深 300 指数期货合约的当日结算价降为 1150 点，当日账户情况为：</p>
+<p>历史持仓盈亏=（1150-1195）×15×100=-67500 元</p>
+<p>当日权益=192350-67500=124850 元</p>
+<p>保证金占用=1150×15×100×8%=138000 元</p>
+<p>资金余额（即可开仓交易资金）=124850-138000=-13150 元</p>
+<p>8 月 11 日开盘前，客户没有将应该追加的保证金交给期货公司，而 9 月<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E8%82%A1%E6%8C%87%E6%9C%9F%E8%B4%A7%E5%90%88%E7%BA%A6">股指期货合约</a>又以<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E8%B7%B3%E7%A9%BA">跳空</a>下跌 90 点以 1060 点开盘并继续下跌。<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E6%9C%9F%E8%B4%A7%E7%BB%8F%E7%BA%AA%E5%85%AC%E5%8F%B8">期货经纪公司</a>将该客户的 15 手<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E5%A4%9A%E5%A4%B4">多头</a>持仓强制<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E5%B9%B3%E4%BB%93">平仓</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E6%88%90%E4%BA%A4%E4%BB%B7">成交价</a>为 1055 点。这样，该账户的情况为：</p>
+<p>当日<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E5%B9%B3%E4%BB%93%E7%9B%88%E4%BA%8F">平仓盈亏</a>=（1055-1150）×15×100=-142500 元</p>
+<p>手续费=10×15=150 元</p>
+<p>实际权益=124850-142500-150=-17800 元</p>
+<p>即该客户倒欠了期货经纪公司 17800 元。</p>
+<p>发生爆仓时，投资者需要将亏空补足，否则会面临法律追索。为避免这种情况的发生，需要特别控制好仓位，切忌像<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E8%82%A1%E7%A5%A8%E4%BA%A4%E6%98%93">股票交易</a>那样满仓操作。并且对行情进行及时跟踪，不能像股票交易那样一买了之。因此<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E6%9C%9F%E8%B4%A7">期货</a>实际并不适合任何投资者来做。</p>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/%E7%88%86%E4%BB%93%E7%8E%B0%E8%B1%A1/936585">https://baike.baidu.com/item/爆仓现象/936585</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.hfzq.com.cn/review_cms_a907173b-54ac-42d6-b7ff-641902e37b01.shtm">https://www.hfzq.com.cn/review_cms_a907173b-54ac-42d6-b7ff-641902e37b01.shtm</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/defi/defi-attack-cellection/">https://www.blog-blockchain.xyz/defi/defi-attack-cellection/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/defi/">defi</a></div><div class="post-share"><div class="social-share" data-image="/images/defi.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/contracts/special-functions/" title="（七）特殊函数"><img class="cover" src="/images/solidity.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">（七）特殊函数</div></div><div class="info-2"><div class="info-item-1"> 区块链基础（一）初步理解智能合约（二）代码结构和合约特性（三）控制结构（四）类型（五）字面量和内置单位、函数（六）应用二进制接口（七）特殊函数（八）合约的高级特性（完）  底层函数交互 特殊交互方式 call 是底层的调用（没有封装过），直接发送消息给合约。方式如下：  所有的参数，都会打包成一串 32 个字节，连续存放的序列。 若第一个参数是函数的签名（函数哈希之后的前 4 个字节），则第二、第三这些后面的参数是函数的参数。如：nameReg.call(bytes4(keccak256(&quot;fun(uint256)&quot;)), a);    &lt;address&gt;.call(bytes memory) returns (bool, bytes memory) 用给定的合约发出低级 CALL 调用，返回成功状态及返回数据，发送所有可用 gas，也可以调节 gas。   123456789101112131415161718192021222324252627282930313233343536373839//...</div></div></div></a><a class="pagination-related" href="/contracts/advanced-charactors/" title="（八）合约的高级特性（完）"><img class="cover" src="/images/solidity.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">（八）合约的高级特性（完）</div></div><div class="info-2"><div class="info-item-1"> 区块链基础（一）初步理解智能合约（二）代码结构和合约特性（三）控制结构（四）类型（五）字面量和内置单位、函数（六）应用二进制接口（七）特殊函数（八）合约的高级特性（完）  继承 继承的机制和 python 的非常相似，但是存在差异。一般而言使用过 C++, 基本已经掌握。 当合约继承其他的合约时，只会在区块链上生成一个合约，所有相关的合约都会编译进这个合约，调用机制和写在一个合约上一致。 继承时，全局变量无法覆盖，如果出现可见的同名变量会编译错误。通过例子来体会细节，重点理解语法，而不是程序逻辑。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657// SPDX-License-Identifier: GPL-3.0pragma solidity &gt;=0.7.0 &lt;0.9.0;contract Owned &#123;    constructor() &#123; owner =...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/defi/DFX-Finance-attack/" title="DFX Finance 攻击分析"><img class="cover" src="/images/defi.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-11</div><div class="info-item-2">DFX Finance 攻击分析</div></div><div class="info-2"><div class="info-item-1">信息 攻击者地址：0x14c19962e4a899f29b3dd9ff52ebfb5e4cb9a067 分析的交易：0x6bfd9e286e37061ed279e4f139fbc03c8bd707a2cdd15f7260549052cbba79b7 发起攻击的合约：0x6cfa86a352339e766ff1ca119c8c40824f41f22d 函数调用参数：https://fefu.io/eth/tx/0x6bfd9e286e37061ed279e4f139fbc03c8bd707a2cdd15f7260549052cbba79b7 tenderly:...</div></div></div></a><a class="pagination-related" href="/defi/Merkle-Tree-Proof-of-Reserves/" title="默克尔准备金（Merkle Tree Proof of Reserves)"><img class="cover" src="/images/defi.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-19</div><div class="info-item-2">默克尔准备金（Merkle Tree Proof of Reserves)</div></div><div class="info-2"><div class="info-item-1">what is Merkle Tree Proof of Reserves After FTX was hacked, many prevailing exchanges announced they would provide Merkle Tree Proof of Reserves to encourage transparency[1]. The Merkle tree proof of reserve is an essential cryptographic tool that is thought to boost the public confidence and transparency of user assets. It utilizes a particular data structure, Hash Tree or Merkle tree, to prove that the centralized exchange has adequate assets to serve its customers. The above picture from...</div></div></div></a><a class="pagination-related" href="/defi/JayPeggers-attack/" title="JayPeggers 攻击分析"><img class="cover" src="/images/defi.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-29</div><div class="info-item-2">JayPeggers 攻击分析</div></div><div class="info-2"><div class="info-item-1">UTU 2022 年 12 月 29 日 5 时（北京时间 13 时），以太坊主网上的 JayPeggers 协议遭到重入攻击，损失约 15 ETH。随后攻击者通过 Tornado.Cash 和 Aztec...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">汇总表格</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">攻击分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LPC"><span class="toc-number">2.1.</span> <span class="toc-text">LPC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XCarnival-NFT"><span class="toc-number">2.2.</span> <span class="toc-text">XCarnival NFT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rikkei-Finance"><span class="toc-number">2.3.</span> <span class="toc-text">Rikkei Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ronin-Network"><span class="toc-number">2.4.</span> <span class="toc-text">Ronin Network</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OneRing-Finance"><span class="toc-number">2.5.</span> <span class="toc-text">OneRing Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Poly-Network"><span class="toc-number">2.6.</span> <span class="toc-text">Poly Network</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hundred-Finance"><span class="toc-number">2.7.</span> <span class="toc-text">Hundred Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Paraluni"><span class="toc-number">2.8.</span> <span class="toc-text">Paraluni</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TreasureDAO-NFT"><span class="toc-number">2.9.</span> <span class="toc-text">TreasureDAO NFT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QBridge"><span class="toc-number">2.10.</span> <span class="toc-text">QBridge</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MonoX-Finance"><span class="toc-number">2.11.</span> <span class="toc-text">MonoX Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cream-Finance"><span class="toc-number">2.12.</span> <span class="toc-text">Cream Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Zabu-Finance"><span class="toc-number">2.13.</span> <span class="toc-text">Zabu Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cream-Finance-2"><span class="toc-number">2.14.</span> <span class="toc-text">Cream Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DAO-Maker"><span class="toc-number">2.15.</span> <span class="toc-text">DAO Maker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Popsicle"><span class="toc-number">2.16.</span> <span class="toc-text">Popsicle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wault-Finance"><span class="toc-number">2.17.</span> <span class="toc-text">Wault.Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PancakeBunny"><span class="toc-number">2.18.</span> <span class="toc-text">PancakeBunny</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SafeDollar"><span class="toc-number">2.19.</span> <span class="toc-text">SafeDollar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Impossible-Finance"><span class="toc-number">2.20.</span> <span class="toc-text">Impossible Finance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alchemix"><span class="toc-number">2.21.</span> <span class="toc-text">Alchemix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BurgerSwap"><span class="toc-number">2.22.</span> <span class="toc-text">BurgerSwap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PancakeBunny-2"><span class="toc-number">2.23.</span> <span class="toc-text">PancakeBunny</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rari"><span class="toc-number">2.24.</span> <span class="toc-text">Rari</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DODO"><span class="toc-number">2.25.</span> <span class="toc-text">DODO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Paid-Network"><span class="toc-number">2.26.</span> <span class="toc-text">Paid Network</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SushiSwap"><span class="toc-number">2.27.</span> <span class="toc-text">SushiSwap</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E9%AA%8C"><span class="toc-number">3.1.</span> <span class="toc-text">经验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DeFi-%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E5%90%88%E7%BA%A6%E6%A0%87%E5%87%86"><span class="toc-number">3.2.</span> <span class="toc-text">DeFi 涉及到的合约标准</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC165"><span class="toc-number">3.2.1.</span> <span class="toc-text">ERC165</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC20"><span class="toc-number">3.2.2.</span> <span class="toc-text">ERC20</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC721"><span class="toc-number">3.2.3.</span> <span class="toc-text">ERC721</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC1155"><span class="toc-number">3.2.4.</span> <span class="toc-text">ERC1155</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC677"><span class="toc-number">3.2.5.</span> <span class="toc-text">ERC677</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC1820"><span class="toc-number">3.2.6.</span> <span class="toc-text">ERC1820</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC777"><span class="toc-number">3.2.7.</span> <span class="toc-text">ERC777</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC-2612"><span class="toc-number">3.2.8.</span> <span class="toc-text">ERC 2612</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#glossary"><span class="toc-number">3.3.</span> <span class="toc-text">glossary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#auction"><span class="toc-number">3.4.</span> <span class="toc-text">auction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Liquidations"><span class="toc-number">3.5.</span> <span class="toc-text">Liquidations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uniswap"><span class="toc-number">3.6.</span> <span class="toc-text">uniswap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">3.6.1.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.6.2.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pair"><span class="toc-number">3.6.2.1.</span> <span class="toc-text">pair</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flash-Loans"><span class="toc-number">3.7.</span> <span class="toc-text">Flash Loans</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DEX-Aggregators"><span class="toc-number">3.8.</span> <span class="toc-text">DEX Aggregators</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E5%90%88%E7%BA%A6"><span class="toc-number">3.9.</span> <span class="toc-text">代理合约</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blockchain-bridge"><span class="toc-number">3.10.</span> <span class="toc-text">blockchain bridge</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E4%BB%93"><span class="toc-number">3.11.</span> <span class="toc-text">爆仓</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/macbook/" title="macbook体验"><img src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="macbook体验"/></a><div class="content"><a class="title" href="/dev/macbook/" title="macbook体验">macbook体验</a><time datetime="2024-11-16T17:33:20.000Z" title="Created 2024-11-17 01:33:20">2024-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/git/" title="Git合作指南"><img src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git合作指南"/></a><div class="content"><a class="title" href="/dev/git/" title="Git合作指南">Git合作指南</a><time datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(三）Python面向对象设计模式"/></a><div class="content"><a class="title" href="/dev/python-design/" title="(三）Python面向对象设计模式">(三）Python面向对象设计模式</a><time datetime="2024-10-28T18:53:20.000Z" title="Created 2024-10-29 02:53:20">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-package/" title="(二）包的开发"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(二）包的开发"/></a><div class="content"><a class="title" href="/dev/python-package/" title="(二）包的开发">(二）包的开发</a><time datetime="2024-10-22T03:18:20.000Z" title="Created 2024-10-22 11:18:20">2024-10-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/docker/" title="docker自动化"><img src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker自动化"/></a><div class="content"><a class="title" href="/dev/docker/" title="docker自动化">docker自动化</a><time datetime="2024-10-21T06:22:20.000Z" title="Created 2024-10-21 14:22:20">2024-10-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'c0a78752e9d7fc897f1d1c4be0dae8ff'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>
