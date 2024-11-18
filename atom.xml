@@ -6,7 +6,7 @@
   <link href="https://www.blog-blockchain.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.blog-blockchain.xyz/"/>
-  <updated>2024-11-16T17:58:45.286Z</updated>
+  <updated>2024-11-18T09:44:36.112Z</updated>
   <id>https://www.blog-blockchain.xyz/</id>
   
   <author>
@@ -17,21 +17,74 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>安全加密实践-GPG</title>
+    <link href="https://www.blog-blockchain.xyz/dev/crypto-practice/"/>
+    <id>https://www.blog-blockchain.xyz/dev/crypto-practice/</id>
+    <published>2024-11-18T09:28:20.000Z</published>
+    <updated>2024-11-18T09:44:36.112Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;GPG 是一款强大的开源加密工具，基于公钥密码学原理，为电子通信提供隐私保护和数据验证。它广泛应用于确保信息安全和身份认证。&lt;/p&gt;
+&lt;h1&gt;安装指南&lt;/h1&gt;
+&lt;h2 id=&quot;Linux-系统&quot;&gt;Linux</summary>
+        
+      
+    
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/categories/developer/"/>
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/tags/developer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>传输和备份实践</title>
+    <link href="https://www.blog-blockchain.xyz/dev/backup-practice/"/>
+    <id>https://www.blog-blockchain.xyz/dev/backup-practice/</id>
+    <published>2024-11-18T09:26:20.000Z</published>
+    <updated>2024-11-18T09:44:33.646Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;rsync&lt;/h1&gt;
+&lt;p&gt;rsync 是一个强大的文件同步和传输工具，适用于类 Unix 系统。Windows 用户可以通过 WSL（Windows Subsystem for Linux）来使用</summary>
+        
+      
+    
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/categories/developer/"/>
+    
+    
+    <category term="developer" scheme="https://www.blog-blockchain.xyz/tags/developer/"/>
+    
+  </entry>
+  
+  <entry>
     <title>macbook体验</title>
     <link href="https://www.blog-blockchain.xyz/dev/macbook/"/>
     <id>https://www.blog-blockchain.xyz/dev/macbook/</id>
     <published>2024-11-16T17:33:20.000Z</published>
-    <updated>2024-11-16T17:58:45.286Z</updated>
+    <updated>2024-11-18T09:44:47.920Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt;为什么我喜欢MacBook&lt;/h1&gt;
-&lt;p&gt;我喜欢MacBook有以下几个原因：&lt;/p&gt;
+    <summary type="html">&lt;h1&gt;为什么我喜欢 MacBook&lt;/h1&gt;
+&lt;p&gt;我喜欢 MacBook 有以下几个原因：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;优秀的硬件质量：&lt;/strong&gt;</summary>
+&lt;li&gt;&lt;strong&gt;优秀的硬件质量：&lt;/strong&gt; MacBook</summary>
         
       
     
@@ -49,7 +102,7 @@
     <link href="https://www.blog-blockchain.xyz/dev/git/"/>
     <id>https://www.blog-blockchain.xyz/dev/git/</id>
     <published>2024-10-29T16:21:20.000Z</published>
-    <updated>2024-11-15T17:02:18.266Z</updated>
+    <updated>2024-11-18T09:44:45.701Z</updated>
     
     
       
@@ -77,7 +130,7 @@
     <link href="https://www.blog-blockchain.xyz/dev/python-design/"/>
     <id>https://www.blog-blockchain.xyz/dev/python-design/</id>
     <published>2024-10-28T18:53:20.000Z</published>
-    <updated>2024-11-15T14:30:54.921Z</updated>
+    <updated>2024-11-18T09:44:53.242Z</updated>
     
     
       
@@ -104,7 +157,7 @@
     <link href="https://www.blog-blockchain.xyz/dev/python-package/"/>
     <id>https://www.blog-blockchain.xyz/dev/python-package/</id>
     <published>2024-10-22T03:18:20.000Z</published>
-    <updated>2024-11-15T14:30:54.921Z</updated>
+    <updated>2024-11-18T09:45:01.397Z</updated>
     
     
       
@@ -131,7 +184,7 @@
     <link href="https://www.blog-blockchain.xyz/dev/docker/"/>
     <id>https://www.blog-blockchain.xyz/dev/docker/</id>
     <published>2024-10-21T06:22:20.000Z</published>
-    <updated>2024-11-15T17:01:15.214Z</updated>
+    <updated>2024-11-18T09:44:38.945Z</updated>
     
     
       
@@ -159,7 +212,7 @@
     <link href="https://www.blog-blockchain.xyz/dev/python-env/"/>
     <id>https://www.blog-blockchain.xyz/dev/python-env/</id>
     <published>2024-10-21T03:18:20.000Z</published>
-    <updated>2024-11-15T14:30:54.921Z</updated>
+    <updated>2024-11-18T09:44:55.564Z</updated>
     
     
       
@@ -185,7 +238,7 @@
     <link href="https://www.blog-blockchain.xyz/career/become-good-coder/"/>
     <id>https://www.blog-blockchain.xyz/career/become-good-coder/</id>
     <published>2024-10-08T18:44:20.000Z</published>
-    <updated>2024-11-15T17:02:05.314Z</updated>
+    <updated>2024-11-18T09:47:46.360Z</updated>
     
     
       
@@ -368,14 +421,15 @@
     <link href="https://www.blog-blockchain.xyz/audit/blockchian-study-material/"/>
     <id>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</id>
     <published>2023-08-09T09:33:33.000Z</published>
-    <updated>2024-11-15T14:30:54.917Z</updated>
+    <updated>2024-11-18T09:48:31.318Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td</summary>
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/audit/classic-vulnerabilities/&quot; title=&quot;智能合约的经典漏洞&quot;&gt;智能合约的经典漏洞&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</summary>
         
       
     
@@ -522,7 +576,7 @@
     <link href="https://www.blog-blockchain.xyz/pl/static-analysis-tools/"/>
     <id>https://www.blog-blockchain.xyz/pl/static-analysis-tools/</id>
     <published>2022-12-23T03:16:30.000Z</published>
-    <updated>2024-11-15T14:30:54.926Z</updated>
+    <updated>2024-11-18T09:49:18.488Z</updated>
     
     
       
@@ -652,7 +706,7 @@
     <link href="https://www.blog-blockchain.xyz/defi/Merkle-Tree-Proof-of-Reserves/"/>
     <id>https://www.blog-blockchain.xyz/defi/Merkle-Tree-Proof-of-Reserves/</id>
     <published>2022-11-19T14:16:22.000Z</published>
-    <updated>2024-11-15T14:30:54.920Z</updated>
+    <updated>2024-11-18T09:49:17.835Z</updated>
     
     
       
@@ -961,32 +1015,6 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
-    <published>2022-08-25T03:30:33.000Z</published>
-    <updated>2024-11-15T14:30:54.924Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
-    
-    
-    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
-    
-  </entry>
-  
-  <entry>
     <title>布隆过滤器原理</title>
     <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
     <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
@@ -1016,6 +1044,32 @@
     <title>oracle 原理和实现</title>
     <link href="https://www.blog-blockchain.xyz/geth/oracle-introduction/"/>
     <id>https://www.blog-blockchain.xyz/geth/oracle-introduction/</id>
+    <published>2022-08-25T03:30:33.000Z</published>
+    <updated>2024-11-15T14:30:54.924Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol class=&quot;series-items&quot;&gt;&lt;li&gt;&lt;a href=&quot;/geth/tx-signature/&quot; title=&quot;交易的签名&quot;&gt;交易的签名&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/geth/understand-receipt/&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/categories/geth/"/>
+    
+    
+    <category term="geth" scheme="https://www.blog-blockchain.xyz/tags/geth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
@@ -1195,11 +1249,11 @@
   </entry>
   
   <entry>
-    <title>智能合约学习资源</title>
-    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
-    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
+    <title>智能合约安全学习路线</title>
+    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
+    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-11-15T14:30:54.918Z</updated>
+    <updated>2024-11-18T09:48:36.433Z</updated>
     
     
       
@@ -1221,11 +1275,11 @@
   </entry>
   
   <entry>
-    <title>智能合约安全学习路线</title>
-    <link href="https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/"/>
-    <id>https://www.blog-blockchain.xyz/audit/smart-contract-learning-path/</id>
+    <title>智能合约学习资源</title>
+    <link href="https://www.blog-blockchain.xyz/audit/learning-resource/"/>
+    <id>https://www.blog-blockchain.xyz/audit/learning-resource/</id>
     <published>2022-08-24T17:33:33.000Z</published>
-    <updated>2024-11-15T14:30:54.918Z</updated>
+    <updated>2024-11-18T09:48:15.779Z</updated>
     
     
       
@@ -1303,7 +1357,7 @@
     <link href="https://www.blog-blockchain.xyz/audit/open-source-audit-tools/"/>
     <id>https://www.blog-blockchain.xyz/audit/open-source-audit-tools/</id>
     <published>2022-08-24T12:33:33.000Z</published>
-    <updated>2024-11-15T14:30:54.918Z</updated>
+    <updated>2024-11-18T09:48:34.806Z</updated>
     
     
       
@@ -1329,7 +1383,7 @@
     <link href="https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/"/>
     <id>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</id>
     <published>2022-08-24T12:30:33.000Z</published>
-    <updated>2024-11-15T14:30:54.917Z</updated>
+    <updated>2024-11-18T09:48:04.645Z</updated>
     
     
       
@@ -1381,7 +1435,7 @@
     <link href="https://www.blog-blockchain.xyz/evm/state-variable/"/>
     <id>https://www.blog-blockchain.xyz/evm/state-variable/</id>
     <published>2022-08-24T11:29:33.000Z</published>
-    <updated>2024-11-15T14:30:54.922Z</updated>
+    <updated>2024-11-18T09:49:18.042Z</updated>
     
     
       
@@ -1485,7 +1539,7 @@
     <link href="https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/"/>
     <id>https://www.blog-blockchain.xyz/evm/basic-understanding-to-evm/</id>
     <published>2022-08-23T13:49:22.000Z</published>
-    <updated>2024-11-15T14:30:54.921Z</updated>
+    <updated>2024-11-18T09:49:17.968Z</updated>
     
     
       
@@ -1511,7 +1565,7 @@
     <link href="https://www.blog-blockchain.xyz/contracts/advanced-charactors/"/>
     <id>https://www.blog-blockchain.xyz/contracts/advanced-charactors/</id>
     <published>2022-08-23T12:49:22.000Z</published>
-    <updated>2024-11-15T14:30:54.918Z</updated>
+    <updated>2024-11-18T09:47:49.773Z</updated>
     
     
       
@@ -1594,7 +1648,7 @@
     <link href="https://www.blog-blockchain.xyz/contracts/application-binary-interface/"/>
     <id>https://www.blog-blockchain.xyz/contracts/application-binary-interface/</id>
     <published>2022-08-23T09:49:22.000Z</published>
-    <updated>2024-11-15T14:30:54.918Z</updated>
+    <updated>2024-11-18T09:49:17.383Z</updated>
     
     
       

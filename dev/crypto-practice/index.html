@@ -1,0 +1,371 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>安全加密实践-GPG | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="GPG 是一款强大的开源加密工具，基于公钥密码学原理，为电子通信提供隐私保护和数据验证。它广泛应用于确保信息安全和身份认证。 安装指南 Linux 系统 Debian&#x2F;Ubuntu: 12sudo apt updatesudo apt install gnupg CentOS&#x2F;RHEL: 1sudo yum install gnupg Fedora: 1sudo dnf install gnupg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安全加密实践-GPG">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/dev/crypto-practice/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="GPG 是一款强大的开源加密工具，基于公钥密码学原理，为电子通信提供隐私保护和数据验证。它广泛应用于确保信息安全和身份认证。 安装指南 Linux 系统 Debian&#x2F;Ubuntu: 12sudo apt updatesudo apt install gnupg CentOS&#x2F;RHEL: 1sudo yum install gnupg Fedora: 1sudo dnf install gnupg">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.blog-blockchain.xyz/2024/11/ecd2b676f9bf98a607c67fc697f9ed4e.png">
+<meta property="article:published_time" content="2024-11-18T09:28:20.000Z">
+<meta property="article:modified_time" content="2024-11-18T09:44:36.112Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="developer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.blog-blockchain.xyz/2024/11/ecd2b676f9bf98a607c67fc697f9ed4e.png"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/dev/crypto-practice/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '安全加密实践-GPG',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">71</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">安全加密实践-GPG</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">安全加密实践-GPG</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-11-18T09:28:20.000Z" title="Created 2024-11-18 17:28:20">2024-11-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-11-18T09:44:36.112Z" title="Updated 2024-11-18 17:44:36">2024-11-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/developer/">developer</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>GPG 是一款强大的开源加密工具，基于公钥密码学原理，为电子通信提供隐私保护和数据验证。它广泛应用于确保信息安全和身份认证。</p>
+<h1>安装指南</h1>
+<h2 id="Linux-系统">Linux 系统</h2>
+<p><strong>Debian/Ubuntu:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install gnupg</span><br></pre></td></tr></table></figure>
+<p><strong>CentOS/RHEL:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install gnupg</span><br></pre></td></tr></table></figure>
+<p><strong>Fedora:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dnf install gnupg</span><br></pre></td></tr></table></figure>
+<p><strong>Arch Linux:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S gnupg</span><br></pre></td></tr></table></figure>
+<h2 id="macOS">macOS</h2>
+<p>使用 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://brew.sh/">Homebrew</a> 安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install gnupg</span><br></pre></td></tr></table></figure>
+<h2 id="Windows">Windows</h2>
+<ul>
+<li>
+<ol>
+<li>从 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://gpg4win.org/">Gpg4win 官方网站</a> 下载安装包 2. 运行安装程序，按提示完成安装 3. 安装后，在命令提示符或 PowerShell 中验证</li>
+</ol>
+</li>
+</ul>
+<h2 id="FreeBSD">FreeBSD</h2>
+<p>通过 pkg 包管理器安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg install gnupg</span><br></pre></td></tr></table></figure>
+<h2 id="验证安装">验证安装</h2>
+<p>在任何平台上，运行以下命令确认安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --version</span><br></pre></td></tr></table></figure>
+<p>如果显示版本信息和支持的加密算法，则表示安装成功。</p>
+<h1>密钥管理</h1>
+<h2 id="生成密钥对"><strong>生成密钥对</strong></h2>
+<p>首先需要生成自己的公钥和私钥（如果尚未生成）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bash</span><br><span class="line">复制代码</span><br><span class="line">gpg --full-generate-key</span><br></pre></td></tr></table></figure>
+<ul>
+<li>按提示选择：
+<ol>
+<li>密钥类型：选择 <code>(1)</code> RSA and RSA。</li>
+<li>密钥长度：一般选择 <code>2048</code> 或 <code>4096</code>。</li>
+<li>密钥有效期：设置为 <code>0</code>（永不过期）或指定期限。</li>
+<li>输入姓名和电子邮件：用于标识密钥。</li>
+<li>设置密码：保护私钥安全。</li>
+</ol>
+</li>
+</ul>
+<h2 id="查看密钥">查看密钥</h2>
+<p>列出所有公钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --list-keys</span><br></pre></td></tr></table></figure>
+<p>列出所有私钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --list-secret-keys</span><br></pre></td></tr></table></figure>
+<p>这些命令将显示你系统中的所有公钥和私钥，包括密钥 ID、用户 ID 和创建日期等信息。</p>
+<h2 id="导入私钥或者公钥"><strong>导入私钥或者公钥</strong></h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpg --import privatekey.asc</span><br><span class="line">gpg --import publickey.asc</span><br></pre></td></tr></table></figure>
+<p>导入他人的公钥时会包括与该公钥关联的用户名和邮箱地址。这些信息是公钥的一部分，用于识别公钥的所有者。</p>
+<h2 id="导出公钥">导出公钥</h2>
+<p>要与他人共享你的公钥，可以导出它：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --<span class="built_in">export</span> --armor your_email@example.com(或者uid) &gt; public_key.asc</span><br></pre></td></tr></table></figure>
+<p>这将创建一个名为 public_key.asc 的 ASCII 格式文件，包含你的公钥。 <code>--armor</code> 选项将输出转换为 ASCII 编码的“装甲格式”（Armored format）。没有这个选项，默认是二进制。<code>.asc</code> 是一种文件扩展名，表示文件以 <strong>ASCII 装甲格式（ASCII Armored Format）</strong> 存储的数据。它通常用于 <strong>GPG 加密或签名的密钥、签名或加密文件</strong>。</p>
+<h2 id="导出私钥">导出私钥</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --export-secret-keys --armor &lt;your_email&gt; &gt; privatekey.asc</span><br></pre></td></tr></table></figure>
+<h2 id="删除私钥或者公钥">删除私钥或者公钥</h2>
+<p>删除公钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --delete-keys &lt;key_id&gt;</span><br></pre></td></tr></table></figure>
+<p>删除私钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --delete-secret-keys &lt;key_id&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="验证公钥指纹">验证公钥指纹</h2>
+<p>通过哈希算法计算公钥的唯一标识符，验证密钥的真实性和来源。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ gpg --fingerprint &lt;key_id&gt;</span><br><span class="line">pub   rsa4096 2022-01-01 [SC]</span><br><span class="line">      A1B2 C3D4 E5F6 1234 5678 90AB CDEF 1234 5678 9ABC</span><br><span class="line">uid           [ultimate] Alice &lt;alice@example.com&gt;</span><br><span class="line">sub   rsa4096 2022-01-01 [E]</span><br></pre></td></tr></table></figure>
+<h1>加密和解密</h1>
+<h2 id="加密文件"><strong>加密文件</strong></h2>
+<p>使用接收方的公钥加密文件。例如，将文件 example.txt 加密为 example.txt.gpg：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output example.txt.gpg --encrypt --recipient &lt;recipient_email&gt; example.txt</span><br></pre></td></tr></table></figure>
+<p><strong>gpg 使用混合加密</strong>，在混合加密过程中，gpg 会自动生成一个随机的、一次性的对称密钥。</p>
+<p><strong>加密过程</strong>：gpg 用生成的对称密钥加密文件内容，然后用接收方的公钥对该对称密钥进行加密，并将其存储在最终输出文件中。</p>
+<p><strong>解密过程</strong>：先用自己的私钥解密文件中存储的对称密钥。再用解密出的对称密钥解密文件内容。</p>
+<p>所以说可以<strong>直接加密大文件</strong>。如果文件特别大，可以使用 <code>split</code> 先把文件分割，再每块加密。</p>
+<p><strong>加密文件夹</strong>：GPG 不直接支持加密整个文件夹，但您可以先将文件夹压缩，然后加密压缩文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -czf folder.tar.gz folder/</span><br><span class="line">gpg --output folder.tar.gz.gpg --encrypt --recipient  &lt;recipient_email&gt; folder.tar.gz</span><br></pre></td></tr></table></figure>
+<p>如果有<strong>多个接收方</strong>，就多个 <code>--recipient  &lt;recipient_email&gt;</code> 即可。他们每人都能解密。</p>
+<h2 id="解密文件">解密文件</h2>
+<p>接收方使用私钥解密加密文件。例如，将 example.txt.gpg 解密为原文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output example.txt --decrypt example.txt.gpg</span><br></pre></td></tr></table></figure>
+<h1>签名</h1>
+<h2 id="嵌入签名文件"><strong>嵌入签名文件</strong></h2>
+<p>发送文件时，可以添加数字签名，以验证发送者身份和文件完整性。签名文件是二进制格式，包含签名和文件内容。<strong>生成一个嵌入签名文件（Attached Signature）</strong>， 签名数据与文件内容绑定在一起，输出的文件既包含原始文件内容，又包含签名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output example.txt.sig --sign example.txt</span><br></pre></td></tr></table></figure>
+<p>验证和分离的方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output example.txt --decrypt example.txt.sig</span><br></pre></td></tr></table></figure>
+<h2 id="分离签名文件"><strong>分离签名文件</strong></h2>
+<p>签名独立存储在一个单独的 .sig 文件中，原始文件 file.txt 不会被修改。通常用于需要保持原始文件完整性、不想嵌入签名的场景（如软件分发）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output file.sig --detach-sign file.txt</span><br></pre></td></tr></table></figure>
+<p>验证方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --verify file.sig file.txt</span><br></pre></td></tr></table></figure>
+<h2 id="加密并签名文件"><strong>加密并签名文件</strong></h2>
+<p>用自己的私钥签名，对方的公钥加密。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output encrypted_signed_file.gpg --encrypt --sign --recipient &lt;recipient_email&gt; file.txt</span><br></pre></td></tr></table></figure>
+<p>解密流程和普通的解密是完全一致的。</p>
+<h2 id="查看文件是否带有签名">查看文件是否带有签名</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --list-packets file.gpg</span><br></pre></td></tr></table></figure>
+<h1><strong>对称加密（无需公钥，简单加密）</strong></h1>
+<p>加密：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output example.txt.gpg --symmetric example.txt</span><br></pre></td></tr></table></figure>
+<p>解密</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output example.txt --decrypt example.txt.gpg</span><br></pre></td></tr></table></figure>
+<p>在解密时，gpg 会自动检测文件的加密类型。它会查看加密文件的头部信息，其中包含了使用的加密方法（对称或非对称）。这种设计使得 gpg 可以灵活地处理不同类型的加密文件，而无需用户明确指定加密类型。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/dev/crypto-practice/">https://www.blog-blockchain.xyz/dev/crypto-practice/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2024/11/ecd2b676f9bf98a607c67fc697f9ed4e.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/dev/backup-practice/" title="传输和备份实践"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">传输和备份实践</div></div><div class="info-2"><div class="info-item-1">rsync rsync 是一个强大的文件同步和传输工具，适用于类 Unix 系统。Windows 用户可以通过 WSL（Windows Subsystem for Linux）来使用 rsync。以下是详细的安装和使用方法： Ubuntu/Debian： 12sudo apt updatesudo apt install rsync CentOS/Fedora： 1sudo yum install rsync macOS（使用 Homebrew）： 1brew install rsync 注意，两台机器都要安装好。 使用方法 1rsync [选项] 源目录/ 目标目录  -a：归档模式，保留所有文件属性 -v：详细输出 -z：压缩传输 -P：显示进度并允许断点续传 –delete：删除目标目录中源目录没有的文件 -h：以人类可读的格式显示文件大小 -e：指定要使用的远程 shell，通常用于指定 SSH 连接参数  本地同步： 1rsync -avzP /path/to/source/...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/career/become-good-coder/" title="如何成为优秀的软件工程师"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-09</div><div class="info-item-2">如何成为优秀的软件工程师</div></div><div class="info-2"><div class="info-item-1">要成为一名优秀的软件工程师，需要掌握广泛的技能和知识，包括基础的数据结构、高级架构设计和良好的编程实践。本文将为你详细介绍如何全面提升自己的编程能力，成为卓越的软件工程师。 深入掌握数据结构与算法 TODO: 我的数据结构和算法的笔记，每一类数据结构怎么用。 数据结构和算法是软件工程的核心基础。深入理解数组、链表、堆栈、队列、树、图等基础数据结构，可以帮助你高效地解决复杂问题。你不仅需要理解它们的工作原理，还要清楚它们的优缺点、本质特性以及适用的应用场景。 数组是一种连续存储的结构，适合需要快速随机访问的场景，访问的时间复杂度为 O(1)。但它在插入和删除操作时需要移动大量数据，时间复杂度为 O(n)，因此不适合频繁插入和删除的场景。数组通常用于需要快速访问的应用，例如排行榜和固定大小的数据集合。 链表是一种由节点组成的结构，每个节点包含数据和指向下一个节点的指针。链表在已知位置时，插入和删除操作非常高效，时间复杂度为 O(1)，但随机访问的效率较低，为...</div></div></div></a><a class="pagination-related" href="/dev/backup-practice/" title="传输和备份实践"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="info-item-2">传输和备份实践</div></div><div class="info-2"><div class="info-item-1">rsync rsync 是一个强大的文件同步和传输工具，适用于类 Unix 系统。Windows 用户可以通过 WSL（Windows Subsystem for Linux）来使用 rsync。以下是详细的安装和使用方法： Ubuntu/Debian： 12sudo apt updatesudo apt install rsync CentOS/Fedora： 1sudo yum install rsync macOS（使用 Homebrew）： 1brew install rsync 注意，两台机器都要安装好。 使用方法 1rsync [选项] 源目录/ 目标目录  -a：归档模式，保留所有文件属性 -v：详细输出 -z：压缩传输 -P：显示进度并允许断点续传 –delete：删除目标目录中源目录没有的文件 -h：以人类可读的格式显示文件大小 -e：指定要使用的远程 shell，通常用于指定 SSH 连接参数  本地同步： 1rsync -avzP /path/to/source/...</div></div></div></a><a class="pagination-related" href="/dev/macbook/" title="macbook体验"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-17</div><div class="info-item-2">macbook体验</div></div><div class="info-2"><div class="info-item-1">为什么我喜欢 MacBook 我喜欢 MacBook 有以下几个原因：  优秀的硬件质量： MacBook 以其出色的工艺和耐用性著称，铝制一体化机身既美观又坚固。 休眠与唤醒的无缝体验： MacBook 合上盖子即可快速休眠，打开盖子能立即恢复工作状态，不会出现无法休眠或休眠后无法唤醒的问题，提供流畅、稳定的使用体验。 长续航时间： MacBook 的电池续航能力一直是业界领先，特别是 M 系列芯片的推出更是大幅提升了续航表现。 出色的显示屏： Retina 显示屏提供高分辨率和准确的色彩还原，非常适合设计和视频编辑工作。 适合开发的 Unix 基础： macOS 基于 Unix，为开发者提供了强大的命令行工具和兼容性。 丰富的软件生态系统： MacBook 拥有大量高质量的软件选择，包括众多开源项目和优秀的商业软件。特别是在编程领域，MacBook 提供了全面而强大的开发工具和环境支持，满足各种专业需求和日常应用。  我最近购买了一台 MacBook Pro 14 英寸，配备 M4 Pro 处理器、48GB 内存和 512GB 存储，还买了三年的...</div></div></div></a><a class="pagination-related" href="/dev/docker/" title="docker自动化"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">docker自动化</div></div><div class="info-2"><div class="info-item-1">了解背景 Docker 是一种轻量级的容器化技术，主要用于应用程序的环境迁移和一致性。你需要知道下面的基本概念：  了解镜像、容器的基本概念：https://yeasy.gitbook.io/docker_practice/basic_concept 数据卷的基本概念：https://yeasy.gitbook.io/docker_practice/data_management/volume 网络方面，端口映射、docker compose 容器互联：https://yeasy.gitbook.io/docker_practice/network/port_mapping  OK，上面三个基本概念，你就足够使用 docker 了，然后我们来了解 docker 最实用的地方：  环境迁移，在不同的机器上保持一致性，一次创建或配置，可以在任意地方正常运行。。 直接在 docker 内利用 linux 环境和路径挂载来开发。  隔离依赖、统一开发环境、快速启动。 利用 Linux 容器作为开发环境：在不同平台（Windows、Mac、Linux）上保持一致的开发环境。 通过...</div></div></div></a><a class="pagination-related" href="/dev/git/" title="Git合作指南"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-30</div><div class="info-item-2">Git合作指南</div></div><div class="info-2"><div class="info-item-1">Fork 项目仓库  进入项目的 GitHub 页面，点击右上角的 Fork 按钮，将该项目仓库复制到自己的 GitHub 账户下。 这个 Fork 的副本是你对项目的个人副本，你可以在上面进行改动而不会影响原项目。  Clone 项目到本地   在你的 GitHub 账户中找到刚刚 Fork 的仓库，复制仓库的链接。   在本地执行以下命令将仓库克隆到你的电脑： 1git clone &lt;your-forked-repo-url&gt;   添加上游仓库 (Upstream)   为了保持你的 Fork 和原项目的同步，需要添加原项目的仓库地址作为 “上游仓库”。   进入克隆的项目文件夹，运行以下命令： 1git remote add upstream &lt;original-repo-url&gt;   同步上游仓库的更新   在进行更改之前，确保你的分支是最新的。可以通过以下命令拉取上游仓库的更新并合并到本地： 12git checkout maingit merge...</div></div></div></a><a class="pagination-related" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-29</div><div class="info-item-2">(三）Python面向对象设计模式</div></div><div class="info-2"><div class="info-item-1">类和对象 一切都是对象 在 Python 中，“一切皆对象”是一个核心理念。简单来说，Python 中的所有东西都是对象，无论是数值、字符串、函数、类，甚至是模块和代码本身。Python 对象有三个特征：身份、类型和值。  身份：对象在内存中的地址，可以通过 id() 函数查看，例如 id(obj)。 类型：对象的类别，可以通过 type() 函数查看。例如，type(5) 返回 &lt;class 'int'&gt;。 值：对象的实际内容或数据，直接调用变量名即可查看。  1234i = 2print(id(i))      # 输出 i 的存储地址print(type(i))    # 输出 &lt;class &#x27;int&#x27;&gt;print(i)          # 输出变量 i...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">71</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">安装指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text">Linux 系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#macOS"><span class="toc-number">1.2.</span> <span class="toc-text">macOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows"><span class="toc-number">1.3.</span> <span class="toc-text">Windows</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeBSD"><span class="toc-number">1.4.</span> <span class="toc-text">FreeBSD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">1.5.</span> <span class="toc-text">验证安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">密钥管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="toc-number">2.1.</span> <span class="toc-text">生成密钥对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AF%86%E9%92%A5"><span class="toc-number">2.2.</span> <span class="toc-text">查看密钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E7%A7%81%E9%92%A5%E6%88%96%E8%80%85%E5%85%AC%E9%92%A5"><span class="toc-number">2.3.</span> <span class="toc-text">导入私钥或者公钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E5%85%AC%E9%92%A5"><span class="toc-number">2.4.</span> <span class="toc-text">导出公钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E7%A7%81%E9%92%A5"><span class="toc-number">2.5.</span> <span class="toc-text">导出私钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%A7%81%E9%92%A5%E6%88%96%E8%80%85%E5%85%AC%E9%92%A5"><span class="toc-number">2.6.</span> <span class="toc-text">删除私钥或者公钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%85%AC%E9%92%A5%E6%8C%87%E7%BA%B9"><span class="toc-number">2.7.</span> <span class="toc-text">验证公钥指纹</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">加密和解密</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">加密文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%AF%86%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">解密文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">签名</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%85%A5%E7%AD%BE%E5%90%8D%E6%96%87%E4%BB%B6"><span class="toc-number">4.1.</span> <span class="toc-text">嵌入签名文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%A6%BB%E7%AD%BE%E5%90%8D%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.</span> <span class="toc-text">分离签名文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%B9%B6%E7%AD%BE%E5%90%8D%E6%96%87%E4%BB%B6"><span class="toc-number">4.3.</span> <span class="toc-text">加密并签名文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E5%B8%A6%E6%9C%89%E7%AD%BE%E5%90%8D"><span class="toc-number">4.4.</span> <span class="toc-text">查看文件是否带有签名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">对称加密（无需公钥，简单加密）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/crypto-practice/" title="安全加密实践-GPG"><img src="https://cdn.blog-blockchain.xyz/2024/11/ecd2b676f9bf98a607c67fc697f9ed4e.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="安全加密实践-GPG"/></a><div class="content"><a class="title" href="/dev/crypto-practice/" title="安全加密实践-GPG">安全加密实践-GPG</a><time datetime="2024-11-18T09:28:20.000Z" title="Created 2024-11-18 17:28:20">2024-11-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/backup-practice/" title="传输和备份实践"><img src="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="传输和备份实践"/></a><div class="content"><a class="title" href="/dev/backup-practice/" title="传输和备份实践">传输和备份实践</a><time datetime="2024-11-18T09:26:20.000Z" title="Created 2024-11-18 17:26:20">2024-11-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/macbook/" title="macbook体验"><img src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="macbook体验"/></a><div class="content"><a class="title" href="/dev/macbook/" title="macbook体验">macbook体验</a><time datetime="2024-11-16T17:33:20.000Z" title="Created 2024-11-17 01:33:20">2024-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/git/" title="Git合作指南"><img src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git合作指南"/></a><div class="content"><a class="title" href="/dev/git/" title="Git合作指南">Git合作指南</a><time datetime="2024-10-29T16:21:20.000Z" title="Created 2024-10-30 00:21:20">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="(三）Python面向对象设计模式"/></a><div class="content"><a class="title" href="/dev/python-design/" title="(三）Python面向对象设计模式">(三）Python面向对象设计模式</a><time datetime="2024-10-28T18:53:20.000Z" title="Created 2024-10-29 02:53:20">2024-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'f51ecebded63a04f960057afb0cae120'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>
