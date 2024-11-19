@@ -74,7 +74,7 @@
     <link href="https://www.blog-blockchain.xyz/dev/macbook/"/>
     <id>https://www.blog-blockchain.xyz/dev/macbook/</id>
     <published>2024-11-16T17:33:20.000Z</published>
-    <updated>2024-11-18T09:44:47.920Z</updated>
+    <updated>2024-11-19T13:59:30.447Z</updated>
     
     
       
@@ -82,9 +82,7 @@
         
         
     <summary type="html">&lt;h1&gt;为什么我喜欢 MacBook&lt;/h1&gt;
-&lt;p&gt;我喜欢 MacBook 有以下几个原因：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;优秀的硬件质量：&lt;/strong&gt; MacBook</summary>
+&lt;p&gt;最近买了一台 MacBook，使用下来感觉很不错。MacBook</summary>
         
       
     
@@ -1015,9 +1013,9 @@
   </entry>
   
   <entry>
-    <title>forkId 解读</title>
-    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
-    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
+    <title>布隆过滤器原理</title>
+    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
+    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
@@ -1041,9 +1039,9 @@
   </entry>
   
   <entry>
-    <title>布隆过滤器原理</title>
-    <link href="https://www.blog-blockchain.xyz/geth/bloom-filter/"/>
-    <id>https://www.blog-blockchain.xyz/geth/bloom-filter/</id>
+    <title>forkId 解读</title>
+    <link href="https://www.blog-blockchain.xyz/geth/forkId/"/>
+    <id>https://www.blog-blockchain.xyz/geth/forkId/</id>
     <published>2022-08-25T03:30:33.000Z</published>
     <updated>2024-11-15T14:30:54.924Z</updated>
     
