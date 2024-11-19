@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.blog-blockchain.xyz/dev/rss/</loc>
+    
+    <lastmod>2024-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.blog-blockchain.xyz/dev/macbook/</loc>
     
     <lastmod>2024-11-19</lastmod>
@@ -236,7 +245,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/pl/LP-souffle/</loc>
+    <loc>https://www.blog-blockchain.xyz/pl/Interprocedural-DFA/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -254,16 +263,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/pl/Interprocedural-DFA/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/pl/SMT-and-symbolic-excution/</loc>
+    <loc>https://www.blog-blockchain.xyz/pl/LP-souffle/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -273,6 +273,15 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/pl/data-flow-analysis/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/pl/SMT-and-symbolic-excution/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -344,15 +353,6 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/introduction/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
     
     <lastmod>2024-11-15</lastmod>
@@ -362,16 +362,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/tx-pool/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/introduction/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -389,7 +380,25 @@
   </url>
   
   <url>
+    <loc>https://www.blog-blockchain.xyz/geth/tx-pool/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.blog-blockchain.xyz/geth/txlist/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -407,25 +416,16 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/fp/Haskell-epilogue/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/fp/project-euler/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/fp/Haskell-summary-toolchain/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/fp/Haskell-epilogue/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -443,7 +443,16 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/Geth-Unveiled-Ethereum-Startup/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/MPT-Tree/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/fp/project-euler/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -461,7 +470,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/MPT-Tree/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -479,25 +488,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/fp/FP-haskell-2/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/fp/FP-haskell-1/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/Geth-Unveiled-Ethereum-Startup/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -515,6 +506,24 @@
   </url>
   
   <url>
+    <loc>https://www.blog-blockchain.xyz/fp/FP-haskell-1/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/fp/FP-haskell-2/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.blog-blockchain.xyz/evm/data-layout/</loc>
     
     <lastmod>2024-11-15</lastmod>
@@ -524,7 +533,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/evm/evm-basic-bytecode/</loc>
+    <loc>https://www.blog-blockchain.xyz/evm/function-call/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -533,7 +542,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/evm/function-call/</loc>
+    <loc>https://www.blog-blockchain.xyz/evm/evm-basic-bytecode/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -569,15 +578,6 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/contracts/program-structure-and-characters/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/contracts/special-functions/</loc>
     
     <lastmod>2024-11-15</lastmod>
@@ -587,7 +587,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/contracts/types/</loc>
+    <loc>https://www.blog-blockchain.xyz/contracts/program-structure-and-characters/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -605,16 +605,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/cs-courses/cpp-cryptographic-algorithm-basis/</loc>
-    
-    <lastmod>2024-11-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/cs-courses/OS/</loc>
+    <loc>https://www.blog-blockchain.xyz/contracts/types/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -632,6 +623,15 @@
   </url>
   
   <url>
+    <loc>https://www.blog-blockchain.xyz/cs-courses/cpp-cryptographic-algorithm-basis/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.blog-blockchain.xyz/cs-courses/linux-basis/</loc>
     
     <lastmod>2024-11-15</lastmod>
@@ -641,7 +641,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/cs-courses/x86-masm/</loc>
+    <loc>https://www.blog-blockchain.xyz/cs-courses/OS/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -659,7 +659,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/contracts/basic-understanding/</loc>
+    <loc>https://www.blog-blockchain.xyz/cs-courses/x86-masm/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -669,6 +669,15 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/contracts/controll-flow/</loc>
+    
+    <lastmod>2024-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/contracts/basic-understanding/</loc>
     
     <lastmod>2024-11-15</lastmod>
     
@@ -695,14 +704,14 @@
 
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/audit/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/smart-contract/</loc>
     <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/smart-contract/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/audit/</loc>
     <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -723,20 +732,6 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/crypto/</loc>
-    <lastmod>2024-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/OS/</loc>
-    <lastmod>2024-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/tags/information/</loc>
     <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -744,7 +739,21 @@
   </url>
   
   <url>
+    <loc>https://www.blog-blockchain.xyz/tags/crypto/</loc>
+    <lastmod>2024-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.blog-blockchain.xyz/tags/Linux/</loc>
+    <lastmod>2024-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/OS/</loc>
     <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -779,14 +788,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/math/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/geth/</loc>
     <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/geth/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/math/</loc>
     <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -851,14 +860,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/math/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/geth/</loc>
     <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/geth/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/math/</loc>
     <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
