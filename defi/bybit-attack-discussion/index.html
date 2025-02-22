@@ -1,0 +1,487 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Bybit 攻击事件 X Space 讨论纪要 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="BYBIT被黑客盗取1.5亿美元事件是加密货币行业历史上最大的盗窃案之一，暴露了交易所安全管理和多签钱包技术的潜在风险。此次事件中，Bitget等交易所的及时支持体现了行业在竞争中的合作精神，但同时也引发了对交易所安全措施、社会工程学攻击防范、多签钱包安全性等问题的深入讨论。BYBIT表示将加强安全措施，并努力恢复用户信任，但事件的具体原因和责任仍有待进一步调查。此次事件也为整个加密货币行业敲响了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bybit 攻击事件 X Space 讨论纪要">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/defi/bybit-attack-discussion/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="BYBIT被黑客盗取1.5亿美元事件是加密货币行业历史上最大的盗窃案之一，暴露了交易所安全管理和多签钱包技术的潜在风险。此次事件中，Bitget等交易所的及时支持体现了行业在竞争中的合作精神，但同时也引发了对交易所安全措施、社会工程学攻击防范、多签钱包安全性等问题的深入讨论。BYBIT表示将加强安全措施，并努力恢复用户信任，但事件的具体原因和责任仍有待进一步调查。此次事件也为整个加密货币行业敲响了">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.blog-blockchain.xyz/2025/02/95eb14986eb078970730aa9dc6a0082d.jpg">
+<meta property="article:published_time" content="2025-02-22T18:09:22.000Z">
+<meta property="article:modified_time" content="2025-02-22T18:00:13.877Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="defi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.blog-blockchain.xyz/2025/02/95eb14986eb078970730aa9dc6a0082d.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/defi/bybit-attack-discussion/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Bybit 攻击事件 X Space 讨论纪要',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">Bybit 攻击事件 X Space 讨论纪要</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Bybit 攻击事件 X Space 讨论纪要</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-22T18:09:22.000Z" title="Created 2025-02-23 02:09:22">2025-02-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-22T18:00:13.877Z" title="Updated 2025-02-23 02:00:13">2025-02-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/defi/">defi</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>7mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>BYBIT被黑客盗取1.5亿美元事件是加密货币行业历史上最大的盗窃案之一，暴露了交易所安全管理和多签钱包技术的潜在风险。此次事件中，Bitget等交易所的及时支持体现了行业在竞争中的合作精神，但同时也引发了对交易所安全措施、社会工程学攻击防范、多签钱包安全性等问题的深入讨论。BYBIT表示将加强安全措施，并努力恢复用户信任，但事件的具体原因和责任仍有待进一步调查。此次事件也为整个加密货币行业敲响了警钟，提醒各方加强安全意识，共同维护行业健康发展。</p>
+<p>下面是对BYBIT被黑客盗取1.5亿美元事件讨论的梳理和分析：</p>
+<blockquote>
+<p>来自语音转录后 AI 总结</p>
+</blockquote>
+<h1>讨论议题与关注点</h1>
+<ol>
+<li>
+<p><strong>事件经过与损失</strong>：</p>
+<ul>
+<li>BYBIT交易所遭到黑客攻击，损失约1.5亿美元，主要为以太坊。</li>
+<li>攻击发生后，BYBIT暂停了以太坊的提币，优先保障散户提币，机构提币受到限制。</li>
+<li>攻击发生后约12小时，BYBIT全面恢复提币。</li>
+</ul>
+</li>
+<li>
+<p><strong>流动性支持与行业反应</strong>：</p>
+<ul>
+<li>Bitget、抹茶、派网等交易所及一些OTC做市商向BYBIT提供了流动性支持。</li>
+<li>Bitget向BYBIT提供了4万枚以太坊的无息、无抵押、无归还期限的借款，表达了对BYBIT商业模式和价值观的信任。</li>
+<li>Bitget强调其资金来源为自有储备金，而非用户资金。</li>
+<li>其他交易所和机构也表示愿意提供支持，部分需要抵押或利息。</li>
+<li>业内普遍认为此次事件凸显了行业在竞争与合作中的团结。</li>
+</ul>
+</li>
+<li>
+<p><strong>攻击细节与追回可能性</strong>：</p>
+<ul>
+<li>攻击方式初步推测为朝鲜黑客组织Lazarus Group所为，与以往攻击手法相似。</li>
+<li>攻击目标为BYBIT使用的Gnosis Safe多签钱包，而非BYBIT自身的热钱包系统。</li>
+<li>攻击细节仍在调查中，尚不确定是Gnosis Safe服务器问题还是BYBIT签名端UI问题。</li>
+<li>追回被盗资金的可能性较低，但黑客转移资金也面临困难，行业正在协助追踪。</li>
+<li>社区讨论了以太坊硬分叉的可能性，但因被盗以太坊数量占比相对较小，可能性不大。</li>
+</ul>
+</li>
+<li>
+<p><strong>BYBIT的应对与反思</strong>：</p>
+<ul>
+<li>BYBIT启动了应急响应机制，包括暂停提币、寻求流动性支持、联系安全公司调查、与客户沟通等。</li>
+<li>BYBIT表示其财务状况足以应对此次损失，并承诺将加强安全措施。</li>
+<li>BYBIT将对内部流程进行复盘，包括安全协议、合作伙伴选择、信息披露等。</li>
+<li>BYBIT考虑增加储备金证明的频率。</li>
+<li>BYBIT表示将努力恢复用户和机构的信任。</li>
+</ul>
+</li>
+<li>
+<p><strong>安全隐患与行业教训</strong>：</p>
+<ul>
+<li>多签钱包的安全问题再次受到关注，Gnosis Safe被质疑存在漏洞。</li>
+<li>交易所的安全措施仍有提升空间，包括冷热钱包分离、多签机制、员工培训、安全审计等。</li>
+<li>社会工程学攻击的防范成为重要议题。</li>
+<li>行业需要加强合作，共同应对安全威胁。</li>
+</ul>
+</li>
+</ol>
+<h1>攻击细节</h1>
+<ul>
+<li><strong>攻击目标</strong>：BYBIT使用的Gnosis Safe多签钱包中的以太坊。</li>
+<li><strong>攻击手法</strong>（根据目前信息推测）：
+<ol>
+<li>黑客可能通过社会工程学攻击或其他方式入侵了BYBIT部分员工或高管的电脑。</li>
+<li>黑客可能篡改了BYBIT签名端的UI，使其在签名时执行恶意代码。</li>
+<li>黑客利用Gnosis Safe的delegate call功能，将恶意合约逻辑写入多签钱包的存储空间。</li>
+<li>黑客通过恶意合约将多签钱包中的以太坊转移到自己的地址。</li>
+</ol>
+</li>
+<li><strong>攻击时间线</strong>（UTC时间）：
+<ul>
+<li>2月19日7点多：黑客部署恶意合约。</li>
+<li>2月21日2点多：三个owner签署交易，替换Safe合约为恶意版本，并将恶意逻辑写入存储空间。</li>
+<li>随后：黑客通过恶意合约转移资金。</li>
+</ul>
+</li>
+<li><strong>与以往攻击的相似之处</strong>：
+<ul>
+<li>目标均为Gnosis Safe多签钱包。</li>
+<li>利用delegate call功能进行攻击。</li>
+<li>恶意合约的权限检查方式相似。</li>
+</ul>
+</li>
+</ul>
+<h1>对话中的隐藏信息</h1>
+<ol>
+<li>
+<p><strong>Gracy（Bitget总裁）</strong>：</p>
+<ul>
+<li><strong>表面意图</strong>：强调Bitget对BYBIT的支持是出于行业责任感和对友商的尊重，希望维护行业声誉，避免FTX事件重演。</li>
+<li><strong>实际意图</strong>：除了上述意图外，也可能希望借此机会提升Bitget的品牌形象，展示其财务实力和行业领导力。</li>
+<li><strong>情绪</strong>：表达了对BYBIT的信任和对行业的担忧，同时也透露出了一些疲惫。</li>
+<li><strong>背后所想</strong>：可能对BYBIT的安全措施有所质疑，但出于行业团结的考虑，未公开表达。</li>
+</ul>
+</li>
+<li>
+<p><strong>张老师（BYBIT）</strong>：</p>
+<ul>
+<li><strong>表面意图</strong>：感谢业界的支持，解释BYBIT的应对措施和财务状况，承诺加强安全。</li>
+<li><strong>实际意图</strong>：希望稳定市场情绪，减少用户流失，同时为BYBIT争取时间进行调查和恢复。</li>
+<li><strong>情绪</strong>：表达了对Ben的敬佩和对团队的信心，同时也透露出了一些压力和疲惫。</li>
+<li><strong>背后所想</strong>：可能对攻击细节和内部责任问题有所保留，不愿过多透露。</li>
+</ul>
+</li>
+<li>
+<p><strong>Ben (Bybit 总裁)</strong></p>
+<ul>
+<li><strong>表面意图</strong>: 解释事件发生经过, Bybit 的处理措施, 表达对业界的感谢, 承诺会加强安全。</li>
+<li><strong>实际意图</strong>: 希望外界看到Bybit积极应对, 并且有能力处理该次危机, 减少用户流失, 维护Bybit声誉.</li>
+<li><strong>情绪</strong>: 虽然疲惫, 但是保持冷静, 并且显示出对团队的信任和控制力.</li>
+<li><strong>背后所想</strong>: 虽然没有明说, 但是暗示了Bybit 在安全措施上存在疏漏, 需要加强. 对Gnosis Safe 是否存在问题表达了不确定.</li>
+</ul>
+</li>
+<li>
+<p><strong>安全研究人员</strong>：</p>
+<ul>
+<li><strong>表面意图</strong>：分析攻击手法，提供技术建议，协助调查。</li>
+<li><strong>实际意图</strong>：除了上述意图外，也可能希望借此机会展示自身的技术实力。</li>
+<li><strong>情绪</strong>：对攻击事件表示关注，对BYBIT的遭遇表示同情。</li>
+<li><strong>背后所想</strong>：对Gnosis Safe的安全性提出了质疑，暗示BYBIT可能存在内鬼或安全管理问题。</li>
+</ul>
+</li>
+</ol>
+<h1>其他信息</h1>
+<p>以下补充BYBIT被黑事件讨论中并非主要事件的分支细节：</p>
+<p><strong>1. 关于FTX事件的影响和对比：</strong></p>
+<ul>
+<li>Gracy提到，Bitget经历过FTX事件，深知其对行业的负面影响，因此不希望BYBIT事件被误解为类似情况，导致行业信心再次受挫。</li>
+<li>Ben也提到了FTX事件，认为FTX当时缺乏数据化的决策工具，导致应对混乱。BYBIT则通过数据化的看板，保持了冷静和有序的应对。</li>
+</ul>
+<p><strong>2. 关于Bitget的储备金证明（Proof of Reserve）：</strong></p>
+<ul>
+<li>Gracy提到，Bitget是较早一批采用储备金证明的交易所，每月公布一次快照。</li>
+<li>Bitget的储备金证明显示，其自有以太坊数量（20万枚）远超用户资产中的以太坊数量（11万枚），足以覆盖提供给BYBIT的4万枚以太坊借款。</li>
+<li>Bitget还设有行业第二大的保护基金（Bitget Protect Fund），用于应对极端情况下的用户资产损失。</li>
+</ul>
+<p><strong>3. 关于BYBIT的内部管理和文化：</strong></p>
+<ul>
+<li>张老师提到，BYBIT在招聘方面较为谨慎，注重员工与公司文化的契合度，人员扩张速度可能慢于业务发展速度。</li>
+<li>Ben提到，BYBIT员工在事件发生后迅速响应，展现了执行力和团队精神。</li>
+<li>BYBIT内部会定期进行P1级别的应急演练，模拟各种危机情况。</li>
+</ul>
+<p><strong>4. 关于BYBIT与其他交易所的关系：</strong></p>
+<ul>
+<li>Gracy提到，交易所之间既有竞争也有合作，Bitget与BYBIT在员工招聘等方面存在竞争，但同时也将对方视为友商，认为对手能使自己更强大。</li>
+<li>张老师提到，在BYBIT遭遇危机时，许多竞争对手都表示愿意提供支持，体现了加密货币行业的凝聚力。</li>
+<li>Ben提到，币安、OKX等交易所也表达了支持意愿，但BYBIT最终未接受币安的帮助。</li>
+</ul>
+<p><strong>5. 关于BYBIT的用户和机构反应：</strong></p>
+<ul>
+<li>张老师提到，BYBIT采取了分级提币策略，优先保障散户提币，与机构客户进行沟通。</li>
+<li>部分大户和做市商降低了在BYBIT的交易量或资产规模，但也有部分大户选择信任BYBIT并继续使用。</li>
+<li>BYBIT将根据内部BI报告评估事件对业务的影响，并采取相应措施。</li>
+</ul>
+<p><strong>6. 关于Gnosis Safe的讨论：</strong></p>
+<ul>
+<li>安全研究人员质疑Gnosis Safe的安全性，认为其delegate call功能存在被利用的风险。</li>
+<li>有人指出，Gnosis Safe的声明只提及合约没有问题，未提及UI是否存在问题。</li>
+<li>Ben表示，尚不确定攻击是否与Gnosis Safe有关，需要进一步调查。</li>
+</ul>
+<p><strong>7. 关于以太坊社区的反应：</strong></p>
+<ul>
+<li>有人提议以太坊进行硬分叉以回滚交易，但Ben认为可能性不大，因被盗以太坊数量占比相对较小。</li>
+<li>Ben表示将尝试联系V神（Vitalik Buterin），寻求建议。</li>
+</ul>
+<p><strong>8. 其它</strong></p>
+<ul>
+<li>Gracy 因为时差和下周的 ETHDenver 会议, 提前结束了对话.</li>
+<li>Bybit 提到和慢雾安全团队的合作.</li>
+<li>Bybit 考虑未来提高储备金证明的更新频率.</li>
+<li>OneKey 提到他们也关注到了本次攻击, 并且分析了攻击手法和之前 Radium 被黑事件的相似之处.</li>
+<li>讨论中也提到了其它安全公司如 Chainalysis 和 Fireblocks 等.</li>
+</ul>
+<p>这些分支细节进一步丰富了对BYBIT被黑事件的理解，展现了事件背后更广泛的行业背景、公司文化、技术讨论和社区反应。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/defi/bybit-attack-discussion/">https://www.blog-blockchain.xyz/defi/bybit-attack-discussion/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/defi/">defi</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2025/02/95eb14986eb078970730aa9dc6a0082d.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/audit/blockchain-client-security/" title="公链安全开发指南和审计checklist"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/01/c037c1551777613437e750a0fdd9489c.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">公链安全开发指南和审计checklist</div></div><div class="info-2"><div class="info-item-1"> 作者： Jiahao Luo 来源：https://blog-blockchain.xyz/audit/blockchain-client-security/  前言 【文档使用范围与目标读者】 本审计清单适用于从事区块链开发、安全审计，或对区块链底层安全感兴趣的技术人员和研究人员。我们假设读者对区块链基本概念（区块、交易、合约等）已有一定了解，但可能对密码学、P2P 网络、共识机制、跨链通信等专业领域的安全风险尚不完全熟悉。 【关键术语释义】  熵源：指生成随机数时所依赖的随机性来源，如操作系统随机数设备、硬件随机数模块等。熵源的质量直接决定私钥或交易nonce的安全性。 共识机制：区块链中达成一致状态的协议，如PoW、PoS、BFT等。若共识机制有漏洞，可能导致双花、长程攻击或分叉。 VM安全（虚拟机安全）：区块链上运行合约的执行环境（如EVM、WASM）。任何虚拟机级别的安全缺陷都会导致合约逻辑被恶意利用。  基于 SlowMist...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/defi/DFX-Finance-attack/" title="DFX Finance 攻击分析"><img class="cover" src="/images/defi.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-11</div><div class="info-item-2">DFX Finance 攻击分析</div></div><div class="info-2"><div class="info-item-1">信息 攻击者地址：0x14c19962e4a899f29b3dd9ff52ebfb5e4cb9a067 分析的交易：0x6bfd9e286e37061ed279e4f139fbc03c8bd707a2cdd15f7260549052cbba79b7 发起攻击的合约：0x6cfa86a352339e766ff1ca119c8c40824f41f22d 函数调用参数：https://fefu.io/eth/tx/0x6bfd9e286e37061ed279e4f139fbc03c8bd707a2cdd15f7260549052cbba79b7 tenderly:...</div></div></div></a><a class="pagination-related" href="/defi/JayPeggers-attack/" title="JayPeggers 攻击分析"><img class="cover" src="/images/defi.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-29</div><div class="info-item-2">JayPeggers 攻击分析</div></div><div class="info-2"><div class="info-item-1">UTU 2022 年 12 月 29 日 5 时（北京时间 13 时），以太坊主网上的 JayPeggers 协议遭到重入攻击，损失约 15 ETH。随后攻击者通过 Tornado.Cash 和 Aztec...</div></div></div></a><a class="pagination-related" href="/defi/Merkle-Tree-Proof-of-Reserves/" title="默克尔准备金（Merkle Tree Proof of Reserves)"><img class="cover" src="/images/defi.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-19</div><div class="info-item-2">默克尔准备金（Merkle Tree Proof of Reserves)</div></div><div class="info-2"><div class="info-item-1">what is Merkle Tree Proof of Reserves After FTX was hacked, many prevailing exchanges announced they would provide Merkle Tree Proof of Reserves to encourage transparency[1]. The Merkle tree proof of reserve is an essential cryptographic tool that is thought to boost the public confidence and transparency of user assets. It utilizes a particular data structure, Hash Tree or Merkle tree, to prove that the centralized exchange has adequate assets to serve its customers. The above picture from...</div></div></div></a><a class="pagination-related" href="/defi/defi-attack-cellection/" title="DeFi攻击事件研究"><img class="cover" src="/images/defi.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-23</div><div class="info-item-2">DeFi攻击事件研究</div></div><div class="info-2"><div class="info-item-1">前言：本文只为了交流学习，为了快速学习，已有的写的较好的资料直接照抄，并且在参考中注明来源。介绍的都非常简略，但是读者可以根据参考链接得到详细的讲解。 汇总表格    发生时间 名字 类型 损失金额 简述原因 代码 txhash     2022 年 07 月 25 日 LPC BNB 约 45,715 美元 实际的账户余额在后续操作中变化了，但是变量 recipientBalance 没有再次更新，导致后续计算余额偏大。  0x0e970ed84424d8ea51f6460ce6105ab68441d4450a80bc8d749fdf01e504ed8c   2022 年 06 月 27 日 XCarnival NFT ETH，业务逻辑漏洞 约 380 万美元 未考虑抵押物被取出不能借款的业务逻辑，主要是 isWithdraw(bool) 未在 borrow...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://www.linkedin.com/in/jiahao-michael-luo-8ba5942a3" rel="external nofollow noreferrer" target="_blank" title="Linkedin"><i class="fa-brands fa-linkedin"></i></a><a class="social-icon" href="https://x.com/jiahao_luo9" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">讨论议题与关注点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">攻击细节</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">对话中的隐藏信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">其他信息</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/defi/bybit-attack-discussion/" title="Bybit 攻击事件 X Space 讨论纪要"><img src="https://cdn.blog-blockchain.xyz/2025/02/95eb14986eb078970730aa9dc6a0082d.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Bybit 攻击事件 X Space 讨论纪要"/></a><div class="content"><a class="title" href="/defi/bybit-attack-discussion/" title="Bybit 攻击事件 X Space 讨论纪要">Bybit 攻击事件 X Space 讨论纪要</a><time datetime="2025-02-22T18:09:22.000Z" title="Created 2025-02-23 02:09:22">2025-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/audit/blockchain-client-security/" title="公链安全开发指南和审计checklist"><img src="https://cdn.blog-blockchain.xyz/2025/01/c037c1551777613437e750a0fdd9489c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公链安全开发指南和审计checklist"/></a><div class="content"><a class="title" href="/audit/blockchain-client-security/" title="公链安全开发指南和审计checklist">公链安全开发指南和审计checklist</a><time datetime="2025-01-21T09:03:53.000Z" title="Created 2025-01-21 17:03:53">2025-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/dev/fast-draw/" title="Mermaid 快速绘制流程图">Mermaid 快速绘制流程图</a><time datetime="2025-01-11T15:19:20.000Z" title="Created 2025-01-11 23:19:20">2025-01-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/web-security/" title="如何保障个人网站的安全"><img src="https://cdn.blog-blockchain.xyz/2024/12/f936073f7e7c6bdb2aa3ea0905916957.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何保障个人网站的安全"/></a><div class="content"><a class="title" href="/dev/web-security/" title="如何保障个人网站的安全">如何保障个人网站的安全</a><time datetime="2024-12-07T01:16:20.000Z" title="Created 2024-12-07 09:16:20">2024-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/academic/" title="科研小总结"><img src="https://cdn.blog-blockchain.xyz/2024/11/f52e2456bd75a61f46d60e3768543c7f.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="科研小总结"/></a><div class="content"><a class="title" href="/career/academic/" title="科研小总结">科研小总结</a><time datetime="2024-11-21T17:38:21.000Z" title="Created 2024-11-22 01:38:21">2024-11-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '3e0b7661155d1691b40a01eb873e6c88'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>
