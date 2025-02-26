@@ -1,0 +1,426 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>从 Alpha 到坐庄：不充分市场中的暴富 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在金融市场的丛林中，“暴富&quot;二字总是充满诱惑。相对于成熟、高效的市场，那些不充分的市场，由于信息不对称、监管缺失、参与者结构单一等原因，往往潜藏着更大的波动性和&quot;机会”。本文将从金融操作的角度，剖析在不充分市场中，从追求 Alpha（超额收益）到极端情况下的&quot;坐庄&quot;，可能涉及的策略和路径。 🚀 Alpha 的追逐：不充分市场中的&quot;信息差” 在有效">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从 Alpha 到坐庄：不充分市场中的暴富">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="在金融市场的丛林中，“暴富&quot;二字总是充满诱惑。相对于成熟、高效的市场，那些不充分的市场，由于信息不对称、监管缺失、参与者结构单一等原因，往往潜藏着更大的波动性和&quot;机会”。本文将从金融操作的角度，剖析在不充分市场中，从追求 Alpha（超额收益）到极端情况下的&quot;坐庄&quot;，可能涉及的策略和路径。 🚀 Alpha 的追逐：不充分市场中的&quot;信息差” 在有效">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png">
+<meta property="article:published_time" content="2025-02-26T03:11:20.000Z">
+<meta property="article:modified_time" content="2025-02-26T15:21:47.617Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="developer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.2.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从 Alpha 到坐庄：不充分市场中的暴富',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">从 Alpha 到坐庄：不充分市场中的暴富</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">从 Alpha 到坐庄：不充分市场中的暴富</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-26T03:11:20.000Z" title="Created 2025-02-26 11:11:20">2025-02-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-26T15:21:47.617Z" title="Updated 2025-02-26 23:21:47">2025-02-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/think/">think</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>13mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>在金融市场的丛林中，“暴富&quot;二字总是充满诱惑。相对于成熟、高效的市场，那些不充分的市场，由于信息不对称、监管缺失、参与者结构单一等原因，往往潜藏着更大的波动性和&quot;机会”。本文将从金融操作的角度，剖析在不充分市场中，从追求 Alpha（超额收益）到极端情况下的&quot;坐庄&quot;，可能涉及的策略和路径。</p>
+<h1><strong>🚀 Alpha 的追逐：不充分市场中的&quot;信息差”</strong></h1>
+<p>在有效市场中，所有信息都已反映在价格中，获取超额收益（Alpha）难于登天。但在不充分市场中，信息传播的滞后、扭曲，为 Alpha 的追逐提供了空间。</p>
+<p>应该有不少的 KOL 都是通过这种手段，在20年开始积累了自己的原始资本的。他们有的会重复研究项目的价值，团队背景，叙事，市场情绪等，形成自己的研究优势。在早期，绝大多数人的盲目的，合约只知道倍数，甚至不知道怎么计算的。这个时候，基于对技术和叙事的自信，有人投入了大量的资金。</p>
+<p>我看到 0富 KOL就建立了自己的新闻渠道，并且试图通过对消息的全面掌握，先于市场，获得低价的筹码。</p>
+<p>但是这种手段会越来越难，聪明人总是会闻着钱的味道，去追寻所有的「因子」。我有自信，他们能够想到几乎所有的常规的因子，并且有足够高的工资和收益期望，支持他们做回测。</p>
+<p>同时，加密货币市场已经不是技术市场，而是情绪市场和小部分的价值市场。随着 ETF 能够买卖 BTC 和 ETH，加密货币成为了美股投资的选择，而美股聚集着全世界的钱。比特币已经成为了类似于黄金的价值储备，已经建立了足够强大的共识，而且它的技术基础足够稳固，能够不断的运行下去。</p>
+<p>情绪市场在 meme 爆火之后变得尤为明显，FOMO 和 注意力经济，支配着 meme coin 的兴衰。散户和机构的情绪，能够让价格拉升百倍，或者跌落 99%，暴富的神话就像美西淘金热潮一样，让不少人争相进入加密货币市场，成为「韭菜」。</p>
+<p>随着「韭菜」也想赚钱，无许可市场的优势就催生了无数的 meme coin。它们数量之多，投机和波动性之强，已经催生出了「枯坐」和「对讲机」的淘金狗的模式了。无数的 meme coin 成为了人们投机的对象，而要产生百倍币，则需要流动性从0到1到10这个过程，就需要热钱的涌入。哪个 coin 能得到更多人的关注，那么它就更加可能成为「金狗」。</p>
+<h1><strong>🚀 &quot;坐庄&quot;的迷思：操纵市场的幻象与风险</strong></h1>
+<p>为什么说散户进来就是「韭菜」呢？这不是跟风的说法，而是有真切的感受。首先，我刚开始接触crypto的时候，对「庄家」和市场操控毫无认识，居然会认为哪里有什么庄家。散户进场，他们得到的信息只有价格，而价格是最容易被操控的了。哈耶克的理论说，所有市场的因素已经隐藏在价格之中。但是为什么美国会有 SEC 来监督股市呢，这是因为价格是容易被操控的。可是币圈没有监督呀，是一个无序的不充分市场。</p>
+<p>当 Alpha 的追逐走向极端，便可能演变为&quot;坐庄&quot;，即试图通过控制供求关系，人为影响市场价格。我观察了现在的喜欢说真话，炫耀以及打击他人，获得足够的自信和心理满足的 KOL，发现他们基本上不少有操纵市场的行为。</p>
+<p>当然，我还是很感谢他们能够说出 FTX 时期过期的 alpha，并且把它称作为广义的「套利」，而且会在过气后拿出来炫耀。</p>
+<h2 id="✅-内幕交易是常态。">✅ 内幕交易是常态。</h2>
+<p>不只是 meme 充满了内幕交易和阴谋集团，他们自己分配了大量的筹码，然后拉盘，接着分批卖出。交易所上币的许多小市值的 token，也充满了坐庄。加密货币市场就像池塘，庄家之间合作的会装满半个池塘，聪明的跟踪者，吃了剩下的小部分汤，交易服务机构则从中「抽水」。池塘里另外一半则是散户和机构涌入的热钱。我们可以假设池塘是流动性，流动性翻一倍，价格变成 10 倍。那么投机者实际上会有个阶段看到自己的资产上升非常多的，然而当潮水退去，庄家离场，散户血亏。赢家只有加密货币服务者（CEX，DEX）、约5%的聪明钱以及博弈胜利的庄家。</p>
+<p>内幕交易就是其中重要一环，他们即将创造影响价格和情绪的事件，比如拉盘和出货。内幕交易者获得了低价的筹码，并且知道价格一定会上涨。在最疯狂的时代，10 m 能够在一天内变成 20 m。</p>
+<h2 id="✅-gmgn-和-debot-的设计思路，是在为用户提供alpha，并且减少市场的alpha。">✅ gmgn 和 debot 的设计思路，是在为用户提供alpha，并且减少市场的alpha。</h2>
+<p>我们知道 alpha 是来源不充分的市场，但是掌握的人越多，那么就会越早的反映在价格中，这个 alpha 就失效了。gmgn、dexx、debot 等 DEX 市场的爆火，每日盈利能有约 50 万美刀，说明了在自己利用 alpha的收益不够大时，去提供 alpha 信息，并且收费，是一条可行的道路。</p>
+<p>现在的 DEX 已经在简单 swap 的功能性上走到的瓶颈了，虽然可以模仿 solana jupiter 的强大的 quote (兑换路径计算)的思路，将每次兑换到手资金多得到 0.5 %，但是从 0 到 1 的变化已经结束了，1到2的努力需要巨大的成本。</p>
+<p>DEX 新的发展思路成为了淘金场的铲子，越来越像 CEX 了，做金融服务。无论是聪明钱、AI 监控、跟单、各个地址标签，都是为了给用户提供他们「自认为有效」的决策信息，并且让他们以为，他们掌握的信息和做出的决策，能够领先市场的共识。</p>
+<h2 id="✅-技术面指标和市场情绪是最美味的食物。">✅ 技术面指标和市场情绪是最美味的食物。</h2>
+<p>🧨 庄家的拉盘的一般过程，选择的标准如下</p>
+<ul>
+<li><strong>低市值币种:</strong> 市值小，更容易用少量资金影响价格。</li>
+<li><strong>流动性较差:</strong> 交易量不大，容易控盘。</li>
+<li><strong>有一定社区基础:</strong> 有一定数量的散户关注，方便后期“割韭菜”。</li>
+<li><strong>叙事潜力:</strong> 有故事可讲，容易吸引人。例如，与热门概念（如元宇宙、Web3）相关，或声称有技术突破。</li>
+</ul>
+<p>🧨 然后开始吸筹码，综合利用</p>
+<ul>
+<li>场外交易（Over-The-Counter, OTC）从大户手中收购，避免影响交易所价格。</li>
+<li>分批、小额、长时间买入，避免引起市场警觉和价格大幅上涨。</li>
+<li>洗盘 (Shakeout)，故意打压价格，使持币者恐慌抛售，再低价接回筹码。</li>
+</ul>
+<p>🧨 开始拉盘了，这个时候会朝着交易所的指标去做，而这个指标也充满了内幕交易。</p>
+<ul>
+<li>加强叙事，释放利好消息。与项目方合作，或通过媒体、社交平台（如 Twitter, Reddit, Telegram）散布利好消息，如项目进展、合作、上新交易所等。</li>
+<li>开始喊单。雇佣或利用 KOL (Key Opinion Leader, 关键意见领袖) 或“网红”在社交媒体上鼓吹该币种，吸引散户关注。</li>
+<li>操纵技术面，让「有技术」的散户大额入场。通过拉升价格突破关键阻力位，制造技术上的买入信号。</li>
+<li>对敲订单，内幕集团自己买，自己卖，制造市场异动，和交易活跃的假象，推高价格。</li>
+<li>然后在买盘挂出高价买单，诱导散户以更高价格买入。并且操控 FOMO 情绪，吸引更多散户因为害怕错过机会（Fear of Missing Out, FOMO）而追高买入。</li>
+</ul>
+<p>🧨 开始出货了，现在手里有足够的筹码，能够大幅的影响市场。要出货一定要有市场的「高位震荡」，不然出货容易造成价格猛跌，前面做的就砸手里了。</p>
+<ul>
+<li>制造高位震荡。价格还是比较高的位置，但是开始震荡起来，让散户能在「相对低位」来高位接盘。手段比如说，通过 KOL 散步利空消息，诸如解锁、项目遇到挫折等。还可以直接小幅砸盘。</li>
+<li>庄家 分批、小量卖出。</li>
+<li>如果庄家就是项目方，而且还缺少社区共识，那么可能直接Rug Pull (跑路)，撤走所有流动性。</li>
+</ul>
+<p>🧨 庄家之间也会博弈的，他们在价格、仓位、意图方面进行PVP，往往仓位几十万上百万，试图让对方爆仓。最后 Rugpull 阶段，就是博弈跑路速度的时候了。</p>
+<p>我们来总结几个要点：</p>
+<aside>
+<ul>
+<li>几乎所有市场都有庄家，并且利用上述手段赚取高额利润，可以达到年入 100m 美刀。但是越大的市场，越难被单一集团操控。</li>
+<li>“FOMO”营销往往在拉盘阶段，加入的散户，如果不是阴谋集团，那么可能只有5%的人翻倍，20%的人不亏，其余亏损。</li>
+<li>KOL 的所有推荐，几乎都存在广告成份，项目方宣传手段无可厚非，但是也很可能存在 VC 割韭菜的行为。</li>
+<li>空头、预售、名人背书，大部份是做盘的阶段，这是一个跑得快的游戏。</li>
+</ul>
+</aside>
+<h2 id="✅-散户能如何盈利呢？">✅ 散户能如何盈利呢？</h2>
+<p><strong>⚠️ 虎口夺食，搭便车。</strong></p>
+<ol>
+<li><strong>识别早期信号：</strong> 密切关注市场异动，如交易量突然放大、价格突破关键阻力位、社交媒体开始出现相关讨论等。</li>
+<li><strong>快速进出：</strong> 一旦发现庄家拉升迹象，迅速买入，并设置<strong>严格的止盈止损点</strong>。这就是一定要有交易的纪律。</li>
+<li><strong>见好就收：</strong> 不要贪婪，一旦达到预期收益，或发现市场走势不对，立即离场。大部份情况，庄家是必然砸盘的，机构的成本远大于散户，他们的情绪难以捉摸。</li>
+</ol>
+<p>但是如果你无法通过回测找到早期信号，或者反映太慢，都可能亏损掉所有本金。庄家也会反向操作，在暴跌时制造上升迹象，引诱上钩。</p>
+<p><strong>⚠️ 别人恐惧我贪婪，我懂庄家的心，反着极端市场情绪操作。</strong></p>
+<p>FOMO 时拿住本金，然后如果认为项目在一定阶段不会黄，那么逢低买入，等回到高位时卖出。</p>
+<p>但是很有可能发生❌ <strong>“接飞刀”：</strong> 抄底可能抄在半山腰，价格继续下跌。❌ <strong>项目归零：</strong> 如果项目被庄家彻底抛弃，可能永远无法回本。❌ <strong>时间成本：</strong> 需要长时间持有，才能等到市场反转。</p>
+<p><strong>🔥 根据专业知识，进行价值投资策略。</strong></p>
+<p>寻找真正有价值的加密货币项目，长期持有，忽略短期市场波动。坚信项目价值，不被市场短期波动所影响。资金分成10份，有节奏的逢低买入。</p>
+<p>🔥 <strong>量化交易策略（需要技术门槛）。</strong></p>
+<p>利用算法和程序，可以避免追涨杀跌。但是，因为庄家可以基本推算所有人的仓位，极度熟悉算法和市场止损点位。</p>
+<aside>
+<ul>
+<li>最安全的策略就是远离。</li>
+<li>靠着反市场情绪，预估市场心理价位，然后反向操作。但是一旦市场趋势改变，很可能变成负债 2 亿的被女朋友绿的凉兮。</li>
+<li>量化交易策略，寻找自己的 alpha。</li>
+<li>价值投资策略，比特币的未来是比较确定的，ETH是智能合约的基本盘。</li>
+</ul>
+</aside>
+<h1><strong>🚀</strong> 他们是如何暴富的？</h1>
+<ol>
+<li><strong>找到一个极度不成熟、信息极度不对称的市场：</strong> 例如，某个新生的、极小众的加密货币市场，或某个监管严重缺失的金融市场。</li>
+<li><strong>获得关键的、未公开的信息：</strong> 例如，某个即将改变游戏规则的技术突破、某个公司的重大并购消息、某个政策的重大调整等（但获取和利用这些信息很可能涉及违法）。</li>
+<li><strong>完美把握时机：</strong> 在信息公开前，以极低的成本大量买入相关资产，并在信息公开后，市场价格飙升时，成功卖出。</li>
+<li><strong>全程无人发现或阻止：</strong> 这种操作很可能引起监管部门的注意，并被调查。</li>
+<li><strong>使用杠杆</strong></li>
+<li>你是运气极好的天选之子，能靠着运气活到领悟市场规律的时候。</li>
+</ol>
+<p>加密货币市场几乎提供了前面 5 点条件，而最后一点可能是最重要的。一个市场里会有20%的人意识到有些人存在暴富手段，10%的人去探索，5%的人具备执行的能力，但是只有0.1%的人能成为几个天选之子。</p>
+<p>他们会在信息不对称，不充分的市场</p>
+<ul>
+<li>深度调研、执行和回测：通过深入研究公开信息（如公司财报、行业报告、政策文件），比其他市场参与者更早、更准确地解读信息，从而做出更明智的投资决策。</li>
+<li>利用技术分析漏洞，寻找微小价差的套利机会。</li>
+<li>研究行为经济学，在市场极度恐慌或极度贪婪时，反向操作，利用市场情绪的过度反应获利。比如在超跌时买入，并且预测参与者的非理性行为。</li>
+<li>利用技术手段，抢先交易（Front-running, 非法）和高频交易，利用高速计算机和算法，捕捉市场微小的价格波动，进行快速交易获利。</li>
+</ul>
+<aside>
+<p>对于普通人，最好是放弃不切实际的幻想，学习金融知识，深入了解市场机制、投资策略、风险管理等。然后跟着趋势和价值，选择优质资产，进行长期投资。<strong>享受人类经济增长的红利</strong>。</p>
+</aside>
+<h1><strong>🚀 超越 Alpha 与坐庄：加密货币市场的终局思辨</strong></h1>
+<p>我们穿越加密货币市场的迷雾，见证了 Alpha 的追逐、庄家的操纵、散户的挣扎。然而，喧嚣背后，更深层次的变革力量正在涌动。加密货币市场，不仅是投机场，更是试验场——一个关于去中心化理想、人性博弈与金融新范式的宏大实验。</p>
+<p>去中心化理想，在现实中呈现出迷人的“悖论”。比特币的创世区块，铭刻着对中心化金融体系的反叛；以太坊的诞生，更带着社会实验的理想。然而，算力集中、交易所权力、巨鲸操控、项目方中心化……这些“中心化”的幽灵，始终徘徊不去。这并非理想的破灭，而是“去中心化”本身的复杂性使然。真正的挑战，在于如何在去中心化与中心化之间寻求微妙的平衡，构建一个既能释放去中心化优势，又能有效治理与监管的体系。</p>
+<p>人性，是这场实验中永恒的变量。加密货币市场放大了人性的贪婪与恐惧、从众与盲动。Meme 币的狂欢、庄家的镰刀、“科学家”的套利，无不折射出人性的光辉与幽暗。匿名性、全球性、24/7 交易，让这场博弈更显激烈。监管的缺位，一度让负面效应肆意蔓延。未来的挑战，在于如何以制度与技术，抑制人性之恶，引导理性投资。</p>
+<p>然而，我们不能否认，加密货币市场正推动着金融范式的深刻变革。DeFi 试图重构金融体系，NFT 探索数字产权的新边界，DAO 尝试全新的组织形态，Web3 勾勒未来互联网的蓝图。这些创新，是对现有体系的反思，也是对未来可能性的探索。</p>
+<p>监管，在野蛮生长中觉醒，并在试错中不断演进。打击犯罪、保护投资者、拥抱创新，监管在多重目标中寻求平衡。市场的成熟，离不开监管的护航，这是一个动态博弈、螺旋上升的过程。</p>
+<p>加密货币市场的终局，并非某一种币的独霸，亦非某一种模式的垄断，而是一个更多元、开放、透明、高效的金融体系的渐进形成。技术的进步、监管的完善、人性的博弈，将共同塑造这一未来。</p>
+<p>身处变革浪潮，我们需要开放的心态、独立的思考、敬畏之心。这不仅是财富的游戏，更是认知的革命，一场关乎未来金融与社会形态的深刻探索。正如以太坊试图构建的，是可编程的社会形态。</p>
+<p>唯一不变的，是变化本身。保持学习，保持思辨，保持敬畏，方能在时代的洪流中，把握机遇，迎接挑战。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/">https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/defi/bybit-attack-discussion/" title="Bybit 攻击事件 X Space 讨论纪要"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/02/95eb14986eb078970730aa9dc6a0082d.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Bybit 攻击事件 X Space 讨论纪要</div></div><div class="info-2"><div class="info-item-1">BYBIT被黑客盗取15 亿美元事件是加密货币行业历史上最大的盗窃案之一，暴露了交易所安全管理和多签钱包技术的潜在风险。此次事件中，Bitget等交易所的及时支持体现了行业在竞争中的合作精神，但同时也引发了对交易所安全措施、社会工程学攻击防范、多签钱包安全性等问题的深入讨论。BYBIT表示将加强安全措施，并努力恢复用户信任，但事件的具体原因和责任仍有待进一步调查。此次事件也为整个加密货币行业敲响了警钟，提醒各方加强安全意识，共同维护行业健康发展。 下面是对BYBIT被黑客盗取15 亿美元事件讨论的梳理和分析：  来自语音转录后 AI 总结，语音转写可能存在错误，大模型可能存在误解，自行辨别消息。  讨论议题与关注点   事件经过与损失：  BYBIT交易所遭到黑客攻击，损失约 15...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/career/become-good-coder/" title="如何成为优秀的软件工程师"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-09</div><div class="info-item-2">如何成为优秀的软件工程师</div></div><div class="info-2"><div class="info-item-1">要成为一名优秀的软件工程师，需要掌握广泛的技能和知识，包括基础的数据结构、高级架构设计和良好的编程实践。本文将为你详细介绍如何全面提升自己的编程能力，成为卓越的软件工程师。 深入掌握数据结构与算法 TODO: 我的数据结构和算法的笔记，每一类数据结构怎么用。 数据结构和算法是软件工程的核心基础。深入理解数组、链表、堆栈、队列、树、图等基础数据结构，可以帮助你高效地解决复杂问题。你不仅需要理解它们的工作原理，还要清楚它们的优缺点、本质特性以及适用的应用场景。 数组是一种连续存储的结构，适合需要快速随机访问的场景，访问的时间复杂度为 O(1)。但它在插入和删除操作时需要移动大量数据，时间复杂度为 O(n)，因此不适合频繁插入和删除的场景。数组通常用于需要快速访问的应用，例如排行榜和固定大小的数据集合。 链表是一种由节点组成的结构，每个节点包含数据和指向下一个节点的指针。链表在已知位置时，插入和删除操作非常高效，时间复杂度为 O(1)，但随机访问的效率较低，为...</div></div></div></a><a class="pagination-related" href="/dev/crypto-practice/" title="安全加密实践-GPG"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/ecd2b676f9bf98a607c67fc697f9ed4e.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="info-item-2">安全加密实践-GPG</div></div><div class="info-2"><div class="info-item-1">GPG 是一款强大的开源加密工具，基于公钥密码学原理，为电子通信提供隐私保护和数据验证。它广泛应用于确保信息安全和身份认证。 安装指南 Linux 系统 Debian/Ubuntu: 12sudo apt updatesudo apt install gnupg CentOS/RHEL: 1sudo yum install gnupg Fedora: 1sudo dnf install gnupg Arch Linux: 1sudo pacman -S gnupg macOS 使用 Homebrew 安装： 1brew install gnupg Windows    从 Gpg4win 官方网站 下载安装包 2. 运行安装程序，按提示完成安装 3. 安装后，在命令提示符或 PowerShell 中验证    FreeBSD 通过 pkg 包管理器安装： 1pkg install gnupg 验证安装 在任何平台上，运行以下命令确认安装成功： 1gpg...</div></div></div></a><a class="pagination-related" href="/dev/backup-practice/" title="传输和备份实践"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="info-item-2">传输和备份实践</div></div><div class="info-2"><div class="info-item-1">rsync rsync 是一个强大的文件同步和传输工具，适用于类 Unix 系统。Windows 用户可以通过 WSL（Windows Subsystem for Linux）来使用 rsync。以下是详细的安装和使用方法： Ubuntu/Debian： 12sudo apt updatesudo apt install rsync CentOS/Fedora： 1sudo yum install rsync macOS（使用 Homebrew）： 1brew install rsync 注意，两台机器都要安装好。 使用方法 1rsync [选项] 源目录/ 目标目录  -a：归档模式，保留所有文件属性 -v：详细输出 -z：压缩传输 -P：显示进度并允许断点续传 –delete：删除目标目录中源目录没有的文件 -h：以人类可读的格式显示文件大小 -e：指定要使用的远程 shell，通常用于指定 SSH 连接参数  本地同步： 1rsync -avzP /path/to/source/...</div></div></div></a><a class="pagination-related" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-29</div><div class="info-item-2">(三）Python面向对象设计模式</div></div><div class="info-2"><div class="info-item-1">类和对象 一切都是对象 在 Python 中，“一切皆对象”是一个核心理念。简单来说，Python 中的所有东西都是对象，无论是数值、字符串、函数、类，甚至是模块和代码本身。Python 对象有三个特征：身份、类型和值。  身份：对象在内存中的地址，可以通过 id() 函数查看，例如 id(obj)。 类型：对象的类别，可以通过 type() 函数查看。例如，type(5) 返回 &lt;class 'int'&gt;。 值：对象的实际内容或数据，直接调用变量名即可查看。  1234i = 2print(id(i))      # 输出 i 的存储地址print(type(i))    # 输出 &lt;class &#x27;int&#x27;&gt;print(i)          # 输出变量 i...</div></div></div></a><a class="pagination-related" href="/dev/docker/" title="docker自动化"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">docker自动化</div></div><div class="info-2"><div class="info-item-1">了解背景 Docker 是一种轻量级的容器化技术，主要用于应用程序的环境迁移和一致性。你需要知道下面的基本概念：  了解镜像、容器的基本概念：https://yeasy.gitbook.io/docker_practice/basic_concept 数据卷的基本概念：https://yeasy.gitbook.io/docker_practice/data_management/volume 网络方面，端口映射、docker compose 容器互联：https://yeasy.gitbook.io/docker_practice/network/port_mapping  OK，上面三个基本概念，你就足够使用 docker 了，然后我们来了解 docker 最实用的地方：  环境迁移，在不同的机器上保持一致性，一次创建或配置，可以在任意地方正常运行。。 直接在 docker 内利用 linux 环境和路径挂载来开发。  隔离依赖、统一开发环境、快速启动。 利用 Linux 容器作为开发环境：在不同平台（Windows、Mac、Linux）上保持一致的开发环境。 通过...</div></div></div></a><a class="pagination-related" href="/dev/macbook/" title="macbook体验"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-17</div><div class="info-item-2">macbook体验</div></div><div class="info-2"><div class="info-item-1">为什么我喜欢 MacBook 最近买了一台 MacBook，使用下来感觉很不错。MacBook 铝制一体化机身，既美观又坚固，硬件质量很可以。最主要是非常省心，合上盖子即可快速休眠，打开盖子能立即恢复工作状态，不会出现无法休眠或休眠后无法唤醒的问题，提供流畅、稳定的使用体验。 MacBook 的电池续航能力一直是业界领先，屏幕素质好，高分辨率和准确的色彩，还有应用的UI更加美观。其次是 macOS 基于 Unix，基本能通过命令行管理开发环境和软件安装，对于熟悉的人来说，会比UI更加便捷。MacBook 在众多开源项目使用很普遍，尤其是视频剪辑和写代码，生态还是相当完善的。 我最近购买了一台 MacBook Pro 14 英寸，配备 M4 Pro 处理器、48GB 内存和 512GB 存储，还买了三年的 AC+。选择这么大的内存是为了确保长期使用（3 年以上）时系统仍能流畅运行。考虑到未来软件可能会更加耗费内存，24GB 可能在几年后显得不够用。我之前 32GB 的MBP一般占用在27GB左右。我主要用于编程和文字处理，不会存储大量视频素材或游戏，因此 512GB...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://www.linkedin.com/in/jiahao-michael-luo-8ba5942a3" rel="external nofollow noreferrer" target="_blank" title="Linkedin"><i class="fa-brands fa-linkedin"></i></a><a class="social-icon" href="https://x.com/jiahao_luo9" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">🚀 Alpha 的追逐：不充分市场中的&quot;信息差”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">🚀 &quot;坐庄&quot;的迷思：操纵市场的幻象与风险</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E5%86%85%E5%B9%95%E4%BA%A4%E6%98%93%E6%98%AF%E5%B8%B8%E6%80%81%E3%80%82"><span class="toc-number">2.1.</span> <span class="toc-text">✅ 内幕交易是常态。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-gmgn-%E5%92%8C-debot-%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%EF%BC%8C%E6%98%AF%E5%9C%A8%E4%B8%BA%E7%94%A8%E6%88%B7%E6%8F%90%E4%BE%9Balpha%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%87%8F%E5%B0%91%E5%B8%82%E5%9C%BA%E7%9A%84alpha%E3%80%82"><span class="toc-number">2.2.</span> <span class="toc-text">✅ gmgn 和 debot 的设计思路，是在为用户提供alpha，并且减少市场的alpha。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E6%8A%80%E6%9C%AF%E9%9D%A2%E6%8C%87%E6%A0%87%E5%92%8C%E5%B8%82%E5%9C%BA%E6%83%85%E7%BB%AA%E6%98%AF%E6%9C%80%E7%BE%8E%E5%91%B3%E7%9A%84%E9%A3%9F%E7%89%A9%E3%80%82"><span class="toc-number">2.3.</span> <span class="toc-text">✅ 技术面指标和市场情绪是最美味的食物。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E6%95%A3%E6%88%B7%E8%83%BD%E5%A6%82%E4%BD%95%E7%9B%88%E5%88%A9%E5%91%A2%EF%BC%9F"><span class="toc-number">2.4.</span> <span class="toc-text">✅ 散户能如何盈利呢？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">🚀 他们是如何暴富的？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">🚀 超越 Alpha 与坐庄：加密货币市场的终局思辨</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/career/crypto-beyond-alpha-and-manipulation/" title="从 Alpha 到坐庄：不充分市场中的暴富"><img src="https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从 Alpha 到坐庄：不充分市场中的暴富"/></a><div class="content"><a class="title" href="/career/crypto-beyond-alpha-and-manipulation/" title="从 Alpha 到坐庄：不充分市场中的暴富">从 Alpha 到坐庄：不充分市场中的暴富</a><time datetime="2025-02-26T03:11:20.000Z" title="Created 2025-02-26 11:11:20">2025-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/defi/bybit-attack-discussion/" title="Bybit 攻击事件 X Space 讨论纪要"><img src="https://cdn.blog-blockchain.xyz/2025/02/95eb14986eb078970730aa9dc6a0082d.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Bybit 攻击事件 X Space 讨论纪要"/></a><div class="content"><a class="title" href="/defi/bybit-attack-discussion/" title="Bybit 攻击事件 X Space 讨论纪要">Bybit 攻击事件 X Space 讨论纪要</a><time datetime="2025-02-22T18:09:22.000Z" title="Created 2025-02-23 02:09:22">2025-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/audit/blockchain-client-security/" title="公链安全开发指南和审计checklist"><img src="https://cdn.blog-blockchain.xyz/2025/01/c037c1551777613437e750a0fdd9489c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公链安全开发指南和审计checklist"/></a><div class="content"><a class="title" href="/audit/blockchain-client-security/" title="公链安全开发指南和审计checklist">公链安全开发指南和审计checklist</a><time datetime="2025-01-21T09:03:53.000Z" title="Created 2025-01-21 17:03:53">2025-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/dev/fast-draw/" title="Mermaid 快速绘制流程图">Mermaid 快速绘制流程图</a><time datetime="2025-01-11T15:19:20.000Z" title="Created 2025-01-11 23:19:20">2025-01-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/web-security/" title="如何保障个人网站的安全"><img src="https://cdn.blog-blockchain.xyz/2024/12/f936073f7e7c6bdb2aa3ea0905916957.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何保障个人网站的安全"/></a><div class="content"><a class="title" href="/dev/web-security/" title="如何保障个人网站的安全">如何保障个人网站的安全</a><time datetime="2024-12-07T01:16:20.000Z" title="Created 2024-12-07 09:16:20">2024-12-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.2.2"></script><script src="/js/main.js?v=5.2.2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'bc9d63616e06110e5f983be4e2562c17'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.2.2"></script></div></div></body></html>
