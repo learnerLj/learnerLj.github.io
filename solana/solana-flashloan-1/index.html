@@ -1,0 +1,522 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Solana flashloan 原理和设计 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Solana区块链上闪电贷的设计与实现 摘要 本文探讨了在Solana区块链上闪电贷的设计原理和实现方法。闪电贷作为无抵押借贷的创新金融工具，在去中心化金融(DeFi)生态系统中扮演着重要角色。文章分析了Solana区块链独特的账户模型和交易结构如何支持闪电贷机制，详细阐述了基于Sysvar指令的还款验证方法，并与以太坊上的实现进行了对比分析。研究表明，Solana的指令级验证机制、低交易费用和高">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solana flashloan 原理和设计">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/solana/solana-flashloan-1/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="Solana区块链上闪电贷的设计与实现 摘要 本文探讨了在Solana区块链上闪电贷的设计原理和实现方法。闪电贷作为无抵押借贷的创新金融工具，在去中心化金融(DeFi)生态系统中扮演着重要角色。文章分析了Solana区块链独特的账户模型和交易结构如何支持闪电贷机制，详细阐述了基于Sysvar指令的还款验证方法，并与以太坊上的实现进行了对比分析。研究表明，Solana的指令级验证机制、低交易费用和高">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png">
+<meta property="article:published_time" content="2025-05-17T14:09:33.000Z">
+<meta property="article:modified_time" content="2025-05-17T14:43:54.456Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="solana">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Solana flashloan 原理和设计",
+  "url": "https://www.blog-blockchain.xyz/solana/solana-flashloan-1/",
+  "image": "https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png",
+  "datePublished": "2025-05-17T14:09:33.000Z",
+  "dateModified": "2025-05-17T14:43:54.456Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Michael(Jiahao) Luo",
+      "url": "https://www.blog-blockchain.xyz/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/solana/solana-flashloan-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"/><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css?v=5.3.5"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Solana flashloan 原理和设计',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">83</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">Solana flashloan 原理和设计</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Solana flashloan 原理和设计</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-05-17T14:09:33.000Z" title="Created 2025-05-17 22:09:33">2025-05-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-05-17T14:43:54.456Z" title="Updated 2025-05-17 22:43:54">2025-05-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/solana/">solana</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>11mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1>Solana区块链上闪电贷的设计与实现</h1>
+<h2 id="摘要">摘要</h2>
+<p>本文探讨了在Solana区块链上闪电贷的设计原理和实现方法。闪电贷作为无抵押借贷的创新金融工具，在去中心化金融(DeFi)生态系统中扮演着重要角色。文章分析了Solana区块链独特的账户模型和交易结构如何支持闪电贷机制，详细阐述了基于Sysvar指令的还款验证方法，并与以太坊上的实现进行了对比分析。研究表明，Solana的指令级验证机制、低交易费用和高并行性使其成为闪电贷应用的理想平台。通过本文提出的设计模式，开发者可以构建高效、安全的闪电贷应用，为Solana生态系统增添新的金融工具。</p>
+<blockquote>
+<p>第二篇会实操本地部署：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj/adobe">https://github.com/learnerLj/adobe</a> ，敬请期待。</p>
+</blockquote>
+<h2 id="1-引言">1. 引言</h2>
+<p>闪电贷（Flash Loan）是去中心化金融（DeFi）中的一项创新技术，允许用户在无需提供抵押品的情况下借入资金，前提是借款和还款必须在同一个区块或交易中完成。这一机制利用了区块链交易的原子性特征，为用户提供了临时流动性，使其能够执行套利、清算、债务重组等复杂金融操作。</p>
+<p>随着DeFi生态系统的发展，闪电贷已成为流动性利用的重要工具。在以太坊网络上，闪电贷已经被广泛应用于各类金融协议中。然而，由于以太坊的高交易费用和有限的处理能力，闪电贷的应用场景受到了一定限制。</p>
+<p>Solana作为一种高性能的区块链平台，提供了每秒处理数万笔交易的能力和极低的交易费用，为闪电贷应用开辟了新的可能性。本文旨在探讨如何在Solana上设计和实现闪电贷机制，分析其技术挑战和解决方案，并与以太坊上的实现进行对比。</p>
+<p>研究目标：</p>
+<ol>
+<li>分析Solana账户模型和交易结构如何支持闪电贷</li>
+<li>提出适用于Solana的闪电贷设计模式</li>
+<li>探讨实现闪电贷的关键技术挑战和解决方案</li>
+<li>与以太坊闪电贷实现进行对比分析</li>
+</ol>
+<h2 id="2-背景与相关工作">2. 背景与相关工作</h2>
+<h3 id="2-1-闪电贷基本原理">2.1 闪电贷基本原理</h3>
+<p>闪电贷是一种无需抵押的贷款机制，其核心特点是借款和还款必须在同一个区块（对于Solana来说，在同一个交易）内完成。这种机制的基本流程如下：</p>
+<ol>
+<li>用户从流动性池（如自动做市商AMM或借贷协议）借入资金</li>
+<li>用户使用这些资金执行一系列操作（如套利、清算等）</li>
+<li>用户归还本金加上手续费</li>
+<li>所有操作必须在同一笔交易中完成，否则交易会被回滚</li>
+</ol>
+<p>闪电贷的主要应用场景包括：</p>
+<ul>
+<li><strong>套利交易</strong>：利用不同DEX之间的价格差异进行套利。例如，在Raydium上以较低价格购买代币，然后在Orca上以较高价格卖出，从中获取利润。闪电贷允许交易者无需自有资金即可执行大规模套利操作。</li>
+<li><strong>清算</strong>：当借贷平台上的借款人抵押率低于清算阈值时，清算人可以借入闪电贷资金来偿还债务，获得抵押品作为奖励。例如，在Solend上清算不良债务，获得额外的清算奖励。</li>
+<li><strong>债务重组</strong>：借款人可以通过闪电贷优化其债务结构。具体来说，假设用户在Solend上以10%的年利率借了1000 USDC，同时在Port Finance上以8%的年利率借了1000 USDC。用户可以通过闪电贷借入1000 USDC，立即偿还Solend上的高利率债务，然后从Port Finance借出1000 USDC归还闪电贷。这样用户就成功将10%的债务转换为8%的债务，降低了整体借贷成本。</li>
+<li><strong>抵押品替换</strong>：借款人可以在不增加额外资金的情况下更换抵押品类型。例如，将ETH抵押品替换为SOL，或在不同借贷平台之间转移抵押品，以获取更好的借贷条件或更高的流动性。</li>
+</ul>
+<h3 id="2-2-Solana账户模型">2.2 Solana账户模型</h3>
+<p>Solana的账户模型与以太坊等其他区块链有显著不同，这对闪电贷的实现有重要影响。在Solana中，账户是存储数据和SOL代币的基本单位，主要分为以下几种类型：</p>
+<ol>
+<li><strong>系统账户</strong>：由系统程序创建的普通账户，用于存储SOL</li>
+<li><strong>程序拥有的账户（PDA）</strong>：由程序控制的账户，用于存储程序状态</li>
+<li><strong>程序账户</strong>：存储可执行程序代码的账户</li>
+</ol>
+<p>每个账户具有以下主要特征：</p>
+<ul>
+<li>地址（公钥）</li>
+<li>拥有者（程序或系统）</li>
+<li>数据（二进制格式）</li>
+<li>lamports（SOL的最小单位）</li>
+<li>可执行标志</li>
+</ul>
+<p>这种账户模型使得Solana上的程序（智能合约）能够明确控制其所拥有账户的数据，为实现闪电贷提供了基础。</p>
+<h3 id="2-3-相关工作">2.3 相关工作</h3>
+<p>以太坊上的闪电贷最初由Aave和dYdX等协议推广，它们采用回调函数模式实现闪电贷机制。在Solana生态系统中，已有一些项目如Solend和Mango Markets实现了自己的闪电贷功能，但缺乏统一的标准和实现方法。</p>
+<h2 id="3-方法论">3. 方法论</h2>
+<p>本研究采用以下方法论开发Solana上的闪电贷实现：</p>
+<h3 id="3-1-系统架构设计">3.1 系统架构设计</h3>
+<p>我们提出了一种基于Solana账户模型和交易结构的闪电贷架构，该架构包括以下核心组件：</p>
+<ol>
+<li><strong>流动性池账户</strong>：存储可借出的代币</li>
+<li><strong>闪电贷程序</strong>：管理借款和还款逻辑</li>
+<li><strong>指令验证机制</strong>：确保还款指令包含在同一交易中</li>
+<li><strong>用户交互接口</strong>：允许用户构建闪电贷交易</li>
+</ol>
+<h3 id="3-2-交易原子性利用">3.2 交易原子性利用</h3>
+<p>研究利用Solana交易的原子性特性，确保闪电贷的安全性。在Solana中，一个交易包含多个指令，这些指令要么全部成功执行，要么全部失败。通过将借款、操作和还款指令打包在同一个交易中，可以确保借款必须归还，否则整个交易将被回滚。</p>
+<h3 id="3-3-指令级验证机制">3.3 指令级验证机制</h3>
+<p>不同于以太坊的回调验证方式，我们设计了基于Solana Sysvar指令的验证机制，允许程序在执行时检查同一交易中的其他指令，确保还款指令存在并且还款金额正确。</p>
+<h2 id="4-实现细节">4. 实现细节</h2>
+<h3 id="4-1-基本组件实现">4.1 基本组件实现</h3>
+<h4 id="4-1-1-流动性池账户结构">4.1.1 流动性池账户结构</h4>
+<p>流动性池账户存储可被借出的代币，其数据结构包括：</p>
+<ul>
+<li>池管理者权限</li>
+<li>支持的代币类型</li>
+<li>当前余额</li>
+<li>累计费用</li>
+<li>借款计数</li>
+</ul>
+<h4 id="4-1-2-闪电贷核心指令">4.1.2 闪电贷核心指令</h4>
+<p>闪电贷程序实现了三个核心指令：</p>
+<ul>
+<li><code>初始化池</code>：创建流动性池账户</li>
+<li><code>闪电贷借款</code>：临时借出资金</li>
+<li><code>还款验证</code>：确认资金归还</li>
+</ul>
+<h3 id="4-2-还款保证机制">4.2 还款保证机制</h3>
+<p>Solana上的闪电贷还款保证是通过交易结构和指令验证实现的。</p>
+<h4 id="4-2-1-交易的原子性">4.2.1 交易的原子性</h4>
+<p>Solana交易具有原子性，这意味着一个交易中的所有指令要么全部成功执行，要么全部失败。闪电贷利用这一特性：</p>
+<ul>
+<li>借款、使用资金和还款操作被打包在同一个交易中</li>
+<li>如果还款环节失败，整个交易会被回滚，就像借款从未发生过一样</li>
+<li>这种原子性是闪电贷的基本安全保障</li>
+</ul>
+<h4 id="4-2-2-指令顺序执行">4.2.2 指令顺序执行</h4>
+<p>Solana交易中的指令按顺序执行，这使得我们可以构建安全的闪电贷流程：</p>
+<ol>
+<li>第一条指令：从流动性池中借出资金</li>
+<li>中间指令：执行套利或其他操作</li>
+<li>最后指令：验证还款并收取手续费</li>
+</ol>
+<h4 id="4-2-3-Sysvar指令实现">4.2.3 Sysvar指令实现</h4>
+<p>通常闪电贷程序的验证逻辑是回调时检查：</p>
+<ul>
+<li>在交易开始时，程序记录流动性池的初始余额</li>
+<li>在交易结束时，程序检查流动性池的最终余额是否大于或等于初始余额加上手续费</li>
+<li>如果验证失败，程序会抛出错误，导致整个交易回滚</li>
+</ul>
+<p>但是Solana不是采用回调机制，而是直接检查指令。通常通过<code>Sysvar::instructions()</code>系统变量来实现，这是Solana独特的机制，允许程序访问当前交易中的所有指令信息。</p>
+<p>具体实现步骤：</p>
+<ol>
+<li>借款指令（闪电贷开始）会记录初始状态和借款条件</li>
+<li>使用<code>Sysvar::instructions()</code>获取当前交易中的所有后续指令</li>
+<li>验证交易中是否包含还款指令，以及还款金额是否足够</li>
+</ol>
+<p>代码示例：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> solana_program::&#123;</span><br><span class="line">    account_info::&#123;next_account_info, AccountInfo&#125;,</span><br><span class="line">    entrypoint::ProgramResult,</span><br><span class="line">    program_error::ProgramError,</span><br><span class="line">    pubkey::Pubkey,</span><br><span class="line">    sysvar::&#123;instructions::Instructions, instructions::load_instruction_at_checked, Sysvar&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">verify_repayment</span>(</span><br><span class="line">    program_id: &amp;Pubkey,</span><br><span class="line">    accounts: &amp;[AccountInfo],</span><br><span class="line">    loan_amount: <span class="type">u64</span>,</span><br><span class="line">    fee: <span class="type">u64</span>,</span><br><span class="line">) <span class="punctuation">-&gt;</span> ProgramResult &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">account_iter</span> = &amp;<span class="keyword">mut</span> accounts.<span class="title function_ invoke__">iter</span>();</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">pool_account</span> = <span class="title function_ invoke__">next_account_info</span>(account_iter)?;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">instructions_sysvar</span> = <span class="title function_ invoke__">next_account_info</span>(account_iter)?;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 确认这是指令sysvar账户</span></span><br><span class="line">    <span class="keyword">if</span> *instructions_sysvar.key != solana_program::sysvar::instructions::<span class="title function_ invoke__">id</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">Err</span>(ProgramError::InvalidArgument);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前指令的索引</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">current_index</span> = Instructions::<span class="title function_ invoke__">load_current_index</span>(instructions_sysvar)?;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查后续指令中是否存在还款指令</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">repayment_found</span> = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历后续指令，检查是否有还款指令</span></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> (current_index + <span class="number">1</span>)..Instructions::<span class="title function_ invoke__">load_instruction_count</span>(instructions_sysvar)? &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">ix</span> = <span class="title function_ invoke__">load_instruction_at_checked</span>(i, instructions_sysvar)?;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检查是否是调用我们程序的还款指令</span></span><br><span class="line">        <span class="keyword">if</span> ix.program_id == *program_id &#123;</span><br><span class="line">            <span class="comment">// 解析指令数据，检查是否是还款指令</span></span><br><span class="line">            <span class="keyword">if</span> ix.data.<span class="title function_ invoke__">len</span>() &gt;= <span class="number">4</span> &amp;&amp; ix.data[<span class="number">0</span>..<span class="number">4</span>] == [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>] &#123; <span class="comment">// 假设0x00010000是还款指令ID</span></span><br><span class="line">                repayment_found = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 验证还款金额</span></span><br><span class="line">                <span class="comment">// ...此处省略具体的还款金额验证逻辑...</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> !repayment_found &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">Err</span>(ProgramError::InvalidInstructionData);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法的优势在于，Solana程序可以在执行过程中检查同一交易中的其他指令，确保在借款之后一定会有还款操作。</p>
+<h3 id="4-3-与以太坊闪电贷实现的对比">4.3 与以太坊闪电贷实现的对比</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Solana</th>
+<th>以太坊</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实现机制</td>
+<td>使用Sysvar指令或CPI回调</td>
+<td>使用回调函数</td>
+</tr>
+<tr>
+<td>交易模型</td>
+<td>基于账户模型，一个交易包含多个指令</td>
+<td>基于账户余额模型，使用函数调用</td>
+</tr>
+<tr>
+<td>验证方式</td>
+<td>可以验证同一交易中的后续指令</td>
+<td>在同一调用栈中验证回调结果</td>
+</tr>
+<tr>
+<td>代码示例</td>
+<td>检查指令sysvar或使用CPI回调</td>
+<td>使用<code>require()</code>验证余额变化</td>
+</tr>
+</tbody>
+</table>
+<p>以太坊闪电贷的典型实现（以Aave为例）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function flashLoan(</span><br><span class="line">    address receiver,</span><br><span class="line">    address token,</span><br><span class="line">    uint256 amount,</span><br><span class="line">    bytes calldata params</span><br><span class="line">) external &#123;</span><br><span class="line">    // 向接收方发送代币</span><br><span class="line">    IERC20(token).transfer(receiver, amount);</span><br><span class="line"></span><br><span class="line">    // 调用接收方的executeOperation函数</span><br><span class="line">    IFlashLoanReceiver(receiver).executeOperation(</span><br><span class="line">        token,</span><br><span class="line">        amount,</span><br><span class="line">        0,</span><br><span class="line">        address(this),</span><br><span class="line">        params</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    // 检查代币是否被归还</span><br><span class="line">    uint256 amountToReturn = amount + fee;</span><br><span class="line">    require(</span><br><span class="line">        IERC20(token).balanceOf(address(this)) &gt;= amountToReturn,</span><br><span class="line">        &quot;Flash loan not repaid&quot;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Solana的这种模式的确定性是非常高的，可以在交易参数级别验证还款指令的存在，而不仅仅是验证执行结果。</p>
+<h2 id="5-讨论与结论">5. 讨论与结论</h2>
+<h3 id="5-1-安全性考量">5.1 安全性考量</h3>
+<p>闪电贷虽然为用户提供了无抵押借贷的便利，但也带来了安全风险。在设计Solana闪电贷时，应考虑以下安全因素：</p>
+<ul>
+<li><strong>重入攻击防护</strong>：虽然Solana程序模型天然防止了重入攻击，但仍需警惕跨程序调用(CPI)中的安全问题</li>
+<li><strong>验证逻辑的完备性</strong>：确保还款验证逻辑无懈可击，特别是在复杂交易结构中</li>
+</ul>
+<h3 id="5-2-性能优化">5.2 性能优化</h3>
+<p>Solana的高性能特性为闪电贷提供了优势，但仍需考虑以下优化：</p>
+<ul>
+<li><strong>账户数据结构优化</strong>：减少不必要的数据存储，降低交易成本</li>
+<li><strong>指令合并</strong>：适当合并相关指令，减少交易中的指令数量</li>
+<li><strong>并行处理</strong>：利用Solana的并行交易处理能力，设计支持并行执行的闪电贷程序</li>
+</ul>
+<h3 id="5-3-结论">5.3 结论</h3>
+<p>本研究提出了一种基于Solana区块链的闪电贷实现方法，利用Solana独特的账户模型和交易结构，特别是Sysvar指令验证机制，实现了高效、安全的闪电贷功能。与以太坊上的实现相比，Solana闪电贷具有更低的交易费用、更高的吞吐量和更灵活的验证机制，为DeFi应用开发者提供了新的可能性。</p>
+<p>随着Solana生态系统的不断发展，闪电贷有望成为连接各种DeFi协议的重要金融原语，促进资本效率的提升和创新金融应用的涌现。未来研究可以进一步探索闪电贷的标准化接口、多链互操作性以及风险管理框架，推动闪电贷技术的成熟与普及。</p>
+<h3 id="5-4-与以太坊实现的对比分析">5.4 与以太坊实现的对比分析</h3>
+<p>与前文理论分析一致，adobe项目的实现展示了Solana闪电贷的独特优势：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Adobe(Solana)</th>
+<th>Aave(以太坊)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>验证时机</td>
+<td>借款时预先验证</td>
+<td>执行回调后验证</td>
+</tr>
+<tr>
+<td>安全机制</td>
+<td>指令验证 + 状态标记</td>
+<td>回调模式 + 余额检查</td>
+</tr>
+<tr>
+<td>实现复杂度</td>
+<td>中等（需了解Sysvar）</td>
+<td>低（标准回调模式）</td>
+</tr>
+<tr>
+<td>交易成本</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>并发支持</td>
+<td>可并行处理多笔闪电贷</td>
+<td>受Gas限制</td>
+</tr>
+</tbody>
+</table>
+<p>adobe项目通过巧妙利用Solana的指令验证机制，在交易执行前就确保了借款一定会被偿还，提供了比以太坊更高效的闪电贷实现。</p>
+<h2 id="6-参考文献">6. 参考文献</h2>
+<ol>
+<li>Solana Documentation. “Accounts.” <a target="_blank" rel="noopener external nofollow noreferrer" href="https://solana.com/zh/docs/core/accounts">https://solana.com/zh/docs/core/accounts</a></li>
+<li>Aave Protocol. “Flash Loans.” <a target="_blank" rel="noopener external nofollow noreferrer" href="https://aave.com/docs/developers/flash-loans">https://aave.com/docs/developers/flash-loans</a></li>
+<li>Solana Documentation. “Sysvar Cluster Data.” <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.solana.com/developing/runtime-facilities/sysvars">https://docs.solana.com/developing/runtime-facilities/sysvars</a></li>
+<li>Solana flash loans that work by inserting two instructions into any arbitrary transaction clientside. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/2501babe/adobe">https://github.com/2501babe/adobe</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/solana/solana-flashloan-1/">https://www.blog-blockchain.xyz/solana/solana-flashloan-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/solana/">solana</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/career/pursuit-of-meaning-and-freedom/" title="在追寻意义中找寻自由：现代社会中的生存哲学"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/05/2f8d359c909d472a620007158cbcaaf4.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">在追寻意义中找寻自由：现代社会中的生存哲学</div></div><div class="info-2"><div class="info-item-1">本文深入思考现代社会中的职场天花板、薪资焦虑与自由概念。作者以个人视角剖析物质追求与精神满足的平衡，探讨体验性与建设性活动如何构建生活意义。文章通过对比不同价值观，展现了在承认生活本质悲观性的同时，依然寻找热爱生活勇气的哲学思考。</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">83</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://www.linkedin.com/in/jiahao-michael-luo-8ba5942a3" rel="external nofollow noreferrer" target="_blank" title="Linkedin"><i class="fa-brands fa-linkedin"></i></a><a class="social-icon" href="https://x.com/jiahao_luo9" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Solana区块链上闪电贷的设计与实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%95%E8%A8%80"><span class="toc-text">1. 引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%83%8C%E6%99%AF%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">2. 背景与相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%97%AA%E7%94%B5%E8%B4%B7%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">2.1 闪电贷基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B"><span class="toc-text">2.2 Solana账户模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">2.3 相关工作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-text">3. 方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-text">3.1 系统架构设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%BA%A4%E6%98%93%E5%8E%9F%E5%AD%90%E6%80%A7%E5%88%A9%E7%94%A8"><span class="toc-text">3.2 交易原子性利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%8C%87%E4%BB%A4%E7%BA%A7%E9%AA%8C%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="toc-text">3.3 指令级验证机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82"><span class="toc-text">4. 实现细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0"><span class="toc-text">4.1 基本组件实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-%E6%B5%81%E5%8A%A8%E6%80%A7%E6%B1%A0%E8%B4%A6%E6%88%B7%E7%BB%93%E6%9E%84"><span class="toc-text">4.1.1 流动性池账户结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-%E9%97%AA%E7%94%B5%E8%B4%B7%E6%A0%B8%E5%BF%83%E6%8C%87%E4%BB%A4"><span class="toc-text">4.1.2 闪电贷核心指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%BF%98%E6%AC%BE%E4%BF%9D%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="toc-text">4.2 还款保证机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-%E4%BA%A4%E6%98%93%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="toc-text">4.2.1 交易的原子性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-%E6%8C%87%E4%BB%A4%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="toc-text">4.2.2 指令顺序执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-Sysvar%E6%8C%87%E4%BB%A4%E5%AE%9E%E7%8E%B0"><span class="toc-text">4.2.3 Sysvar指令实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E4%B8%8E%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%97%AA%E7%94%B5%E8%B4%B7%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-text">4.3 与以太坊闪电贷实现的对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%AE%A8%E8%AE%BA%E4%B8%8E%E7%BB%93%E8%AE%BA"><span class="toc-text">5. 讨论与结论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%AE%89%E5%85%A8%E6%80%A7%E8%80%83%E9%87%8F"><span class="toc-text">5.1 安全性考量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">5.2 性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E7%BB%93%E8%AE%BA"><span class="toc-text">5.3 结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E4%B8%8E%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90"><span class="toc-text">5.4 与以太坊实现的对比分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">6. 参考文献</span></a></li></ol></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>Post Series</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/solana/solana-flashloan-1/" title="Solana flashloan 原理和设计"><img src="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solana flashloan 原理和设计"></a><div class="content"><a class="title" href="/solana/solana-flashloan-1/" title="Solana flashloan 原理和设计">Solana flashloan 原理和设计</a><time datetime="2025-05-17T14:09:33.000Z" title="Created 2025-05-17 22:09:33">2025-05-17</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/solana/solana-flashloan-1/" title="Solana flashloan 原理和设计"><img src="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solana flashloan 原理和设计"/></a><div class="content"><a class="title" href="/solana/solana-flashloan-1/" title="Solana flashloan 原理和设计">Solana flashloan 原理和设计</a><time datetime="2025-05-17T14:09:33.000Z" title="Created 2025-05-17 22:09:33">2025-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/pursuit-of-meaning-and-freedom/" title="在追寻意义中找寻自由：现代社会中的生存哲学"><img src="https://cdn.blog-blockchain.xyz/2025/05/2f8d359c909d472a620007158cbcaaf4.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在追寻意义中找寻自由：现代社会中的生存哲学"/></a><div class="content"><a class="title" href="/career/pursuit-of-meaning-and-freedom/" title="在追寻意义中找寻自由：现代社会中的生存哲学">在追寻意义中找寻自由：现代社会中的生存哲学</a><time datetime="2025-05-01T04:11:20.000Z" title="Created 2025-05-01 12:11:20">2025-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/Career-and-Life-Between-Ideal-and-Reality/" title="我对职场和人生的思考：在理想与现实之间"><img src="https://cdn.blog-blockchain.xyz/2025/04/4f93c7d9a0c3628ac37db9606c1dca24.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我对职场和人生的思考：在理想与现实之间"/></a><div class="content"><a class="title" href="/career/Career-and-Life-Between-Ideal-and-Reality/" title="我对职场和人生的思考：在理想与现实之间">我对职场和人生的思考：在理想与现实之间</a><time datetime="2025-04-20T19:22:20.000Z" title="Created 2025-04-21 03:22:20">2025-04-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/rust-lifetime/" title="深入学习Rust生命周期"><img src="https://cdn.blog-blockchain.xyz/2025/03/7a1eb877711a4e78b90307ccefde92f4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入学习Rust生命周期"/></a><div class="content"><a class="title" href="/dev/rust-lifetime/" title="深入学习Rust生命周期">深入学习Rust生命周期</a><time datetime="2025-03-28T10:58:20.000Z" title="Created 2025-03-28 18:58:20">2025-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/study-mini-redis/" title="深入学习Rust异步编程：mini-redis项目解析"><img src="https://cdn.blog-blockchain.xyz/2025/03/7a1eb877711a4e78b90307ccefde92f4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入学习Rust异步编程：mini-redis项目解析"/></a><div class="content"><a class="title" href="/dev/study-mini-redis/" title="深入学习Rust异步编程：mini-redis项目解析">深入学习Rust异步编程：mini-redis项目解析</a><time datetime="2025-03-22T20:33:20.000Z" title="Created 2025-03-23 04:33:20">2025-03-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.3.5"></script><script src="/js/main.js?v=5.3.5"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'f953581be5d3704f822fb39d1c2c0def'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.3.5"></script></div></div></body></html>
