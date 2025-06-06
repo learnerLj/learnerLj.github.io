@@ -1,15 +1,16 @@
-<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>从 Alpha 到坐庄：不充分市场中的暴富 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在金融市场的丛林中，“暴富&quot;二字总是充满诱惑。相对于成熟、高效的市场，那些不充分的市场，由于信息不对称、监管缺失、参与者结构单一等原因，往往潜藏着更大的波动性和&quot;机会”。本文将从金融操作的角度，剖析在不充分市场中，从追求 Alpha（超额收益）到极端情况下的&quot;坐庄&quot;，可能涉及的策略和路径。 🚀 Alpha 的追逐：不充分市场中的&quot;信息差” 在有效">
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>从 Alpha 到坐庄：不充分市场中的暴富 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="(1)AMM恒定乘积公式下，拉盘成本与目标市值平方根成正比；(2)流动性池操控是现代坐庄的核心技术；(3)散户可通过系统性工具和策略在庄家博弈中寻找生存空间。本研究为理解加密市场操控机制和构建风险管理体系提供理论基础和实践指导。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从 Alpha 到坐庄：不充分市场中的暴富">
 <meta property="og:url" content="https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/index.html">
 <meta property="og:site_name" content="Jiahao Luo">
-<meta property="og:description" content="在金融市场的丛林中，“暴富&quot;二字总是充满诱惑。相对于成熟、高效的市场，那些不充分的市场，由于信息不对称、监管缺失、参与者结构单一等原因，往往潜藏着更大的波动性和&quot;机会”。本文将从金融操作的角度，剖析在不充分市场中，从追求 Alpha（超额收益）到极端情况下的&quot;坐庄&quot;，可能涉及的策略和路径。 🚀 Alpha 的追逐：不充分市场中的&quot;信息差” 在有效">
+<meta property="og:description" content="(1)AMM恒定乘积公式下，拉盘成本与目标市值平方根成正比；(2)流动性池操控是现代坐庄的核心技术；(3)散户可通过系统性工具和策略在庄家博弈中寻找生存空间。本研究为理解加密市场操控机制和构建风险管理体系提供理论基础和实践指导。">
 <meta property="og:locale">
 <meta property="og:image" content="https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png">
 <meta property="article:published_time" content="2025-02-26T03:11:20.000Z">
-<meta property="article:modified_time" content="2025-02-27T11:24:15.766Z">
+<meta property="article:modified_time" content="2025-06-06T09:48:00.847Z">
 <meta property="article:author" content="Michael(Jiahao) Luo">
-<meta property="article:tag" content="developer">
+<meta property="article:tag" content="crypto">
+<meta property="article:tag" content="trading">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png"><script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -18,7 +19,7 @@
   "url": "https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/",
   "image": "https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png",
   "datePublished": "2025-02-26T03:11:20.000Z",
-  "dateModified": "2025-02-27T11:24:15.766Z",
+  "dateModified": "2025-06-06T09:48:00.847Z",
   "author": [
     {
       "@type": "Person",
@@ -185,117 +186,688 @@ btf.addGlobalFn('pjaxSend', () => {
   Pace.restart()
 }, 'pace_restart')
 
-</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">84</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">从 Alpha 到坐庄：不充分市场中的暴富</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">从 Alpha 到坐庄：不充分市场中的暴富</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-26T03:11:20.000Z" title="Created 2025-02-26 11:11:20">2025-02-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-27T11:24:15.766Z" title="Updated 2025-02-27 19:24:15">2025-02-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/think/">think</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>13mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>在金融市场的丛林中，“暴富&quot;二字总是充满诱惑。相对于成熟、高效的市场，那些不充分的市场，由于信息不对称、监管缺失、参与者结构单一等原因，往往潜藏着更大的波动性和&quot;机会”。本文将从金融操作的角度，剖析在不充分市场中，从追求 Alpha（超额收益）到极端情况下的&quot;坐庄&quot;，可能涉及的策略和路径。</p>
-<h1><strong>🚀 Alpha 的追逐：不充分市场中的&quot;信息差”</strong></h1>
-<p>在有效市场中，所有信息都已反映在价格中，获取超额收益（Alpha）难于登天。但在不充分市场中，信息传播的滞后、扭曲，为 Alpha 的追逐提供了空间。</p>
-<p>应该有不少的 KOL 都是通过这种手段，在20年开始积累了自己的原始资本的。他们有的会重复研究项目的价值，团队背景，叙事，市场情绪等，形成自己的研究优势。在早期，绝大多数人的盲目的，合约只知道倍数，甚至不知道怎么计算的。这个时候，基于对技术和叙事的自信，有人投入了大量的资金。</p>
-<p>我看到 0富 KOL就建立了自己的新闻渠道，并且试图通过对消息的全面掌握，先于市场，获得低价的筹码。</p>
-<p>但是这种手段会越来越难，聪明人总是会闻着钱的味道，去追寻所有的「因子」。我有自信，他们能够想到几乎所有的常规的因子，并且有足够高的工资和收益期望，支持他们做回测。</p>
-<p>同时，加密货币市场已经不是技术市场，而是情绪市场和小部分的价值市场。随着 ETF 能够买卖 BTC 和 ETH，加密货币成为了美股投资的选择，而美股聚集着全世界的钱。比特币已经成为了类似于黄金的价值储备，已经建立了足够强大的共识，而且它的技术基础足够稳固，能够不断的运行下去。</p>
-<p>情绪市场在 meme 爆火之后变得尤为明显，FOMO 和 注意力经济，支配着 meme coin 的兴衰。散户和机构的情绪，能够让价格拉升百倍，或者跌落 99%，暴富的神话就像美西淘金热潮一样，让不少人争相进入加密货币市场，成为「韭菜」。</p>
-<p>随着「韭菜」也想赚钱，无许可市场的优势就催生了无数的 meme coin。它们数量之多，投机和波动性之强，已经催生出了「枯坐」和「对讲机」的淘金狗的模式了。无数的 meme coin 成为了人们投机的对象，而要产生百倍币，则需要流动性从0到1到10这个过程，就需要热钱的涌入。哪个 coin 能得到更多人的关注，那么它就更加可能成为「金狗」。</p>
-<h1><strong>🚀 &quot;坐庄&quot;的迷思：操纵市场的幻象与风险</strong></h1>
-<p>为什么说散户进来就是「韭菜」呢？这不是跟风的说法，而是有真切的感受。首先，我刚开始接触crypto的时候，对「庄家」和市场操控毫无认识，居然会认为哪里有什么庄家。散户进场，他们得到的信息只有价格，而价格是最容易被操控的了。哈耶克的理论说，所有市场的因素已经隐藏在价格之中。但是为什么美国会有 SEC 来监督股市呢，这是因为价格是容易被操控的。可是币圈没有监督呀，是一个无序的不充分市场。</p>
-<p>当 Alpha 的追逐走向极端，便可能演变为&quot;坐庄&quot;，即试图通过控制供求关系，人为影响市场价格。我观察了现在的喜欢说真话，炫耀以及打击他人，获得足够的自信和心理满足的 KOL，发现他们基本上不少有操纵市场的行为。</p>
-<p>当然，我还是很感谢他们能够说出 FTX 时期过期的 alpha，并且把它称作为广义的「套利」，而且会在过气后拿出来炫耀。</p>
-<h2 id="✅-内幕交易是常态。">✅ 内幕交易是常态。</h2>
-<p>不只是 meme 充满了内幕交易和阴谋集团，他们自己分配了大量的筹码，然后拉盘，接着分批卖出。交易所上币的许多小市值的 token，也充满了坐庄。加密货币市场就像池塘，庄家之间合作的会装满半个池塘，聪明的跟踪者，吃了剩下的小部分汤，交易服务机构则从中「抽水」。池塘里另外一半则是散户和机构涌入的热钱。我们可以假设池塘是流动性，流动性翻一倍，价格变成 10 倍。那么投机者实际上会有个阶段看到自己的资产上升非常多的，然而当潮水退去，庄家离场，散户血亏。赢家只有加密货币服务者（CEX，DEX）、约5%的聪明钱以及博弈胜利的庄家。</p>
-<p>内幕交易就是其中重要一环，他们即将创造影响价格和情绪的事件，比如拉盘和出货。内幕交易者获得了低价的筹码，并且知道价格一定会上涨。在最疯狂的时代，10 m 能够在一天内变成 20 m。</p>
-<h2 id="✅-gmgn-和-debot-的设计思路，是在为用户提供alpha，并且减少市场的alpha。">✅ gmgn 和 debot 的设计思路，是在为用户提供alpha，并且减少市场的alpha。</h2>
-<p>我们知道 alpha 是来源不充分的市场，但是掌握的人越多，那么就会越早的反映在价格中，这个 alpha 就失效了。gmgn、dexx、debot 等 DEX 市场的爆火，每日盈利能有约 50 万美刀，说明了在自己利用 alpha的收益不够大时，去提供 alpha 信息，并且收费，是一条可行的道路。</p>
-<p>现在的 DEX 已经在简单 swap 的功能性上走到的瓶颈了，虽然可以模仿 solana jupiter 的强大的 quote (兑换路径计算)的思路，将每次兑换到手资金多得到 0.5 %，但是从 0 到 1 的变化已经结束了，1到2的努力需要巨大的成本。</p>
-<p>DEX 新的发展思路成为了淘金场的铲子，越来越像 CEX 了，做金融服务。无论是聪明钱、AI 监控、跟单、各个地址标签，都是为了给用户提供他们「自认为有效」的决策信息，并且让他们以为，他们掌握的信息和做出的决策，能够领先市场的共识。</p>
-<h2 id="✅-技术面指标和市场情绪是最美味的食物。">✅ 技术面指标和市场情绪是最美味的食物。</h2>
-<p>🧨 庄家的拉盘的一般过程，选择的标准如下</p>
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">从 Alpha 到坐庄：不充分市场中的暴富</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">从 Alpha 到坐庄：不充分市场中的暴富</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-26T03:11:20.000Z" title="Created 2025-02-26 11:11:20">2025-02-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-06T09:48:00.847Z" title="Updated 2025-06-06 17:48:00">2025-06-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/career/">career</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/career/finance/">finance</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">7.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>23mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="摘要">摘要</h2>
+<p>本文系统性分析加密货币市场中从Alpha追逐到极端坐庄的演化路径。通过对流动性池操控的数学建模、庄家操作机制解析和实战案例研究，揭示不充分市场中的财富重分配机制。研究发现：(1)AMM恒定乘积公式下，拉盘成本与目标市值平方根成正比；(2)流动性池操控是现代坐庄的核心技术；(3)散户可通过系统性工具和策略在庄家博弈中寻找生存空间。本研究为理解加密市场操控机制和构建风险管理体系提供理论基础和实践指导。</p>
+<p><strong>关键词：</strong> 加密货币市场、流动性池操控、AMM机制、庄家博弈、风险管理</p>
+<hr>
+<h2 id="1-引言">1. 引言</h2>
+<p>在金融市场的丛林中，“暴富&quot;二字总是充满诱惑。相对于成熟、高效的传统市场，那些不充分的市场——由于信息不对称、监管缺失、参与者结构单一等原因——往往潜藏着更大的波动性和&quot;机会”。</p>
+<p>加密货币市场正是这样一个典型的不充分市场。在这里，从追求Alpha（超额收益）到极端情况下的&quot;坐庄&quot;，各种策略和路径层出不穷。本文将从金融操作的角度，系统性地剖析这个市场的运作机制，为读者揭示暴富背后的数学逻辑和操作密码。</p>
+<p><strong>研究目标：</strong></p>
 <ul>
-<li><strong>低市值币种:</strong> 市值小，更容易用少量资金影响价格。</li>
-<li><strong>流动性较差:</strong> 交易量不大，容易控盘。</li>
-<li><strong>有一定社区基础:</strong> 有一定数量的散户关注，方便后期“割韭菜”。</li>
-<li><strong>叙事潜力:</strong> 有故事可讲，容易吸引人。例如，与热门概念（如元宇宙、Web3）相关，或声称有技术突破。</li>
+<li>建立流动性池操控的数学模型，量化庄家操作成本</li>
+<li>分析现代坐庄的系统性方法和博弈机制</li>
+<li>构建散户在高风险环境下的生存策略框架</li>
+<li>探讨加密市场的演进趋势和终局思考</li>
 </ul>
-<p>🧨 然后开始吸筹码，综合利用</p>
+<h2 id="2-理论背景">2. 理论背景</h2>
+<h3 id="2-1-从Alpha追逐到现实觉醒：一个参与者的视角">2.1 从Alpha追逐到现实觉醒：一个参与者的视角</h3>
+<p><strong>个人的Alpha演化历程</strong></p>
+<p>回想我刚进入加密市场时，正值2021年牛市的尾声。那时的我完全相信这是一个&quot;智力决定一切&quot;的市场——只要足够聪明，就能在信息不对称中获取超额收益。我的策略看似很有道理：深度研读白皮书，分析团队背景，研究技术创新，提前布局潜力项目。</p>
+<p>当时我坚信，加密市场和股票市场的根本区别在于：**这里的信息差更大，专业门槛更高，因此Alpha的获取空间更广阔。**我花费大量时间研究DeFi协议的创新机制，分析Layer2的技术优势，寻找那些&quot;被市场低估&quot;的项目。</p>
+<p>然而，2022年熊市的来临彻底击碎了我的幻想。我发现：</p>
 <ul>
-<li>场外交易（Over-The-Counter, OTC）从大户手中收购，避免影响交易所价格。</li>
-<li>分批、小额、长时间买入，避免引起市场警觉和价格大幅上涨。</li>
-<li>洗盘 (Shakeout)，故意打压价格，使持币者恐慌抛售，再低价接回筹码。</li>
+<li>技术再先进的项目，遇到整体流动性紧缩照样暴跌90%</li>
+<li>团队再优秀的协议，遇到监管风险照样归零</li>
+<li>研究再深入的投资，遇到庄家砸盘照样被收割</li>
 </ul>
-<p>🧨 开始拉盘了，这个时候会朝着交易所的指标去做，而这个指标也充满了内幕交易。</p>
+<p><strong>市场本质的残酷认知</strong></p>
+<p>真正的觉醒来自于对市场性质的重新认识。这不是一个技术驱动的理性市场，而是一个由情绪主导、被操纵充斥的非理性市场。那些早期通过&quot;专业研究&quot;赚到钱的KOL，很多是因为赶上了整体牛市的红利，而非其分析能力真的过人。</p>
+<p>更残酷的现实是：<strong>当你还在研究项目基本面时，庄家已经完成了筹码收集；当你刚刚理解技术创新时，内幕消息已经泄露给了核心圈层；当你准备入场时，聪明钱已经开始出货了。</strong></p>
+<p>随着机构资本的大量涌入和专业工具的普及，传统的Alpha获取方式正在快速失效。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://GMGN.ai">GMGN.ai</a>、DEXTools、Aveai.info等平台的成功，说明了市场对&quot;有效&quot;信息的巨大需求，但同时也在客观上减少了市场整体的Alpha。当所有人都能看到Smart Money的动向时，Smart Money本身就不再智能了。</p>
+<h3 id="2-2-市场性质的根本变化">2.2 市场性质的根本变化</h3>
+<p>加密货币市场已经从早期的技术驱动型市场，演变为以情绪为主导的复合型市场：</p>
 <ul>
-<li>加强叙事，释放利好消息。与项目方合作，或通过媒体、社交平台（如 Twitter, Reddit, Telegram）散布利好消息，如项目进展、合作、上新交易所等。</li>
-<li>开始喊单。雇佣或利用 KOL (Key Opinion Leader, 关键意见领袖) 或“网红”在社交媒体上鼓吹该币种，吸引散户关注。</li>
-<li>操纵技术面，让「有技术」的散户大额入场。通过拉升价格突破关键阻力位，制造技术上的买入信号。</li>
-<li>对敲订单，内幕集团自己买，自己卖，制造市场异动，和交易活跃的假象，推高价格。</li>
-<li>然后在买盘挂出高价买单，诱导散户以更高价格买入。并且操控 FOMO 情绪，吸引更多散户因为害怕错过机会（Fear of Missing Out, FOMO）而追高买入。</li>
+<li><strong>价值市场（30%）：</strong> BTC作为数字黄金、ETH作为智能合约基础设施</li>
+<li><strong>情绪市场（60%）：</strong> Meme币爆火，FOMO和注意力经济主导价格</li>
+<li><strong>投机市场（10%）：</strong> 纯粹的博弈和对赌行为</li>
 </ul>
-<p>🧨 开始出货了，现在手里有足够的筹码，能够大幅的影响市场。要出货一定要有市场的「高位震荡」，不然出货容易造成价格猛跌，前面做的就砸手里了。</p>
+<h3 id="2-3-Alpha商业化趋势">2.3 Alpha商业化趋势</h3>
+<p>当自己利用Alpha的收益不够大时，提供Alpha信息并收费成为新的商业模式。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://GMGN.ai">GMGN.ai</a>、DEXTools、Aveai.info等平台的成功，说明了市场对&quot;有效&quot;信息的巨大需求，同时也在客观上减少了市场整体的Alpha。</p>
+<h2 id="3-方法论">3. 方法论</h2>
+<h3 id="3-1-数学建模方法">3.1 数学建模方法</h3>
+<p>本研究采用AMM（自动做市商）恒定乘积公式作为基础模型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">k = x × y = constant</span><br></pre></td></tr></table></figure>
+<p>其中x为代币数量，y为基础货币数量，k为恒定乘积。</p>
+<h3 id="3-2-案例研究方法">3.2 案例研究方法</h3>
+<p>通过对$pwease等真实案例的链上数据分析，验证理论模型的有效性。</p>
+<h3 id="3-3-工具分析方法">3.3 工具分析方法</h3>
+<p>系统评估 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://Aveai.info">Aveai.info</a>、<a target="_blank" rel="noopener external nofollow noreferrer" href="http://GMGN.ai">GMGN.ai</a> 等链上分析工具的功能特点和实战应用。</p>
+<h2 id="4-流动性池操控的数学原理">4. 流动性池操控的数学原理</h2>
+<h3 id="4-1-恒定乘积公式解析">4.1 恒定乘积公式解析</h3>
+<p>以标准Pump.fun代币为例：</p>
 <ul>
-<li>制造高位震荡。价格还是比较高的位置，但是开始震荡起来，让散户能在「相对低位」来高位接盘。手段比如说，通过 KOL 散步利空消息，诸如解锁、项目遇到挫折等。还可以直接小幅砸盘。</li>
-<li>庄家 分批、小量卖出。</li>
-<li>如果庄家就是项目方，而且还缺少社区共识，那么可能直接Rug Pull (跑路)，撤走所有流动性。</li>
+<li>总供给量：10亿MEME</li>
+<li>初始流动性池：2亿MEME + 79 SOL</li>
+<li>SOL价格：150 USDT</li>
 </ul>
-<p>🧨 庄家之间也会博弈的，他们在价格、仓位、意图方面进行PVP，往往仓位几十万上百万，试图让对方爆仓。最后 Rugpull 阶段，就是博弈跑路速度的时候了。</p>
-<p>我们来总结几个要点：</p>
-<aside>
+<p>恒定乘积：k = 2亿 × 79 = 15,800,000,000</p>
+<h3 id="4-2-拉盘成本计算模型">4.2 拉盘成本计算模型</h3>
+<p><strong>目标：拉盘到1亿美金市值</strong></p>
+<p>数学推导：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">设池子中最终MEME为x，SOL为y</span><br><span class="line">约束条件：</span><br><span class="line">1. x × y = 15,800,000,000 (恒定乘积)</span><br><span class="line">2. y/x = 0.0006667 (目标价格)</span><br><span class="line"></span><br><span class="line">解方程组：</span><br><span class="line">x ≈ 4,868,145</span><br><span class="line">y ≈ 3,245</span><br><span class="line"></span><br><span class="line">所需资金：(3,245 - 79) × 150 = 474,900 USDT</span><br></pre></td></tr></table></figure>
+<p><strong>关键发现：</strong> 将一个Pump.fun代币拉到1亿美金市值，庄家仅需47.5万美金！</p>
+<h3 id="4-3-通用拉盘公式">4.3 通用拉盘公式</h3>
+<p>对于拉盘到m亿美金市值，所需资金的通用公式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">所需资金 ≈ 486,750 × √m - 11,850 USDT</span><br></pre></td></tr></table></figure>
+<p>这意味着所需资金与目标市值的平方根成正比，边际成本递减。</p>
+<h3 id="4-4-池子操控的四种典型模式：深度解析与实战案例">4.4 池子操控的四种典型模式：深度解析与实战案例</h3>
+<p><strong>模式一：池子规模操控法</strong></p>
+<p><em>数学原理：</em></p>
+<p>设初始池子规模为 (x₀, y₀)，如果将池子扩大t倍变为 (tx₀, ty₀)，那么：</p>
 <ul>
-<li>几乎所有市场都有庄家，并且利用上述手段赚取高额利润，可以达到年入 100m 美刀。但是越大的市场，越难被单一集团操控。</li>
-<li>“FOMO”营销往往在拉盘阶段，加入的散户，如果不是阴谋集团，那么可能只有5%的人翻倍，20%的人不亏，其余亏损。</li>
-<li>KOL 的所有推荐，几乎都存在广告成份，项目方宣传手段无可厚非，但是也很可能存在 VC 割韭菜的行为。</li>
-<li>空头、预售、名人背书，大部份是做盘的阶段，这是一个跑得快的游戏。</li>
+<li>新的恒定乘积：k’ = tx₀ × ty₀ = t²k</li>
+<li>拉盘到相同价格所需的资金增加t倍</li>
 </ul>
-</aside>
-<h2 id="✅-散户能如何盈利呢？">✅ 散户能如何盈利呢？</h2>
-<p><strong>⚠️ 虎口夺食，搭便车。</strong></p>
+<p><em>操作手法：</em></p>
 <ol>
-<li><strong>识别早期信号：</strong> 密切关注市场异动，如交易量突然放大、价格突破关键阻力位、社交媒体开始出现相关讨论等。</li>
-<li><strong>快速进出：</strong> 一旦发现庄家拉升迹象，迅速买入，并设置<strong>严格的止盈止损点</strong>。这就是一定要有交易的纪律。</li>
-<li><strong>见好就收：</strong> 不要贪婪，一旦达到预期收益，或发现市场走势不对，立即离场。大部份情况，庄家是必然砸盘的，机构的成本远大于散户，他们的情绪难以捉摸。</li>
+<li><strong>扩池砸盘</strong>：庄家单方面增加代币供应量到池子中，瞬间稀释价格</li>
+<li><strong>缩池拉盘</strong>：在低位移除大量流动性，用较少资金即可拉升价格</li>
+<li><strong>假流动性</strong>：先大量加池制造&quot;深度&quot;假象，吸引散户买入后立即撤池</li>
 </ol>
-<p>但是如果你无法通过回测找到早期信号，或者反映太慢，都可能亏损掉所有本金。庄家也会反向操作，在暴跌时制造上升迹象，引诱上钩。</p>
-<p><strong>⚠️ 别人恐惧我贪婪，我懂庄家的心，反着极端市场情绪操作。</strong></p>
-<p>FOMO 时拿住本金，然后如果认为项目在一定阶段不会黄，那么逢低买入，等回到高位时卖出。</p>
-<p>但是很有可能发生❌ <strong>“接飞刀”：</strong> 抄底可能抄在半山腰，价格继续下跌。❌ <strong>项目归零：</strong> 如果项目被庄家彻底抛弃，可能永远无法回本。❌ <strong>时间成本：</strong> 需要长时间持有，才能等到市场反转。</p>
-<p><strong>🔥 根据专业知识，进行价值投资策略。</strong></p>
-<p>寻找真正有价值的加密货币项目，长期持有，忽略短期市场波动。坚信项目价值，不被市场短期波动所影响。资金分成10份，有节奏的逢低买入。</p>
-<p>🔥 <strong>量化交易策略（需要技术门槛）。</strong></p>
-<p>利用算法和程序，可以避免追涨杀跌。但是，因为庄家可以基本推算所有人的仓位，极度熟悉算法和市场止损点位。</p>
-<aside>
+<p><em>实战案例：</em></p>
+<p>某个狗狗币项目，庄家操作流程：</p>
 <ul>
-<li>最安全的策略就是远离。</li>
-<li>靠着反市场情绪，预估市场心理价位，然后反向操作。但是一旦市场趋势改变，很可能变成负债 2 亿的被女朋友绿的凉兮。</li>
-<li>量化交易策略，寻找自己的 alpha。</li>
-<li>价值投资策略，比特币的未来是比较确定的，ETH是智能合约的基本盘。</li>
+<li>T0时刻：池子100万MEME + 100 SOL，价格 = 0.0001 USDT</li>
+<li>T1时刻：庄家单边加入900万MEME，池子变成1000万MEME + 100 SOL</li>
+<li>新价格 = 100/(1000万) = 0.00001 USDT，瞬间跌去90%</li>
+<li>T2时刻：散户恐慌抛售，庄家低价回收筹码</li>
+<li>T3时刻：庄家移除多余的MEME，价格&quot;神奇&quot;回升</li>
 </ul>
-</aside>
-<h1><strong>🚀</strong> 他们是如何暴富的？</h1>
+<p><strong>模式二：单边加池砸盘法</strong></p>
+<p><em>数学推导：</em></p>
+<p>假设初始池子状态为 (x, y)，价格 P = y/x</p>
+<p>如果庄家单边向池子加入 nx 数量的代币，新的池子状态为：</p>
+<ul>
+<li>代币数量：x + nx = x(1+n)</li>
+<li>基础货币数量：y（不变）</li>
+<li>新价格：P’ = y / [x(1+n)] = P/(1+n)</li>
+</ul>
+<p><em>关键发现：价格下跌幅度 = n/(1+n) × 100%</em></p>
+<p><em>实操分析：</em></p>
+<table>
+<thead>
+<tr>
+<th>加池倍数(n)</th>
+<th>价格下跌幅度</th>
+<th>散户心理状态</th>
+<th>庄家成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5倍</td>
+<td>33.3%</td>
+<td>小幅恐慌</td>
+<td>较低</td>
+</tr>
+<tr>
+<td>1倍</td>
+<td>50%</td>
+<td>中度恐慌</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>4倍</td>
+<td>80%</td>
+<td>极度恐慌</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>9倍</td>
+<td>90%</td>
+<td>绝望抛售</td>
+<td>最高</td>
+</tr>
+</tbody>
+</table>
+<p><em>风险控制：</em></p>
+<p>庄家需要确保有足够的代币储备进行砸盘，同时要承担价格不能回升的风险。因此这种手法通常配合后续的&quot;救市&quot;操作。</p>
+<p><strong>模式三：流动性挖矿陷阱</strong></p>
+<p><em>操作机制：</em></p>
 <ol>
-<li><strong>找到一个极度不成熟、信息极度不对称的市场：</strong> 例如，某个新生的、极小众的加密货币市场，或某个监管严重缺失的金融市场。</li>
-<li><strong>获得关键的、未公开的信息：</strong> 例如，某个即将改变游戏规则的技术突破、某个公司的重大并购消息、某个政策的重大调整等（但获取和利用这些信息很可能涉及违法）。</li>
-<li><strong>完美把握时机：</strong> 在信息公开前，以极低的成本大量买入相关资产，并在信息公开后，市场价格飙升时，成功卖出。</li>
-<li><strong>全程无人发现或阻止：</strong> 这种操作很可能引起监管部门的注意，并被调查。</li>
-<li><strong>使用杠杆</strong></li>
-<li>你是运气极好的天选之子，能靠着运气活到领悟市场规律的时候。</li>
-</ol>
-<p>加密货币市场几乎提供了前面 5 点条件，而最后一点可能是最重要的。一个市场里会有20%的人意识到有些人存在暴富手段，10%的人去探索，5%的人具备执行的能力，但是只有0.1%的人能成为几个天选之子。</p>
-<p>他们会在信息不对称，不充分的市场</p>
+<li>
+<p><strong>诱饵阶段</strong>：</p>
 <ul>
-<li>深度调研、执行和回测：通过深入研究公开信息（如公司财报、行业报告、政策文件），比其他市场参与者更早、更准确地解读信息，从而做出更明智的投资决策。</li>
-<li>利用技术分析漏洞，寻找微小价差的套利机会。</li>
-<li>研究行为经济学，在市场极度恐慌或极度贪婪时，反向操作，利用市场情绪的过度反应获利。比如在超跌时买入，并且预测参与者的非理性行为。</li>
-<li>利用技术手段，抢先交易（Front-running, 非法）和高频交易，利用高速计算机和算法，捕捉市场微小的价格波动，进行快速交易获利。</li>
+<li>项目方推出高APY流动性挖矿（通常300%+）</li>
+<li>通过白皮书和KOL营销包装项目前景</li>
+<li>吸引散户提供 LP（流动性代币对）</li>
 </ul>
-<aside>
-<p>对于普通人，最好是放弃不切实际的幻想，学习金融知识，深入了解市场机制、投资策略、风险管理等。然后跟着趋势和价值，选择优质资产，进行长期投资。<strong>享受人类经济增长的红利</strong>。</p>
-</aside>
-<h1><strong>🚀 超越 Alpha 与坐庄：加密货币市场的终局思辨</strong></h1>
-<p>我们穿越加密货币市场的迷雾，见证了 Alpha 的追逐、庄家的操纵、散户的挣扎。然而，喧嚣背后，更深层次的变革力量正在涌动。加密货币市场，不仅是投机场，更是试验场——一个关于去中心化理想、人性博弈与金融新范式的宏大实验。</p>
-<p>去中心化理想，在现实中呈现出迷人的“悖论”。比特币的创世区块，铭刻着对中心化金融体系的反叛；以太坊的诞生，更带着社会实验的理想。然而，算力集中、交易所权力、巨鲸操控、项目方中心化……这些“中心化”的幽灵，始终徘徊不去。这并非理想的破灭，而是“去中心化”本身的复杂性使然。真正的挑战，在于如何在去中心化与中心化之间寻求微妙的平衡，构建一个既能释放去中心化优势，又能有效治理与监管的体系。</p>
-<p>人性，是这场实验中永恒的变量。加密货币市场放大了人性的贪婪与恐惧、从众与盲动。Meme 币的狂欢、庄家的镰刀、“科学家”的套利，无不折射出人性的光辉与幽暗。匿名性、全球性、24/7 交易，让这场博弈更显激烈。监管的缺位，一度让负面效应肆意蔓延。未来的挑战，在于如何以制度与技术，抑制人性之恶，引导理性投资。</p>
-<p>然而，我们不能否认，加密货币市场正推动着金融范式的深刻变革。DeFi 试图重构金融体系，NFT 探索数字产权的新边界，DAO 尝试全新的组织形态，Web3 勾勒未来互联网的蓝图。这些创新，是对现有体系的反思，也是对未来可能性的探索。</p>
-<p>监管，在野蛮生长中觉醒，并在试错中不断演进。打击犯罪、保护投资者、拥抱创新，监管在多重目标中寻求平衡。市场的成熟，离不开监管的护航，这是一个动态博弈、螺旋上升的过程。</p>
-<p>加密货币市场的终局，并非某一种币的独霸，亦非某一种模式的垄断，而是一个更多元、开放、透明、高效的金融体系的渐进形成。技术的进步、监管的完善、人性的博弈，将共同塑造这一未来。</p>
-<p>身处变革浪潮，我们需要开放的心态、独立的思考、敬畏之心。这不仅是财富的游戏，更是认知的革命，一场关乎未来金融与社会形态的深刻探索。正如以太坊试图构建的，是可编程的社会形态。</p>
-<p>唯一不变的，是变化本身。保持学习，保持思辨，保持敬畏，方能在时代的洪流中，把握机遇，迎接挑战。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/">https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/dev/value-of-software-engineering/" title="程序员的价值在哪里"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/05/819ee56cc884eb5c8194f7f9a2d94d8c.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">程序员的价值在哪里</div></div><div class="info-2"><div class="info-item-1">程序员的核心价值是利用技术为企业创造业务价值，而非纯粹的技术能力。其价值公式 V=Σ（技术杠杆率×业务价值密度）揭示了价值来源：技术杠杆放大个人产出，业务价值密度决定场景潜力。不同场景和行业对程序员价值估值各异，通用价值体现在解决复杂问题、优化性能、提升效率、推动创新和降低成本等方面。程序员需拥抱多元技术栈，精进核心技能，提升业务理解和复合能力。技术价值受稀缺性、适配度和泡沫溢价率影响，需警惕技术超前、路径依赖和伪需求陷阱。逃离泡沫需识别资本退潮、人才降温、监管收紧等信号，并提前转型、提升能力、谨慎投资、拓展人脉和终身学习。</div></div></div></a><a class="pagination-related" href="/audit/blockchain-client-security/" title="公链安全开发指南和审计checklist"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/01/c037c1551777613437e750a0fdd9489c.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">公链安全开发指南和审计checklist</div></div><div class="info-2"><div class="info-item-1"> 作者： Jiahao Luo 来源：https://blog-blockchain.xyz/audit/blockchain-client-security/  前言 【文档使用范围与目标读者】 本审计清单适用于从事区块链开发、安全审计，或对区块链底层安全感兴趣的技术人员和研究人员。我们假设读者对区块链基本概念（区块、交易、合约等）已有一定了解，但可能对密码学、P2P 网络、共识机制、跨链通信等专业领域的安全风险尚不完全熟悉。 【关键术语释义】  熵源：指生成随机数时所依赖的随机性来源，如操作系统随机数设备、硬件随机数模块等。熵源的质量直接决定私钥或交易nonce的安全性。 共识机制：区块链中达成一致状态的协议，如PoW、PoS、BFT等。若共识机制有漏洞，可能导致双花、长程攻击或分叉。 VM安全（虚拟机安全）：区块链上运行合约的执行环境（如EVM、WASM）。任何虚拟机级别的安全缺陷都会导致合约逻辑被恶意利用。  基于 SlowMist...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/career/become-good-coder/" title="如何成为优秀的软件工程师"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-09</div><div class="info-item-2">如何成为优秀的软件工程师</div></div><div class="info-2"><div class="info-item-1">要成为一名优秀的软件工程师，需要掌握广泛的技能和知识，包括基础的数据结构、高级架构设计和良好的编程实践。本文将为你详细介绍如何全面提升自己的编程能力，成为卓越的软件工程师。 深入掌握数据结构与算法 TODO: 我的数据结构和算法的笔记，每一类数据结构怎么用。 数据结构和算法是软件工程的核心基础。深入理解数组、链表、堆栈、队列、树、图等基础数据结构，可以帮助你高效地解决复杂问题。你不仅需要理解它们的工作原理，还要清楚它们的优缺点、本质特性以及适用的应用场景。 数组是一种连续存储的结构，适合需要快速随机访问的场景，访问的时间复杂度为 O(1)。但它在插入和删除操作时需要移动大量数据，时间复杂度为 O(n)，因此不适合频繁插入和删除的场景。数组通常用于需要快速访问的应用，例如排行榜和固定大小的数据集合。 链表是一种由节点组成的结构，每个节点包含数据和指向下一个节点的指针。链表在已知位置时，插入和删除操作非常高效，时间复杂度为 O(1)，但随机访问的效率较低，为...</div></div></div></a><a class="pagination-related" href="/dev/crypto-practice/" title="安全加密实践-GPG"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/ecd2b676f9bf98a607c67fc697f9ed4e.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="info-item-2">安全加密实践-GPG</div></div><div class="info-2"><div class="info-item-1">GPG 是一款强大的开源加密工具，基于公钥密码学原理，为电子通信提供隐私保护和数据验证。它广泛应用于确保信息安全和身份认证。 安装指南 Linux 系统 Debian/Ubuntu: 12sudo apt updatesudo apt install gnupg CentOS/RHEL: 1sudo yum install gnupg Fedora: 1sudo dnf install gnupg Arch Linux: 1sudo pacman -S gnupg macOS 使用 Homebrew 安装： 1brew install gnupg Windows    从 Gpg4win 官方网站 下载安装包 2. 运行安装程序，按提示完成安装 3. 安装后，在命令提示符或 PowerShell 中验证    FreeBSD 通过 pkg 包管理器安装： 1pkg install gnupg 验证安装 在任何平台上，运行以下命令确认安装成功： 1gpg...</div></div></div></a><a class="pagination-related" href="/dev/backup-practice/" title="传输和备份实践"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="info-item-2">传输和备份实践</div></div><div class="info-2"><div class="info-item-1">rsync rsync 是一个强大的文件同步和传输工具，适用于类 Unix 系统。Windows 用户可以通过 WSL（Windows Subsystem for Linux）来使用 rsync。以下是详细的安装和使用方法： Ubuntu/Debian： 12sudo apt updatesudo apt install rsync CentOS/Fedora： 1sudo yum install rsync macOS（使用 Homebrew）： 1brew install rsync 注意，两台机器都要安装好。 使用方法 1rsync [选项] 源目录/ 目标目录  -a：归档模式，保留所有文件属性 -v：详细输出 -z：压缩传输 -P：显示进度并允许断点续传 –delete：删除目标目录中源目录没有的文件 -h：以人类可读的格式显示文件大小 -e：指定要使用的远程 shell，通常用于指定 SSH 连接参数  本地同步： 1rsync -avzP /path/to/source/...</div></div></div></a><a class="pagination-related" href="/dev/fast-draw/" title="Mermaid 快速绘制流程图"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/01/2eff9a38e755999f214c5a96c036591d.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-11</div><div class="info-item-2">Mermaid 快速绘制流程图</div></div><div class="info-2"><div class="info-item-1"> 本文主要介绍了如何快速绘制流程图、系统架构图和处理流程，以及如何在 Markdown 中渲染 Mermaid。  渲染 Mermaid  商业产品，支持高级功能，丰富的自定义，但是一般不太需要那么精美：https://www.mermaidchart.com/ vscode markdown 插件：Markdown Preview Mermaid Support 或者 Markdown Preview Mermaid Support，前者更加重，支持更多的功能。 draw.io：https://www.drawio.com/blog/mermaid-diagrams 各种markdown编辑器。 Excalidraw 的手绘风格，更加适合快速绘制：https://excalidraw.com/  Mermaid 流程图 Mermaid 的 flowchart（流程图） 是用来绘制流程图、系统架构图和处理流程的核心功能之一。以下是详细的语法和功能解释，涵盖基本用法、节点类型、箭头连接、条件分支等。 基本结构 Mermaid 的流程图以 flowchart...</div></div></div></a><a class="pagination-related" href="/dev/docker/" title="docker自动化"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">docker自动化</div></div><div class="info-2"><div class="info-item-1">了解背景 Docker 是一种轻量级的容器化技术，主要用于应用程序的环境迁移和一致性。你需要知道下面的基本概念：  了解镜像、容器的基本概念：https://yeasy.gitbook.io/docker_practice/basic_concept 数据卷的基本概念：https://yeasy.gitbook.io/docker_practice/data_management/volume 网络方面，端口映射、docker compose 容器互联：https://yeasy.gitbook.io/docker_practice/network/port_mapping  OK，上面三个基本概念，你就足够使用 docker 了，然后我们来了解 docker 最实用的地方：  环境迁移，在不同的机器上保持一致性，一次创建或配置，可以在任意地方正常运行。。 直接在 docker 内利用 linux 环境和路径挂载来开发。  隔离依赖、统一开发环境、快速启动。 利用 Linux 容器作为开发环境：在不同平台（Windows、Mac、Linux）上保持一致的开发环境。 通过...</div></div></div></a><a class="pagination-related" href="/dev/git/" title="GitHub 协作开发指南"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-30</div><div class="info-item-2">GitHub 协作开发指南</div></div><div class="info-2"><div class="info-item-1">开源项目参与流程 在开源项目或团队协作开发中，使用 GitHub 是一个常见的实践。以下是一套从 Fork 项目到提交 Pull Request（PR）的完整流程，帮助你高效管理代码并与团队或社区协作。 1. Fork 项目仓库 进入项目的 GitHub 页面，点击右上角的 Fork 按钮，将该项目仓库复制到自己的 GitHub 账户下。这个 Fork 的副本是你对项目的个人副本，你可以在上面进行改动而不会影响原项目。 2. Clone 项目到本地 在你的 GitHub 账户中找到刚刚 Fork 的仓库，复制仓库的链接。在本地执行以下命令将仓库克隆到你的电脑： 1git clone &lt;your-forked-repo-url&gt; 3. 添加上游仓库 (Upstream) 当你 Fork 了一个仓库后，你的代码会与原项目（官方项目）脱离直接联系。为了能够同步原项目的最新更改，你需要将原项目添加为“上游仓库”。进入克隆的项目文件夹，运行以下命令： 1git remote add upstream &lt;original-repo-url&gt; 然后验证 git...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">84</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://www.linkedin.com/in/jiahao-michael-luo-8ba5942a3" rel="external nofollow noreferrer" target="_blank" title="Linkedin"><i class="fa-brands fa-linkedin"></i></a><a class="social-icon" href="https://x.com/jiahao_luo9" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">🚀 Alpha 的追逐：不充分市场中的&quot;信息差”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">🚀 &quot;坐庄&quot;的迷思：操纵市场的幻象与风险</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E5%86%85%E5%B9%95%E4%BA%A4%E6%98%93%E6%98%AF%E5%B8%B8%E6%80%81%E3%80%82"><span class="toc-text">✅ 内幕交易是常态。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-gmgn-%E5%92%8C-debot-%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%EF%BC%8C%E6%98%AF%E5%9C%A8%E4%B8%BA%E7%94%A8%E6%88%B7%E6%8F%90%E4%BE%9Balpha%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%87%8F%E5%B0%91%E5%B8%82%E5%9C%BA%E7%9A%84alpha%E3%80%82"><span class="toc-text">✅ gmgn 和 debot 的设计思路，是在为用户提供alpha，并且减少市场的alpha。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E6%8A%80%E6%9C%AF%E9%9D%A2%E6%8C%87%E6%A0%87%E5%92%8C%E5%B8%82%E5%9C%BA%E6%83%85%E7%BB%AA%E6%98%AF%E6%9C%80%E7%BE%8E%E5%91%B3%E7%9A%84%E9%A3%9F%E7%89%A9%E3%80%82"><span class="toc-text">✅ 技术面指标和市场情绪是最美味的食物。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E6%95%A3%E6%88%B7%E8%83%BD%E5%A6%82%E4%BD%95%E7%9B%88%E5%88%A9%E5%91%A2%EF%BC%9F"><span class="toc-text">✅ 散户能如何盈利呢？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">🚀 他们是如何暴富的？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">🚀 超越 Alpha 与坐庄：加密货币市场的终局思辨</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/solana/solana-basic/" title="Solana 合约开发基础"><img src="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solana 合约开发基础"/></a><div class="content"><a class="title" href="/solana/solana-basic/" title="Solana 合约开发基础">Solana 合约开发基础</a><time datetime="2025-05-18T14:58:33.000Z" title="Created 2025-05-18 22:58:33">2025-05-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/solana/solana-flashloan-1/" title="Solana flashloan 原理和设计"><img src="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solana flashloan 原理和设计"/></a><div class="content"><a class="title" href="/solana/solana-flashloan-1/" title="Solana flashloan 原理和设计">Solana flashloan 原理和设计</a><time datetime="2025-05-17T14:09:33.000Z" title="Created 2025-05-17 22:09:33">2025-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/pursuit-of-meaning-and-freedom/" title="在追寻意义中找寻自由：现代社会中的生存哲学"><img src="https://cdn.blog-blockchain.xyz/2025/05/2f8d359c909d472a620007158cbcaaf4.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在追寻意义中找寻自由：现代社会中的生存哲学"/></a><div class="content"><a class="title" href="/career/pursuit-of-meaning-and-freedom/" title="在追寻意义中找寻自由：现代社会中的生存哲学">在追寻意义中找寻自由：现代社会中的生存哲学</a><time datetime="2025-05-01T04:11:20.000Z" title="Created 2025-05-01 12:11:20">2025-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/Career-and-Life-Between-Ideal-and-Reality/" title="我对职场和人生的思考：在理想与现实之间"><img src="https://cdn.blog-blockchain.xyz/2025/04/4f93c7d9a0c3628ac37db9606c1dca24.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我对职场和人生的思考：在理想与现实之间"/></a><div class="content"><a class="title" href="/career/Career-and-Life-Between-Ideal-and-Reality/" title="我对职场和人生的思考：在理想与现实之间">我对职场和人生的思考：在理想与现实之间</a><time datetime="2025-04-20T19:22:20.000Z" title="Created 2025-04-21 03:22:20">2025-04-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/dev/rust-lifetime/" title="深入学习Rust生命周期"><img src="https://cdn.blog-blockchain.xyz/2025/03/7a1eb877711a4e78b90307ccefde92f4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入学习Rust生命周期"/></a><div class="content"><a class="title" href="/dev/rust-lifetime/" title="深入学习Rust生命周期">深入学习Rust生命周期</a><time datetime="2025-03-28T10:58:20.000Z" title="Created 2025-03-28 18:58:20">2025-03-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.3.5"></script><script src="/js/main.js?v=5.3.5"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+</li>
+<li>
+<p><strong>锁仓阶段</strong>：</p>
+<ul>
+<li>设置较长的锁仓期（7-30天）</li>
+<li>散户无法随时撤出流动性</li>
+<li>庄家获得操控价格的时间窗口</li>
+</ul>
+</li>
+<li>
+<p><strong>收割阶段</strong>：</p>
+<ul>
+<li>在锁仓期内疯狂砸盘，压低代币价格</li>
+<li>散户的LP价值暴跌但无法撤出</li>
+<li>锁仓期结束时，散户发现LP价值已损失60-90%</li>
+</ul>
+</li>
+</ol>
+<p><em>数学分析：</em></p>
+<p>假设散户提供 1000 USDT + 相应数量的MEME组成LP：</p>
+<ul>
+<li>初始MEME价格：0.1 USDT，需要10,000 MEME</li>
+<li>庄家砸盘后价格：0.02 USDT</li>
+<li>散户LP价值：√(1000 × 10,000 × 0.02) ≈ 447 USDT</li>
+<li>损失幅度：55.3%</li>
+</ul>
+<p><em>识别技巧：</em></p>
+<ul>
+<li>APY异常高的新项目（&gt;200%）</li>
+<li>锁仓期较长且不可提前解锁</li>
+<li>项目方匿名或信息不透明</li>
+<li>代币分配集中度过高</li>
+</ul>
+<p><strong>模式四：跨池套利操控法</strong></p>
+<p><em>策略原理：</em></p>
+<p>庄家在多个DEX创建相同代币的流动性池，通过在不同池子制造价差来获利。</p>
+<p><em>操作流程：</em></p>
+<ol>
+<li><strong>主池维稳</strong>：在Raydium等主要DEX维持正常价格和深度</li>
+<li><strong>小池作恶</strong>：在Orca等较小DEX故意制造价格偏差</li>
+<li><strong>套利收割</strong>：诱导套利机器人和散户在小池交易</li>
+<li><strong>循环操作</strong>：重复制造价差，持续获利</li>
+</ol>
+<p><em>具体案例：</em></p>
+<p>某MEME币的跨池操作：</p>
+<ul>
+<li>Raydium主池：100万MEME + 1000 SOL，价格 0.0015 SOL</li>
+<li>Orca小池：10万MEME + 50 SOL，庄家故意砸盘至 0.001 SOL</li>
+<li>套利者发现33%价差，在Orca买入然后去Raydium卖出</li>
+<li>庄家在Orca低价收集筹码，在Raydium高价分发筹码</li>
+</ul>
+<p><em>数学模型：</em></p>
+<p>设主池价格 P₁，小池价格 P₂，价差率 δ = (P₁-P₂)/P₁</p>
+<p>庄家每轮套利收益 = 交易量 × δ × (1-手续费)</p>
+<p>当δ &gt; 手续费率时，套利机器人就会行动，成为庄家的&quot;搬运工&quot;。</p>
+<p><em>防范策略：</em></p>
+<ul>
+<li>对比多个DEX的价格和深度</li>
+<li>避免在流动性极小的池子交易</li>
+<li>设置合理的滑点容忍度（&lt;3%）</li>
+<li>使用聚合器减少被单一池子操控的风险</li>
+</ul>
+<p><strong>操控模式组合拳</strong></p>
+<p>实际操作中，庄家往往会组合使用多种模式：</p>
+<p><em>典型组合：</em></p>
+<ol>
+<li><strong>扩池+砸盘</strong>：先扩大池子制造深度假象，再单边砸盘收集筹码</li>
+<li><strong>流动性挖矿+跨池套利</strong>：用高APY锁定散户资金，同时在其他池子操控价格</li>
+<li><strong>缩池+拉盘+扩池+砸盘</strong>：完整的&quot;抽水机&quot;循环</li>
+</ol>
+<p><em>时间轴分析：</em></p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>操作</th>
+<th>池子状态</th>
+<th>散户行为</th>
+<th>庄家收益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>缩池拉盘</td>
+<td>小池深度</td>
+<td>FOMO入场</td>
+<td>高价出货</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>扩池砸盘</td>
+<td>大池深度</td>
+<td>恐慌抛售</td>
+<td>低价收筹</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>横盘整理</td>
+<td>稳定状态</td>
+<td>观望等待</td>
+<td>筹码整理</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>重复循环</td>
+<td>-</td>
+<td>再次上当</td>
+<td>持续收割</td>
+</tr>
+</tbody>
+</table>
+<p><strong>对散户的启示</strong></p>
+<p>了解这些操控模式后，散户应该：</p>
+<ol>
+<li><strong>关注池子深度变化</strong>：使用Aveai等工具监控流动性变化</li>
+<li><strong>避免高APY陷阱</strong>：对异常高收益保持警惕</li>
+<li><strong>多平台比价</strong>：不在单一DEX进行大额交易</li>
+<li><strong>设置严格止损</strong>：一旦发现异常操作立即离场</li>
+<li><strong>控制仓位大小</strong>：永远不要投入超过损失承受能力的资金</li>
+</ol>
+<p>记住：<strong>当你以为自己在套利时，很可能你就是被套利的对象。</strong></p>
+<h2 id="5-现代坐庄的系统性方法">5. 现代坐庄的系统性方法</h2>
+<h3 id="5-1-庄家生态的真实观察">5.1 庄家生态的真实观察</h3>
+<p><strong>亲历的市场操纵案例</strong></p>
+<p>最让我印象深刻的是观察某个Meme币的完整操作周期。这个项目从0.001美金启动，在三天内拉升到0.1美金，然后在两小时内暴跌95%。通过链上数据分析，我发现了经典的庄家操作模式：</p>
+<ol>
+<li><strong>建仓阶段</strong>：10个关联地址在低位分批建仓，总计收集30%的流通筹码</li>
+<li><strong>拉盘阶段</strong>：通过减少池子流动性放大价格波动，同时配合KOL喊单</li>
+<li><strong>出货阶段</strong>：在高位通过多个地址分批出货，维持价格假象</li>
+</ol>
+<p><strong>KOL生态的真相</strong></p>
+<p>我曾经非常崇拜那些在Twitter上有数万粉丝的加密KOL，认为他们是市场的&quot;先知&quot;。但深入观察后发现，很多所谓的KOL实际上是庄家生态的一部分：</p>
+<ul>
+<li><strong>带货型KOL</strong>：直接收费推广项目，粉丝就是他们的变现工具</li>
+<li><strong>分析型KOL</strong>：看似客观分析，实际暗含立场，引导散户情绪</li>
+<li><strong>内幕型KOL</strong>：确实有信息源，但信息来源往往是项目方或庄家本身</li>
+</ul>
+<p><strong>市场参与者的真实结构</strong>：</p>
+<ul>
+<li><strong>庄家联盟（30%）：</strong> 项目方+早期投资人+做市商，控制绝对话语权</li>
+<li><strong>服务生态（10%）：</strong> KOL+媒体+技术服务商，提供操作配套</li>
+<li><strong>跟风资金（10%）：</strong> 所谓的Smart Money，实际是庄家的跟随者</li>
+<li><strong>散户韭菜（50%）：</strong> 情绪驱动的热钱，承担最大风险，获得最少收益</li>
+</ul>
+<p><strong>庄家操作的系统性</strong></p>
+<p>让我震惊的是庄家操作的专业化程度。他们有完整的项目筛选标准、资金配置模型、风险控制体系。这不是几个人的临时起意，而是一整套成熟的商业模式。从某种程度上说，散户面对的不是个别的&quot;坏人&quot;，而是一个专业化的收割机器。</p>
+<h3 id="5-2-标准化操盘流程">5.2 标准化操盘流程</h3>
+<p><strong>阶段一：标的选择与吸筹</strong></p>
+<ul>
+<li>选择标准：低市值、流动性差、有社区基础、叙事潜力</li>
+<li>吸筹策略：OTC收购、分批建仓、洗盘操作</li>
+</ul>
+<p><strong>阶段二：拉盘与造势</strong></p>
+<ul>
+<li>技术面操控：突破关键阻力位，制造买入信号</li>
+<li>基本面配合：释放利好消息，KOL喊单</li>
+<li>情绪面引导：制造FOMO情绪</li>
+</ul>
+<p><strong>阶段三：高位震荡与出货</strong></p>
+<ul>
+<li>出货的艺术：必须有&quot;高位震荡&quot;</li>
+<li>分批出货策略：维持价格相对稳定</li>
+<li>极端情况：直接Rug Pull</li>
+</ul>
+<h3 id="5-3-多庄家博弈机制">5.3 多庄家博弈机制</h3>
+<table>
+<thead>
+<tr>
+<th>庄家类型</th>
+<th>资金规模</th>
+<th>操作特征</th>
+<th>优势</th>
+<th>劣势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>超级庄家</strong></td>
+<td>1000万+</td>
+<td>长周期操作，注重基本面</td>
+<td>资金雄厚，抗风险强</td>
+<td>船大难调头，易被狙击</td>
+</tr>
+<tr>
+<td><strong>中型庄家</strong></td>
+<td>100-1000万</td>
+<td>中期波段，技术面主导</td>
+<td>灵活性强，收益率高</td>
+<td>资金有限，受情绪影响</td>
+</tr>
+<tr>
+<td><strong>小型庄家</strong></td>
+<td>10-100万</td>
+<td>短期投机，跟随趋势</td>
+<td>进出灵活，成本低</td>
+<td>控盘能力弱，易被收割</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-实证案例研究">6. 实证案例研究</h2>
+<h3 id="6-1-pwease-案例分析">6.1 $pwease 案例分析</h3>
+<p>$pwease 是一个政治 meme 币，来源于美国副总统 JD Vance 的质询。通过链上数据分析，发现其完美的庄家画线操作：</p>
+<p><strong>走势特征：</strong></p>
+<ul>
+<li>第一波：3.4日18:00-3.5日02:00，0.005→0.03，6倍，8小时</li>
+<li>第二波：3.8日14:00-3.8日21:00，0.006→0.036，6倍，7小时</li>
+</ul>
+<p><strong>关键地址操作：</strong></p>
+<ul>
+<li>主要操作地址：<code>A1FcqcCM8j1kwJCTi1Gr9hFL3gg1djXxdv2aKXMsc5GG</code></li>
+<li>操作序列：低位减池→单边加SOL→高位减池出货</li>
+</ul>
+<h3 id="6-2-操作信号识别">6.2 操作信号识别</h3>
+<table>
+<thead>
+<tr>
+<th>操作类型</th>
+<th>池子变化特征</th>
+<th>市场信号强度</th>
+<th>散户应对策略</th>
+<th>成功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>低位减池+SOL单边增加</strong></td>
+<td>流动性↓20%+SOL↑50%</td>
+<td>强烈看涨</td>
+<td>小仓位跟进抄底</td>
+<td>70%</td>
+</tr>
+<tr>
+<td><strong>高位大量减池</strong></td>
+<td>流动性↓↓50%</td>
+<td>强烈看跌</td>
+<td>立即清仓离场</td>
+<td>85%</td>
+</tr>
+<tr>
+<td><strong>突然撤池50万+</strong></td>
+<td>流动性急剧↓↓↓</td>
+<td>异常操作</td>
+<td>观察二波机会</td>
+<td>40%</td>
+</tr>
+<tr>
+<td><strong>单边加币砸盘</strong></td>
+<td>代币数量↑↑100%</td>
+<td>绝对看跌</td>
+<td>停损逃命</td>
+<td>95%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-散户实战策略框架">7. 散户实战策略框架</h2>
+<h3 id="7-1-工具链构建">7.1 工具链构建</h3>
+<p><strong>Aveai.info核心功能：</strong></p>
+<ul>
+<li>流动性池监控面板</li>
+<li>地址标签系统</li>
+<li>交易路由分析</li>
+</ul>
+<p><strong>GMGN.ai高级功能：</strong></p>
+<ul>
+<li>Smart Money追踪</li>
+<li>PnL分布分析</li>
+<li>Holder行为分析</li>
+</ul>
+<h3 id="7-2-风险控制体系">7.2 风险控制体系</h3>
+<p><strong>动态仓位管理：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每笔投资金额 = 总资产 × 风险系数 × (1 - 当前持仓数/最大持仓数)</span><br></pre></td></tr></table></figure>
+<p><strong>多层次止损系统：</strong></p>
+<ul>
+<li>时间止损：最大持仓72小时</li>
+<li>条件止损：流动性降低&gt;50%时立即平仓</li>
+<li>动态止损：盈利&gt;30%后上调止损位</li>
+</ul>
+<h3 id="7-3-散户生存策略：从血泪中总结的教训">7.3 散户生存策略：从血泪中总结的教训</h3>
+<p><strong>我的进化历程：从韭菜到小有收获</strong></p>
+<p>经历过无数次被割韭菜后，我逐渐总结出一套适合普通散户的生存策略。这些策略的核心思想是：<strong>不求大富大贵，但求在这个充满陷阱的市场中保护本金并小有收获。</strong></p>
+<p><strong>策略一：&quot;跟庄不做庄&quot;策略</strong></p>
+<p>放弃了做&quot;价值投资者&quot;的幻想后，我开始学会观察和跟随庄家操作：</p>
+<ul>
+<li><strong>工具使用</strong>：每天花30分钟查看Aveai.info的流动性池变化</li>
+<li><strong>信号识别</strong>：重点关注低位减池+单边加SOL的组合信号</li>
+<li><strong>资金管理</strong>：单笔投资不超过总资产的2%，严格设置20%止损</li>
+<li><strong>心态控制</strong>：把自己当成庄家的&quot;小跟班&quot;，吃点汤水就满足</li>
+</ul>
+<p>这个策略让我在最近6个月实现了30%的收益，虽然不算特别高，但在这个动荡的市场中已经属于不错的表现。</p>
+<p><strong>策略二：&quot;情绪对冲&quot;投资法</strong></p>
+<p>我发现市场情绪往往是反向指标：</p>
+<ul>
+<li><strong>极度恐慌时买入</strong>：当Fear &amp; Greed Index低于20时，分批买入主流币</li>
+<li><strong>极度贪婪时减仓</strong>：当指数高于80时，逐步降低仓位</li>
+<li><strong>媒体监控</strong>：当主流媒体开始关注某个币种时，往往是见顶信号</li>
+</ul>
+<p>这个策略的核心是&quot;做别人不敢做的事&quot;，但前提是严格的资金管理。</p>
+<p><strong>策略三：&quot;生态押注&quot;长期投资法</strong></p>
+<p>彻底放弃了押注单个项目的想法，转而投资整个生态：</p>
+<ul>
+<li><strong>基础设施配置（60%）</strong>：BTC作为数字黄金，ETH作为智能合约平台</li>
+<li><strong>生态代币配置（30%）</strong>：选择有真实使用场景的DeFi平台代币</li>
+<li><strong>投机仓位（10%）</strong>：用来参与新兴赛道，满足自己的投机欲望</li>
+</ul>
+<p><strong>最重要的心态转变</strong></p>
+<p>经历过这么多轮回后，我最大的收获不是赚了多少钱，而是心态的转变：</p>
+<ul>
+<li><strong>接受自己的平凡</strong>：不再幻想一夜暴富，而是追求稳定的超额收益</li>
+<li><strong>认清市场的本质</strong>：这是一个转移财富的游戏，不是创造财富的场所</li>
+<li><strong>建立自己的节奏</strong>：不被市场情绪左右，按照自己的计划执行</li>
+<li><strong>享受学习的过程</strong>：把投资当成一门手艺来学，而不是赌博游戏</li>
+</ul>
+<p>最终我发现，在加密市场中，&quot;活着&quot;比&quot;发财&quot;更重要。只有先学会在这个市场中生存，才有可能在某个机会来临时抓住它。</p>
+<h3 id="7-4-实战操作流程">7.4 实战操作流程</h3>
+<pre class="mermaid">graph TD
+    A[开始监控低市值代币] --> B{检查流动性池变化}
+    B -->|低位减池+单边加SOL| C[庄家准备拉盘]
+    B -->|高位大量减池| D[庄家出货离场]
+    B -->|突然撤池50万+| E[异常操作预警]
+
+    C --> F[小额跟进抄底]
+    F --> G[严格设置止盈止损]
+    G --> H{监控后续池子变化}
+
+    H -->|继续单边加池| I[持有观望]
+    H -->|开始减池| J[分批获利了结]
+
+    D --> K[立即清仓离场]
+    E --> L[观察是否有二波机会]
+
+    I --> H
+    J --> M[完成获利]
+    K --> M
+    L --> N{评估风险收益比}
+    N -->|风险可控| F
+    N -->|风险过高| O[放弃操作]
+
+    style C fill:#e8f5e8
+    style D fill:#ffebee
+    style F fill:#e3f2fd
+    style K fill:#fff3e0
+    style M fill:#f1f8e9</pre>
+<h2 id="8-讨论">8. 讨论</h2>
+<h3 id="8-1-暴富的残酷真相：谁在发财，如何发财">8.1 暴富的残酷真相：谁在发财，如何发财</h3>
+<p><strong>我观察到的真正赚钱的人</strong></p>
+<p>在这个市场摸爬滚打几年，我有机会观察到一些真正赚到大钱的人。他们的成功路径颠覆了我最初的认知：</p>
+<p><strong>第一类：时机型暴富者</strong></p>
+<ul>
+<li><strong>典型案例</strong>：2020年DeFi Summer的参与者，2021年NFT浪潮的早期玩家</li>
+<li><strong>成功要素</strong>：足够的胆量+恰好的时机+持有到合适的时点</li>
+<li><strong>关键洞察</strong>：他们不是因为&quot;更聪明&quot;而成功，而是因为在&quot;对的时间做了对的事&quot;</li>
+</ul>
+<p>我认识一个朋友，2020年6月花2000美金买了YFI，在最高点卖出时获得了200万美金。但他承认，这完全是运气——当时他连DeFi是什么都不完全理解。</p>
+<p><strong>第二类：信息型暴富者</strong></p>
+<ul>
+<li><strong>典型案例</strong>：某些KOL、项目方内部人员、VC机构</li>
+<li><strong>成功要素</strong>：信息来源+资金实力+执行能力</li>
+<li><strong>关键洞察</strong>：他们的成功建立在信息不对称的基础上，本质上是利用了信息垄断</li>
+</ul>
+<p><strong>第三类：技术型暴富者</strong></p>
+<ul>
+<li><strong>典型案例</strong>：MEV机器人运营者、套利程序开发者、量化交易团队</li>
+<li><strong>成功要素</strong>：技术优势+资金实力+风险管理</li>
+<li><strong>关键洞察</strong>：他们赚的是&quot;技术红利&quot;，但随着竞争加剧，这种红利正在快速消失</li>
+</ul>
+<p><strong>第四类：操控型暴富者</strong></p>
+<ul>
+<li><strong>典型案例</strong>：庄家团队、大户联盟、项目方</li>
+<li><strong>成功要素</strong>：资金实力+操控手段+风险承担</li>
+<li><strong>关键洞察</strong>：他们是市场的&quot;做局者&quot;，而不是&quot;参与者&quot;</li>
+</ul>
+<p><strong>暴富的残酷概率</strong></p>
+<p>基于我的观察和数据分析，真实的暴富概率远比想象中残酷：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">暴富成功率 = 市场机会 × 信息优势 × 资金实力 × 执行能力 × 运气因素</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>散户韭菜（95%）</strong>：暴富概率 &lt; 0.1%，大部分人最终亏损</li>
+<li><strong>专业投资者（4%）</strong>：暴富概率1-5%，能够稳定盈利但难以暴富</li>
+<li><strong>内圈人员（1%）</strong>：暴富概率20-50%，掌握信息和资源优势</li>
+</ul>
+<p><strong>最残酷的真相</strong></p>
+<p>经过这几年的观察，我得出一个残酷的结论：<strong>在加密市场中，绝大多数的暴富都不是因为&quot;投资能力强&quot;，而是因为&quot;站在了食物链的上游&quot;。</strong></p>
+<p>那些真正赚到大钱的人，要么是项目方，要么是早期投资人，要么是庄家，要么是掌握内幕信息的KOL。普通散户无论多么努力学习，多么认真分析，在信息差和资金差面前都显得无力。</p>
+<p>这不是一个公平的游戏，从来都不是。但了解了游戏规则后，我们至少可以选择不做最底层的韭菜。</p>
+<h3 id="8-2-监管环境变化趋势">8.2 监管环境变化趋势</h3>
+<p><strong>当前阶段特征（2024-2025）：</strong></p>
+<ul>
+<li>机构投资者大量进入</li>
+<li>传统金融工具完善</li>
+<li>市场波动性逐渐降低</li>
+<li>Alpha获取难度显著增加</li>
+</ul>
+<p><strong>未来发展预期（2025-2030）：</strong></p>
+<ul>
+<li>传统金融和DeFi深度融合</li>
+<li>央行数字货币广泛应用</li>
+<li>全球统一监管框架建立</li>
+<li>投机向投资转变</li>
+</ul>
+<h3 id="8-3-技术发展对策略的影响">8.3 技术发展对策略的影响</h3>
+<table>
+<thead>
+<tr>
+<th>策略类型</th>
+<th>当前可行性</th>
+<th>未来趋势</th>
+<th>应对建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>流动性池套利</strong></td>
+<td>高</td>
+<td>逐步降低</td>
+<td>技术升级，提高效率</td>
+</tr>
+<tr>
+<td><strong>内幕交易</strong></td>
+<td>中</td>
+<td>大幅降低</td>
+<td>转向合规信息分析</td>
+</tr>
+<tr>
+<td><strong>技术分析</strong></td>
+<td>中</td>
+<td>保持稳定</td>
+<td>结合AI技术增强</td>
+</tr>
+<tr>
+<td><strong>基本面分析</strong></td>
+<td>高</td>
+<td>重要性增加</td>
+<td>深化研究能力</td>
+</tr>
+<tr>
+<td><strong>长期投资</strong></td>
+<td>高</td>
+<td>重要性增加</td>
+<td>提升项目判断力</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-结论与展望">9. 结论与展望</h2>
+<h3 id="9-1-主要研究发现">9.1 主要研究发现</h3>
+<ol>
+<li>
+<p><strong>数学模型验证：</strong> AMM恒定乘积公式下，拉盘成本与目标市值平方根成正比，为庄家操作提供了精确的成本计算基础。</p>
+</li>
+<li>
+<p><strong>操控机制揭示：</strong> 现代坐庄已形成标准化流程，通过流动性池操控实现成本最小化的价格操纵。</p>
+</li>
+<li>
+<p><strong>博弈均衡分析：</strong> 多庄家环境下的PVP竞争加剧，散户需要更精准的信号识别和风险控制。</p>
+</li>
+<li>
+<p><strong>生存策略构建：</strong> 散户通过系统性工具和策略组合，可以在高风险环境中寻找生存空间。</p>
+</li>
+</ol>
+<h3 id="9-2-实践意义">9.2 实践意义</h3>
+<p>本研究为加密货币市场参与者提供了：</p>
+<ul>
+<li>庄家操作的数学量化分析框架</li>
+<li>系统性的风险识别和控制方法</li>
+<li>基于工具链的实战操作指南</li>
+<li>长期价值投资的策略选择</li>
+</ul>
+<h3 id="9-3-局限性与未来研究方向">9.3 局限性与未来研究方向</h3>
+<p><strong>研究局限性：</strong></p>
+<ul>
+<li>案例样本相对有限</li>
+<li>模型假设存在简化</li>
+<li>监管环境变化的不确定性</li>
+</ul>
+<p><strong>未来研究方向：</strong></p>
+<ul>
+<li>扩大案例研究样本，提高模型普适性</li>
+<li>结合AI技术开发自动化监控系统</li>
+<li>深入研究监管科技对市场结构的影响</li>
+<li>探索Web3和DAO治理模式的新机遇</li>
+</ul>
+<h3 id="9-4-终局思考：加密世界的未来与个人的选择">9.4 终局思考：加密世界的未来与个人的选择</h3>
+<p><strong>市场成熟化的必然趋势</strong></p>
+<p>站在2025年回望，加密货币市场正在经历从&quot;赌场&quot;向&quot;金融市场&quot;的转变。这个转变的标志包括：</p>
+<ul>
+<li>机构投资者的大规模进入带来了更理性的定价机制</li>
+<li>监管框架的逐步完善降低了政策风险的不确定性</li>
+<li>技术基础设施的成熟化减少了操作和安全风险</li>
+<li>衍生品市场的发展提供了更多风险管理工具</li>
+</ul>
+<p><strong>个人投资者的困境与出路</strong></p>
+<p>对于像我这样的普通投资者，这种变化既是机遇也是挑战：</p>
+<p><strong>挑战：Alpha获取越来越困难</strong></p>
+<ul>
+<li>信息差正在快速缩小，专业工具的普及让所有人都能看到相同的数据</li>
+<li>机构资金的进入使得市场操纵变得更加困难，但也更加专业化</li>
+<li>监管的完善减少了灰色地带的套利机会</li>
+</ul>
+<p><strong>机遇：市场风险在降低</strong></p>
+<ul>
+<li>项目方跑路、交易所暴雷等极端风险在减少</li>
+<li>基础设施的完善让投资体验更加友好</li>
+<li>长期价值投资的可行性在增加</li>
+</ul>
+<p><strong>我的个人选择</strong></p>
+<p>经历了从狂热到冷静的完整周期后，我对自己在这个市场中的定位有了清醒的认识：</p>
+<ol>
+<li><strong>接受平凡但追求超额</strong>：不再幻想一夜暴富，但努力获得超过传统投资的收益</li>
+<li><strong>保持好奇但控制贪婪</strong>：继续关注新技术和新趋势，但不会把全部身家押注在任何单一机会上</li>
+<li><strong>享受过程而非结果</strong>：把投资当作一种学习和思考的过程，而不仅仅是赚钱的工具</li>
+<li><strong>建立原则并坚持执行</strong>：制定了严格的资金管理和风险控制原则，并强迫自己执行</li>
+</ol>
+<p><strong>对后来者的建议</strong></p>
+<p>如果你正在考虑进入这个市场，我的建议是：</p>
+<p><strong>现实的期望</strong>：不要期望在这里一夜暴富，把它当作高风险投资的一部分<br>
+<strong>充分的准备</strong>：花足够的时间学习基础知识，了解主要风险<br>
+<strong>合理的配置</strong>：只投入你能承受完全损失的资金<br>
+<strong>长期的视角</strong>：如果你相信区块链技术的未来，那就做好长期投资的心理准备</p>
+<p><strong>终极思考：技术与人性的博弈</strong></p>
+<p>加密货币市场本质上是技术创新与人性弱点的博弈场。技术带来了去中心化、透明、高效的可能性，但人性的贪婪、恐惧、投机冲动却让这些理想变得复杂。</p>
+<p>也许真正的&quot;暴富&quot;不是在数字上，而是在认知上——通过参与这个市场，我们学会了面对不确定性，理解了风险与收益的关系，认识了自己的局限性，这些收获可能比金钱更宝贵。</p>
+<p><strong>最后的话</strong></p>
+<p>无论这个市场如何演变，有一点不会改变：<strong>只有那些能够在贪婪与恐惧之间保持理性，在机会与风险之间找到平衡的人，才能在这个充满变数的世界中真正获得成长。</strong></p>
+<p>加密货币市场给了我们一个观察人性、学习金融、思考未来的绝佳窗口。在这个窗口面前，选择做旁观者、参与者还是思考者，决定了我们能从中获得什么。</p>
+<p>而我，选择成为一个清醒的参与者。</p>
+<hr>
+<p><strong>风险提示：</strong> 本文仅供学习和研究目的，不构成投资建议。加密货币投资存在极大风险，请理性投资，风险自担。</p>
+<h2 id="参考文献">参考文献</h2>
+<p><em>注：本研究基于公开链上数据和案例分析，相关数据来源包括Solscan、<a target="_blank" rel="noopener external nofollow noreferrer" href="http://Aveai.info">Aveai.info</a>、GMGN.ai等平台。</em></p>
+<blockquote>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/Normanrockon/status/1898757348732145894">https://x.com/Normanrockon/status/1898757348732145894</a> &gt; <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/wsjack_eth/status/1898233695523553410">https://x.com/wsjack_eth/status/1898233695523553410</a></p>
+</blockquote>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden>
+    
+  </pre></div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/">https://www.blog-blockchain.xyz/career/crypto-beyond-alpha-and-manipulation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/crypto/">crypto</a><a class="post-meta__tags" href="/tags/trading/">trading</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2025/02/7c227b9f1d763dfd7bb44bc6f10b35b6.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/dev/value-of-software-engineering/" title="程序员的价值在哪里"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/05/819ee56cc884eb5c8194f7f9a2d94d8c.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">程序员的价值在哪里</div></div><div class="info-2"><div class="info-item-1">程序员的核心价值是利用技术为企业创造业务价值，而非纯粹的技术能力。其价值公式 V=Σ（技术杠杆率×业务价值密度）揭示了价值来源：技术杠杆放大个人产出，业务价值密度决定场景潜力。不同场景和行业对程序员价值估值各异，通用价值体现在解决复杂问题、优化性能、提升效率、推动创新和降低成本等方面。程序员需拥抱多元技术栈，精进核心技能，提升业务理解和复合能力。技术价值受稀缺性、适配度和泡沫溢价率影响，需警惕技术超前、路径依赖和伪需求陷阱。逃离泡沫需识别资本退潮、人才降温、监管收紧等信号，并提前转型、提升能力、谨慎投资、拓展人脉和终身学习。</div></div></div></a><a class="pagination-related" href="/audit/blockchain-client-security/" title="公链安全开发指南和审计checklist"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/01/c037c1551777613437e750a0fdd9489c.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">公链安全开发指南和审计checklist</div></div><div class="info-2"><div class="info-item-1"> 作者： Jiahao Luo 来源：https://blog-blockchain.xyz/audit/blockchain-client-security/  前言 【文档使用范围与目标读者】 本审计清单适用于从事区块链开发、安全审计，或对区块链底层安全感兴趣的技术人员和研究人员。我们假设读者对区块链基本概念（区块、交易、合约等）已有一定了解，但可能对密码学、P2P 网络、共识机制、跨链通信等专业领域的安全风险尚不完全熟悉。 【关键术语释义】  熵源：指生成随机数时所依赖的随机性来源，如操作系统随机数设备、硬件随机数模块等。熵源的质量直接决定私钥或交易nonce的安全性。 共识机制：区块链中达成一致状态的协议，如PoW、PoS、BFT等。若共识机制有漏洞，可能导致双花、长程攻击或分叉。 VM安全（虚拟机安全）：区块链上运行合约的执行环境（如EVM、WASM）。任何虚拟机级别的安全缺陷都会导致合约逻辑被恶意利用。  基于 SlowMist...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/cs-courses/cpp-cryptographic-algorithm-basis/" title="信息安全算法基础"><img class="cover" src="/images/cryptology.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-02</div><div class="info-item-2">信息安全算法基础</div></div><div class="info-2"><div class="info-item-1"> C语言基础乘法逆元信息安全算法基础操作系统基础x86汇编基础信息论与编码  这篇文章是电子科技大学，计算机科学与工程学院，网络空间安全专业的《信息安全基础综合设计实验》的总结。本人将它视为复习总结，读者可以当作学习使用 C++ 编写密码学函数和使用密码学库的入门资料。由于包含了课程作业答案，所以明年的这个时候应该会隐藏文章。 数论基础 模指数运算 主要就是分治算法，避免计算过程中溢出。递归的写法要注意堆栈溢出，因为当 e 不等于 0 的时候，每一层递归都会有两个分叉，也就是 2^32 次方的话，就会有 2^32 次方分叉，程序非常慢。 123456789101112unsigned int mod_exp(unsigned int a,unsigned int e, unsigned int n) &#123;	if(e==0) &#123;		return 1;	&#125;	if(e%2 == 0) &#123;		return mod_exp(a,e/2,n)%n*(mod_exp(a,e/2,n)%n)%n;	&#125; else &#123;		return...</div></div></div></a><a class="pagination-related" href="/cs-courses/modular-inverses/" title="乘法逆元"><img class="cover" src="/images/cryptology.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-27</div><div class="info-item-2">乘法逆元</div></div><div class="info-2"><div class="info-item-1"> C语言基础乘法逆元信息安全算法基础操作系统基础x86汇编基础信息论与编码  辗转相除法 先温习辗转相除法和裴蜀等式： {ax+by=gcd(a,b)(b  mod a)x+ay  =  gcd(a,b)(a  mod(b  mod a))x+(b  mod a)y  =  gcd(a,b)((b  mod a)  mod(a  mod(b  mod a)))x+(a  mod(b  mod a))y=gcd(a,b)\begin{cases} 	ax+by=\mathrm{gcd}\left( a,b \right)\\ 	\left( b\,\,\mathrm{mod}\ a \right) x+ay\,\,=\,\,\mathrm{gcd}\left( a,b \right)\\ 	\left( a\,\,\mathrm{mod} \left( b\,\,\mathrm{mod} \ a \right) \right) x+\left( b\,\,\mathrm{mod}\ a \right) y\,\,=\,\,\mathrm{gcd}\left( a,b...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/LearnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://www.linkedin.com/in/jiahao-michael-luo-8ba5942a3" rel="external nofollow noreferrer" target="_blank" title="Linkedin"><i class="fa-brands fa-linkedin"></i></a><a class="social-icon" href="https://x.com/jiahao_luo9" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%95%E8%A8%80"><span class="toc-text">1. 引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%90%86%E8%AE%BA%E8%83%8C%E6%99%AF"><span class="toc-text">2. 理论背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BB%8EAlpha%E8%BF%BD%E9%80%90%E5%88%B0%E7%8E%B0%E5%AE%9E%E8%A7%89%E9%86%92%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%8F%82%E4%B8%8E%E8%80%85%E7%9A%84%E8%A7%86%E8%A7%92"><span class="toc-text">2.1 从Alpha追逐到现实觉醒：一个参与者的视角</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%B8%82%E5%9C%BA%E6%80%A7%E8%B4%A8%E7%9A%84%E6%A0%B9%E6%9C%AC%E5%8F%98%E5%8C%96"><span class="toc-text">2.2 市场性质的根本变化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Alpha%E5%95%86%E4%B8%9A%E5%8C%96%E8%B6%8B%E5%8A%BF"><span class="toc-text">2.3 Alpha商业化趋势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-text">3. 方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E6%96%B9%E6%B3%95"><span class="toc-text">3.1 数学建模方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%A1%88%E4%BE%8B%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95"><span class="toc-text">3.2 案例研究方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95"><span class="toc-text">3.3 工具分析方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B5%81%E5%8A%A8%E6%80%A7%E6%B1%A0%E6%93%8D%E6%8E%A7%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86"><span class="toc-text">4. 流动性池操控的数学原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%81%92%E5%AE%9A%E4%B9%98%E7%A7%AF%E5%85%AC%E5%BC%8F%E8%A7%A3%E6%9E%90"><span class="toc-text">4.1 恒定乘积公式解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%8B%89%E7%9B%98%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E6%A8%A1%E5%9E%8B"><span class="toc-text">4.2 拉盘成本计算模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%80%9A%E7%94%A8%E6%8B%89%E7%9B%98%E5%85%AC%E5%BC%8F"><span class="toc-text">4.3 通用拉盘公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E6%B1%A0%E5%AD%90%E6%93%8D%E6%8E%A7%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%85%B8%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%9A%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B"><span class="toc-text">4.4 池子操控的四种典型模式：深度解析与实战案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%8E%B0%E4%BB%A3%E5%9D%90%E5%BA%84%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%80%A7%E6%96%B9%E6%B3%95"><span class="toc-text">5. 现代坐庄的系统性方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%BA%84%E5%AE%B6%E7%94%9F%E6%80%81%E7%9A%84%E7%9C%9F%E5%AE%9E%E8%A7%82%E5%AF%9F"><span class="toc-text">5.1 庄家生态的真实观察</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E6%A0%87%E5%87%86%E5%8C%96%E6%93%8D%E7%9B%98%E6%B5%81%E7%A8%8B"><span class="toc-text">5.2 标准化操盘流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%A4%9A%E5%BA%84%E5%AE%B6%E5%8D%9A%E5%BC%88%E6%9C%BA%E5%88%B6"><span class="toc-text">5.3 多庄家博弈机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%AE%9E%E8%AF%81%E6%A1%88%E4%BE%8B%E7%A0%94%E7%A9%B6"><span class="toc-text">6. 实证案例研究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-pwease-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-text">6.1 $pwease 案例分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E6%93%8D%E4%BD%9C%E4%BF%A1%E5%8F%B7%E8%AF%86%E5%88%AB"><span class="toc-text">6.2 操作信号识别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%95%A3%E6%88%B7%E5%AE%9E%E6%88%98%E7%AD%96%E7%95%A5%E6%A1%86%E6%9E%B6"><span class="toc-text">7. 散户实战策略框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%B7%A5%E5%85%B7%E9%93%BE%E6%9E%84%E5%BB%BA"><span class="toc-text">7.1 工具链构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E9%A3%8E%E9%99%A9%E6%8E%A7%E5%88%B6%E4%BD%93%E7%B3%BB"><span class="toc-text">7.2 风险控制体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E6%95%A3%E6%88%B7%E7%94%9F%E5%AD%98%E7%AD%96%E7%95%A5%EF%BC%9A%E4%BB%8E%E8%A1%80%E6%B3%AA%E4%B8%AD%E6%80%BB%E7%BB%93%E7%9A%84%E6%95%99%E8%AE%AD"><span class="toc-text">7.3 散户生存策略：从血泪中总结的教训</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-%E5%AE%9E%E6%88%98%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">7.4 实战操作流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E8%AE%A8%E8%AE%BA"><span class="toc-text">8. 讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E6%9A%B4%E5%AF%8C%E7%9A%84%E6%AE%8B%E9%85%B7%E7%9C%9F%E7%9B%B8%EF%BC%9A%E8%B0%81%E5%9C%A8%E5%8F%91%E8%B4%A2%EF%BC%8C%E5%A6%82%E4%BD%95%E5%8F%91%E8%B4%A2"><span class="toc-text">8.1 暴富的残酷真相：谁在发财，如何发财</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E7%9B%91%E7%AE%A1%E7%8E%AF%E5%A2%83%E5%8F%98%E5%8C%96%E8%B6%8B%E5%8A%BF"><span class="toc-text">8.2 监管环境变化趋势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95%E5%AF%B9%E7%AD%96%E7%95%A5%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">8.3 技术发展对策略的影响</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E7%BB%93%E8%AE%BA%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-text">9. 结论与展望</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-%E4%B8%BB%E8%A6%81%E7%A0%94%E7%A9%B6%E5%8F%91%E7%8E%B0"><span class="toc-text">9.1 主要研究发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-%E5%AE%9E%E8%B7%B5%E6%84%8F%E4%B9%89"><span class="toc-text">9.2 实践意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-%E5%B1%80%E9%99%90%E6%80%A7%E4%B8%8E%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="toc-text">9.3 局限性与未来研究方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-%E7%BB%88%E5%B1%80%E6%80%9D%E8%80%83%EF%BC%9A%E5%8A%A0%E5%AF%86%E4%B8%96%E7%95%8C%E7%9A%84%E6%9C%AA%E6%9D%A5%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">9.4 终局思考：加密世界的未来与个人的选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/career/ai-chat-philosophy/" title="一个初代AI聊天机器人的故事。人性的弱点碰上了人工智能的哲学。"><img src="https://cdn.blog-blockchain.xyz/2025/06/b4a3b8645810b021a67ae726b9734632.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一个初代AI聊天机器人的故事。人性的弱点碰上了人工智能的哲学。"/></a><div class="content"><a class="title" href="/career/ai-chat-philosophy/" title="一个初代AI聊天机器人的故事。人性的弱点碰上了人工智能的哲学。">一个初代AI聊天机器人的故事。人性的弱点碰上了人工智能的哲学。</a><time datetime="2025-06-06T10:44:20.000Z" title="Created 2025-06-06 18:44:20">2025-06-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/solana/solana-basic/" title="Solana 合约开发基础"><img src="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solana 合约开发基础"/></a><div class="content"><a class="title" href="/solana/solana-basic/" title="Solana 合约开发基础">Solana 合约开发基础</a><time datetime="2025-05-18T14:58:33.000Z" title="Created 2025-05-18 22:58:33">2025-05-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/solana/solana-flashloan-1/" title="Solana flashloan 原理和设计"><img src="https://cdn.blog-blockchain.xyz/2025/05/a8ff2c0938675dd107393164903785c8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solana flashloan 原理和设计"/></a><div class="content"><a class="title" href="/solana/solana-flashloan-1/" title="Solana flashloan 原理和设计">Solana flashloan 原理和设计</a><time datetime="2025-05-17T14:09:33.000Z" title="Created 2025-05-17 22:09:33">2025-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/pursuit-of-meaning-and-freedom/" title="在追寻意义中找寻自由：现代社会中的生存哲学"><img src="https://cdn.blog-blockchain.xyz/2025/05/2f8d359c909d472a620007158cbcaaf4.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在追寻意义中找寻自由：现代社会中的生存哲学"/></a><div class="content"><a class="title" href="/career/pursuit-of-meaning-and-freedom/" title="在追寻意义中找寻自由：现代社会中的生存哲学">在追寻意义中找寻自由：现代社会中的生存哲学</a><time datetime="2025-05-01T04:11:20.000Z" title="Created 2025-05-01 12:11:20">2025-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/Career-and-Life-Between-Ideal-and-Reality/" title="我对职场和人生的思考：在理想与现实之间"><img src="https://cdn.blog-blockchain.xyz/2025/04/4f93c7d9a0c3628ac37db9606c1dca24.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我对职场和人生的思考：在理想与现实之间"/></a><div class="content"><a class="title" href="/career/Career-and-Life-Between-Ideal-and-Reality/" title="我对职场和人生的思考：在理想与现实之间">我对职场和人生的思考：在理想与现实之间</a><time datetime="2025-04-20T19:22:20.000Z" title="Created 2025-04-21 03:22:20">2025-04-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.3.5"></script><script src="/js/main.js?v=5.3.5"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
   const showKatex = () => {
     document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
   }
