@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/career/making-of-consumer/</loc>
+    <lastmod>2025-06-15</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
     <lastmod>2025-06-14</lastmod>
   </url>
@@ -314,10 +318,6 @@
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/fp/fp-haskell-1/</loc>
-    <lastmod>2025-06-14</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/career/making-of-consumer/</loc>
     <lastmod>2025-06-14</lastmod>
   </url>
   <url>
