@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.blog-blockchain.xyz/dev/kafka/</loc>
+    
+    <lastmod>2025-06-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.blog-blockchain.xyz/cs-courses/C-language-basis/</loc>
     
     <lastmod>2025-06-18</lastmod>
@@ -578,15 +587,6 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
-    
-    <lastmod>2025-06-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
     
     <lastmod>2025-06-18</lastmod>
@@ -596,7 +596,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/txlist/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -606,6 +606,15 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/geth/tx-signature/</loc>
+    
+    <lastmod>2025-06-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/geth/txlist/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -687,15 +696,6 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/fp/Haskell-epilogue/</loc>
-    
-    <lastmod>2025-06-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/dev/kafka/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -839,28 +839,14 @@
 
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/smart-contract/</loc>
-    <lastmod>2025-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/audit/</loc>
-    <lastmod>2025-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/blockchain/</loc>
-    <lastmod>2025-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/tags/life/</loc>
+    <lastmod>2025-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/developer/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -874,7 +860,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/developer/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/smart-contract/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -895,6 +881,13 @@
   </url>
   
   <url>
+    <loc>https://www.blog-blockchain.xyz/tags/audit/</loc>
+    <lastmod>2025-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.blog-blockchain.xyz/tags/consumer/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -903,6 +896,20 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/tags/marketing/</loc>
+    <lastmod>2025-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/blockchain/</loc>
+    <lastmod>2025-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/C/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -923,7 +930,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/C/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/evm/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -951,13 +958,6 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/evm/</loc>
-    <lastmod>2025-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/tags/Haskell/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -979,14 +979,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/math/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/program-language/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/program-language/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/math/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1002,13 +1002,6 @@
 
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/audit/</loc>
-    <lastmod>2025-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/categories/life/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -1016,7 +1009,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/academic/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/think/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1030,7 +1023,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/think/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/academic/</loc>
+    <lastmod>2025-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/audit/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1058,13 +1058,6 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/career/marketing/</loc>
-    <lastmod>2025-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/categories/courses/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -1072,7 +1065,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/defi/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/career/marketing/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1080,6 +1073,13 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/categories/evm/</loc>
+    <lastmod>2025-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/defi/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1107,14 +1107,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/math/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/program-language/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/program-language/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/math/</loc>
     <lastmod>2025-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
