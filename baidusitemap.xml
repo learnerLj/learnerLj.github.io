@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/defi/prediction-market-hedging-paradox/</loc>
+    <lastmod>2025-07-01</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/dev/kafka/</loc>
     <lastmod>2025-06-19</lastmod>
   </url>
@@ -277,11 +281,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/tx-pool/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/tx-pool/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -297,11 +301,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
