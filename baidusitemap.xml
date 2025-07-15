@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/finance/cex-perp/</loc>
+    <lastmod>2025-07-15</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/finance/denationalization-of-money/</loc>
     <lastmod>2025-07-05</lastmod>
   </url>
@@ -269,11 +273,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -305,11 +309,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
