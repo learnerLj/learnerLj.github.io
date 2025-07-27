@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/finance/ltcm-risk-management-case-study/</loc>
+    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-risk-analysis/</loc>
     
     <lastmod>2025-07-27</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-margin-trading-guide/</loc>
+    <loc>https://www.blog-blockchain.xyz/finance/ltcm-risk-management-case-study/</loc>
     
     <lastmod>2025-07-27</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-risk-analysis/</loc>
+    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-margin-trading-guide/</loc>
     
     <lastmod>2025-07-27</lastmod>
     
@@ -659,7 +659,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -668,7 +668,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -695,7 +695,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/tx-pool/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -704,7 +704,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/tx-pool/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -740,7 +740,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -749,7 +749,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -839,7 +839,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
+    <loc>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -848,7 +848,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
+    <loc>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
     
     <lastmod>2025-06-18</lastmod>
     
@@ -911,14 +911,21 @@
 
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/audit/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/smart-contract/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/smart-contract/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/blockchain/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/audit/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -939,14 +946,21 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/developer/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/crypto/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/blockchain/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/trading/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/developer/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -967,14 +981,42 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/crypto/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/C/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/trading/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/OS/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/information/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/Linux/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/assembly/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/rust/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -982,6 +1024,13 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/tags/defi/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/evm/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1023,62 +1072,6 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/C/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/information/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/Linux/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/evm/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/OS/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/assembly/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/rust/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/Haskell/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/tags/binance/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -1093,91 +1086,21 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/FTX/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/economics/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/Alameda-Research/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/finance/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/cryptocurrency/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/financial-collapse/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/regulatory-failure/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/fraud-analysis/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/LTCM/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/leverage-trading/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/financial-crisis/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/hedge-fund/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/quantitative-finance/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/financial-history/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/tags/program-language/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/history/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1254,21 +1177,91 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/economics/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/cryptocurrency/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/finance/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/Haskell/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/history/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/FTX/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/Alameda-Research/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/financial-collapse/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/regulatory-failure/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/fraud-analysis/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/LTCM/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/leverage-trading/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/financial-crisis/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/hedge-fund/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/quantitative-finance/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/financial-history/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1282,7 +1275,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/tags/solana/</loc>
+    <loc>https://www.blog-blockchain.xyz/tags/program-language/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1290,6 +1283,13 @@
   
   <url>
     <loc>https://www.blog-blockchain.xyz/tags/math/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/tags/solana/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1319,13 +1319,6 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/developer/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.blog-blockchain.xyz/categories/think/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -1340,28 +1333,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/smart-contract/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/categories/career/marketing/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/categories/defi/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/categories/financial-analysis/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/developer/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1382,7 +1354,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/evm/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/smart-contract/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/career/marketing/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1396,7 +1375,21 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/functional-language/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/defi/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/evm/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/financial-analysis/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1410,21 +1403,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/finance/risk-management/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/categories/finance/risk-analysis/</loc>
-    <lastmod>2025-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.blog-blockchain.xyz/categories/program-language/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/economics/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1438,14 +1417,14 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/finance/trading-guide/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/finance/risk-analysis/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/economics/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/functional-language/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1459,7 +1438,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/finance/risk-management/case-study/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/finance/risk-management/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1473,7 +1452,28 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/finance/risk-management/case-study/financial-history/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/program-language/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/finance/risk-management/case-study/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/finance/trading-guide/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.blog-blockchain.xyz/categories/math/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1487,7 +1487,7 @@
   </url>
   
   <url>
-    <loc>https://www.blog-blockchain.xyz/categories/math/</loc>
+    <loc>https://www.blog-blockchain.xyz/categories/finance/risk-management/case-study/financial-history/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
