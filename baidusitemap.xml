@@ -309,11 +309,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/tx-pool/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/tx-pool/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/oracle-introduction/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -321,19 +321,19 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
-    <lastmod>2025-06-18</lastmod>
-  </url>
-  <url>
     <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
+    <lastmod>2025-06-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -373,11 +373,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
+    <loc>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
+    <loc>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
 </urlset> 
