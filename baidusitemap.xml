@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-margin-trading-guide/</loc>
+    <lastmod>2025-07-27</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-risk-analysis/</loc>
     <lastmod>2025-07-27</lastmod>
   </url>
@@ -10,10 +14,6 @@
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/finance/ltcm-risk-management-case-study/</loc>
-    <lastmod>2025-07-27</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-margin-trading-guide/</loc>
     <lastmod>2025-07-27</lastmod>
   </url>
   <url>
@@ -293,11 +293,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -321,19 +321,19 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
-    <lastmod>2025-06-18</lastmod>
-  </url>
-  <url>
     <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
+    <lastmod>2025-06-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
