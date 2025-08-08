@@ -1,0 +1,1916 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hyperliquid 深度调研报告 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="description" content="深度调研 Hyperliquid 区块链平台，全面分析其技术架构、HyperEVM 设计、代币经济学、生态系统发展、市场竞争优势及安全风险评估，为投资者和开发者提供全面的参考指南。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hyperliquid 深度调研报告">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/defi/hyperliquid/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="深度调研 Hyperliquid 区块链平台，全面分析其技术架构、HyperEVM 设计、代币经济学、生态系统发展、市场竞争优势及安全风险评估，为投资者和开发者提供全面的参考指南。">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.blog-blockchain.xyz/2025/08/fb9eea41890628fa5f769e1e85c59609.jpeg">
+<meta property="article:published_time" content="2025-08-08T00:49:22.000Z">
+<meta property="article:modified_time" content="2025-08-08T08:40:06.382Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="Hyperliquid">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.blog-blockchain.xyz/2025/08/fb9eea41890628fa5f769e1e85c59609.jpeg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hyperliquid 深度调研报告",
+  "url": "https://www.blog-blockchain.xyz/defi/hyperliquid/",
+  "image": "https://cdn.blog-blockchain.xyz/2025/08/fb9eea41890628fa5f769e1e85c59609.jpeg",
+  "datePublished": "2025-08-08T00:49:22.000Z",
+  "dateModified": "2025-08-08T08:40:06.382Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Michael(Jiahao) Luo",
+      "url": "https://www.blog-blockchain.xyz/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/defi/hyperliquid/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="manifest" href="/pwa/manifest.json"><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hyperliquid 深度调研报告',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css');loadCss('https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">96</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">56</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">29</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">Hyperliquid 深度调研报告</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Hyperliquid 深度调研报告</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-08-08T00:49:22.000Z" title="Created 2025-08-08 08:49:22">2025-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-08-08T08:40:06.382Z" title="Updated 2025-08-08 16:40:06">2025-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hyperliquid/">Hyperliquid</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">15k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>49mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="摘要">摘要</h2>
+<p>本报告对Hyperliquid区块链平台进行全面深度分析，涵盖技术架构、团队背景、代币经济学、生态发展、竞争格局及风险评估。研究发现，Hyperliquid作为高性能去中心化交易平台，在技术创新、市场表现和生态发展方面展现出显著优势，同时也面临中心化风险和监管不确定性等挑战。</p>
+<pre class="mermaid">mindmap
+  root)Hyperliquid深度调研报告(
+    id["📋 研究方法与关键假设"]
+      ["技术分析"]
+      ["市场数据分析"]
+      ["竞争分析"]
+      ["安全调研"]
+    id["📖 核心术语定义"]
+    id["🏢 项目概述"]
+    id["👥 核心团队与背景"]
+      ["创始团队"]
+      ["技术哲学"]
+      ["发展历程"]
+    id["⚙️ 核心技术特点"]
+      ["技术架构"]
+      ["HyperEVM设计"]
+      ["性能指标"]
+    id["💰 代币经济学"]
+      ["基本信息"]
+      ["空投成就"]
+      ["代币分配"]
+      ["治理特点"]
+    id["🌱 生态系统分析"]
+      ["发展概况"]
+      ["经济循环"]
+      ["项目分析"]
+    id["⚔️ 市场竞争分析"]
+      ["竞争定位"]
+      ["对比分析"]
+      ["用户体验"]
+    id["🏆 竞争优势"]
+      ["技术优势"]
+      ["生态优势"]
+      ["产品优势"]
+    id["⚠️ 安全事件与风险评估"]
+      ["安全争议"]
+      ["风险因素"]
+    id["🔮 未来展望"]
+      ["发展路线图"]
+      ["长期愿景"]
+    id["📊 总结"]
+      ["核心成就"]
+      ["风险挑战"]
+    id["🛡️ 生态安全风险评估"]
+      ["高风险项目"]
+      ["中等风险项目"]
+      ["相对安全项目"]</pre>
+<h2 id="研究方法与关键假设">研究方法与关键假设</h2>
+<h3 id="研究方法">研究方法</h3>
+<p>本报告采用多元化研究方法论，结合定量数据分析与定性评估：</p>
+<ul>
+<li><strong>技术分析</strong>：基于公开技术文档、白皮书和开源代码进行架构分析</li>
+<li><strong>市场数据分析</strong>：采用链上数据、交易量统计和TVL变化趋势</li>
+<li><strong>竞争分析</strong>：对标同类项目，进行功能和性能对比</li>
+<li><strong>安全调研</strong>：通过Firecrawl深度网络搜索，识别生态项目安全风险和负面事件</li>
+</ul>
+<h3 id="关键假设条件">关键假设条件</h3>
+<h4 id="1-技术发展假设">1. 技术发展假设</h4>
+<ul>
+<li><strong>假设内容</strong>：Hyperliquid的技术路线图将按计划执行，2025年实现100万笔/秒处理能力</li>
+<li><strong>合理性</strong>：基于团队历史交付能力和当前技术发展轨迹</li>
+<li><strong>风险评估</strong>：技术复杂性可能导致延期，但核心架构已验证可行性</li>
+<li><strong>影响范围</strong>：直接影响性能对比结论和未来发展预期</li>
+</ul>
+<h4 id="2-市场环境假设">2. 市场环境假设</h4>
+<ul>
+<li><strong>假设内容</strong>：去中心化永续合约市场将继续增长，监管环境不会出现颠覆性变化</li>
+<li><strong>合理性</strong>：基于DeFi市场历史发展趋势和当前监管态度</li>
+<li><strong>局限性</strong>：监管政策变化具有不可预测性，可能显著影响业务模式</li>
+<li><strong>敏感性分析</strong>：监管收紧可能导致用户流失和业务模式调整</li>
+</ul>
+<h4 id="3-竞争格局假设">3. 竞争格局假设</h4>
+<ul>
+<li><strong>假设内容</strong>：现有竞争对手不会出现技术突破性创新，新进入者面临较高技术壁垒</li>
+<li><strong>适用性</strong>：短期（1-2年）内的竞争分析相对有效</li>
+<li><strong>风险因子</strong>：技术快速迭代可能改变竞争格局，需持续监控</li>
+<li><strong>假设松弛影响</strong>：竞争加剧可能压缩市场份额和盈利能力</li>
+</ul>
+<h4 id="4-团队稳定性假设">4. 团队稳定性假设</h4>
+<ul>
+<li><strong>假设内容</strong>：核心团队保持稳定，技术领导力持续有效</li>
+<li><strong>重要性</strong>：团队背景是技术优势和发展潜力的关键支撑</li>
+<li><strong>监控指标</strong>：核心成员变动、技术决策连续性</li>
+<li><strong>替代情景</strong>：关键人员离职可能影响技术发展和社区信心</li>
+</ul>
+<h3 id="数据来源与时效性">数据来源与时效性</h3>
+<ul>
+<li><strong>数据截止时间</strong>：2025年1月</li>
+<li><strong>主要数据源</strong>：官方文档、CoinGecko、DeFiLlama、链上数据分析平台</li>
+<li><strong>数据可靠性</strong>：优先使用官方和权威第三方数据，标注数据来源</li>
+<li><strong>更新频率</strong>：市场数据具有时效性，建议定期更新核心指标</li>
+</ul>
+<h2 id="核心术语定义">核心术语定义</h2>
+<p>为确保报告内容的准确性和一致性，特对关键术语进行定义：</p>
+<ul>
+<li><strong>Layer 1 (L1)</strong>：独立的区块链网络，具备自主的共识机制和安全模型</li>
+<li><strong>HyperCore</strong>：Hyperliquid的原生交易引擎，负责订单簿匹配和永续合约执行</li>
+<li><strong>HyperEVM</strong>：兼容以太坊虚拟机的智能合约执行环境</li>
+<li><strong>HyperBFT</strong>：基于HotStuff协议优化的拜占庭容错共识算法</li>
+<li><strong>CLOB</strong>：中央限价订单簿（Central Limit Order Book）</li>
+<li><strong>TVL</strong>：总锁定价值（Total Value Locked），衡量DeFi协议资金规模的指标</li>
+<li><strong>CDP</strong>：抵押债务仓位（Collateralized Debt Position），超额抵押借贷模式</li>
+<li><strong>预编译合约</strong>：区块链原生集成的系统合约，提供高性能的特定功能</li>
+<li><strong>永续合约</strong>：无到期日的衍生品合约，通过资金费率机制维持价格锚定</li>
+<li><strong>去中心化交易所（DEX）</strong>：基于智能合约的自动化交易协议</li>
+</ul>
+<h2 id="1-项目概述">1. 项目概述</h2>
+<p>Hyperliquid是一个高性能的Layer 1区块链平台，专门为构建完全链上的开放金融系统而设计。该平台将流动性、用户应用程序和交易活动统一在单一基础设施上，致力成为"容纳所有金融活动"的区块链。作为去中心化永续合约交易市场的领导者，Hyperliquid占据<strong>60-70%<strong>的市场份额，日交易量达</strong>60-100亿美元</strong>，用户规模从31,000增长至<strong>30万</strong>。</p>
+<h2 id="2-核心团队与项目背景">2. 核心团队与项目背景</h2>
+<p>本章分析Hyperliquid的创始团队构成、技术哲学、发展历程及团队实力，为理解项目技术路线和发展潜力提供基础。</p>
+<h3 id="2-1-创始团队">2.1 创始团队</h3>
+<p>Hyperliquid由<strong>Jeff Yan</strong>和<strong>Iliensinc</strong>于<strong>2022年9月</strong>共同创立，Jeff Yan担任首席执行官：</p>
+<ul>
+<li><strong>学历背景</strong>: 哈佛大学数学与计算机科学专业毕业（2013-2017年）</li>
+<li><strong>竞赛成就</strong>: 国际物理奥林匹克竞赛金银牌获得者</li>
+<li><strong>职业经验</strong>: 曾在顶级高频交易公司Hudson River Trading工作</li>
+<li><strong>创业经历</strong>: 创办加密货币做市商公司Chameleon Trading，发展成全球前十大做市商</li>
+</ul>
+<h3 id="2-2-技术哲学与战略背景">2.2 技术哲学与战略背景</h3>
+<p>Jeff Yan的<strong>高频交易背景</strong>深刻影响了Hyperliquid的核心设计理念：</p>
+<ul>
+<li><strong>痴迷于速度</strong>: HFT对亚秒级延迟的极致要求，决定必须构建定制化L1而非依赖通用区块链</li>
+<li><strong>市场微观结构理解</strong>: 深度理解订单执行质量和系统确定性的重要性</li>
+<li><strong>第一性原理</strong>: 从零开始重新构建，而非在现有平台上妥协</li>
+<li><strong>FTX催化剂</strong>: 2022年FTX崩溃证明了中心化托管风险，为高性能非托管交易创造了市场需求</li>
+</ul>
+<h3 id="2-3-发展历程">2.3 发展历程</h3>
+<ul>
+<li><strong>2022年11月</strong>: Arbitrum Goerli测试网上线</li>
+<li><strong>2023年3月</strong>: 主网开放交易</li>
+<li><strong>2024年11月29日</strong>: HYPE代币空投，向94,000用户分发价值12亿美元代币</li>
+<li><strong>2025年2月</strong>: HyperEVM正式上线，标志平台转型为通用金融基础设施</li>
+</ul>
+<h3 id="2-4-团队规模与实力">2.4 团队规模与实力</h3>
+<ul>
+<li><strong>团队规模</strong>: 仅约<strong>10人</strong>的精英团队</li>
+<li><strong>成员背景</strong>: 均来自加州理工、麻省理工、Citadel、Airtable等顶级机构</li>
+<li><strong>项目特色</strong>: 完全自筹资金，无任何风险投资参与，将**70%**代币分配给社区</li>
+</ul>
+<h2 id="3-核心技术特点">3. 核心技术特点</h2>
+<p>本章详细分析Hyperliquid的技术架构创新，包括Layer 1设计、HyperEVM系统和性能指标，揭示其技术竞争优势。</p>
+<h3 id="3-1-技术架构">3.1 技术架构</h3>
+<pre class="mermaid">graph TD
+    subgraph "Hyperliquid L1 区块链"
+        subgraph "共识层"
+            HyperBFT["🔄 HyperBFT共识算法<br>基于HotStuff协议优化<br>拜占庭容错设计"]
+            Validators["👥 验证者网络<br>16个验证者<br>从4个逐步扩展"]
+        end
+
+        subgraph "统一状态层"
+            UnifiedState["🔗 统一状态<br>共享状态管理<br>消除跨链桥风险"]
+        end
+
+        subgraph "双核心架构"
+            HyperCore["📈 HyperCore<br>完全链上订单簿<br>永续期货<br>现货交易"]
+            HyperEVM["⚙️ HyperEVM<br>以太坊虚拟机兼容<br>智能合约平台<br>DApp生态"]
+        end
+
+        subgraph "性能特性"
+            Performance["⚡ 高性能指标<br>200,000 TPS<br>0.2s区块时间<br>单区块最终性"]
+        end
+    end
+
+    HyperBFT --&gt; UnifiedState
+    Validators --&gt; HyperBFT
+    UnifiedState --&gt; HyperCore
+    UnifiedState --&gt; HyperEVM
+    HyperCore &lt;--&gt; HyperEVM
+    HyperCore --&gt; Performance
+    HyperEVM --&gt; Performance
+
+    style HyperBFT fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style Validators fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    style UnifiedState fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    style HyperCore fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style HyperEVM fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    style Performance fill:#f1f8e9,stroke:#33691e,stroke-width:2px</pre>
+<ul>
+<li><strong>Layer 1 区块链</strong>: 从零开始构建和优化的高性能L1区块链</li>
+<li><strong>HyperBFT 共识算法</strong>: 基于HotStuff协议优化，拜占庭容错设计，可容忍1/3恶意验证者</li>
+<li><strong>验证者网络</strong>: 目前由<strong>16个验证者</strong>维护（从最初的4个验证者逐步扩展），继续开放更广泛的社区参与</li>
+<li><strong>双核心架构</strong>: HyperCore + HyperEVM
+<ul>
+<li><strong>HyperCore</strong>: 包含完全链上的永续期货和现货订单簿</li>
+<li><strong>HyperEVM</strong>: 以太坊虚拟机兼容的通用智能合约平台</li>
+</ul>
+</li>
+<li><strong>统一状态</strong>: HyperEVM和HyperCore作为统一状态存在，实现性能、流动性和可编程性的完美结合</li>
+</ul>
+<h3 id="3-2-HyperEVM革命性设计">3.2 HyperEVM革命性设计</h3>
+<h4 id="3-2-1-统一状态L1架构">3.2.1 统一状态L1架构</h4>
+<ul>
+<li><strong>主权区块链</strong>: Hyperliquid是独立的Layer 1区块链，不依赖以太坊等其他L1的安全性</li>
+<li><strong>统一状态</strong>: HyperCore和HyperEVM运行在同一共识层，共享统一状态，消除跨链桥风险</li>
+<li><strong>本质区别</strong>: 与Layer 2方案不同，不受底层区块链架构限制，可进行深度优化</li>
+</ul>
+<h4 id="3-2-2-双区块机制创新">3.2.2 双区块机制创新</h4>
+<pre class="mermaid">flowchart TD
+    User["👤 用户交易请求"] --&gt; Decision{"🤔 交易类型判断"}
+
+    Decision --&gt;|"轻量级交易"| SmallBlock
+    Decision --&gt;|"重量级操作"| LargeBlock
+
+    subgraph SmallBlockPath["⚡ 小区块处理路径"]
+        SmallBlock["📋 小区块<br>• 1秒间隔<br>• 200万gas限制<br>• 低延迟优化"]
+        SmallOps["🔄 适用操作<br>• DEX兑换<br>• 预言机喂价<br>• 简单转账"]
+        SmallResult["✅ 快速确认<br>1秒内完成"]
+    end
+
+    subgraph LargeBlockPath["🏗️ 大区块处理路径"]
+        LargeBlock["📦 大区块<br>• 60秒间隔<br>• 3000万gas限制<br>• 高容量设计"]
+        LargeOps["⚙️ 适用操作<br>• 合约部署<br>• 批量铸造<br>• 复杂计算"]
+        LargeResult["✅ 大容量确认<br>60秒内完成"]
+    end
+
+    SmallBlock --&gt; SmallOps --&gt; SmallResult
+    LargeBlock --&gt; LargeOps --&gt; LargeResult
+
+    SmallResult --&gt; Finality["🎯 最终性确认<br>统一状态更新"]
+    LargeResult --&gt; Finality
+
+    Finality --&gt; UnifiedState["🔗 统一状态层<br>性能 + 流动性 + 可编程性"]
+
+    style User fill:#e3f2fd,stroke:#0277bd,stroke-width:2px
+    style Decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style SmallBlock fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    style LargeBlock fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style Finality fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style UnifiedState fill:#e1f5fe,stroke:#0277bd,stroke-width:2px</pre>
+<ul>
+<li><strong>小区块</strong>: 1秒间隔/200万gas限制，专为低延迟交易优化（DEX兑换、预言机喂价）</li>
+<li><strong>大区块</strong>: 60秒间隔/3000万gas限制，专为重量级操作设计（合约部署、批量铸造）</li>
+<li><strong>解耦设计</strong>: 将延迟和吞吐量两个制约变量分离，实现并行优化</li>
+<li><strong>用户选择</strong>: 根据需求灵活选择速度优先或容量优先</li>
+</ul>
+<h4 id="3-2-3-预编译合约系统">3.2.3 预编译合约系统</h4>
+<pre class="mermaid">sequenceDiagram
+    participant DApp as 📱 DApp/智能合约
+    participant ReadPrecompile as 📖 读取预编译<br>(0x...0800)
+    participant WriteContract as ✍️ 写入系统合约<br>(0x333...333)
+    participant HyperCore as 📈 HyperCore
+    participant OrderBook as 📊 订单簿
+
+    Note over DApp,OrderBook: 读取操作流程
+    DApp-&gt;&gt;ReadPrecompile: 查询请求<br>（价格、仓位、余额）
+    ReadPrecompile-&gt;&gt;HyperCore: 原子化状态查询
+    HyperCore-&gt;&gt;OrderBook: 获取实时数据<br>20亿美元+流动性
+    OrderBook--&gt;&gt;HyperCore: 返回最新状态
+    HyperCore--&gt;&gt;ReadPrecompile: 同步状态数据
+    ReadPrecompile--&gt;&gt;DApp: 返回实时数据<br>无需外部预言机
+
+    Note over DApp,OrderBook: 写入操作流程
+    DApp-&gt;&gt;WriteContract: 交易请求<br>（下单、存取资金）
+    WriteContract-&gt;&gt;WriteContract: 日志事件记录
+    WriteContract-&gt;&gt;HyperCore: 触发Core操作
+    Note over HyperCore: 防套利延迟机制<br>延迟数秒执行
+    HyperCore-&gt;&gt;OrderBook: 更新订单簿状态
+    OrderBook--&gt;&gt;HyperCore: 确认状态更新
+    HyperCore--&gt;&gt;WriteContract: 操作完成确认
+    WriteContract--&gt;&gt;DApp: EVM事件通知<br>无信任双向通信
+
+    rect rgb(240, 248, 255)
+        Note over DApp,OrderBook: 统一状态架构优势<br>• 实时数据同步<br>• 零跨链延迟<br>• 原子化操作保证
+    end</pre>
+<p><strong>读取预编译</strong>（地址从0x…0800开始）:</p>
+<ul>
+<li>原子化查询HyperCore状态：原生预言机价格、用户仓位、现货余额</li>
+<li>同步获取最新状态，无需外部预言机依赖</li>
+<li>智能合约可直接读取20亿美元+订单簿数据</li>
+</ul>
+<p><strong>写入系统合约</strong>（地址0x333…333）:</p>
+<ul>
+<li>通过日志事件触发HyperCore操作：下单、资金库存取</li>
+<li>防套利延迟机制：订单操作故意延迟数秒执行</li>
+<li>实现EVM与HyperCore的无信任双向通信</li>
+</ul>
+<h3 id="3-3-性能指标">3.3 性能指标</h3>
+<p><strong>表3：Hyperliquid核心性能数据</strong></p>
+<table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>当前数值</th>
+<th>目标值</th>
+<th>行业对比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>区块时间（中位数）</td>
+<td>0.2秒</td>
+<td>-</td>
+<td>以太坊：12秒</td>
+</tr>
+<tr>
+<td>区块时间（99百分位）</td>
+<td>0.9秒</td>
+<td>-</td>
+<td>Arbitrum：0.25秒</td>
+</tr>
+<tr>
+<td>订单处理能力</td>
+<td>200,000订单/秒</td>
+<td>100万订单/秒</td>
+<td>dYdX：约10,000/秒</td>
+</tr>
+<tr>
+<td>交易确认</td>
+<td>单区块最终性</td>
+<td>-</td>
+<td>即时确认</td>
+</tr>
+<tr>
+<td>累计交易量</td>
+<td>2万亿美元</td>
+<td>-</td>
+<td>行业领先</td>
+</tr>
+<tr>
+<td>日均交易量</td>
+<td>60-100亿美元</td>
+<td>-</td>
+<td>峰值150亿美元</td>
+</tr>
+<tr>
+<td>月交易量（峰值）</td>
+<td>3200亿美元</td>
+<td>-</td>
+<td>2025年7月记录</td>
+</tr>
+</tbody>
+</table>
+<p><em>数据来源：Hyperliquid官方数据，DeFiLlama</em></p>
+<h3 id="3-4-性能对比优势">3.4 性能对比优势</h3>
+<p><strong>图1：性能对比分析</strong><br>
+Hyperliquid相较于主要竞争平台的性能优势：</p>
+<ul>
+<li><strong>vs 以太坊主网</strong>：交易速度提升<strong>6,600倍</strong>（基于TPS对比）</li>
+<li><strong>vs Layer 2解决方案</strong>：比Arbitrum等快<strong>50倍以上</strong></li>
+<li><strong>vs 传统DEX</strong>：每秒处理20万笔交易，远超Uniswap等AMM协议</li>
+</ul>
+<p>这种性能优势源于Hyperliquid的定制化Layer 1架构，专门针对高频金融交易进行优化，而非通用计算平台的妥协方案。</p>
+<h3 id="3-5-旗舰产品特点">3.5 旗舰产品特点</h3>
+<p><strong>去中心化永续交易所</strong>:</p>
+<ul>
+<li>零燃气费：所有订单零燃气费和低费用</li>
+<li>高杠杆：支持高达40倍杠杆交易</li>
+<li>透明性：完全链上订单簿，所有交易、资金费用和清算都在Hyperliquid L1上透明进行</li>
+<li>无缝体验：一键交易，无需钱包授权打断流程</li>
+</ul>
+<h2 id="4-代币经济学-HYPE-Token">4. 代币经济学 (HYPE Token)</h2>
+<p>本章全面分析HYPE代币的基本信息、分配机制、治理特点和经济模式创新，评估其价值支撑和投资潜力。</p>
+<h3 id="4-1-基本信息">4.1 基本信息</h3>
+<p><strong>表1：HYPE代币基础数据概览</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代币符号</td>
+<td>HYPE</td>
+<td>原生治理代币</td>
+</tr>
+<tr>
+<td>总供应量</td>
+<td>1,000,000,000 HYPE</td>
+<td>固定总量，无通胀</td>
+</tr>
+<tr>
+<td>流通供应量</td>
+<td>333,928,180 HYPE</td>
+<td>占总供应量33.38%</td>
+</tr>
+<tr>
+<td>当前价格</td>
+<td>$38-42 USD</td>
+<td>数据时间：2025年1月</td>
+</tr>
+<tr>
+<td>流通市值</td>
+<td>$128亿美元</td>
+<td>全球加密货币排名第11-14位</td>
+</tr>
+<tr>
+<td>完全稀释估值</td>
+<td>$392亿美元</td>
+<td>基于总供应量计算</td>
+</tr>
+</tbody>
+</table>
+<p><em>数据来源：CoinGecko, CoinMarketCap；数据截止时间：2025年1月</em></p>
+<p>如表1所示，HYPE代币当前流通市值已达128亿美元，在全球加密货币市值排名中位居前列。完全稀释估值与流通市值的差异反映了未来代币解锁对市场的潜在影响。</p>
+<h3 id="4-2-历史性空投成就">4.2 历史性空投成就</h3>
+<ul>
+<li><strong>空投规模</strong>: 加密货币历史上最大规模空投</li>
+<li><strong>受益人数</strong>: 约94,000名符合条件用户</li>
+<li><strong>分发数量</strong>: 2.75亿枚代币（占总供应量27.5%）</li>
+<li><strong>空投价值</strong>: 超过43亿美元</li>
+<li><strong>价格表现</strong>: 从3.57美元发行价上涨至历史最高点49.86美元（涨幅超1000%）</li>
+</ul>
+<h3 id="4-3-代币分配">4.3 代币分配</h3>
+<p><strong>表2：HYPE代币分配结构</strong></p>
+<table>
+<thead>
+<tr>
+<th>分配类别</th>
+<th>数量 (HYPE)</th>
+<th>比例</th>
+<th>解锁时间表</th>
+<th>用途说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未来排放和社区奖励</td>
+<td>423,880,000</td>
+<td>42.39%</td>
+<td>待定</td>
+<td>长期激励和生态发展</td>
+</tr>
+<tr>
+<td>创世分发</td>
+<td>275,000,000</td>
+<td>27.50%</td>
+<td>TGE即时解锁</td>
+<td>社区空投，最大规模分发</td>
+</tr>
+<tr>
+<td>核心贡献者</td>
+<td>238,000,000</td>
+<td>23.80%</td>
+<td>2027-2028年</td>
+<td>团队激励，创世后锁定1年</td>
+</tr>
+<tr>
+<td>Hyper基金会预算</td>
+<td>60,000,000</td>
+<td>6.00%</td>
+<td>无锁定期</td>
+<td>生态系统运营和发展</td>
+</tr>
+<tr>
+<td>社区资助</td>
+<td>3,000,000</td>
+<td>0.30%</td>
+<td>无锁定期</td>
+<td>社区项目支持</td>
+</tr>
+<tr>
+<td>HIP-2 Hyperliquidity</td>
+<td>120,000</td>
+<td>0.01%</td>
+<td>无锁定期</td>
+<td>特定协议功能</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">pie title HYPE代币分配结构 (总供应量: 10亿枚)
+    "未来排放和社区奖励" : 42.39
+    "创世分发（空投）" : 27.50
+    "核心贡献者" : 23.80
+    "Hyper基金会预算" : 6.00
+    "社区资助" : 0.30
+    "HIP-2 Hyperliquidity" : 0.01</pre>
+<p><em>数据来源：Hyperliquid官方文档</em></p>
+<p>表2展现了Hyperliquid代币分配的突出特点：**69.89%<strong>的代币分配给社区（创世分发+未来排放），仅</strong>23.80%**分配给核心贡献者。这种"社区优先"的分配模式在区块链项目中较为罕见，体现了项目方对去中心化治理的承诺。</p>
+<h3 id="4-4-解锁时间表">4.4 解锁时间表</h3>
+<ul>
+<li>下次重大解锁：2025年11月29日（核心贡献者部分）</li>
+<li>大部分解锁将在2027-2028年间完成</li>
+</ul>
+<h3 id="4-5-治理特点">4.5 治理特点</h3>
+<ul>
+<li><strong>社区优先</strong>: 无投资者、无付费做市商、无公司费用</li>
+<li><strong>去中心化治理</strong>: 任何人都可以通过HYPE代币拥有、治理和保护Hyperliquid网络</li>
+<li><strong>自筹资金项目</strong>: 强调独立性和对愿景的专注</li>
+</ul>
+<h3 id="4-6-经济机制创新">4.6 经济机制创新</h3>
+<ul>
+<li><strong>供应量销毁</strong>: 每年约26%的供应量通过系统性销毁减少</li>
+<li><strong>费用分配</strong>: 100%交易费用导向社区（54%进入援助基金用于HYPE回购，46%分配给HLP金库）</li>
+<li><strong>回购规模</strong>: 日均约100万美元HYPE回购</li>
+<li><strong>质押机制</strong>: 2024年12月30日启动，当前年化收益率2.26-2.37%</li>
+<li><strong>质押参与度</strong>: 约42.93%的符合条件代币被质押</li>
+<li><strong>收入表现</strong>: 年化收入达11亿美元，日均费用收入350万美元</li>
+</ul>
+<h2 id="5-生态系统分析">5. 生态系统分析</h2>
+<p>本章深入分析Hyperliquid生态系统的发展现状、核心项目和特色经济模式，展现生态的完整性和发展潜力。</p>
+<h3 id="5-1-生态发展概况">5.1 生态发展概况</h3>
+<ul>
+<li><strong>开发团队</strong>: <strong>175个以上</strong>开发团队参与生态建设</li>
+<li><strong>项目总数</strong>: 超过170个项目，100多个活跃项目</li>
+<li><strong>总锁仓价值</strong>: 超过20亿美元，按TVL计算为第9大区块链</li>
+<li><strong>用户增长</strong>: 从31,000增长至30万用户（增长9倍）</li>
+<li><strong>日活用户</strong>: 从283人激增至<strong>2万人以上</strong></li>
+<li><strong>用户留存</strong>: 月度用户留存率保持在<strong>40%以上</strong></li>
+<li><strong>开放兴趣</strong>: 从1.78亿美元激增至43亿美元，2025年7月峰值达153亿美元</li>
+<li><strong>日均交易</strong>: 处理20-40万笔交易</li>
+<li><strong>嵌入式钱包</strong>: 已配置<strong>1万个</strong>嵌入式钱包</li>
+</ul>
+<h3 id="5-2-HyperEVM独特经济循环">5.2 HyperEVM独特经济循环</h3>
+<p>与传统公链早期由DEX主导TVL不同，HyperEVM形成了以<strong>借贷和流动性质押为核心</strong>的独特经济模式：</p>
+<h4 id="5-2-1-杠杆耕作-策略循环">5.2.1 "杠杆耕作"策略循环</h4>
+<ol>
+<li><strong>获取与质押</strong>: 用户获得HYPE代币并进行质押</li>
+<li><strong>流动化</strong>: 将HYPE质押到流动性质押协议，获得stHYPE、LHYPE等LST</li>
+<li><strong>抵押与借贷</strong>: 将LST存入借贷协议（如HyperLend、Felix），借出稳定币USDXL、feUSD</li>
+<li><strong>再投资</strong>: 将借出的稳定币用于DEX流动性挖矿或其他收益策略</li>
+</ol>
+<pre class="mermaid">graph LR
+    A[用户持有HYPE] --&gt; B[质押到流动性质押协议]
+    B --&gt; C[获得LST<br>stHYPE/LHYPE]
+    C --&gt; D[存入借贷协议<br>HyperLend/Felix]
+    D --&gt; E[借出稳定币<br>USDXL/feUSD]
+    E --&gt; F[DEX流动性挖矿]
+    F --&gt; G[获得多重收益<br>质押+借贷+DEX+空投]
+    G --&gt; H[再投资或扩大杠杆]
+    H --&gt; A
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style G fill:#9f9,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:1px
+    style D fill:#bbf,stroke:#333,stroke-width:1px
+    style F fill:#bbf,stroke:#333,stroke-width:1px</pre>
+<h4 id="5-2-2-经济模式特点">5.2.2 经济模式特点</h4>
+<ul>
+<li><strong>HYPE中心化</strong>: 早期主要资产是原生代币HYPE，推动质押需求</li>
+<li><strong>空投驱动</strong>: 强烈的空投预期驱动用户"耕作大于交易"行为模式</li>
+<li><strong>资本效率</strong>: 一份本金同时赚取质押收益、借贷积分、DEX手续费和LP激励</li>
+<li><strong>内循环特征</strong>: 高度内循环和自反性的经济模型，围绕HYPE构建价值网络</li>
+</ul>
+<h3 id="5-3-HyperEVM-状态">5.3 HyperEVM 状态</h3>
+<ul>
+<li><strong>当前阶段</strong>: Alpha阶段（2025年2月18日主网上线）</li>
+<li><strong>核心特色</strong>: 完整以太坊兼容性，同时保持亚秒级最终性</li>
+<li><strong>独特优势</strong>: 智能合约可直接访问HyperCore 20亿美元以上订单簿流动性</li>
+<li><strong>逐步推出原因</strong>:
+<ol>
+<li>坚持"无内幕"原则，确保公平访问</li>
+<li>安全升级复杂系统，保护每日数十亿美元交易量</li>
+<li>通过真实经济使用迭代开发</li>
+</ol>
+</li>
+</ul>
+<h3 id="5-4-主要生态项目深度分析">5.4 主要生态项目深度分析</h3>
+<p><strong>评分说明</strong>: ⭐⭐⭐⭐⭐ 生态核心/高成熟度 | ⭐⭐⭐⭐ 重要/成熟 | ⭐⭐⭐ 增长中/有潜力</p>
+<pre class="mermaid">graph TD
+    A[Hyperliquid生态项目分类] --&gt; B[DeFi/收益类]
+    A --&gt; C[订单簿型DEX]
+    A --&gt; D[流动性质押LST]
+    A --&gt; E[分析工具类]
+    A --&gt; F[移动应用类]
+    A --&gt; G[跨链桥接与AI创新]
+
+    B --&gt; B1[Felix Protocol⭐⭐⭐⭐⭐<br>CDP稳定币协议]
+    B --&gt; B2[HyperLend⭐⭐⭐⭐<br>借贷协议]
+    B --&gt; B3[Yolo Chicken⭐⭐⭐⭐<br>创新收益策略]
+    B --&gt; B4[Hyperliquidity⭐⭐⭐⭐<br>LP保险基金]
+
+    C --&gt; C1[HyperFun⭐⭐⭐⭐⭐<br>CLOB现货交易]
+    C --&gt; C2[LadyY⭐⭐⭐⭐<br>CLOB衍生品]
+    C --&gt; C3[Vibe⭐⭐⭐<br>聚合交易]
+    C --&gt; C4[Thetanuts⭐⭐⭐<br>期权做市]
+
+    D --&gt; D1[Liquid⭐⭐⭐⭐⭐<br>首个HYPE LST]
+    D --&gt; D2[Stride⭐⭐⭐⭐<br>跨链质押]
+    D --&gt; D3[Stader⭐⭐⭐<br>多链质押]
+    D --&gt; D4[Kiln⭐⭐⭐<br>企业级质押]
+
+    E --&gt; E1[HypeFlows⭐⭐⭐<br>CEX对比统计]
+    E --&gt; E2[Hyperscanner⭐⭐⭐<br>L1+EVM分析]
+    E --&gt; E3[Hyperstats⭐⭐⭐<br>独立统计]
+    E --&gt; E4[Hyperterminal⭐⭐⭐<br>实时洞察]
+
+    F --&gt; F1[Avy⭐⭐⭐⭐<br>iOS原生应用]
+    F --&gt; F2[Based App⭐⭐⭐<br>综合金融应用]
+
+    G --&gt; G1[Gasyard⭐⭐⭐⭐<br>跨VM桥接]
+    G --&gt; G2[HyBridge⭐⭐⭐<br>专用跨链桥]
+    G --&gt; G3[HyperSignals⭐⭐⭐⭐<br>AI交易信号]
+    G --&gt; G4[FRACTRADE⭐⭐⭐<br>AI交易代理]
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B1 fill:#afa,stroke:#333,stroke-width:1px
+    style C1 fill:#afa,stroke:#333,stroke-width:1px
+    style D1 fill:#afa,stroke:#333,stroke-width:1px</pre>
+<h4 id="5-4-1-DeFi-收益类-核心基础设施项目">5.4.1 DeFi/收益类 - 核心基础设施项目</h4>
+<h5 id="Felix-Protocol-⭐⭐⭐⭐⭐"><strong>Felix Protocol</strong> ⭐⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: “人民的稳定币” - Hyperliquid原生CDP协议</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/felixprotocol">@felixprotocol</a></li>
+</ul>
+<p><strong>核心特色</strong>:</p>
+<ul>
+<li><strong>独家技术</strong>: 获得Liquity AG授权，部署经审计的Liquity V2代码</li>
+<li><strong>产品组合</strong>: CDP借贷 + 传统借贷双模式</li>
+<li><strong>现状表现</strong>: TVL达2.65亿美元，占HyperEVM总TVL的17%</li>
+<li><strong>借贷规模</strong>: 超1亿美元未偿贷款（CDP占61%，传统借贷占39%）</li>
+<li><strong>增长轨迹</strong>: 自4月8日主网启动以来TVL增长813%</li>
+</ul>
+<p><strong>生态重要性</strong> (⭐⭐⭐⭐⭐ - 核心基础设施):</p>
+<ol>
+<li><strong>市场地位</strong>: HyperEVM第二大协议，仅次于Hyperlend</li>
+<li><strong>技术成熟度</strong>: 基于Liquity V2经审计代码，风险管理严格</li>
+<li><strong>产品创新</strong>: feUSD稳定币提供原生收益，技术领先</li>
+<li><strong>用户广度</strong>: 既服务散户又满足机构需求</li>
+<li><strong>生态协同</strong>: 与HyperCore深度集成，资本效率高</li>
+</ol>
+<p><strong>发展挑战</strong>:</p>
+<ul>
+<li>依赖HyperEVM生态整体发展速度</li>
+<li>清算机制在极端市场条件下需要更多验证</li>
+</ul>
+<h5 id="GLIQUID-⭐⭐⭐⭐"><strong>GLIQUID</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 下一代V4 AMM，采用Algebra引擎</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/gliquidx">@gliquidx</a></li>
+</ul>
+<p><strong>技术优势</strong>:</p>
+<ul>
+<li><strong>模块化架构</strong>: Core-Plugins分离设计，支持无流动性迁移升级</li>
+<li><strong>集中流动性</strong>: V4 CLAMM机制，LP效率提升最高22%</li>
+<li><strong>动态费用</strong>: 基于波动率和风险自动调节手续费</li>
+<li><strong>插件生态</strong>: 开放的插件市场，支持第三方功能扩展</li>
+</ul>
+<p><strong>投资机会</strong>:</p>
+<ol>
+<li><strong>技术领先</strong>: Algebra引擎已被95个DEX采用，技术成熟度高</li>
+<li><strong>资本效率</strong>: 集中流动性机制提供更好的资本利用率</li>
+<li><strong>可扩展性</strong>: 插件系统支持KYC、LST等高级功能</li>
+<li><strong>先发优势</strong>: HyperEVM上首个V4 AMM</li>
+</ol>
+<p><strong>市场潜力</strong>: 随着HyperEVM交易量增长，AMM需求将快速放大</p>
+<h5 id="HyperSwap-⭐⭐⭐"><strong>HyperSwap</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: HyperEVM原生AMM DEX</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/hyperswapx">@HyperSwapX</a></li>
+</ul>
+<p><strong>产品特点</strong>:</p>
+<ul>
+<li>原生集成HyperCore价格数据</li>
+<li>支持所有HyperEVM代币交易</li>
+<li>简洁用户界面，专为Hyperliquid优化</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - 基础设施): 作为基础设施项目，将伴随整个HyperEVM生态的发展而成长</p>
+<h5 id="Hyperdelta-⭐⭐⭐⭐"><strong>Hyperdelta</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: Hyperliquid期权交易平台</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hyperdelta.com/">hyperdelta.com</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://twitter.com/HyperdeltaX">@HyperdeltaX</a></li>
+</ul>
+<p><strong>创新价值</strong>:</p>
+<ul>
+<li>链上期权交易，透明度高</li>
+<li>利用HyperCore的高性能和低延迟</li>
+<li>填补Hyperliquid衍生品生态空白</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 市场空白填补): 期权交易是成熟金融市场的重要组成部分，随着Hyperliquid用户增长，期权需求将显著增加</p>
+<h5 id="Hyperlend-⭐⭐⭐⭐⭐"><strong>Hyperlend</strong> ⭐⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: HyperEVM第一大协议，领先的借贷平台</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hyperlend.finance/">hyperlend.finance</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/hyperlendx">@hyperlendx</a></li>
+<li><strong>文档</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.hyperlend.finance/">docs.hyperlend.finance</a></li>
+</ul>
+<p><strong>市场地位</strong>:</p>
+<ul>
+<li><strong>TVL规模</strong>: 3.06亿美元，占HyperEVM总TVL的19.3%</li>
+<li><strong>生态龙头</strong>: HyperEVM上TVL最大的单一协议</li>
+<li><strong>用户规模</strong>: 服务数千名活跃借贷用户</li>
+<li><strong>产品成熟度</strong>: 已验证的借贷模型和风险管理</li>
+</ul>
+<p><strong>核心优势</strong>:</p>
+<ol>
+<li><strong>市场领导地位</strong>: TVL和用户数量的绝对领先</li>
+<li><strong>流动性深度</strong>: 为整个HyperEVM生态提供基础流动性</li>
+<li><strong>风险管控</strong>: 成熟的清算机制和风险参数</li>
+<li><strong>收益稳定</strong>: 借贷利差提供持续收入来源</li>
+</ol>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐⭐ - 生态龙头):</p>
+<ul>
+<li><strong>先发优势</strong>: 生态中最早建立的借贷协议之一</li>
+<li><strong>网络效应</strong>: 用户和资产规模的持续增长形成正向循环</li>
+<li><strong>生态基石</strong>: 为整个DeFi生态提供核心流动性支持</li>
+<li><strong>发展成熟度</strong>: 作为生态最大协议，技术和用户基础最为稳固</li>
+</ul>
+<h5 id="Abracadabra-⭐⭐⭐⭐"><strong>Abracadabra</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 知名跨链借贷平台，基于MIM稳定币</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://abracadabra.money/">abracadabra.money</a></li>
+<li><strong>创始人 Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://twitter.com/danielesesta">@danielesesta</a></li>
+</ul>
+<p><strong>项目背景</strong>:</p>
+<ul>
+<li><strong>知名团队</strong>: Daniele Sestagalli领导，DeFi资深项目</li>
+<li><strong>跨链经验</strong>: 在以太坊、Avalanche等多链部署</li>
+<li><strong>MIM稳定币</strong>: 发行总量超10亿美元的稳定币</li>
+<li><strong>技术成熟</strong>: 经过多轮市场检验的借贷机制</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 知名跨链项目):</p>
+<ol>
+<li><strong>品牌认知</strong>: 知名度和历史经验带来用户信任</li>
+<li><strong>跨链桥接</strong>: 连接其他链的资金和用户</li>
+<li><strong>产品成熟</strong>: Cauldron系列借贷产品经过市场验证</li>
+<li><strong>稳定币生态</strong>: MIM稳定币在Hyperliquid的多元化应用</li>
+</ol>
+<p><strong>注意事项</strong>: 需要关注团队治理和风险管理的持续改进</p>
+<h5 id="Hyperdrive-⭐⭐⭐⭐"><strong>Hyperdrive</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 创新的DeFi收益放大器</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hyperdrive.fi/">hyperdrive.fi</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/hyperdrivedefi">@hyperdrivedefi</a></li>
+</ul>
+<p><strong>核心产品</strong>:</p>
+<ul>
+<li><strong>3倍HLP头寸</strong>: 放大Hyperliquid流动性提供收益</li>
+<li><strong>USDC借贷服务</strong>: 基于HLP抵押的借贷功能</li>
+<li><strong>HYPE流动性解锁</strong>: 让锁定资产获得流动性</li>
+<li><strong>多样化策略</strong>: 更多收益策略即将上线</li>
+</ul>
+<p><strong>技术创新</strong>:</p>
+<ol>
+<li><strong>杠杆LP</strong>: 通过借贷放大流动性挖矿收益</li>
+<li><strong>风险管理</strong>: 自动化的头寸管理和风险控制</li>
+<li><strong>资本效率</strong>: 最大化用户资金的收益率</li>
+<li><strong>HypurrCo成员</strong>: 生态核心建设者项目</li>
+</ol>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 创新收益产品): 满足高收益需求用户的多元化选择，产品差异化显著</p>
+<h4 id="5-4-2-主要项目发展特点">5.4.2 主要项目发展特点</h4>
+<p><strong>生态龙头项目</strong>:</p>
+<ul>
+<li><strong>Hyperlend</strong>: 生态第一大协议，TVL 3.06亿美元，为整个生态提供基础流动性</li>
+<li><strong>Felix Protocol</strong>: 独特的CDP+借贷双模式，提供稳定币基础设施服务</li>
+</ul>
+<p><strong>技术创新项目</strong>:</p>
+<ul>
+<li><strong>GLIQUID</strong>: 采用先进V4 AMM技术，提供高效流动性解决方案</li>
+<li><strong>Hyperdelta</strong>: 填补Hyperliquid期权交易市场空白</li>
+<li><strong>Abracadabra</strong>: 带来成熟的跨链借贷经验和知名度</li>
+<li><strong>Hyperdrive</strong>: 提供创新的收益放大和流动性解锁方案</li>
+</ul>
+<p><strong>基础设施项目</strong>:</p>
+<ul>
+<li><strong>HyperSwap</strong>: 作为基础DEX，为生态提供核心交易服务</li>
+</ul>
+<h4 id="5-4-3-基础设施类-生态支撑项目">5.4.3 基础设施类 - 生态支撑项目</h4>
+<h5 id="HypeRPC-⭐⭐⭐⭐⭐"><strong>HypeRPC</strong> ⭐⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: Hyperliquid首个专用RPC基础设施提供商</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hyperpc.app/">hyperpc.app</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://twitter.com/hyperpc_">@hyperpc_</a></li>
+</ul>
+<p><strong>核心优势</strong>:</p>
+<ul>
+<li><strong>独家地位</strong>: Hyperliquid生态唯一专业RPC服务商</li>
+<li><strong>企业级性能</strong>: 99.99%运行时间SLA，超低延迟(&lt;80ms)</li>
+<li><strong>技术支撑</strong>: 由Imperator.co支持，4年+区块链基础设施经验</li>
+<li><strong>全球覆盖</strong>: EU+JP多地区节点，地理优化分布</li>
+</ul>
+<p><strong>业务数据</strong>:</p>
+<ul>
+<li>已处理超过2000万次请求</li>
+<li>支持高达45,000 RPS峰值</li>
+<li>服务多样化客户群（DApp、交易机器人、机构）</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐⭐ - 垄断性基础设施):</p>
+<ol>
+<li><strong>关键地位</strong>: Hyperliquid生态基础设施的核心入口</li>
+<li><strong>规模效应</strong>: 随着生态发展，RPC需求呈指数级增长</li>
+<li><strong>技术优势</strong>: 专业优化的高性能服务难以复制</li>
+<li><strong>商业模式</strong>: 订阅制+企业定制服务，收入模式稳定</li>
+<li><strong>发展空间</strong>: 可扩展至数据分析、存档节点等增值服务</li>
+</ol>
+<h5 id="Goldsky-⭐⭐⭐⭐"><strong>Goldsky</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 高性能区块链数据索引和流处理平台</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://goldsky.com/">goldsky.com</a></li>
+<li><strong>HyperEVM专页</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://goldsky.com/chains/hyperevm">goldsky.com/chains/hyperevm</a></li>
+<li><strong>文档</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.goldsky.com/chains/hyperevm">docs.goldsky.com/chains/hyperevm</a></li>
+</ul>
+<p><strong>技术特色</strong>:</p>
+<ul>
+<li>即时子图部署，无需维护</li>
+<li>实时HyperEVM数据访问</li>
+<li>自定义数据流管道</li>
+<li>高性能索引服务</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 数据基础设施): 随着HyperEVM dApp数量增长，数据服务需求将快速增长</p>
+<h5 id="Allium-⭐⭐⭐"><strong>Allium</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 面向机构的区块链数据提供商</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.allium.so/">allium.so</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/alliumlabs">@AlliumLabs</a></li>
+<li><strong>Hyperliquid专页</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hyperliquid.allium.so/">hyperliquid.allium.so</a></li>
+</ul>
+<p><strong>服务范围</strong>:</p>
+<ul>
+<li>历史和实时数据</li>
+<li>互动仪表板</li>
+<li>灵活API接口</li>
+<li>定制化数据集成</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - B2B数据服务): 面向机构的专业数据服务，客户粘性强，商业价值高</p>
+<h5 id="Hyperliquid-Names-⭐⭐⭐"><strong>Hyperliquid Names</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: Hyperliquid生态数字身份服务</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hlnames.xyz/">hlnames.xyz</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/hlnames">@hlnames</a></li>
+<li><strong>文档</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hyperliquid-names.gitbook.io/hyperliquid-names">hyperliquid-names.gitbook.io</a></li>
+</ul>
+<p><strong>产品价值</strong>:</p>
+<ul>
+<li>简化地址管理</li>
+<li>提升用户体验</li>
+<li>品牌识别服务</li>
+<li>域名资产价值</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - 数字身份): Web3身份基础设施，具有显著的网络效应特征</p>
+<h5 id="Across-Protocol-⭐⭐⭐⭐"><strong>Across Protocol</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 领先的跨链互操作性协议</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://across.to/">across.to</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/acrossprotocol">@AcrossProtocol</a></li>
+</ul>
+<p><strong>核心技术</strong>:</p>
+<ul>
+<li><strong>基于意图的跨链</strong>: 采用intent-based架构</li>
+<li><strong>速度领先</strong>: 目前生产环境中最快的跨链协议</li>
+<li><strong>安全性</strong>: 无传统跨链桥的安全权衡</li>
+<li><strong>成本效率</strong>: 最低成本的跨链传输解决方案</li>
+</ul>
+<p><strong>Hyperliquid价值</strong>:</p>
+<ol>
+<li><strong>资金流入</strong>: 为Hyperliquid生态带来外部流动性</li>
+<li><strong>用户入口</strong>: 简化用户从其他链迁移的过程</li>
+<li><strong>技术领先</strong>: intent-based跨链技术的先行者</li>
+<li><strong>生态整合</strong>: 连接Hyperliquid与更广泛的DeFi生态</li>
+</ol>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 跨链基础设施): 跨链互操作是多链时代的核心需求，技术和用户体验领先</p>
+<h5 id="Codex-Data-⭐⭐⭐"><strong>Codex Data</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 最快速、准确的区块链数据API服务</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.codex.io/">codex.io</a></li>
+</ul>
+<p><strong>技术优势</strong>:</p>
+<ul>
+<li><strong>数据覆盖</strong>: 70+网络，2500万+代币数据</li>
+<li><strong>实时性</strong>: 最快速的区块链数据获取</li>
+<li><strong>准确性</strong>: 最可靠的数据质量保证</li>
+<li><strong>易用性</strong>: 开发者友好的API接口</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - 数据 API服务):</p>
+<ul>
+<li><strong>B2B服务</strong>: 专业的开发者和企业数据解决方案</li>
+<li><strong>技术优势</strong>: 高质量的数据服务具有竞争壁垒</li>
+<li><strong>规模效应</strong>: 数据规模扩大带来成本优势</li>
+<li><strong>用户粘性</strong>: 开发者集成后具有较高的依赖性</li>
+</ul>
+<h4 id="5-4-4-交易工具与数据分析类-用户入口项目">5.4.4 交易工具与数据分析类 - 用户入口项目</h4>
+<h5 id="Copin-⭐⭐⭐⭐"><strong>Copin</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 最大的链上跟单交易平台</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>Hyperliquid集成文档</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.copin.io/features/decentralized-copy-trading-dcp/connect-hyperliquid">docs.copin.io/features/decentralized-copy-trading-dcp/connect-hyperliquid</a></li>
+</ul>
+<p><strong>核心优势</strong>:</p>
+<ul>
+<li><strong>用户规模</strong>: 支持分析70万+链上交易者</li>
+<li><strong>多链覆盖</strong>: 30+永续DEX数据整合</li>
+<li><strong>产品成熟度</strong>: 完整的发现-分析-跟单闭环</li>
+<li><strong>Hyperliquid集成</strong>: 深度整合HyperCore交易数据</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 交易工具平台):</p>
+<ol>
+<li><strong>用户入口</strong>: 交易者发现和分析的重要门户</li>
+<li><strong>数据优势</strong>: 多链交易数据的深度整合能力</li>
+<li><strong>服务模式</strong>: 提供跟单服务和专业分析工具</li>
+<li><strong>网络效应</strong>: 交易者数量增加提升平台整体价值</li>
+<li><strong>发展空间</strong>: 可扩展至组合管理、风控等高级功能</li>
+</ol>
+<h5 id="Defined-fi-⭐⭐⭐⭐"><strong><a target="_blank" rel="noopener external nofollow noreferrer" href="http://Defined.fi">Defined.fi</a></strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 多链交易终端和筛选工具</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.defined.fi/">defined.fi</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/definedfi">@definedfi</a></li>
+</ul>
+<p><strong>产品特色</strong>:</p>
+<ul>
+<li>快速安全的多链交易</li>
+<li>实时代币筛选器</li>
+<li>高级交易分析</li>
+<li>移动端优化</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 多链交易终端): 多链整合能力突出，用户体验和可用性优秀</p>
+<h5 id="Coinperps-⭐⭐⭐"><strong>Coinperps</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 永续期货专业分析平台</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.coinperps.com/">coinperps.com</a></li>
+</ul>
+<p><strong>核心功能</strong>:</p>
+<ul>
+<li>实时资金费率追踪</li>
+<li>持仓量和清算数据</li>
+<li>交易量监控</li>
+<li>多平台数据对比</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - 专业分析工具): 为永续交易者提供关键的市场数据和决策支持</p>
+<h5 id="HyperDash-⭐⭐⭐"><strong>HyperDash</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: Hyperliquid排行榜交易者追踪</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hyperdash.info/">hyperdash.info</a></li>
+</ul>
+<p><strong>特色服务</strong>:</p>
+<ul>
+<li>顶级交易者排名</li>
+<li>交易策略分析</li>
+<li>收益率追踪</li>
+<li>社区功能</li>
+</ul>
+<h5 id="Brahma-⭐⭐⭐⭐"><strong>Brahma</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 自动化金融应用编排层</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://brahma.fi/">brahma.fi</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/brahmafi">@BrahmaFi</a></li>
+</ul>
+<p><strong>核心价值</strong>:</p>
+<ul>
+<li><strong>编排能力</strong>: 自动化复杂的DeFi工作流程</li>
+<li><strong>跨链支持</strong>: 统一管理多链资产和交易</li>
+<li><strong>无需智能合约</strong>: 简化部署和资金管理复杂性</li>
+<li><strong>企业级</strong>: 为机构和高净值用户提供专业服务</li>
+</ul>
+<p><strong>产品优势</strong>:</p>
+<ol>
+<li><strong>自动化</strong>: 复杂DeFi策略的一键执行</li>
+<li><strong>风险管理</strong>: 内置风险控制和监控机制</li>
+<li><strong>效率提升</strong>: 大幅降低手动操作的时间成本</li>
+<li><strong>资金安全</strong>: 用户资金托管的创新解决方案</li>
+</ol>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - DeFi自动化工具): DeFi复杂度增加催生对自动化解决方案的强烈需求，专业用户依赖度高</p>
+<h5 id="Altitude-⭐⭐⭐"><strong>Altitude</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 下一代区块链交易体验</p>
+<p><strong>产品特色</strong>:</p>
+<ul>
+<li><strong>全方位基础设施</strong>: 完整的交易基础设施解决方案</li>
+<li><strong>高性能</strong>: 专为高频交易优化的系统架构</li>
+<li><strong>用户体验</strong>: 简化复杂交易操作的界面设计</li>
+<li><strong>多功能集成</strong>: 交易、分析、管理一体化平台</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - 交易基础设施): 专为Hyperliquid优化的高性能交易解决方案</p>
+<h5 id="Chainpro-⭐⭐⭐"><strong>Chainpro</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 高级链上交易终端</p>
+<p><strong>核心功能</strong>:</p>
+<ul>
+<li><strong>多生态覆盖</strong>: 支持多个区块链生态的交易</li>
+<li><strong>专业工具</strong>: 为专业交易者设计的高级功能</li>
+<li><strong>实时分析</strong>: 集成市场分析和数据工具</li>
+<li><strong>自定义界面</strong>: 可定制的交易界面</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - 专业交易工具): 为专业交易者和量化团队提供高级功能和定制化服务</p>
+<h5 id="数据分析工具补充-⭐⭐⭐"><strong>数据分析工具补充</strong> ⭐⭐⭐</h5>
+<p><strong>HypeFlows</strong> - Hyperliquid与CEX交易统计对比</p>
+<ul>
+<li>独特定位：专门追踪Hyperliquid vs 中心化交易所数据</li>
+<li><strong>生态价值</strong>: 为交易者提供平台对比分析和选择依据</li>
+</ul>
+<p><strong>Hyperscanner</strong> - 统一L1+EVM分析平台</p>
+<ul>
+<li>技术优势：同时分析HyperCore和HyperEVM数据</li>
+<li><strong>生态价值</strong>: 全面的Hyperliquid生态状态监控和分析</li>
+</ul>
+<p><strong>Hyperstats</strong> - 独立统计平台</p>
+<ul>
+<li>中立立场：独立于官方的数据分析</li>
+<li><strong>生态价值</strong>: 为社区提供客观独立的数据分析视角</li>
+</ul>
+<p><strong>Hyperterminal</strong> - 实时交易洞察</p>
+<ul>
+<li>实时性：专注实时市场数据和交易机会</li>
+<li><strong>生态价值</strong>: 为交易决策提供实时数据支持和洞察</li>
+</ul>
+<h4 id="5-4-5-移动应用类-移动端突破项目">5.4.5 移动应用类 - 移动端突破项目</h4>
+<h5 id="Avy-⭐⭐⭐⭐"><strong>Avy</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: iOS原生Hyperliquid交易应用</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>iOS App Store</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://apps.apple.com/us/app/oneshot-for-hyperliquid/id6742009042">OneShot for Hyperliquid</a></li>
+<li><strong>替代选择</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://apps.apple.com/us/app/lootbase-for-hyperliquid/id6742149218">Lootbase for Hyperliquid</a></li>
+</ul>
+<p><strong>产品创新</strong>:</p>
+<ul>
+<li>无需邮箱注册，扫码即用</li>
+<li>专为移动端优化的UI/UX</li>
+<li>原生iOS性能优势</li>
+<li>快速交易执行</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 移动端入口): 移动端是加密交易的重要增长领域，原生应用提供优于网页版的体验</p>
+<h5 id="Based-App-⭐⭐⭐"><strong>Based App</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 综合加密货币支付和交易平台</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://basedapp.io/">basedapp.io</a></li>
+</ul>
+<p><strong>功能覆盖</strong>:</p>
+<ul>
+<li>加密货币支付</li>
+<li>多链交易支持</li>
+<li>钱包管理</li>
+<li>Hyperliquid集成</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - 综合金融应用): 支付+交易一体化模式，提供更广泛的用户应用场景</p>
+<h4 id="5-4-6-跨链桥接与AI创新类-前沿技术项目">5.4.6 跨链桥接与AI创新类 - 前沿技术项目</h4>
+<h5 id="Gasyard-⭐⭐⭐⭐"><strong>Gasyard</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 跨VM桥接协议（10秒内完成跨链）</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>参考</strong>: 多个跨链桥接服务提及，具体链接可通过Hyperliquid生态查找</li>
+</ul>
+<p><strong>技术创新</strong>:</p>
+<ul>
+<li>支持EVM、Solana、Aptos、Sui、Bitcoin和Hyperliquid</li>
+<li>基于意图的系统和求解器网络</li>
+<li>优化手续费和用户体验</li>
+<li>超快速跨链传输（&lt;10秒）</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - 创新跨链技术): 跨VM桥接是多链时代的核心需求，技术创新和速度优势显著</p>
+<h5 id="HyBridge-⭐⭐⭐"><strong>HyBridge</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: 专注Hyperliquid的多链资产桥接</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hybridge.xyz/">hybridge.xyz</a></li>
+</ul>
+<p><strong>服务特色</strong>:</p>
+<ul>
+<li>6个EVM链+ Solana + BTC → Hyperliquid USDC</li>
+<li>闪电般速度的资产转移</li>
+<li>支持100+代币</li>
+<li>HypurrCo成员项目</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - 专用跨链桥): 为Hyperliquid生态发展提供资金流入支持</p>
+<h5 id="HyperSignals-⭐⭐⭐⭐"><strong>HyperSignals</strong> ⭐⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: AI驱动的交易信号分析平台</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://twitter.com/HyperSignals_ai">@HyperSignals_ai</a></li>
+</ul>
+<p><strong>核心能力</strong>:</p>
+<ul>
+<li>Hyperliquid订单簿模式识别</li>
+<li>聪明钱动向追踪</li>
+<li>链下情绪分析</li>
+<li>实时Alpha信号生成</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐⭐ - AI交易分析): AI+交易是高价值细分领域，专业交易者对智能分析工具的需求强烈</p>
+<h5 id="FRACTRADE-⭐⭐⭐"><strong>FRACTRADE</strong> ⭐⭐⭐</h5>
+<p><strong>项目定位</strong>: AI交易代理创建和管理平台</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://fractrade.xyz/">fractrade.xyz</a></li>
+<li><strong>白皮书</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://fractrade.xyz/whitepaper/">fractrade.xyz/whitepaper</a></li>
+</ul>
+<p><strong>产品功能</strong>:</p>
+<ul>
+<li>AI交易机器人创建</li>
+<li>自动化交易策略</li>
+<li>机器人性能监控</li>
+<li>策略市场</li>
+</ul>
+<p><strong>生态价值</strong> (⭐⭐⭐ - AI交易机器人): 自动化交易需求增长，为普通用户降低交易技术门槛</p>
+<h4 id="5-4-7-社区建设与DAO类-生态组织力量">5.4.7 社区建设与DAO类 - 生态组织力量</h4>
+<h5 id="HypurrCollective-生态核心建设者联盟"><strong>HypurrCollective</strong> - 生态核心建设者联盟</h5>
+<p><strong>定位</strong>: 创始人、建设者、做市商、KOL和超级用户的集体组织</p>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.hypurr.co/">hypurr.co</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/hypurr_co">@hypurr_co</a></li>
+<li><strong>生态项目页面</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.hypurr.co/ecosystem-projects">hypurr.co/ecosystem-projects</a><br>
+<strong>价值</strong>:</li>
+<li>项目孵化和启动平台</li>
+<li>生态资源整合和协调</li>
+<li>为成员项目提供支持和背书</li>
+<li>推动生态协同发展</li>
+</ul>
+<h5 id="Catalyst-Builders-DAO-CBD-社区驱动建设"><strong>Catalyst Builders DAO (CBD)</strong> - 社区驱动建设</h5>
+<p><strong>使命</strong>: 通过社区力量塑造Hyperliquid生态系统<br>
+<strong>功能</strong>:</p>
+<ul>
+<li>社区治理和决策参与</li>
+<li>项目提案和投票机制</li>
+<li>建设者激励和支持</li>
+<li>生态发展方向引导</li>
+</ul>
+<h5 id="全球本地化社区网络"><strong>全球本地化社区网络</strong></h5>
+<p><strong>覆盖地区</strong>: 印度、韩国、印尼、菲律宾、英国、法国、西班牙、俄语区、巴尔干地区等<br>
+<strong>战略意义</strong>:</p>
+<ul>
+<li>本地化用户教育和推广</li>
+<li>降低文化和语言壁垒</li>
+<li>扩大全球用户基础</li>
+<li>建立区域性生态合作</li>
+</ul>
+<h4 id="5-4-8-NFT与创新应用类-新兴领域探索">5.4.8 NFT与创新应用类 - 新兴领域探索</h4>
+<h5 id="NFT生态概况"><strong>NFT生态概况</strong></h5>
+<ul>
+<li><strong>总交易量</strong>: 超过<strong>130万美元</strong>NFT交易量</li>
+<li><strong>知名系列</strong>: Wealthy Hypio Babies、K-16等热门NFT系列</li>
+<li><strong>AI游戏</strong>: TheFarm.fun等AI驱动游戏项目市值达<strong>4000万美元</strong></li>
+<li><strong>生态整合</strong>: MON Protocol整合<strong>100多个合作伙伴</strong>项目</li>
+</ul>
+<h5 id="BAE-首个NFT借贷协议"><strong>BAE</strong> - 首个NFT借贷协议</h5>
+<p><strong>创新价值</strong>:</p>
+<ul>
+<li>NFT流动性解锁：为借款人提供即时流动性</li>
+<li>高收益机会：为放贷人提供高年化收益</li>
+<li>NFT持有者双重收益分享机制</li>
+</ul>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/BaeOfHL">@BaeOfHL</a><br>
+<strong>市场潜力</strong>: NFT金融化的重要基础设施</li>
+</ul>
+<h5 id="Drip-Trade-NFT市场-启动平台"><strong>Drip Trade</strong> - NFT市场+启动平台</h5>
+<p><strong>功能覆盖</strong>: NFT交易市场 + 项目启动平台<br>
+<strong>差异化</strong>: 专注Hyperliquid生态的NFT项目</p>
+<h5 id="Farm-Fun-自主AI生物游戏"><strong>Farm Fun</strong> - 自主AI生物游戏</h5>
+<p><strong>产品特色</strong>:</p>
+<ul>
+<li>完全链上的自主AI生物系统</li>
+<li>生物在The Farm中自主生存和进化</li>
+<li>GameFi + AI的创新结合</li>
+<li>HypurrCo成员项目，质量保证</li>
+</ul>
+<p><strong>官方资源</strong>:</p>
+<ul>
+<li><strong>官方网站</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.thefarm.fun/">thefarm.fun</a></li>
+<li><strong>Twitter</strong>: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/thefarmdotfun">@thefarmdotfun</a></li>
+</ul>
+<h4 id="5-4-9-GambleFi与娱乐类-新兴娱乐金融">5.4.9 GambleFi与娱乐类 - 新兴娱乐金融</h4>
+<h5 id="HyperFun-全能GambleFi代币"><strong>HyperFun</strong> - 全能GambleFi代币</h5>
+<p><strong>定位</strong>: Hyperliquid首个全方位GambleFi通缩代币<br>
+<strong>特色</strong>: 集成多种博彩和娱乐功能的代币生态</p>
+<h5 id="Head-to-Head-社交下注平台"><strong>Head to Head</strong> - 社交下注平台</h5>
+<p><strong>概念</strong>: “Put your money where your mouth is” - 让人们为自己的观点下注<br>
+<strong>创新</strong>: 社交化的预测市场和下注平台<br>
+<strong>用户体验</strong>: 将观点表达与经济激励结合</p>
+<h2 id="6-市场竞争分析">6. 市场竞争分析</h2>
+<p>本章通过深入的竞争分析，明确Hyperliquid在去中心化交易赛道中的独特定位和竞争优势。</p>
+<h3 id="6-1-竞争定位重新框定">6.1 竞争定位重新框定</h3>
+<h4 id="6-1-1-Hyperliquid-vs-Layer-2：不同维度的价值主张">6.1.1 Hyperliquid vs Layer 2：不同维度的价值主张</h4>
+<p><strong>Hyperliquid价值主张</strong>：</p>
+<ul>
+<li><strong>垂直专业化</strong>: “做那些在以太坊或其L2上因架构限制而不可能实现的事”</li>
+<li><strong>金融操作系统</strong>: 专为高频、资本密集型专业金融市场设计</li>
+<li><strong>原子化可组合性</strong>: 统一状态下的确定性金融操作，10倍产品改进</li>
+</ul>
+<p><strong>Layer 2价值主张</strong>：</p>
+<ul>
+<li><strong>水平扩展</strong>: “在以太坊上做同样的事，但更便宜、更快”</li>
+<li><strong>通用计算</strong>: 扩展以太坊的通用计算能力至更广泛的DeFi、NFT、游戏</li>
+<li><strong>继承安全</strong>: 借用以太坊的安全预算，降低引导成本</li>
+</ul>
+<h4 id="6-1-2-应用场景差异">6.1.2 应用场景差异</h4>
+<p><strong>Hyperliquid适用场景</strong>：</p>
+<ul>
+<li>自动在链上订单簿进行delta对冲的结构化产品</li>
+<li>原子化读取预言机价格并直接交易抵押品的借贷清算</li>
+<li>复杂金融策略的一键原子执行</li>
+</ul>
+<p><strong>Layer 2适用场景</strong>：</p>
+<ul>
+<li>通用DeFi应用的成本优化</li>
+<li>NFT和游戏等长尾市场</li>
+<li>现有以太坊应用的性能提升</li>
+</ul>
+<h3 id="6-2-传统竞争对比分析">6.2 传统竞争对比分析</h3>
+<pre class="mermaid">graph TD
+    A[Hyperliquid竞争对比分析] --&gt; B[永续交易协议]
+    A --&gt; C[Layer 2扩容方案]
+    A --&gt; D[其他Layer 1]
+
+    B --&gt; B1[dYdX<br>📉 市场份额: 73%→7%<br>⚙️ 架构: StarkEx Validium<br>⚡ 性能: 1-2s区块时间]
+    B --&gt; B2[GMX<br>💰 模式: GLP池子<br>📊 流动性: 合成资产<br>⚠️ 风险: 不平衡风险]
+    B --&gt; B3[Vertex<br>🔗 架构: Arbitrum Layer 2<br>📈 增长: 快速发展<br>💡 特色: 混合模式]
+
+    C --&gt; C1[Arbitrum<br>🔧 通用计算扩展<br>💎 继承以太坊安全<br>📱 广泛DeFi生态]
+    C --&gt; C2[Optimism<br>⚡ 乐观Rollup<br>🏗️ 通用应用平台<br>🌍 以太坊兼容性]
+    C --&gt; C3[Polygon<br>🚀 侧链解决方案<br>💰 低成本交易<br>🔗 多链互操作]
+
+    D --&gt; D1[Solana<br>⚡ 高TPS主链<br>🏛️ 统一全局状态<br>💡 创新共识机制]
+    D --&gt; D2[Avalanche<br>❄️ 子网架构<br>🔧 应用特定链<br>⚡ 快速最终性]
+
+    E[Hyperliquid优势] --&gt; E1[📊 60%+市场份额<br>⚡ 亚秒级最终性<br>💰 零gas费用<br>🏛️ 统一状态管理]
+    E --&gt; E2[🔗 原生订单簿流动性<br>📈 20亿+美元TVL<br>🚀 专用金融架构<br>🛡️ 自主控制执行环境]
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style E fill:#9f9,stroke:#333,stroke-width:2px
+    style E1 fill:#afa,stroke:#333,stroke-width:1px
+    style E2 fill:#afa,stroke:#333,stroke-width:1px</pre>
+<h4 id="6-2-1-与dYdX对比">6.2.1 与dYdX对比</h4>
+<p><strong>市场份额变化</strong>:</p>
+<ul>
+<li><strong>Hyperliquid</strong>: 占据60%+市场份额</li>
+<li><strong>dYdX</strong>: 从73%下降至仅7%</li>
+</ul>
+<p><strong>架构对比</strong>:</p>
+<ul>
+<li><strong>Hyperliquid</strong>: 主权L1，完全控制执行环境</li>
+<li><strong>dYdX</strong>: StarkEx Validium，依赖以太坊最终性</li>
+</ul>
+<p><strong>性能对比</strong>:</p>
+<ul>
+<li><strong>Hyperliquid</strong>: 亚秒级最终性，零gas费用，统一状态</li>
+<li><strong>dYdX</strong>: 1-2秒区块时间，收取代币费用，跨合约异步</li>
+</ul>
+<h4 id="6-2-2-与GMX对比">6.2.2 与GMX对比</h4>
+<p><strong>交易量对比</strong>:</p>
+<ul>
+<li><strong>Hyperliquid</strong>: 日交易量超100亿美元</li>
+<li><strong>GMX</strong>: 月度交易量仅1.98亿美元且呈下降趋势</li>
+</ul>
+<p><strong>机制创新</strong>:</p>
+<ul>
+<li><strong>Hyperliquid</strong>: CLOB + 预编译合约，价格发现和资本效率并重</li>
+<li><strong>GMX</strong>: AMM/预言机模型，在山寨币上可能产生高滑点</li>
+</ul>
+<h3 id="6-3-用户体验指标">6.3 用户体验指标</h3>
+<ul>
+<li><strong>每用户平均收入</strong>: 从1,776美元增加到2,953美元</li>
+<li><strong>每用户月均交易量</strong>: 约1000万美元</li>
+<li><strong>用户盈利率</strong>: 96%的活跃金库用户报告正向盈亏</li>
+<li><strong>用户留存</strong>: 卓越的用户保留率和参与度</li>
+</ul>
+<h2 id="7-竞争优势">7. 竞争优势</h2>
+<p>本章总结Hyperliquid在技术、生态、产品和战略四个维度的核心竞争优势。</p>
+<h3 id="7-1-技术优势">7.1 技术优势</h3>
+<ul>
+<li>自研区块链和共识算法，性能优异</li>
+<li>HyperCore + HyperEVM的创新架构</li>
+<li>完全链上订单簿，透明度高</li>
+<li>零燃气费交易体验</li>
+</ul>
+<h3 id="7-2-生态优势">7.2 生态优势</h3>
+<ul>
+<li>快速增长的开发者生态</li>
+<li>丰富的DeFi、工具和基础设施项目</li>
+<li>活跃的全球社区支持</li>
+<li>无投资者约束，社区驱动发展</li>
+</ul>
+<h3 id="7-3-产品优势">7.3 产品优势</h3>
+<ul>
+<li>一键交易体验</li>
+<li>高达50倍杠杆支持</li>
+<li>即时交易确认（&lt;1秒）</li>
+<li>maker返佣和低taker费用</li>
+</ul>
+<h3 id="7-4-战略优势">7.4 战略优势</h3>
+<ul>
+<li>统一的金融生态系统愿景</li>
+<li>自主开发团队，来自顶级机构</li>
+<li>无外部资本影响的独立发展</li>
+<li>持续的技术创新和优化</li>
+</ul>
+<h2 id="8-安全事件与风险评估">8. 安全事件与风险评估</h2>
+<p>本章客观分析Hyperliquid面临的安全风险和潜在挑战，为投资决策提供风险评估依据。</p>
+<h3 id="8-1-2024年12月安全争议">8.1 2024年12月安全争议</h3>
+<p><strong>事件概述</strong>:</p>
+<ul>
+<li>MetaMask研究员Taylor Monahan发现与朝鲜黑客相关的可疑钱包活动</li>
+<li>30小时内流出<strong>2.56亿美元</strong>资金</li>
+<li>HYPE代币价格下跌25%</li>
+</ul>
+<p><strong>官方回应</strong>:</p>
+<ul>
+<li>Hyperliquid Labs坚决否认存在任何漏洞</li>
+<li>声明所有用户资金安全</li>
+<li>但验证者数量相对较少的中心化问题引发持续关注（从4个扩展至16个验证者）</li>
+</ul>
+<h3 id="8-2-主要风险因素">8.2 主要风险因素</h3>
+<pre class="mermaid">graph TD
+    A[Hyperliquid风险评估矩阵] --&gt; B[中心化风险]
+    A --&gt; C[技术与安全风险]
+    A --&gt; D[其他风险因素]
+
+    B --&gt; B1[验证者集中化<br>🔴 高风险<br>📊 4→16个验证者<br>⚠️ vs 以太坊80万个]
+    B --&gt; B2[桥接安全风险<br>🔴 高风险<br>💰 23亿美元USDC锁定<br>🔐 3/4多签机制]
+    B --&gt; B3[主权L1权衡<br>🟡 中风险<br>⚡ 无法继承以太坊安全<br>💎 依赖自身验证者网络]
+
+    C --&gt; C1[架构复杂性<br>🟡 中风险<br>🔧 定制共识+双区块<br>🛡️ 新颖架构攻击面大]
+    C --&gt; C2[闭源代码限制<br>🟡 中风险<br>🔒 L1核心代码未开源<br>👥 限制第三方安全审计]
+    C --&gt; C3[技术扩展性<br>🟢 低风险<br>⚡ 高峰期短暂中断<br>📈 压力测试待改进]
+
+    D --&gt; D1[监管不确定性<br>🟡 中风险<br>⚖️ 高杠杆+无KYC<br>💰 11亿美元高收入目标]
+    D --&gt; D2[代币解锁压力<br>🟢 低风险<br>📅 2025-2028解锁期<br>📊 33.38%当前流通]
+
+    E[风险等级说明] --&gt; E1[🔴 高风险: 需要立即关注<br>对项目稳定性构成重大威胁]
+    E --&gt; E2[🟡 中风险: 需要监控<br>可能影响长期发展]
+    E --&gt; E3[🟢 低风险: 相对可控<br>通过改进可有效缓解]
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B1 fill:#faa,stroke:#333,stroke-width:1px
+    style B2 fill:#faa,stroke:#333,stroke-width:1px
+    style C1 fill:#ffa,stroke:#333,stroke-width:1px
+    style C2 fill:#ffa,stroke:#333,stroke-width:1px
+    style D1 fill:#ffa,stroke:#333,stroke-width:1px
+    style C3 fill:#afa,stroke:#333,stroke-width:1px
+    style D2 fill:#afa,stroke:#333,stroke-width:1px</pre>
+<h4 id="8-2-1-中心化风险">8.2.1 中心化风险</h4>
+<p><strong>验证者集中化</strong>:</p>
+<ul>
+<li>验证者数量相对较少，从最初的<strong>4个验证者</strong>扩展至<strong>16个验证者</strong>（vs 以太坊80万个）</li>
+<li>验证者集中度仍然较高，存在单点故障风险</li>
+<li>去中心化进程正在推进，但依然依赖团队主导的渐进开放</li>
+</ul>
+<p><strong>桥接安全风险</strong>:</p>
+<ul>
+<li>超过<strong>23亿美元USDC</strong>锁定在Arbitrum桥接合约中</li>
+<li>采用<strong>3/4多签机制</strong>，单点故障风险显著</li>
+<li>资金入口过度依赖中心化跨链桥</li>
+</ul>
+<h4 id="8-2-2-技术与安全风险">8.2.2 技术与安全风险</h4>
+<p><strong>架构复杂性风险</strong>:</p>
+<ul>
+<li>包含定制共识、双区块调度器、预编译接口的复杂系统</li>
+<li>新颖架构的攻击面相对较大，安全性需长期验证</li>
+<li>多个创新组件的协同工作增加系统性风险</li>
+</ul>
+<p><strong>闭源代码限制</strong>:</p>
+<ul>
+<li><strong>L1核心代码尚未开源</strong>，限制社区和第三方安全审计</li>
+<li>无法进行公开代码审查，增加潜在未知漏洞风险</li>
+<li>依赖漏洞赏金计划发现问题，但覆盖面有限</li>
+</ul>
+<p><strong>主权L1安全权衡</strong>:</p>
+<ul>
+<li>必须从零开始引导并维护自身的经济安全</li>
+<li>安全性完全依赖自身验证者网络和HYPE市值</li>
+<li>无法像Layer 2那样继承以太坊庞大安全预算</li>
+</ul>
+<h4 id="8-2-3-其他风险因素">8.2.3 其他风险因素</h4>
+<p><strong>监管不确定性</strong>:</p>
+<ul>
+<li>高杠杆永续合约和无KYC运营模式面临监管压力</li>
+<li>年化11亿美元高收入可能成为监管重点目标</li>
+<li>合规要求可能削弱相对中心化交易所的竞争优势</li>
+</ul>
+<p><strong>代币解锁压力</strong>:</p>
+<ul>
+<li>2025-2028年主要解锁可能影响价格动态</li>
+<li>目前仅33.38%代币流通，未来供应压力需关注</li>
+</ul>
+<p><strong>技术扩展性</strong>:</p>
+<ul>
+<li>高峰期曾出现短暂中断，极端条件可扩展性待改进</li>
+<li>复杂架构在压力测试下的表现需持续验证</li>
+</ul>
+<h2 id="9-未来展望">9. 未来展望</h2>
+<p>本章分析Hyperliquid的发展路线图和长期愿景，评估其未来发展潜力和机遇。</p>
+<h3 id="9-1-2025年发展路线图">9.1 2025年发展路线图</h3>
+<p><strong>技术目标</strong>:</p>
+<ul>
+<li>实现每秒<strong>100万笔以上</strong>订单处理能力</li>
+<li>完整ERC-20原生转账支持</li>
+<li>增强开发者工具和SDK</li>
+</ul>
+<p><strong>关键技术创新</strong>:</p>
+<ul>
+<li><strong>HIP-3机制</strong>: 质押100万HYPE可创建永续合约市场，获得最高<strong>50%费用分成</strong></li>
+<li><strong>CoreWriter系统</strong>: HyperCore和HyperEVM无信任双向通信已激活</li>
+<li><strong>预编译合约集成</strong>: 智能合约直接访问订单簿数据，无需外部预言机</li>
+</ul>
+<p><strong>生态发展</strong>:</p>
+<ul>
+<li>无许可流动性提供机制</li>
+<li>扩大全面DeFi生态系统</li>
+<li>目标成为"链上币安"</li>
+</ul>
+<p><strong>战略合作伙伴关系</strong>:</p>
+<ul>
+<li><strong>Phantom钱包</strong>: 集成杠杆交易功能，覆盖<strong>1000万用户</strong></li>
+<li><strong>Paradigm和纳斯达克</strong>: 推动机构采用和合规发展</li>
+<li><strong>Grayscale</strong>: 考虑2025年Q3将HYPE纳入投资组合</li>
+<li><strong>Bybit上市</strong>: 带来显著交易量增长和流动性提升</li>
+</ul>
+<p><strong>代币解锁时间表</strong>:</p>
+<ul>
+<li>2025年11月29日：核心贡献者解锁（216,580枚HYPE）</li>
+<li>主要团队代币归属期延续至2027-2028年</li>
+<li>目前仅33.38%代币在流通中</li>
+</ul>
+<h3 id="9-2-长期愿景">9.2 长期愿景</h3>
+<ul>
+<li>成为"容纳所有金融"的区块链</li>
+<li>统一加密货币碎片化现状</li>
+<li>构建完全链上的开放金融系统</li>
+</ul>
+<h2 id="10-生态发展前景">10. 生态发展前景</h2>
+<h3 id="10-1-生态发展阶段分析">10.1 生态发展阶段分析</h3>
+<h4 id="10-1-1-当前阶段特征">10.1.1 当前阶段特征</h4>
+<ul>
+<li><strong>HyperEVM Alpha阶段</strong>: 核心功能逐步完善，开发者生态快速增长</li>
+<li><strong>TVL持续增长</strong>: 总锁定价值已超15亿美元，显示市场认可度</li>
+<li><strong>项目数量增加</strong>: 50+个项目覆盖DeFi、基础设施、工具等多个领域</li>
+<li><strong>技术不断优化</strong>: 性能提升和新功能持续推出</li>
+</ul>
+<h4 id="10-1-2-发展驱动因素">10.1.2 发展驱动因素</h4>
+<ul>
+<li><strong>技术优势</strong>: HyperCore + HyperEVM的创新架构提供独特价值</li>
+<li><strong>社区活跃</strong>: 全球开发者和用户社区持续壮大</li>
+<li><strong>生态协同</strong>: 项目间相互集成，形成良性生态循环</li>
+<li><strong>资金流入</strong>: 跨链桥接设施完善，外部资金便捷进入</li>
+</ul>
+<h2 id="11-总结">11. 总结</h2>
+<p>Hyperliquid已成为去中心化金融领域的重大技术突破，成功结合了中心化交易所的性能与去中心化协议的透明度。其自定义Layer 1区块链实现了亚秒级最终性和每秒20万笔订单的吞吐量，支持完全链上订单簿，已处理超过<strong>2万亿美元</strong>交易量。</p>
+<h3 id="11-1-核心成就">11.1 核心成就</h3>
+<ul>
+<li><strong>市场地位</strong>: 占据去中心化永续合约市场60-70%份额，成为绝对领导者</li>
+<li><strong>技术突破</strong>: 从零构建的高性能区块链，实现了前所未有的性能指标</li>
+<li><strong>社区价值</strong>: 史上最大加密货币空投（43亿美元），70%代币分配给社区</li>
+<li><strong>经济表现</strong>: 年化收入11亿美元，在2025年7月捕获所有区块链收入的35%</li>
+</ul>
+<h3 id="11-2-竞争优势">11.2 竞争优势</h3>
+<ol>
+<li><strong>技术架构</strong>: 由量化交易专业人士领导，HyperCore+HyperEVM创新架构</li>
+<li><strong>经济模式</strong>: 社区优先、零风投参与、100%费用回馈的独特价值主张</li>
+<li><strong>生态发展</strong>: 170+项目、20亿美元TVL的快速增长生态系统</li>
+<li><strong>用户体验</strong>: 零gas费、一键交易、96%用户盈利的卓越体验</li>
+</ol>
+<h3 id="11-3-风险与挑战">11.3 风险与挑战</h3>
+<p>尽管取得巨大成功，但仍需关注：</p>
+<ul>
+<li>验证者中心化（仅4个）和桥接安全（23亿美元多签）风险</li>
+<li>2024年12月安全争议和潜在监管压力</li>
+<li>代币解锁时间表（2025-2028年）对价格的潜在影响</li>
+</ul>
+<h3 id="11-4-生态发展核心亮点">11.4 生态发展核心亮点</h3>
+<ol>
+<li><strong>生态完整性</strong>: 从DeFi基础设施到AI创新应用的全面覆盖</li>
+<li><strong>技术优势</strong>: HyperCore+HyperEVM的独特架构带来的竞争优势</li>
+<li><strong>发展阶段</strong>: HyperEVM主网上线后的快速成长和创新机会</li>
+<li><strong>长期前景</strong>: 基础设施项目的持续成长和生态协同效应</li>
+</ol>
+<p>随着HyperEVM的持续完善和2025年100万笔/秒处理能力目标，Hyperliquid正朝着"链上币安"和"容纳所有金融的区块链"愿景稳步前进。投资者和用户应在享受创新机遇的同时，保持对风险因素的理性认知。</p>
+<h2 id="12-生态项目安全风险评估">12. 生态项目安全风险评估</h2>
+<p>基于对Hyperliquid生态项目的深度安全调研，我们识别了以下关键风险和安全事件，投资者需要重点关注：</p>
+<pre class="mermaid">graph TD
+    A[生态项目安全风险分级评估] --&gt; B[🔴 高风险项目]
+    A --&gt; C[🟡 中等风险项目]
+    A --&gt; D[🟢 相对安全项目]
+
+    B --&gt; B1[Abracadabra/MIM<br>🚨 创始人欺诈风险<br>💀 Michael Patryn身份<br>💰 $2.5亿QuadrigaCX案]
+    B --&gt; B2[dYdX<br>📉 $9百万损失已实现<br>🎯 YFI操纵攻击<br>⚠️ 风险管理缺陷]
+    B --&gt; B3[GMX<br>🔓 $40-42百万漏洞<br>🔄 V1重入攻击<br>⏰ 已暂停修复中]
+
+    C --&gt; C1[Hyperliquid核心<br>🔒 闭源代码风险<br>👥 验证者中心化<br>🌉 桥接多签风险]
+    C --&gt; C2[生态项目群<br>📊 审计覆盖不足<br>🆕 新项目安全性<br>⚡ 快速发展风险]
+
+    D --&gt; D1[Felix Protocol<br>✅ 核心稳定币协议<br>🛡️ 相对成熟<br>📈 持续发展中]
+    D --&gt; D2[HyperFun<br>✅ 官方孵化项目<br>🔧 技术架构稳定<br>📊 CLOB交易平台]
+    D --&gt; D3[Liquid Protocol<br>✅ 首个HYPE LST<br>🏗️ 基础设施项目<br>⭐ 生态重要性高]
+
+    E[风险防护建议] --&gt; E1[🔍 尽职调查<br>核查团队背景和历史记录]
+    E --&gt; E2[💰 资金管理<br>分散投资降低单点风险]
+    E --&gt; E3[📈 持续监控<br>关注安全事件和项目更新]
+    E --&gt; E4[🛡️ 安全实践<br>使用硬件钱包和多重签名]
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B1 fill:#faa,stroke:#333,stroke-width:2px
+    style B2 fill:#faa,stroke:#333,stroke-width:2px
+    style B3 fill:#faa,stroke:#333,stroke-width:2px
+    style C1 fill:#ffa,stroke:#333,stroke-width:1px
+    style C2 fill:#ffa,stroke:#333,stroke-width:1px
+    style D1 fill:#afa,stroke:#333,stroke-width:1px
+    style D2 fill:#afa,stroke:#333,stroke-width:1px
+    style D3 fill:#afa,stroke:#333,stroke-width:1px</pre>
+<h3 id="🔴-高风险项目-需要严格警惕">🔴 高风险项目 - 需要严格警惕</h3>
+<h4 id="1-Abracadabra-MIM稳定币-重大欺诈风险">1. Abracadabra/MIM稳定币 - 重大欺诈风险</h4>
+<ul>
+<li><strong>关键风险</strong>：创始人Daniele Sestagalli（化名Sifu）的真实身份为已定罪重罪犯Michael Patryn</li>
+<li><strong>历史事件</strong>：作为QuadrigaCX联合创始人，该交易所因$2.5亿美元资金消失导致破产，严重损害投资者利益</li>
+<li><strong>信任危机</strong>：长期使用虚假身份运营DeFi协议，违背了去中心化金融的透明度原则</li>
+<li><strong>投资建议</strong>：基于历史欺诈记录和身份欺瞒行为，强烈建议投资者避免参与任何与Abracadabra生态系统相关的项目</li>
+</ul>
+<h4 id="2-dYdX-重大市场操纵风险已实现">2. dYdX - <strong>重大市场操纵风险已实现</strong></h4>
+<ul>
+<li><strong>$9百万损失</strong>（2023年11月）：V3保险基金遭受重创</li>
+<li><strong>攻击手法</strong>: 单一恶意行为者将YFI未平仓合约从$0.8M操纵至$67M</li>
+<li><strong>市场影响</strong>: YFI代币暴跌40%，总计$50M未平仓合约被清算</li>
+<li><strong>系统缺陷</strong>: 风险管理系统存在重大设计漏洞</li>
+<li><strong>⚠️ 建议</strong>: 对dYdX平台的<strong>市场操纵防护能力</strong>需要持续监控</li>
+</ul>
+<h4 id="3-GMX-重大技术漏洞已确认">3. GMX - <strong>重大技术漏洞已确认</strong></h4>
+<ul>
+<li><strong>$40-42百万漏洞</strong>（2025年7月）：V1版本存在重入攻击漏洞</li>
+<li><strong>技术风险</strong>: AUM计算可被操纵，GLP价值可被人为抬高</li>
+<li><strong>积极进展</strong>: 白帽黑客发现并返还资金，获得10%奖励</li>
+<li><strong>当前状态</strong>: V1已暂停，建议<strong>迁移至V2版本</strong></li>
+<li><strong>⚠️ 建议</strong>: 避免使用旧版本协议，关注oracle操纵风险</li>
+</ul>
+<h3 id="🟡-中等风险项目-需要审慎评估">🟡 中等风险项目 - 需要审慎评估</h3>
+<h4 id="1-Hyperlend-审计发现关键漏洞">1. Hyperlend - <strong>审计发现关键漏洞</strong></h4>
+<ul>
+<li><strong>严重漏洞</strong>: 安全审计中发现多个关键安全漏洞</li>
+<li><strong>风险类型</strong>: 作为最大借贷协议，系统性风险较高</li>
+<li><strong>⚠️ 建议</strong>: 等待漏洞修复确认后再参与</li>
+</ul>
+<h4 id="2-GLIQUID-Algebra引擎V4-AMM技术风险">2. GLIQUID/Algebra引擎V4 - <strong>AMM技术风险</strong></h4>
+<ul>
+<li><strong>技术复杂性</strong>: V4版本AMM算法复杂度提升</li>
+<li><strong>潜在风险</strong>: 新技术架构可能存在未知漏洞</li>
+<li><strong>⚠️ 建议</strong>: 建议等待更多实战验证</li>
+</ul>
+<h4 id="3-Brahma-Fi-已修复的安全问题">3. Brahma Fi - <strong>已修复的安全问题</strong></h4>
+<ul>
+<li><strong>发现问题</strong>: 4个安全漏洞（1个中等级别，3个低级别）</li>
+<li><strong>问题类型</strong>: API访问控制不当、ENS集成失败等</li>
+<li><strong>积极进展</strong>: <strong>所有漏洞已成功修复</strong></li>
+<li><strong>⚠️ 建议</strong>: 风险已得到控制，可谨慎参与</li>
+</ul>
+<h3 id="🟢-相对安全项目-可以考虑参与">🟢 相对安全项目 - 可以考虑参与</h3>
+<h4 id="1-Across-Protocol-优秀安全记录">1. Across Protocol - <strong>优秀安全记录</strong></h4>
+<ul>
+<li><strong>安全表现</strong>: 跨链协议中安全记录<strong>最佳之一</strong></li>
+<li><strong>技术优势</strong>: 成熟的跨链桥接技术</li>
+<li><strong>⚠️ 建议</strong>: 相对安全，但仍需关注跨链桥一般性风险</li>
+</ul>
+<h4 id="2-Felix-Protocol-基于成熟技术">2. Felix Protocol - <strong>基于成熟技术</strong></h4>
+<ul>
+<li><strong>技术基础</strong>: 基于Liquity V2协议</li>
+<li><strong>风险评估</strong>: 继承成熟CDP技术，风险相对可控</li>
+<li><strong>⚠️ 建议</strong>: 关注Liquity V2的整体技术风险</li>
+</ul>
+<h4 id="3-Goldsky-数据基础设施">3. Goldsky - <strong>数据基础设施</strong></h4>
+<ul>
+<li><strong>项目性质</strong>: 数据索引基础设施，非直接金融协议</li>
+<li><strong>风险类型</strong>: 主要为服务可用性风险，资金安全风险较低</li>
+<li><strong>⚠️ 建议</strong>: 基础设施项目，风险相对较低</li>
+</ul>
+<h3 id="📊-风险统计总览">📊 风险统计总览</h3>
+<p>通过本次全面安全调研，我们发现：</p>
+<ul>
+<li><strong>高风险项目</strong>: 3个（Abracadabra、dYdX、GMX V1）</li>
+<li><strong>中等风险项目</strong>: 3个（Hyperlend、GLIQUID、Brahma Fi）</li>
+<li><strong>相对安全项目</strong>: 3个（Across、Felix、Goldsky）</li>
+<li><strong>总损失金额</strong>: 已知安全事件累计损失超过**$90百万**</li>
+</ul>
+<h3 id="🛡️-安全投资建议">🛡️ 安全投资建议</h3>
+<h4 id="立即行动建议：">立即行动建议：</h4>
+<ol>
+<li><strong>避免Abracadabra生态系统</strong>任何项目</li>
+<li><strong>迁移出GMX V1版本</strong>，转向V2或其他平台</li>
+<li><strong>监控dYdX系统改进情况</strong>，关注风险管理升级</li>
+</ol>
+<h4 id="长期风险管理：">长期风险管理：</h4>
+<ol>
+<li><strong>分散投资风险</strong>，避免单一生态过度集中</li>
+<li><strong>关注项目安全审计报告</strong>更新情况</li>
+<li><strong>建立风险预警机制</strong>，及时关注安全事件</li>
+<li><strong>保持资金流动性</strong>，避免长期锁仓高风险项目</li>
+</ol>
+<h4 id="技术风险提醒：">技术风险提醒：</h4>
+<ul>
+<li><strong>跨链桥风险</strong>：所有跨链项目都存在固有技术风险</li>
+<li><strong>Oracle操纵风险</strong>：DEX和借贷协议需要特别关注价格操纵</li>
+<li><strong>治理风险</strong>：关注项目治理透明度和去中心化程度</li>
+<li><strong>智能合约风险</strong>：新技术和复杂协议存在更高漏洞风险</li>
+</ul>
+<p><strong>总体建议</strong>：Hyperliquid生态系统正在快速发展，但安全风险不容忽视。投资者应该采用<strong>谨慎而积极</strong>的态度，在享受创新红利的同时，严格控制风险敞口，建立完善的风险管理体系。</p>
+<h2 id="结语">结语</h2>
+<p>本报告通过系统性的研究方法，对Hyperliquid区块链平台进行了全方位的深度分析。作为去中心化金融领域的技术创新代表，Hyperliquid在高性能Layer 1架构、创新的HyperEVM设计和卓越的市场表现方面确立了领先地位。然而，投资者在评估其投资价值时，应充分考虑中心化风险、监管不确定性以及生态项目的安全隐患。</p>
+<p>未来研究方向建议：</p>
+<ol>
+<li><strong>技术发展跟踪</strong>：持续监控HyperEVM功能完善和性能提升进展</li>
+<li><strong>监管环境变化</strong>：关注全球监管政策对永续合约平台的影响</li>
+<li><strong>竞争格局演变</strong>：评估新兴竞争对手和技术突破的影响</li>
+<li><strong>生态安全监控</strong>：建立生态项目安全风险的动态评估机制</li>
+</ol>
+<p>本报告为投资者提供了基于客观数据的分析框架，但最终投资决策应结合个人风险偏好和投资目标进行综合考量。</p>
+<hr>
+<h2 id="免责声明">免责声明</h2>
+<p>本报告仅供信息参考，不构成投资建议。加密货币投资具有高风险性，投资者应充分了解相关风险并谨慎决策。报告作者不对基于本报告内容做出的任何投资决策承担责任。</p>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden="">    
+  </pre></div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/defi/hyperliquid/">https://www.blog-blockchain.xyz/defi/hyperliquid/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hyperliquid/">Hyperliquid</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2025/08/fb9eea41890628fa5f769e1e85c59609.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/finance/ltcm-risk-management-case-study/" title="华尔街&quot;梦幻团队&quot;的惨痛教训：LTCM如何在4个月内损失46亿美元"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/07/3aeebf60c26b2a9809d7091517c4f856.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">华尔街"梦幻团队"的惨痛教训：LTCM如何在4个月内损失46亿美元</div></div><div class="info-2"><div class="info-item-1">两位诺贝尔经济学奖得主、前美联储副主席、华尔街顶级交易员组成的"梦幻团队"，如何在1998年短短4个月内将价值46亿美元的基金彻底摧毁？这个震撼全球金融界的真实故事，揭示了杠杆交易背后的致命陷阱。从辉煌的年化40%收益到惨烈的破产危机，LTCM的兴衰史为所有投资者敲响了风险管理的警钟。本文深度剖析这场华尔街历史上最具戏剧性的金融灾难，为现代杠杆交易者提供血的教训。</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">96</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">56</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">29</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/jiahao_luo9"><i class="fa-brands fa-twitter"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://www.linkedin.com/in/jiahao-michael-luo-8ba5942a3" rel="external nofollow noreferrer" target="_blank" title="Linkedin"><i class="fa-brands fa-linkedin"></i></a><a class="social-icon" href="https://x.com/jiahao_luo9" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E4%B8%8E%E5%85%B3%E9%94%AE%E5%81%87%E8%AE%BE"><span class="toc-text">研究方法与关键假设</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95"><span class="toc-text">研究方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%81%87%E8%AE%BE%E6%9D%A1%E4%BB%B6"><span class="toc-text">关键假设条件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95%E5%81%87%E8%AE%BE"><span class="toc-text">1. 技术发展假设</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%B8%82%E5%9C%BA%E7%8E%AF%E5%A2%83%E5%81%87%E8%AE%BE"><span class="toc-text">2. 市场环境假设</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80%E5%81%87%E8%AE%BE"><span class="toc-text">3. 竞争格局假设</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%9B%A2%E9%98%9F%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%81%87%E8%AE%BE"><span class="toc-text">4. 团队稳定性假设</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%9D%A5%E6%BA%90%E4%B8%8E%E6%97%B6%E6%95%88%E6%80%A7"><span class="toc-text">数据来源与时效性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%9C%AF%E8%AF%AD%E5%AE%9A%E4%B9%89"><span class="toc-text">核心术语定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%BF%B0"><span class="toc-text">1. 项目概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A0%B8%E5%BF%83%E5%9B%A2%E9%98%9F%E4%B8%8E%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="toc-text">2. 核心团队与项目背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%9B%E5%A7%8B%E5%9B%A2%E9%98%9F"><span class="toc-text">2.1 创始团队</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%8A%80%E6%9C%AF%E5%93%B2%E5%AD%A6%E4%B8%8E%E6%88%98%E7%95%A5%E8%83%8C%E6%99%AF"><span class="toc-text">2.2 技术哲学与战略背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="toc-text">2.3 发展历程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%9B%A2%E9%98%9F%E8%A7%84%E6%A8%A1%E4%B8%8E%E5%AE%9E%E5%8A%9B"><span class="toc-text">2.4 团队规模与实力</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%89%B9%E7%82%B9"><span class="toc-text">3. 核心技术特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84"><span class="toc-text">3.1 技术架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-HyperEVM%E9%9D%A9%E5%91%BD%E6%80%A7%E8%AE%BE%E8%AE%A1"><span class="toc-text">3.2 HyperEVM革命性设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E7%BB%9F%E4%B8%80%E7%8A%B6%E6%80%81L1%E6%9E%B6%E6%9E%84"><span class="toc-text">3.2.1 统一状态L1架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E5%8F%8C%E5%8C%BA%E5%9D%97%E6%9C%BA%E5%88%B6%E5%88%9B%E6%96%B0"><span class="toc-text">3.2.2 双区块机制创新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E9%A2%84%E7%BC%96%E8%AF%91%E5%90%88%E7%BA%A6%E7%B3%BB%E7%BB%9F"><span class="toc-text">3.2.3 预编译合约系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-text">3.3 性能指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94%E4%BC%98%E5%8A%BF"><span class="toc-text">3.4 性能对比优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%97%97%E8%88%B0%E4%BA%A7%E5%93%81%E7%89%B9%E7%82%B9"><span class="toc-text">3.5 旗舰产品特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BB%A3%E5%B8%81%E7%BB%8F%E6%B5%8E%E5%AD%A6-HYPE-Token"><span class="toc-text">4. 代币经济学 (HYPE Token)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-text">4.1 基本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%8E%86%E5%8F%B2%E6%80%A7%E7%A9%BA%E6%8A%95%E6%88%90%E5%B0%B1"><span class="toc-text">4.2 历史性空投成就</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E4%BB%A3%E5%B8%81%E5%88%86%E9%85%8D"><span class="toc-text">4.3 代币分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E8%A7%A3%E9%94%81%E6%97%B6%E9%97%B4%E8%A1%A8"><span class="toc-text">4.4 解锁时间表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E6%B2%BB%E7%90%86%E7%89%B9%E7%82%B9"><span class="toc-text">4.5 治理特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-%E7%BB%8F%E6%B5%8E%E6%9C%BA%E5%88%B6%E5%88%9B%E6%96%B0"><span class="toc-text">4.6 经济机制创新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90"><span class="toc-text">5. 生态系统分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E7%94%9F%E6%80%81%E5%8F%91%E5%B1%95%E6%A6%82%E5%86%B5"><span class="toc-text">5.1 生态发展概况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-HyperEVM%E7%8B%AC%E7%89%B9%E7%BB%8F%E6%B5%8E%E5%BE%AA%E7%8E%AF"><span class="toc-text">5.2 HyperEVM独特经济循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-%E6%9D%A0%E6%9D%86%E8%80%95%E4%BD%9C-%E7%AD%96%E7%95%A5%E5%BE%AA%E7%8E%AF"><span class="toc-text">5.2.1 "杠杆耕作"策略循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-%E7%BB%8F%E6%B5%8E%E6%A8%A1%E5%BC%8F%E7%89%B9%E7%82%B9"><span class="toc-text">5.2.2 经济模式特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-HyperEVM-%E7%8A%B6%E6%80%81"><span class="toc-text">5.3 HyperEVM 状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E4%B8%BB%E8%A6%81%E7%94%9F%E6%80%81%E9%A1%B9%E7%9B%AE%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-text">5.4 主要生态项目深度分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-1-DeFi-%E6%94%B6%E7%9B%8A%E7%B1%BB-%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E9%A1%B9%E7%9B%AE"><span class="toc-text">5.4.1 DeFi/收益类 - 核心基础设施项目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Felix-Protocol-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Felix Protocol ⭐⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#GLIQUID-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">GLIQUID ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HyperSwap-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">HyperSwap ⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hyperdelta-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Hyperdelta ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hyperlend-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Hyperlend ⭐⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Abracadabra-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Abracadabra ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hyperdrive-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Hyperdrive ⭐⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-2-%E4%B8%BB%E8%A6%81%E9%A1%B9%E7%9B%AE%E5%8F%91%E5%B1%95%E7%89%B9%E7%82%B9"><span class="toc-text">5.4.2 主要项目发展特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-3-%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E7%B1%BB-%E7%94%9F%E6%80%81%E6%94%AF%E6%92%91%E9%A1%B9%E7%9B%AE"><span class="toc-text">5.4.3 基础设施类 - 生态支撑项目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#HypeRPC-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">HypeRPC ⭐⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Goldsky-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Goldsky ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Allium-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Allium ⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hyperliquid-Names-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Hyperliquid Names ⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Across-Protocol-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Across Protocol ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Codex-Data-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Codex Data ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-4-%E4%BA%A4%E6%98%93%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E7%B1%BB-%E7%94%A8%E6%88%B7%E5%85%A5%E5%8F%A3%E9%A1%B9%E7%9B%AE"><span class="toc-text">5.4.4 交易工具与数据分析类 - 用户入口项目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Copin-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Copin ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Defined-fi-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Defined.fi ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Coinperps-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Coinperps ⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HyperDash-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">HyperDash ⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Brahma-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Brahma ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Altitude-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Altitude ⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Chainpro-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Chainpro ⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E8%A1%A5%E5%85%85-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">数据分析工具补充 ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-5-%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E7%B1%BB-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%AA%81%E7%A0%B4%E9%A1%B9%E7%9B%AE"><span class="toc-text">5.4.5 移动应用类 - 移动端突破项目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Avy-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Avy ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Based-App-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Based App ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-6-%E8%B7%A8%E9%93%BE%E6%A1%A5%E6%8E%A5%E4%B8%8EAI%E5%88%9B%E6%96%B0%E7%B1%BB-%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF%E9%A1%B9%E7%9B%AE"><span class="toc-text">5.4.6 跨链桥接与AI创新类 - 前沿技术项目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Gasyard-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">Gasyard ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HyBridge-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">HyBridge ⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HyperSignals-%E2%AD%90%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">HyperSignals ⭐⭐⭐⭐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#FRACTRADE-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">FRACTRADE ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-7-%E7%A4%BE%E5%8C%BA%E5%BB%BA%E8%AE%BE%E4%B8%8EDAO%E7%B1%BB-%E7%94%9F%E6%80%81%E7%BB%84%E7%BB%87%E5%8A%9B%E9%87%8F"><span class="toc-text">5.4.7 社区建设与DAO类 - 生态组织力量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#HypurrCollective-%E7%94%9F%E6%80%81%E6%A0%B8%E5%BF%83%E5%BB%BA%E8%AE%BE%E8%80%85%E8%81%94%E7%9B%9F"><span class="toc-text">HypurrCollective - 生态核心建设者联盟</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Catalyst-Builders-DAO-CBD-%E7%A4%BE%E5%8C%BA%E9%A9%B1%E5%8A%A8%E5%BB%BA%E8%AE%BE"><span class="toc-text">Catalyst Builders DAO (CBD) - 社区驱动建设</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%A8%E7%90%83%E6%9C%AC%E5%9C%B0%E5%8C%96%E7%A4%BE%E5%8C%BA%E7%BD%91%E7%BB%9C"><span class="toc-text">全球本地化社区网络</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-8-NFT%E4%B8%8E%E5%88%9B%E6%96%B0%E5%BA%94%E7%94%A8%E7%B1%BB-%E6%96%B0%E5%85%B4%E9%A2%86%E5%9F%9F%E6%8E%A2%E7%B4%A2"><span class="toc-text">5.4.8 NFT与创新应用类 - 新兴领域探索</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#NFT%E7%94%9F%E6%80%81%E6%A6%82%E5%86%B5"><span class="toc-text">NFT生态概况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#BAE-%E9%A6%96%E4%B8%AANFT%E5%80%9F%E8%B4%B7%E5%8D%8F%E8%AE%AE"><span class="toc-text">BAE - 首个NFT借贷协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Drip-Trade-NFT%E5%B8%82%E5%9C%BA-%E5%90%AF%E5%8A%A8%E5%B9%B3%E5%8F%B0"><span class="toc-text">Drip Trade - NFT市场+启动平台</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Farm-Fun-%E8%87%AA%E4%B8%BBAI%E7%94%9F%E7%89%A9%E6%B8%B8%E6%88%8F"><span class="toc-text">Farm Fun - 自主AI生物游戏</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-9-GambleFi%E4%B8%8E%E5%A8%B1%E4%B9%90%E7%B1%BB-%E6%96%B0%E5%85%B4%E5%A8%B1%E4%B9%90%E9%87%91%E8%9E%8D"><span class="toc-text">5.4.9 GambleFi与娱乐类 - 新兴娱乐金融</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#HyperFun-%E5%85%A8%E8%83%BDGambleFi%E4%BB%A3%E5%B8%81"><span class="toc-text">HyperFun - 全能GambleFi代币</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Head-to-Head-%E7%A4%BE%E4%BA%A4%E4%B8%8B%E6%B3%A8%E5%B9%B3%E5%8F%B0"><span class="toc-text">Head to Head - 社交下注平台</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%B8%82%E5%9C%BA%E7%AB%9E%E4%BA%89%E5%88%86%E6%9E%90"><span class="toc-text">6. 市场竞争分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E7%AB%9E%E4%BA%89%E5%AE%9A%E4%BD%8D%E9%87%8D%E6%96%B0%E6%A1%86%E5%AE%9A"><span class="toc-text">6.1 竞争定位重新框定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-1-Hyperliquid-vs-Layer-2%EF%BC%9A%E4%B8%8D%E5%90%8C%E7%BB%B4%E5%BA%A6%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%BB%E5%BC%A0"><span class="toc-text">6.1.1 Hyperliquid vs Layer 2：不同维度的价值主张</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-2-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%B7%AE%E5%BC%82"><span class="toc-text">6.1.2 应用场景差异</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E4%BC%A0%E7%BB%9F%E7%AB%9E%E4%BA%89%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90"><span class="toc-text">6.2 传统竞争对比分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-%E4%B8%8EdYdX%E5%AF%B9%E6%AF%94"><span class="toc-text">6.2.1 与dYdX对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-%E4%B8%8EGMX%E5%AF%B9%E6%AF%94"><span class="toc-text">6.2.2 与GMX对比</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E6%8C%87%E6%A0%87"><span class="toc-text">6.3 用户体验指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%AB%9E%E4%BA%89%E4%BC%98%E5%8A%BF"><span class="toc-text">7. 竞争优势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E6%8A%80%E6%9C%AF%E4%BC%98%E5%8A%BF"><span class="toc-text">7.1 技术优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E7%94%9F%E6%80%81%E4%BC%98%E5%8A%BF"><span class="toc-text">7.2 生态优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E4%BA%A7%E5%93%81%E4%BC%98%E5%8A%BF"><span class="toc-text">7.3 产品优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-%E6%88%98%E7%95%A5%E4%BC%98%E5%8A%BF"><span class="toc-text">7.4 战略优势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6%E4%B8%8E%E9%A3%8E%E9%99%A9%E8%AF%84%E4%BC%B0"><span class="toc-text">8. 安全事件与风险评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-2024%E5%B9%B412%E6%9C%88%E5%AE%89%E5%85%A8%E4%BA%89%E8%AE%AE"><span class="toc-text">8.1 2024年12月安全争议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E4%B8%BB%E8%A6%81%E9%A3%8E%E9%99%A9%E5%9B%A0%E7%B4%A0"><span class="toc-text">8.2 主要风险因素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-%E4%B8%AD%E5%BF%83%E5%8C%96%E9%A3%8E%E9%99%A9"><span class="toc-text">8.2.1 中心化风险</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-2-%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9"><span class="toc-text">8.2.2 技术与安全风险</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-3-%E5%85%B6%E4%BB%96%E9%A3%8E%E9%99%A9%E5%9B%A0%E7%B4%A0"><span class="toc-text">8.2.3 其他风险因素</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B"><span class="toc-text">9. 未来展望</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-2025%E5%B9%B4%E5%8F%91%E5%B1%95%E8%B7%AF%E7%BA%BF%E5%9B%BE"><span class="toc-text">9.1 2025年发展路线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-%E9%95%BF%E6%9C%9F%E6%84%BF%E6%99%AF"><span class="toc-text">9.2 长期愿景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E7%94%9F%E6%80%81%E5%8F%91%E5%B1%95%E5%89%8D%E6%99%AF"><span class="toc-text">10. 生态发展前景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-%E7%94%9F%E6%80%81%E5%8F%91%E5%B1%95%E9%98%B6%E6%AE%B5%E5%88%86%E6%9E%90"><span class="toc-text">10.1 生态发展阶段分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-1-%E5%BD%93%E5%89%8D%E9%98%B6%E6%AE%B5%E7%89%B9%E5%BE%81"><span class="toc-text">10.1.1 当前阶段特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-2-%E5%8F%91%E5%B1%95%E9%A9%B1%E5%8A%A8%E5%9B%A0%E7%B4%A0"><span class="toc-text">10.1.2 发展驱动因素</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E6%80%BB%E7%BB%93"><span class="toc-text">11. 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-%E6%A0%B8%E5%BF%83%E6%88%90%E5%B0%B1"><span class="toc-text">11.1 核心成就</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-%E7%AB%9E%E4%BA%89%E4%BC%98%E5%8A%BF"><span class="toc-text">11.2 竞争优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-3-%E9%A3%8E%E9%99%A9%E4%B8%8E%E6%8C%91%E6%88%98"><span class="toc-text">11.3 风险与挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-4-%E7%94%9F%E6%80%81%E5%8F%91%E5%B1%95%E6%A0%B8%E5%BF%83%E4%BA%AE%E7%82%B9"><span class="toc-text">11.4 生态发展核心亮点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E7%94%9F%E6%80%81%E9%A1%B9%E7%9B%AE%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E8%AF%84%E4%BC%B0"><span class="toc-text">12. 生态项目安全风险评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%B4-%E9%AB%98%E9%A3%8E%E9%99%A9%E9%A1%B9%E7%9B%AE-%E9%9C%80%E8%A6%81%E4%B8%A5%E6%A0%BC%E8%AD%A6%E6%83%95"><span class="toc-text">🔴 高风险项目 - 需要严格警惕</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Abracadabra-MIM%E7%A8%B3%E5%AE%9A%E5%B8%81-%E9%87%8D%E5%A4%A7%E6%AC%BA%E8%AF%88%E9%A3%8E%E9%99%A9"><span class="toc-text">1. Abracadabra/MIM稳定币 - 重大欺诈风险</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-dYdX-%E9%87%8D%E5%A4%A7%E5%B8%82%E5%9C%BA%E6%93%8D%E7%BA%B5%E9%A3%8E%E9%99%A9%E5%B7%B2%E5%AE%9E%E7%8E%B0"><span class="toc-text">2. dYdX - 重大市场操纵风险已实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-GMX-%E9%87%8D%E5%A4%A7%E6%8A%80%E6%9C%AF%E6%BC%8F%E6%B4%9E%E5%B7%B2%E7%A1%AE%E8%AE%A4"><span class="toc-text">3. GMX - 重大技术漏洞已确认</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9F%A1-%E4%B8%AD%E7%AD%89%E9%A3%8E%E9%99%A9%E9%A1%B9%E7%9B%AE-%E9%9C%80%E8%A6%81%E5%AE%A1%E6%85%8E%E8%AF%84%E4%BC%B0"><span class="toc-text">🟡 中等风险项目 - 需要审慎评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Hyperlend-%E5%AE%A1%E8%AE%A1%E5%8F%91%E7%8E%B0%E5%85%B3%E9%94%AE%E6%BC%8F%E6%B4%9E"><span class="toc-text">1. Hyperlend - 审计发现关键漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-GLIQUID-Algebra%E5%BC%95%E6%93%8EV4-AMM%E6%8A%80%E6%9C%AF%E9%A3%8E%E9%99%A9"><span class="toc-text">2. GLIQUID/Algebra引擎V4 - AMM技术风险</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Brahma-Fi-%E5%B7%B2%E4%BF%AE%E5%A4%8D%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-text">3. Brahma Fi - 已修复的安全问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9F%A2-%E7%9B%B8%E5%AF%B9%E5%AE%89%E5%85%A8%E9%A1%B9%E7%9B%AE-%E5%8F%AF%E4%BB%A5%E8%80%83%E8%99%91%E5%8F%82%E4%B8%8E"><span class="toc-text">🟢 相对安全项目 - 可以考虑参与</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Across-Protocol-%E4%BC%98%E7%A7%80%E5%AE%89%E5%85%A8%E8%AE%B0%E5%BD%95"><span class="toc-text">1. Across Protocol - 优秀安全记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Felix-Protocol-%E5%9F%BA%E4%BA%8E%E6%88%90%E7%86%9F%E6%8A%80%E6%9C%AF"><span class="toc-text">2. Felix Protocol - 基于成熟技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Goldsky-%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="toc-text">3. Goldsky - 数据基础设施</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8A-%E9%A3%8E%E9%99%A9%E7%BB%9F%E8%AE%A1%E6%80%BB%E8%A7%88"><span class="toc-text">📊 风险统计总览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9B%A1%EF%B8%8F-%E5%AE%89%E5%85%A8%E6%8A%95%E8%B5%84%E5%BB%BA%E8%AE%AE"><span class="toc-text">🛡️ 安全投资建议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%8B%E5%8D%B3%E8%A1%8C%E5%8A%A8%E5%BB%BA%E8%AE%AE%EF%BC%9A"><span class="toc-text">立即行动建议：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%95%BF%E6%9C%9F%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%EF%BC%9A"><span class="toc-text">长期风险管理：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E9%A3%8E%E9%99%A9%E6%8F%90%E9%86%92%EF%BC%9A"><span class="toc-text">技术风险提醒：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E"><span class="toc-text">免责声明</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/defi/hyperliquid/" title="Hyperliquid 深度调研报告"><img src="https://cdn.blog-blockchain.xyz/2025/08/fb9eea41890628fa5f769e1e85c59609.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hyperliquid 深度调研报告"></a><div class="content"><a class="title" href="/defi/hyperliquid/" title="Hyperliquid 深度调研报告">Hyperliquid 深度调研报告</a><time datetime="2025-08-08T00:49:22.000Z" title="Created 2025-08-08 08:49:22">2025-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/ltcm-risk-management-case-study/" title="华尔街&quot;梦幻团队&quot;的惨痛教训：LTCM如何在4个月内损失46亿美元"><img src="https://cdn.blog-blockchain.xyz/2025/07/3aeebf60c26b2a9809d7091517c4f856.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="华尔街&quot;梦幻团队&quot;的惨痛教训：LTCM如何在4个月内损失46亿美元"></a><div class="content"><a class="title" href="/finance/ltcm-risk-management-case-study/" title="华尔街&quot;梦幻团队&quot;的惨痛教训：LTCM如何在4个月内损失46亿美元">华尔街"梦幻团队"的惨痛教训：LTCM如何在4个月内损失46亿美元</a><time datetime="2025-07-27T06:31:00.000Z" title="Created 2025-07-27 14:31:00">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/ftx-alameda-collapse-case-study/" title="320亿美元消失记：FTX帝国崩塌背后的人性贪婪与制度失效"><img src="https://cdn.blog-blockchain.xyz/2025/07/449fc564e4e9aa38a6eaf425abc6ef44.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="320亿美元消失记：FTX帝国崩塌背后的人性贪婪与制度失效"></a><div class="content"><a class="title" href="/finance/ftx-alameda-collapse-case-study/" title="320亿美元消失记：FTX帝国崩塌背后的人性贪婪与制度失效">320亿美元消失记：FTX帝国崩塌背后的人性贪婪与制度失效</a><time datetime="2025-07-27T06:26:20.000Z" title="Created 2025-07-27 14:26:20">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/binance-unified-account-risk-analysis/" title="币安统一账户保证金交易的风险分析与管理策略"><img src="https://cdn.blog-blockchain.xyz/2025/07/38b70ba52e268082e1304ae0b5545153.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="币安统一账户保证金交易的风险分析与管理策略"></a><div class="content"><a class="title" href="/finance/binance-unified-account-risk-analysis/" title="币安统一账户保证金交易的风险分析与管理策略">币安统一账户保证金交易的风险分析与管理策略</a><time datetime="2025-07-27T05:55:20.000Z" title="Created 2025-07-27 13:55:20">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/binance-unified-account-margin-trading-guide/" title="币安统一账户与保证金交易完整指南"><img src="https://cdn.blog-blockchain.xyz/2025/07/38b70ba52e268082e1304ae0b5545153.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="币安统一账户与保证金交易完整指南"></a><div class="content"><a class="title" href="/finance/binance-unified-account-margin-trading-guide/" title="币安统一账户与保证金交易完整指南">币安统一账户与保证金交易完整指南</a><time datetime="2025-07-27T05:26:20.000Z" title="Created 2025-07-27 13:26:20">2025-07-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">©2020 - 2025 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js?v=1754642563452"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div></div></div><script src="/bundle.js"></script><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})();
+(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})();
+(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '13e4de19635050a0847af76697010b58'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></body></html>

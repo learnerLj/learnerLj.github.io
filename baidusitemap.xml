@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/defi/hyperliquid/</loc>
+    <lastmod>2025-08-08</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-margin-trading-guide/</loc>
     <lastmod>2025-07-27</lastmod>
   </url>
@@ -317,11 +321,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/blocks/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/blocks/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
