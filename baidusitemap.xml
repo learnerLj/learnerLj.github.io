@@ -309,11 +309,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/txlist/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/tx-signature/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/tx-signature/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/txlist/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -329,19 +329,19 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
-    <lastmod>2025-06-18</lastmod>
-  </url>
-  <url>
     <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
+    <lastmod>2025-06-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
