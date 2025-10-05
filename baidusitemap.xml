@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/finance/fundiing-rate/</loc>
+    <lastmod>2025-10-05</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/finance/options-arbitrage-strategy-modeling/</loc>
     <lastmod>2025-08-31</lastmod>
   </url>
@@ -337,11 +341,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/block-sync/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/blockchain-core/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -381,11 +385,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
+    <loc>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
+    <loc>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
 </urlset> 
