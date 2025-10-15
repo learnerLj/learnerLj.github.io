@@ -1,8 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.blog-blockchain.xyz/finance/cex-perp/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
     <loc>https://www.blog-blockchain.xyz/finance/fundiing-rate/</loc>
-    <lastmod>2025-10-05</lastmod>
+    <lastmod>2025-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-risk-analysis/</loc>
+    <lastmod>2025-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-margin-trading-guide/</loc>
+    <lastmod>2025-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/defi/Merkle-Tree-Proof-of-Reserves/</loc>
+    <lastmod>2025-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/defi/JayPeggers-attack/</loc>
+    <lastmod>2025-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/defi/DFX-Finance-attack/</loc>
+    <lastmod>2025-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/defi/defi-attack-cellection/</loc>
+    <lastmod>2025-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.blog-blockchain.xyz/finance/ftx-alameda-collapse-case-study/</loc>
+    <lastmod>2025-10-07</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/finance/options-arbitrage-strategy-modeling/</loc>
@@ -17,28 +49,12 @@
     <lastmod>2025-08-08</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-margin-trading-guide/</loc>
-    <lastmod>2025-07-27</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/finance/binance-unified-account-risk-analysis/</loc>
-    <lastmod>2025-07-27</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/finance/ftx-alameda-collapse-case-study/</loc>
-    <lastmod>2025-07-27</lastmod>
-  </url>
-  <url>
     <loc>https://www.blog-blockchain.xyz/finance/ltcm-risk-management-case-study/</loc>
     <lastmod>2025-07-27</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/dev/hexo-cache-busting-solution/</loc>
     <lastmod>2025-07-24</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/finance/cex-perp/</loc>
-    <lastmod>2025-07-15</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/defi/prediction-market-hedging-paradox/</loc>
@@ -54,22 +70,6 @@
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/audit/blockchain-client-security/</loc>
-    <lastmod>2025-06-18</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/defi/Merkle-Tree-Proof-of-Reserves/</loc>
-    <lastmod>2025-06-18</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/defi/JayPeggers-attack/</loc>
-    <lastmod>2025-06-18</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/defi/DFX-Finance-attack/</loc>
-    <lastmod>2025-06-18</lastmod>
-  </url>
-  <url>
-    <loc>https://www.blog-blockchain.xyz/defi/defi-attack-cellection/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -305,11 +305,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -333,11 +333,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -385,11 +385,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
+    <loc>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/audit/blockchian-study-material/</loc>
+    <loc>https://www.blog-blockchain.xyz/audit/classic-vulnerabilities/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
 </urlset> 
