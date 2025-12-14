@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>职业增长的数学模型：从log(x)到eˣ的跃迁代价 | Jiahao Luo</title><meta name="author" content="Michael(Jiahao) Luo"><meta name="copyright" content="Michael(Jiahao) Luo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="description" content="用数学函数模型解析职业增长困境：为什么安全岗位陷入对数增长困局？如何理解从log(x)到eˣ的职业跃迁代价？工作1.5年后的系统性职场认知。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="职业增长的数学模型：从log(x)到eˣ的跃迁代价">
+<meta property="og:url" content="https://www.blog-blockchain.xyz/career/structural-thoughts-after-one-and-half-years-at-work/index.html">
+<meta property="og:site_name" content="Jiahao Luo">
+<meta property="og:description" content="用数学函数模型解析职业增长困境：为什么安全岗位陷入对数增长困局？如何理解从log(x)到eˣ的职业跃迁代价？工作1.5年后的系统性职场认知。">
+<meta property="og:locale">
+<meta property="og:image" content="https://www.blog-blockchain.xyz/images/site-avator.jpg">
+<meta property="article:published_time" content="2025-12-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-13T16:00:00.000Z">
+<meta property="article:author" content="Michael(Jiahao) Luo">
+<meta property="article:tag" content="职场认知">
+<meta property="article:tag" content="职业发展">
+<meta property="article:tag" content="Career">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog-blockchain.xyz/images/site-avator.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "职业增长的数学模型：从log(x)到eˣ的跃迁代价",
+  "url": "https://www.blog-blockchain.xyz/career/structural-thoughts-after-one-and-half-years-at-work/",
+  "image": "https://www.blog-blockchain.xyz/images/site-avator.jpg",
+  "datePublished": "2025-12-13T16:00:00.000Z",
+  "dateModified": "2025-12-13T16:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Michael(Jiahao) Luo",
+      "url": "https://www.blog-blockchain.xyz/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="https://www.blog-blockchain.xyz/career/structural-thoughts-after-one-and-half-years-at-work/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="manifest" href="/pwa/manifest.json"><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?372b8854d18acf62880149b1e08e1901";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=QXcJQjXxTMeUwnWykFW2xw"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'QXcJQjXxTMeUwnWykFW2xw')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'QXcJQjXxTMeUwnWykFW2xw', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '职业增长的数学模型：从log(x)到eˣ的跃迁代价',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Jiahao Luo" type="application/atom+xml">
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css');loadCss('https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">100</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jiahao Luo</span></a><a class="nav-page-title" href="/"><span class="site-name">职业增长的数学模型：从log(x)到eˣ的跃迁代价</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">职业增长的数学模型：从log(x)到eˣ的跃迁代价</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-12-13T16:00:00.000Z" title="Created 2025-12-14 00:00:00">2025-12-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-12-13T16:00:00.000Z" title="Updated 2025-12-14 00:00:00">2025-12-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%81%8C%E5%9C%BA%E6%80%9D%E8%80%83/">职场思考</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>6mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1>职业增长的数学模型：从log(x)到eˣ的跃迁代价</h1>
+<h2 id="一、表演型工作的出现：组织结构的必然产物">一、表演型工作的出现：组织结构的必然产物</h2>
+<p>在进入职场一段时间后，我开始逐渐接触并理解所谓的「抢功甩锅」。这并非个别人的道德问题，而是组织结构下的自然结果：在打工体系中，个人行为是可替代的，风险可以被系统吸收。合作中如果有人不做事，系统会自动调配他人补位，于是责任被稀释，甩锅便成为一种理性选择。</p>
+<p>在权责分离的结构下，收益与惩罚并不对称：事情做好了，收益归属于公司；事情搞砸了，责任却往往由个人承担。评价体系关注的也未必是问题是否真正解决，而是是否完成了流程、是否对齐了预期。这使得工作逐渐呈现出一种"表演性"：重要的不是结果本身，而是被看见的姿态。</p>
+<p>相比之下，创业或科研呈现出完全不同的反馈机制。每天的亏损是真实存在的，问题如果不被解决，就不会自行消失。责任无法转移，失败无法被兜底，压力也因此具备了现实重量。</p>
+<p>进一步地，我开始感受到一种结构性的意义感缺失。在大型组织中，个体更像是系统中的毛细血管，功能明确却高度局部。离钱越近、离核心业务越近，价值感和真实感就越强；而当岗位逐渐远离核心决策和直接收益，工作的意义便开始变得抽象而虚幻。我的位置，恰恰是在不断远离核心的方向上移动。</p>
+<h2 id="二、安全岗位的困境：价值不可见与飞轮难闭合">二、安全岗位的困境：价值不可见与飞轮难闭合</h2>
+<p>网络安全岗位往往会在一段时间后逐渐退化为客服岗位，或者被整合进 DevSecOps 的运维体系。当系统初步构建完成，检测器不可避免地产生误报和漏报，安全问题便开始以工单的形式回流：客服或开发不断申诉「这不是某类风险，帮我加白名单」。此时，安全岗位的主要工作逐渐演化为处理工单、维护白名单和解释规则。</p>
+<p>从结果看，系统"运行正常"，但这恰恰意味着它正在失去重要性。安全系统的成功，并不会像业务系统那样被感知为增长，而更像是一种背景噪音：<strong>没有事故发生，本身并不会被视为价值创造。</strong></p>
+<p>理想状态下，安全系统也希望形成数据 → 策略 → 算法 → 数据的迭代飞轮。但现实是，这种飞轮很难闭合。与搜广推不同，安全改进缺乏量级支撑：在万亿级流水中，万分之一的提升可以被直接转化为收益；而在风控和安全领域，大多数改进既难以量化，也难以被业务感知。同时，黑产的策略是持续演化的，对抗带来的不是收益放大，而是规则复杂度和心智负担的累积。</p>
+<p>在这样的生态位中，策略优化本身并非没有技术挑战，但它缺乏长期正反馈。我见过不少同事对改进策略充满热情，但岗位结构决定了，<strong>更聪明、对回报更敏感的人，往往会率先离开这一领域。</strong></p>
+<p>我也思考过可能的破局方式。如果算法改进本身难以形成飞轮，那么或许可以转向工作流层面的优化：减少客服的 24 小时值守成本，自动化安全排查流程，用大模型和数据节省安全团队的时间。然而这一思路很快又遭遇"大公司病"的现实约束：内部效率的提升并不会直接映射到 TL 的绩效指标，节省时间本身缺乏激励。对组织而言，增长才是可被度量和奖励的目标，而维护和稳定，只是默认前提。</p>
+<h2 id="三、世界的不均匀性：你站在对数曲线还是指数曲线上">三、世界的不均匀性：你站在对数曲线还是指数曲线上</h2>
+<p>世界是不均匀的，这是最基本、也最重要的过滤法则。现实更像一个连续可导的函数，不同位置对应着不同的走势和价值密度。很多讨论停留在「选择大于努力」这样的口号层面，却忽略了一个更关键的问题：<strong>你站在哪一条曲线上。</strong></p>
+<p>在一条给定的函数曲线上，你付出的努力（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\Delta x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span><span class="mord mathnormal">x</span></span></span></span>）所能换取的回报（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">\Delta y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord">Δ</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>），在局部其实是大致确定的。安全岗位可以被视为一条 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(x)=\log(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> 的曲线：越往后，增长越平缓。即使你不断增加投入，把 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> 推向无穷大，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> 也只会缓慢上升。你无法通过在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> 上狂奔，达到另一条 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>e</mi><mi>x</mi></msup></mrow><annotation encoding="application/x-tex">g(x)=e^x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span></span></span>（指数增长）曲线的高度。</p>
+<p>因此问题不在于是否努力，而在于：<strong>努力只能放大当前函数的特性，而无法改变函数本身。</strong></p>
+<p>「随遇而安」「干一行爱一行」并非单纯的个人修养，而更像是系统为了维持自身运转而植入给零件的思想钢印。对于系统设计者而言，稳定意味着低熵、可预测、低协调成本。系统自然希望你在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span> 时刻和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6984em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> 时刻处于同一位置，因为这样它的预测成本最低。</p>
+<p>如果每个零件都试图脱离原有区间，向高势能区域迁移，系统就会失稳。但这并不意味着零件本身获得了更高的价值，只是系统得以继续运行。</p>
+<h2 id="四、系统的-抗体-机制：为什么聪明人反而被排斥">四、系统的"抗体"机制：为什么聪明人反而被排斥</h2>
+<p>在上述背景下，"更聪明的人率先离开"并非偶然，而可以被视为系统的一种免疫反应。大公司的运维、合规与安全岗位，本身并不需要极其聪明、极具野心、持续试图重构流程的人。这类更接近 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mi>x</mi></msup></mrow><annotation encoding="application/x-tex">e^x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span></span></span> 型的人才，留在以 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> 为增长函数的系统中，不仅会感到强烈痛苦，还可能因为不断尝试优化与改革，而破坏系统赖以生存的稳定性。</p>
+<p>因此，系统并不会主动适配这类人，而是通过低效、琐碎和高摩擦的工作内容，将其逐渐过滤（Filter Out）。最终留下的，往往是那些愿意以稳定换取确定性、能够长期忍受缓慢增长的人。</p>
+<p>从这个角度看，个体的痛苦并非失败信号，而更像是一种被系统识别为"异物"的排异反应。<strong>被排斥，反而说明你并不属于这套系统的最优解。</strong></p>
+<h2 id="五、职业跃迁的代价：不连续性与必然的回撤">五、职业跃迁的代价：不连续性与必然的回撤</h2>
+<p>最后，一个常被忽略却极其关键的事实是：从 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> 跳跃到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mi>x</mi></msup></mrow><annotation encoding="application/x-tex">e^x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span></span></span>，并不是连续的过程。</p>
+<p>这种跃迁往往意味着断裂（Discontinuous）。中间不存在平滑过渡的路径，几乎必然伴随着显著的回撤（Drawdown）。创业初期，收入可能直接归零；转向量化、核心研发或高杠杆岗位，往往需要降薪重来，甚至承受极高的淘汰概率。</p>
+<p>因此，大多数人选择留在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> 曲线之上，并非因为他们不知道 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mi>x</mi></msup></mrow><annotation encoding="application/x-tex">e^x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span></span></span> 的潜在回报，而是因为他们无法承受在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span> 附近重新开始的风险与不确定性。对稳定性的依赖，本身就是对断裂成本的一种理性规避。</p>
+<h2 id="结语">结语</h2>
+<p>系统通过稳定性筛选人，而不是通过潜力奖励人；真正的跃迁，几乎总是以不连续和回撤为代价。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael(Jiahao) Luo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/career/structural-thoughts-after-one-and-half-years-at-work/">https://www.blog-blockchain.xyz/career/structural-thoughts-after-one-and-half-years-at-work/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%81%8C%E5%9C%BA%E8%AE%A4%E7%9F%A5/">职场认知</a><a class="post-meta__tags" href="/tags/%E8%81%8C%E4%B8%9A%E5%8F%91%E5%B1%95/">职业发展</a><a class="post-meta__tags" href="/tags/Career/">Career</a></div><div class="post-share"><div class="social-share" data-image="/images/site-avator.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/career/find-gold-then-build-factory/" title="困境：从「想明白」到「做出来」的鸿沟"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">困境：从「想明白」到「做出来」的鸿沟</div></div><div class="info-2"><div class="info-item-1">Crypto套利者用粗糙v1占领金矿，而我在研究完美架构。看的太多，想的太深，做的太慢——这是「学者模式」转型创业时最容易掉进的陷阱。超额收益属于第一批冲进荒野的猎人，不属于设计最完美铲子的人。</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Michael(Jiahao) Luo</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">100</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://x.com/jiahao_luo9"><i class="fa-brands fa-twitter"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://www.linkedin.com/in/jiahao-michael-luo-8ba5942a3" rel="external nofollow noreferrer" target="_blank" title="Linkedin"><i class="fa-brands fa-linkedin"></i></a><a class="social-icon" href="https://x.com/jiahao_luo9" rel="external nofollow noreferrer" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a><a class="social-icon" href="https://github.com/learnerLj" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">职业增长的数学模型：从log(x)到eˣ的跃迁代价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%A1%A8%E6%BC%94%E5%9E%8B%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%87%BA%E7%8E%B0%EF%BC%9A%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84%E7%9A%84%E5%BF%85%E7%84%B6%E4%BA%A7%E7%89%A9"><span class="toc-text">一、表演型工作的出现：组织结构的必然产物</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E5%85%A8%E5%B2%97%E4%BD%8D%E7%9A%84%E5%9B%B0%E5%A2%83%EF%BC%9A%E4%BB%B7%E5%80%BC%E4%B8%8D%E5%8F%AF%E8%A7%81%E4%B8%8E%E9%A3%9E%E8%BD%AE%E9%9A%BE%E9%97%AD%E5%90%88"><span class="toc-text">二、安全岗位的困境：价值不可见与飞轮难闭合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%96%E7%95%8C%E7%9A%84%E4%B8%8D%E5%9D%87%E5%8C%80%E6%80%A7%EF%BC%9A%E4%BD%A0%E7%AB%99%E5%9C%A8%E5%AF%B9%E6%95%B0%E6%9B%B2%E7%BA%BF%E8%BF%98%E6%98%AF%E6%8C%87%E6%95%B0%E6%9B%B2%E7%BA%BF%E4%B8%8A"><span class="toc-text">三、世界的不均匀性：你站在对数曲线还是指数曲线上</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%B3%BB%E7%BB%9F%E7%9A%84-%E6%8A%97%E4%BD%93-%E6%9C%BA%E5%88%B6%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%81%AA%E6%98%8E%E4%BA%BA%E5%8F%8D%E8%80%8C%E8%A2%AB%E6%8E%92%E6%96%A5"><span class="toc-text">四、系统的"抗体"机制：为什么聪明人反而被排斥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E8%81%8C%E4%B8%9A%E8%B7%83%E8%BF%81%E7%9A%84%E4%BB%A3%E4%BB%B7%EF%BC%9A%E4%B8%8D%E8%BF%9E%E7%BB%AD%E6%80%A7%E4%B8%8E%E5%BF%85%E7%84%B6%E7%9A%84%E5%9B%9E%E6%92%A4"><span class="toc-text">五、职业跃迁的代价：不连续性与必然的回撤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/career/structural-thoughts-after-one-and-half-years-at-work/" title="职业增长的数学模型：从log(x)到eˣ的跃迁代价">职业增长的数学模型：从log(x)到eˣ的跃迁代价</a><time datetime="2025-12-13T16:00:00.000Z" title="Created 2025-12-14 00:00:00">2025-12-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/career/find-gold-then-build-factory/" title="困境：从「想明白」到「做出来」的鸿沟">困境：从「想明白」到「做出来」的鸿沟</a><time datetime="2025-10-27T17:11:20.000Z" title="Created 2025-10-28 01:11:20">2025-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/finance/fundiing-rate/" title="资金费率套利完整指南">资金费率套利完整指南</a><time datetime="2025-10-05T10:26:20.000Z" title="Created 2025-10-05 18:26:20">2025-10-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/options-arbitrage-strategy-modeling/" title="期权组合套利策略的数学分析和建模"><img src="https://cdn.blog-blockchain.xyz/2025/08/16db5eba53f859fa8c4b45badfb216b8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="期权组合套利策略的数学分析和建模"></a><div class="content"><a class="title" href="/finance/options-arbitrage-strategy-modeling/" title="期权组合套利策略的数学分析和建模">期权组合套利策略的数学分析和建模</a><time datetime="2025-08-31T07:45:00.000Z" title="Created 2025-08-31 15:45:00">2025-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/defi/hyperliquid/" title="Hyperliquid 深度调研报告"><img src="https://cdn.blog-blockchain.xyz/2025/08/fb9eea41890628fa5f769e1e85c59609.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hyperliquid 深度调研报告"></a><div class="content"><a class="title" href="/defi/hyperliquid/" title="Hyperliquid 深度调研报告">Hyperliquid 深度调研报告</a><time datetime="2025-08-08T00:49:22.000Z" title="Created 2025-08-08 08:49:22">2025-08-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">©2020 - 2025 By Michael(Jiahao) Luo</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js?v=1765720408422"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div></div></div><script src="/bundle.js"></script><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})();
+(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})();
+(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '467d9506710fff22dc33',
+      clientSecret: '2a3e530b895af9c94d4bbe95fe78c69317f4d76e',
+      repo: 'blog-gitalk',
+      owner: 'learnerLj',
+      admin: ['learnerLj'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'c5ed5f4022eea8e6a51de51020c66f91'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></body></html>
