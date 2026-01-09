@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.blog-blockchain.xyz/defi/permit-ecdsa-cryptography/</loc>
-    <lastmod>2026-01-08</lastmod>
+    <lastmod>2026-01-09</lastmod>
   </url>
   <url>
     <loc>https://www.blog-blockchain.xyz/career/find-gold-then-build-factory/</loc>
@@ -321,11 +321,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/understand-tx/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/understand-receipt/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
@@ -349,11 +349,11 @@
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>
-    <loc>https://www.blog-blockchain.xyz/geth/bloom-filter/</loc>
+    <loc>https://www.blog-blockchain.xyz/geth/forkId/</loc>
     <lastmod>2025-06-18</lastmod>
   </url>
   <url>

@@ -14,37 +14,35 @@
       }
     },
 
-    throttle: function (func, wait, options = {}) {
-      let timeout, context, args
+    throttle: (func, wait, options = {}) => {
+      let timeout, args
       let previous = 0
 
       const later = () => {
         previous = options.leading === false ? 0 : new Date().getTime()
         timeout = null
-        func.apply(context, args)
-        if (!timeout) context = args = null
+        func(...args)
+        if (!timeout) args = null
       }
 
-      const throttled = (...params) => {
+      return (...params) => {
         const now = new Date().getTime()
         if (!previous && options.leading === false) previous = now
         const remaining = wait - (now - previous)
-        context = this
         args = params
+
         if (remaining <= 0 || remaining > wait) {
           if (timeout) {
             clearTimeout(timeout)
             timeout = null
           }
           previous = now
-          func.apply(context, args)
-          if (!timeout) context = args = null
+          func(...args)
+          if (!timeout) args = null
         } else if (!timeout && options.trailing !== false) {
           timeout = setTimeout(later, remaining)
         }
       }
-
-      return throttled
     },
 
     overflowPaddingR: {
@@ -106,7 +104,7 @@
 
     loadComment: (dom, callback) => {
       if ('IntersectionObserver' in window) {
-        const observerItem = new IntersectionObserver((entries) => {
+        const observerItem = new IntersectionObserver(entries => {
           if (entries[0].isIntersecting) {
             callback()
             observerItem.disconnect()
@@ -169,27 +167,18 @@
 
     isHidden: ele => ele.offsetHeight === 0 && ele.offsetWidth === 0,
 
-    getEleTop: ele => {
-      let actualTop = ele.offsetTop
-      let current = ele.offsetParent
-
-      while (current !== null) {
-        actualTop += current.offsetTop
-        current = current.offsetParent
-      }
-
-      return actualTop
-    },
+    getEleTop: ele => ele.getBoundingClientRect().top + window.scrollY,
 
     loadLightbox: ele => {
       const service = GLOBAL_CONFIG.lightbox
 
       if (service === 'medium_zoom') {
         mediumZoom(ele, { background: 'var(--zoom-bg)' })
+        return
       }
 
       if (service === 'fancybox') {
-        Array.from(ele).forEach(i => {
+        ele.forEach(i => {
           if (i.parentNode.tagName !== 'A') {
             const dataSrc = i.dataset.lazySrc || i.src
             const dataCaption = i.title || i.alt || ''
@@ -198,35 +187,71 @@
         })
 
         if (!window.fancyboxRun) {
-          Fancybox.bind('[data-fancybox]', {
-            Hash: false,
-            Thumbs: {
-              showOnStart: false
-            },
-            Images: {
-              Panzoom: {
-                maxScale: 4
-              }
-            },
-            Carousel: {
-              transition: 'slide'
-            },
-            Toolbar: {
-              display: {
-                left: ['infobar'],
-                middle: [
-                  'zoomIn',
-                  'zoomOut',
-                  'toggle1to1',
-                  'rotateCCW',
-                  'rotateCW',
-                  'flipX',
-                  'flipY'
-                ],
-                right: ['slideshow', 'thumbs', 'close']
+          let options = ''
+          if (Fancybox.version < '6') {
+            options = {
+              Hash: false,
+              Thumbs: {
+                showOnStart: false
+              },
+              Images: {
+                Panzoom: {
+                  maxScale: 4
+                }
+              },
+              Carousel: {
+                transition: 'slide'
+              },
+              Toolbar: {
+                display: {
+                  left: ['infobar'],
+                  middle: [
+                    'zoomIn',
+                    'zoomOut',
+                    'toggle1to1',
+                    'rotateCCW',
+                    'rotateCW',
+                    'flipX',
+                    'flipY'
+                  ],
+                  right: ['slideshow', 'thumbs', 'close']
+                }
               }
             }
-          })
+          } else {
+            options = {
+              Hash: false,
+              Carousel: {
+                transition: 'slide',
+                Thumbs: {
+                  showOnStart: false
+                },
+                Toolbar: {
+                  display: {
+                    left: ['counter'],
+                    middle: [
+                      'zoomIn',
+                      'zoomOut',
+                      'toggle1to1',
+                      'rotateCCW',
+                      'rotateCW',
+                      'flipX',
+                      'flipY',
+                      'reset'
+                    ],
+                    right: ['autoplay', 'thumbs', 'close']
+                  }
+                },
+                Zoomable: {
+                  Panzoom: {
+                    maxScale: 4
+                  }
+                }
+              }
+            }
+          }
+
+          Fancybox.bind('[data-fancybox]', options)
           window.fancyboxRun = true
         }
       }
@@ -382,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isPrismjs = plugin === 'prismjs'
     const highlightShrinkClass = isHighlightShrink === true ? 'closed' : ''
     const highlightShrinkEle = isHighlightShrink !== undefined ? '<i class="fas fa-angle-down expand"></i>' : ''
-    const highlightCopyEle = highlightCopy ? '<div class="copy-notice"></div><i class="fas fa-paste copy-button"></i>' : ''
+    const highlightCopyEle = highlightCopy ? '<i class="fas fa-paste copy-button"></i>' : ''
     const highlightMacStyleEle = '<div class="macStyle"><div class="mac-close"></div><div class="mac-minimize"></div><div class="mac-maximize"></div></div>'
     const highlightFullpageEle = highlightFullpage ? '<i class="fa-solid fa-up-right-and-down-left-from-center fullpage-button"></i>' : ''
 
@@ -390,9 +415,46 @@ document.addEventListener('DOMContentLoaded', () => {
       if (GLOBAL_CONFIG.Snackbar !== undefined) {
         btf.snackbarShow(text)
       } else {
-        ele.textContent = text
-        ele.style.opacity = 1
-        setTimeout(() => { ele.style.opacity = 0 }, 800)
+        const newEle = document.createElement('div')
+        newEle.className = 'copy-notice'
+        newEle.textContent = text
+        document.body.appendChild(newEle)
+
+        const buttonRect = ele.getBoundingClientRect()
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
+
+        // X-axis boundary check
+        const halfWidth = newEle.offsetWidth / 2
+        const centerLeft = buttonRect.left + scrollLeft + buttonRect.width / 2
+        const finalLeft = Math.max(halfWidth + 10, Math.min(window.innerWidth - halfWidth - 10, centerLeft))
+
+        // Show tooltip below button if too close to top
+        const normalTop = buttonRect.top + scrollTop - 40
+        const shouldShowBelow = buttonRect.top < 60 || normalTop < 10
+
+        const topValue = shouldShowBelow ? buttonRect.top + scrollTop + buttonRect.height + 10 : normalTop
+
+        newEle.style.cssText = `
+      top: ${topValue + 10}px;
+      left: ${finalLeft}px;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease, top 0.3s ease;
+    `
+
+        requestAnimationFrame(() => {
+          newEle.style.opacity = '1'
+          newEle.style.top = `${topValue}px`
+        })
+
+        setTimeout(() => {
+          newEle.style.opacity = '0'
+          newEle.style.top = `${topValue + 10}px`
+          setTimeout(() => {
+            newEle?.remove()
+          }, 300)
+        }, 800)
       }
     }
 
@@ -413,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const preCodeSelector = isPrismjs ? 'pre code' : 'table .code pre'
       const codeElement = $buttonParent.querySelector(preCodeSelector)
       if (!codeElement) return
-      copy(codeElement.innerText, clickEle.previousElementSibling)
+      copy(codeElement.innerText, clickEle)
       $buttonParent.classList.remove('copy-true')
     }
 
@@ -440,6 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 獲取隱藏狀態下元素的真實高度
     const getActualHeight = item => {
+      if (item.offsetHeight > 0) return item.offsetHeight
       const hiddenElements = new Map()
 
       const fix = () => {
@@ -826,17 +889,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const $articleList = $article.querySelectorAll('h1,h2,h3,h4,h5,h6')
     let detectItem = ''
 
+    // Optimization: Cache header positions
+    let headerList = []
+    const updateHeaderPositions = () => {
+      headerList = Array.from($articleList).map(ele => ({
+        ele,
+        top: btf.getEleTop(ele),
+        id: ele.id
+      }))
+    }
+
+    updateHeaderPositions()
+    btf.addEventListenerPjax(window, 'resize', btf.throttle(updateHeaderPositions, 200))
+
     const findHeadPosition = top => {
       if (top === 0) return false
 
       let currentId = ''
       let currentIndex = ''
 
-      for (let i = 0; i < $articleList.length; i++) {
-        const ele = $articleList[i]
-        if (top > btf.getEleTop(ele) - 80) {
-          const id = ele.id
-          currentId = id ? '#' + encodeURI(id) : ''
+      for (let i = 0; i < headerList.length; i++) {
+        const item = headerList[i]
+        if (top > item.top - 80) {
+          currentId = item.id ? '#' + encodeURI(item.id) : ''
           currentIndex = i
         } else {
           break
@@ -914,7 +989,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       $body.classList.add('read-mode')
       newEle.type = 'button'
-      newEle.className = 'fas fa-sign-out-alt exit-readmode'
+      newEle.className = 'exit-readmode'
+      newEle.innerHTML = '<i class="fas fa-sign-out-alt"></i>'
       newEle.addEventListener('click', exitReadMode)
       $body.appendChild(newEle)
     },
@@ -1012,7 +1088,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addCopyright = () => {
     const { limitCount, languages } = GLOBAL_CONFIG.copyright
 
-    const handleCopy = (e) => {
+    const handleCopy = e => {
       e.preventDefault()
       const copyFont = window.getSelection(0).toString()
       let textFont = copyFont
@@ -1401,10 +1477,10 @@ class LocalSearch {
       }
 
       slicesOfContent.forEach(slice => {
-        resultItem += `<p class="search-result">${this.highlightKeyword(content, slice)}...</p></a>`
+        resultItem += `<p class="search-result">${this.highlightKeyword(content, slice)}...</p>`
       })
 
-      resultItem += '</li>'
+      resultItem += '</a></li>'
       resultItems.push({
         item: resultItem,
         id: resultItems.length,
@@ -1481,40 +1557,229 @@ class LocalSearch {
 
 window.addEventListener('load', () => {
 // Search
-  const { path, top_n_per_article, unescape, languages } = GLOBAL_CONFIG.localSearch
+  const { path, top_n_per_article, unescape, languages, pagination } = GLOBAL_CONFIG.localSearch
+  const enablePagination = pagination && pagination.enable
   const localSearch = new LocalSearch({
     path,
     top_n_per_article,
     unescape
   })
 
-  const input = document.querySelector('#local-search-input input')
-  const statsItem = document.getElementById('local-search-stats-wrap')
+  const input = document.querySelector('.local-search-input input')
+  const statsItem = document.getElementById('local-search-stats')
   const $loadingStatus = document.getElementById('loading-status')
   const isXml = !path.endsWith('json')
+
+  // Pagination variables (only initialize if pagination is enabled)
+  let currentPage = 0
+  const hitsPerPage = pagination.hitsPerPage || 10
+
+  let currentResultItems = []
+
+  if (!enablePagination) {
+    // If pagination is disabled, we don't need these variables
+    currentPage = undefined
+    currentResultItems = undefined
+  }
+
+  // Cache frequently used elements
+  const elements = {
+    get pagination () { return document.getElementById('local-search-pagination') },
+    get paginationList () { return document.querySelector('#local-search-pagination .ais-Pagination-list') }
+  }
+
+  // Show/hide search results area
+  const toggleResultsVisibility = hasResults => {
+    if (enablePagination) {
+      elements.pagination.style.display = hasResults ? '' : 'none'
+    } else {
+      elements.pagination.style.display = 'none'
+    }
+  }
+
+  // Render search results for current page
+  const renderResults = (searchText, resultItems) => {
+    const container = document.getElementById('local-search-results')
+
+    // Determine items to display based on pagination mode
+    const itemsToDisplay = enablePagination
+      ? currentResultItems.slice(currentPage * hitsPerPage, (currentPage + 1) * hitsPerPage)
+      : resultItems
+
+    // Handle empty page in pagination mode
+    if (enablePagination && itemsToDisplay.length === 0 && currentResultItems.length > 0) {
+      currentPage = 0
+      renderResults(searchText, resultItems)
+      return
+    }
+
+    // Add numbering to items
+    const numberedItems = itemsToDisplay.map((result, index) => {
+      const itemNumber = enablePagination
+        ? currentPage * hitsPerPage + index + 1
+        : index + 1
+      return result.item.replace(
+        '<li class="local-search-hit-item">',
+        `<li class="local-search-hit-item" value="${itemNumber}">`
+      )
+    })
+
+    container.innerHTML = `<ol class="search-result-list">${numberedItems.join('')}</ol>`
+
+    // Update stats
+    const displayCount = enablePagination ? currentResultItems.length : resultItems.length
+    const stats = languages.hits_stats.replace(/\$\{hits}/, displayCount)
+    statsItem.innerHTML = `<hr><div class="search-result-stats">${stats}</div>`
+
+    // Handle pagination
+    if (enablePagination) {
+      const nbPages = Math.ceil(currentResultItems.length / hitsPerPage)
+      renderPagination(currentPage, nbPages, searchText)
+    }
+
+    const hasResults = resultItems.length > 0
+    toggleResultsVisibility(hasResults)
+
+    window.pjax && window.pjax.refresh(container)
+  }
+
+  // Render pagination
+  const renderPagination = (page, nbPages, query) => {
+    if (nbPages <= 1) {
+      elements.pagination.style.display = 'none'
+      elements.paginationList.innerHTML = ''
+      return
+    }
+
+    elements.pagination.style.display = 'block'
+
+    const isFirstPage = page === 0
+    const isLastPage = page === nbPages - 1
+
+    // Responsive page display
+    const isMobile = window.innerWidth < 768
+    const maxVisiblePages = isMobile ? 3 : 5
+    let startPage = Math.max(0, page - Math.floor(maxVisiblePages / 2))
+    const endPage = Math.min(nbPages - 1, startPage + maxVisiblePages - 1)
+
+    // Adjust starting page to maintain max visible pages
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(0, endPage - maxVisiblePages + 1)
+    }
+
+    let pagesHTML = ''
+
+    // Only add ellipsis and first page when there are many pages
+    if (nbPages > maxVisiblePages && startPage > 0) {
+      pagesHTML += `
+        <li class="ais-Pagination-item ais-Pagination-item--page">
+          <a class="ais-Pagination-link" aria-label="Page 1" href="#" data-page="0">1</a>
+        </li>`
+      if (startPage > 1) {
+        pagesHTML += `
+          <li class="ais-Pagination-item ais-Pagination-item--ellipsis">
+            <span class="ais-Pagination-link">...</span>
+          </li>`
+      }
+    }
+
+    // Add middle page numbers
+    for (let i = startPage; i <= endPage; i++) {
+      const isSelected = i === page
+      if (isSelected) {
+        pagesHTML += `
+          <li class="ais-Pagination-item ais-Pagination-item--page ais-Pagination-item--selected">
+            <span class="ais-Pagination-link" aria-label="Page ${i + 1}">${i + 1}</span>
+          </li>`
+      } else {
+        pagesHTML += `
+          <li class="ais-Pagination-item ais-Pagination-item--page">
+            <a class="ais-Pagination-link" aria-label="Page ${i + 1}" href="#" data-page="${i}">${i + 1}</a>
+          </li>`
+      }
+    }
+
+    // Only add ellipsis and last page when there are many pages
+    if (nbPages > maxVisiblePages && endPage < nbPages - 1) {
+      if (endPage < nbPages - 2) {
+        pagesHTML += `
+          <li class="ais-Pagination-item ais-Pagination-item--ellipsis">
+            <span class="ais-Pagination-link">...</span>
+          </li>`
+      }
+      pagesHTML += `
+        <li class="ais-Pagination-item ais-Pagination-item--page">
+          <a class="ais-Pagination-link" aria-label="Page ${nbPages}" href="#" data-page="${nbPages - 1}">${nbPages}</a>
+        </li>`
+    }
+
+    if (nbPages > 1) {
+      elements.paginationList.innerHTML = `
+            <li class="ais-Pagination-item ais-Pagination-item--previousPage ${isFirstPage ? 'ais-Pagination-item--disabled' : ''}">
+              ${isFirstPage
+                ? '<span class="ais-Pagination-link ais-Pagination-link--disabled" aria-label="Previous Page"><i class="fas fa-angle-left"></i></span>'
+                : `<a class="ais-Pagination-link" aria-label="Previous Page" href="#" data-page="${page - 1}"><i class="fas fa-angle-left"></i></a>`
+              }
+            </li>
+            ${pagesHTML}
+            <li class="ais-Pagination-item ais-Pagination-item--nextPage ${isLastPage ? 'ais-Pagination-item--disabled' : ''}">
+              ${isLastPage
+                ? '<span class="ais-Pagination-link ais-Pagination-link--disabled" aria-label="Next Page"><i class="fas fa-angle-right"></i></span>'
+                : `<a class="ais-Pagination-link" aria-label="Next Page" href="#" data-page="${page + 1}"><i class="fas fa-angle-right"></i></a>`
+              }
+            </li>`
+    } else {
+      elements.pagination.style.display = 'none'
+    }
+  }
+
+  // Clear search results and stats
+  const clearSearchResults = () => {
+    const container = document.getElementById('local-search-results')
+    container.textContent = ''
+    statsItem.textContent = ''
+    toggleResultsVisibility(false)
+    if (enablePagination) {
+      currentResultItems = []
+      currentPage = 0
+    }
+  }
+
+  // Show no results message
+  const showNoResults = searchText => {
+    const container = document.getElementById('local-search-results')
+    container.textContent = ''
+    const statsDiv = document.createElement('div')
+    statsDiv.className = 'search-result-stats'
+    statsDiv.textContent = languages.hits_empty.replace(/\$\{query}/, searchText)
+    statsItem.innerHTML = statsDiv.outerHTML
+    toggleResultsVisibility(false)
+    if (enablePagination) {
+      currentResultItems = []
+      currentPage = 0
+    }
+  }
 
   const inputEventFunction = () => {
     if (!localSearch.isfetched) return
     let searchText = input.value.trim().toLowerCase()
     isXml && (searchText = searchText.replace(/</g, '&lt;').replace(/>/g, '&gt;'))
-    if (searchText !== '') $loadingStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
+
+    if (searchText !== '') $loadingStatus.hidden = false
+
     const keywords = searchText.split(/[-\s]+/)
-    const container = document.getElementById('local-search-results')
     let resultItems = []
+
     if (searchText.length > 0) {
-    // Perform local searching
       resultItems = localSearch.getResultItems(keywords)
     }
+
     if (keywords.length === 1 && keywords[0] === '') {
-      container.textContent = ''
-      statsItem.textContent = ''
+      clearSearchResults()
     } else if (resultItems.length === 0) {
-      container.textContent = ''
-      const statsDiv = document.createElement('div')
-      statsDiv.className = 'search-result-stats'
-      statsDiv.textContent = languages.hits_empty.replace(/\$\{query}/, searchText)
-      statsItem.innerHTML = statsDiv.outerHTML
+      showNoResults(searchText)
     } else {
+      // Sort results by relevance
       resultItems.sort((left, right) => {
         if (left.includedCount !== right.includedCount) {
           return right.includedCount - left.includedCount
@@ -1524,14 +1789,14 @@ window.addEventListener('load', () => {
         return right.id - left.id
       })
 
-      const stats = languages.hits_stats.replace(/\$\{hits}/, resultItems.length)
-
-      container.innerHTML = `<ol class="search-result-list">${resultItems.map(result => result.item).join('')}</ol>`
-      statsItem.innerHTML = `<hr><div class="search-result-stats">${stats}</div>`
-      window.pjax && window.pjax.refresh(container)
+      if (enablePagination) {
+        currentResultItems = resultItems
+        currentPage = 0
+      }
+      renderResults(searchText, resultItems)
     }
 
-    $loadingStatus.textContent = ''
+    $loadingStatus.hidden = true
   }
 
   let loadFlag = false
@@ -1585,11 +1850,29 @@ window.addEventListener('load', () => {
       localSearch.fetchData()
     }
     localSearch.highlightSearchWords(document.getElementById('article-container'))
+
+    // Pagination event delegation - only add if pagination is enabled
+    if (enablePagination) {
+      elements.pagination.addEventListener('click', e => {
+        e.preventDefault()
+        const link = e.target.closest('a[data-page]')
+        if (link) {
+          const page = parseInt(link.dataset.page, 10)
+          if (!isNaN(page) && currentResultItems.length > 0) {
+            currentPage = page
+            renderResults(input.value.trim().toLowerCase(), currentResultItems)
+          }
+        }
+      })
+    }
+
+    // Initial state
+    toggleResultsVisibility(false)
   }
 
   window.addEventListener('search:loaded', () => {
     const $loadDataItem = document.getElementById('loading-database')
-    $loadDataItem.nextElementSibling.style.display = 'block'
+    $loadDataItem.nextElementSibling.style.visibility = 'visible'
     $loadDataItem.remove()
   })
 
