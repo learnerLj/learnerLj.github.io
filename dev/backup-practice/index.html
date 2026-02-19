@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>传输和备份实践 | Michael L</title><meta name="author" content="Michael L"><meta name="copyright" content="Michael L"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="description" content="详细介绍了rsync、SCP等文件传输工具的使用方法和实际应用场景，包括本地同步、远程传输、加密备份等最佳实践，帮助开发者选择合适的数据传输和备份解决方案。">
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>传输和备份实践 | Logic's Tech Blog</title><meta name="author" content="Michael L"><meta name="copyright" content="Michael L"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="description" content="详细介绍了rsync、SCP等文件传输工具的使用方法和实际应用场景，包括本地同步、远程传输、加密备份等最佳实践，帮助开发者选择合适的数据传输和备份解决方案。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="传输和备份实践">
 <meta property="og:url" content="https://www.blog-blockchain.xyz/dev/backup-practice/index.html">
-<meta property="og:site_name" content="Michael L">
+<meta property="og:site_name" content="Logic's Tech Blog">
 <meta property="og:description" content="详细介绍了rsync、SCP等文件传输工具的使用方法和实际应用场景，包括本地同步、远程传输、加密备份等最佳实践，帮助开发者选择合适的数据传输和备份解决方案。">
 <meta property="og:locale">
 <meta property="og:image" content="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png">
 <meta property="article:published_time" content="2024-11-18T09:26:20.000Z">
-<meta property="article:modified_time" content="2025-06-18T20:06:28.061Z">
+<meta property="article:modified_time" content="2026-02-19T16:18:01.164Z">
 <meta property="article:author" content="Michael L">
 <meta property="article:tag" content="developer">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://www.blog-blockchain.xyz/dev/backup-practice/",
   "image": "https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png",
   "datePublished": "2024-11-18T09:26:20.000Z",
-  "dateModified": "2025-06-18T20:06:28.061Z",
+  "dateModified": "2026-02-19T16:18:01.164Z",
   "author": [
     {
       "@type": "Person",
@@ -160,7 +160,7 @@ btf.addGlobalFn('pjaxComplete', () => {
   lightbox: 'fancybox',
   Snackbar: undefined,
   infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
     buttonText: 'Load More'
   },
   isPhotoFigcaption: false,
@@ -176,8 +176,8 @@ btf.addGlobalFn('pjaxComplete', () => {
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Michael L" type="application/atom+xml">
-<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css');loadCss('https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css"></noscript></head><body><script>window.paceOptions = {
+}</script><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Logic's Tech Blog" type="application/atom+xml">
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css');loadCss('https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css"></noscript></head><body><script>window.paceOptions = {
   restartOnPushState: false
 }
 
@@ -185,7 +185,7 @@ btf.addGlobalFn('pjaxSend', () => {
   Pace.restart()
 }, 'pace_restart')
 
-</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Michael L</span></a><a class="nav-page-title" href="/"><span class="site-name">传输和备份实践</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">传输和备份实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-11-18T09:26:20.000Z" title="Created 2024-11-18 17:26:20">2024-11-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-18T20:06:28.061Z" title="Updated 2025-06-19 04:06:28">2025-06-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/developer/">developer</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">719</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>2mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="rsync">rsync</h2>
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">102</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Logic's Tech Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">传输和备份实践</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">传输和备份实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-11-18T09:26:20.000Z" title="Created 2024-11-18 17:26:20">2024-11-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-19T16:18:01.164Z" title="Updated 2026-02-20 00:18:01">2026-02-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/developer/">developer</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">719</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>2mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="rsync">rsync</h2>
 <p>rsync 是一个强大的文件同步和传输工具，适用于类 Unix 系统。Windows 用户可以通过 WSL（Windows Subsystem for Linux）来使用 rsync。以下是详细的安装和使用方法：</p>
 <p>Ubuntu/Debian：</p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install rsync</span><br></pre></td></tr></tbody></table></figure>
@@ -230,28 +230,292 @@ btf.addGlobalFn('pjaxSend', () => {
 <p>以上的备份就足够大部分场景了，本地和远程都是可以的。但是有时候我们需要加密备份，比如说备份在硬盘中的文件，不希望被拾到的人看到内容，就需要加密备份。</p>
 <p>最方便的还是 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://cryptomator.org/">cryptomator</a> ，能定义一个保险库，然后直接把保险库整个的备份就好。</p>
 <p>随后随便怎么传输。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael L</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/dev/backup-practice/">https://www.blog-blockchain.xyz/dev/backup-practice/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/dev/macbook/" title="macbook体验"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">macbook体验</div></div><div class="info-2"><div class="info-item-1">分享MacBook Pro使用体验和配置指南，包括硬件选择建议、系统快捷键、开发环境搭建、编程语言安装、实用软件推荐等，帮助开发者快速搭建高效的macOS工作环境。</div></div></div></a><a class="pagination-related" href="/dev/crypto-practice/" title="安全加密实践-GPG"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/ecd2b676f9bf98a607c67fc697f9ed4e.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">安全加密实践-GPG</div></div><div class="info-2"><div class="info-item-1">全面介绍GPG加密工具的安装配置、密钥管理、文件加密解密、数字签名等核心功能，涵盖跨平台使用指南和对称加密实践，为开发者提供完整的数据安全保护方案。</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/dev/docker/" title="docker自动化"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">docker自动化</div></div><div class="info-2"><div class="info-item-1">深入讲解Docker容器化技术的核心概念、Dockerfile编写、多阶段构建、Docker Compose使用，以及性能优化最佳实践，帮助开发者掌握现代化应用部署和环境管理技能。</div></div></div></a><a class="pagination-related" href="/dev/kafka/" title="Kafka分布式消息系统技术指南"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/06/a96b1a9d3fed485c6214b10572c4d736.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-19</div><div class="info-item-2">Kafka分布式消息系统技术指南</div></div><div class="info-2"><div class="info-item-1">Apache Kafka是现代分布式架构中的核心消息中间件，以其高吞吐量、低延迟和强一致性著称。本指南从分布式系统基础出发，深入剖析Kafka的技术架构、性能优化原理和生产实践，帮助开发者全面掌握这一关键技术。</div></div></div></a><a class="pagination-related" href="/dev/fast-draw/" title="Mermaid 快速绘制流程图"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/01/2eff9a38e755999f214c5a96c036591d.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-11</div><div class="info-item-2">Mermaid 快速绘制流程图</div></div><div class="info-2"><div class="info-item-1">介绍如何使用Mermaid快速绘制专业流程图，包括各种节点类型、箭头连接、子图组织和样式定制，以及在Markdown中的渲染方法，提升文档可视化效果。</div></div></div></a><a class="pagination-related" href="/dev/value-of-software-engineering/" title="程序员的价值在哪里"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/05/819ee56cc884eb5c8194f7f9a2d94d8c.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-10</div><div class="info-item-2">程序员的价值在哪里</div></div><div class="info-2"><div class="info-item-1">程序员的核心价值是利用技术为企业创造业务价值，而非纯粹的技术能力。其价值公式 V=Σ（技术杠杆率×业务价值密度）揭示了价值来源：技术杠杆放大个人产出，业务价值密度决定场景潜力。不同场景和行业对程序员价值估值各异，通用价值体现在解决复杂问题、优化性能、提升效率、推动创新和降低成本等方面。程序员需拥抱多元技术栈，精进核心技能，提升业务理解和复合能力。技术价值受稀缺性、适配度和泡沫溢价率影响，需警惕技术超前、路径依赖和伪需求陷阱。逃离泡沫需识别资本退潮、人才降温、监管收紧等信号，并提前转型、提升能力、谨慎投资、拓展人脉和终身学习。</div></div></div></a><a class="pagination-related" href="/dev/git/" title="GitHub 协作开发指南"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-30</div><div class="info-item-2">GitHub 协作开发指南</div></div><div class="info-2"><div class="info-item-1">全面的Git和GitHub协作开发教程，涵盖开源项目贡献流程、分支管理策略、提交规范、子模块使用、PR创建与合并等，为开发者提供完整的版本控制和团队协作指南。</div></div></div></a><a class="pagination-related" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-29</div><div class="info-item-2">(三）Python面向对象设计模式</div></div><div class="info-2"><div class="info-item-1">深入探讨Python面向对象编程核心概念，包括类与对象关系、元类编程、动态语言特性，以及工厂模式、策略模式、观察者模式等经典设计模式的Python实现和应用场景。</div></div></div></a></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Michael L</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rsync"><span class="toc-text">rsync</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SCP"><span class="toc-text">SCP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%A4%87%E4%BB%BD"><span class="toc-text">加密备份</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/defi/permit-ecdsa-cryptography/" title="ERC-20 Permit 与 ECDSA 密码学原理"><img src="https://cdn.blog-blockchain.xyz/2026/01/7926570b23eeb56169050989a441e0a6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ERC-20 Permit 与 ECDSA 密码学原理"></a><div class="content"><a class="title" href="/defi/permit-ecdsa-cryptography/" title="ERC-20 Permit 与 ECDSA 密码学原理">ERC-20 Permit 与 ECDSA 密码学原理</a><time datetime="2026-01-09T02:00:00.000Z" title="Created 2026-01-09 10:00:00">2026-01-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/career/structural-thoughts-after-one-and-half-years-at-work/" title="职业增长的数学模型：从log(x)到eˣ的跃迁代价">职业增长的数学模型：从log(x)到eˣ的跃迁代价</a><time datetime="2025-12-13T16:00:00.000Z" title="Created 2025-12-14 00:00:00">2025-12-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/career/find-gold-then-build-factory/" title="困境：从「想明白」到「做出来」的鸿沟">困境：从「想明白」到「做出来」的鸿沟</a><time datetime="2025-10-27T17:11:20.000Z" title="Created 2025-10-28 01:11:20">2025-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/finance/fundiing-rate/" title="资金费率套利完整指南">资金费率套利完整指南</a><time datetime="2025-10-05T10:26:20.000Z" title="Created 2025-10-05 18:26:20">2025-10-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/options-arbitrage-strategy-modeling/" title="期权组合套利策略的数学分析和建模"><img src="https://cdn.blog-blockchain.xyz/2025/08/16db5eba53f859fa8c4b45badfb216b8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="期权组合套利策略的数学分析和建模"></a><div class="content"><a class="title" href="/finance/options-arbitrage-strategy-modeling/" title="期权组合套利策略的数学分析和建模">期权组合套利策略的数学分析和建模</a><time datetime="2025-08-31T07:45:00.000Z" title="Created 2025-08-31 15:45:00">2025-08-31</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2020 - 2026 By Michael L</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js?v=1768679027608"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search for Posts" type="text"></div><hr><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div></div></div><script src="/bundle.js"></script><script>(async () => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael L</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/dev/backup-practice/">https://www.blog-blockchain.xyz/dev/backup-practice/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/dev/macbook/" title="macbook体验"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">macbook体验</div></div><div class="info-2"><div class="info-item-1">分享MacBook Pro使用体验和配置指南，包括硬件选择建议、系统快捷键、开发环境搭建、编程语言安装、实用软件推荐等，帮助开发者快速搭建高效的macOS工作环境。</div></div></div></a><a class="pagination-related" href="/dev/crypto-practice/" title="安全加密实践-GPG"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/ecd2b676f9bf98a607c67fc697f9ed4e.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">安全加密实践-GPG</div></div><div class="info-2"><div class="info-item-1">全面介绍GPG加密工具的安装配置、密钥管理、文件加密解密、数字签名等核心功能，涵盖跨平台使用指南和对称加密实践，为开发者提供完整的数据安全保护方案。</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/dev/web-security/" title="如何保障个人网站的安全"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/12/f936073f7e7c6bdb2aa3ea0905916957.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-07</div><div class="info-item-2">如何保障个人网站的安全</div></div><div class="info-2"><div class="info-item-1">详细介绍个人网站安全防护策略，包括防火墙配置、fail2ban自动拉黑、Nginx反向代理、端口敲门技术、虚拟组网等安全措施，全面提升服务器安全防护能力。</div></div></div></a><a class="pagination-related" href="/dev/hexo-cache-busting-solution/" title="Hexo博客缓存问题的终极解决方案"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/07/717868abde8ec43fd9ded6bb36280318.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-23</div><div class="info-item-2">Hexo博客缓存问题的终极解决方案</div></div><div class="info-2"><div class="info-item-1">深入分析Hexo博客部署后浏览器缓存导致内容不更新的根本原因，提供基于Hexo钩子系统的智能化缓存清理解决方案，实现自动版本控制和缓存管理，让用户无需手动清理即可看到最新内容。</div></div></div></a><a class="pagination-related" href="/dev/macbook/" title="macbook体验"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-17</div><div class="info-item-2">macbook体验</div></div><div class="info-2"><div class="info-item-1">分享MacBook Pro使用体验和配置指南，包括硬件选择建议、系统快捷键、开发环境搭建、编程语言安装、实用软件推荐等，帮助开发者快速搭建高效的macOS工作环境。</div></div></div></a><a class="pagination-related" href="/dev/docker/" title="docker自动化"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/b4ffc055e44ace7f692c8c5a8ab2f703.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">docker自动化</div></div><div class="info-2"><div class="info-item-1">深入讲解Docker容器化技术的核心概念、Dockerfile编写、多阶段构建、Docker Compose使用，以及性能优化最佳实践，帮助开发者掌握现代化应用部署和环境管理技能。</div></div></div></a><a class="pagination-related" href="/dev/python-design/" title="(三）Python面向对象设计模式"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-29</div><div class="info-item-2">(三）Python面向对象设计模式</div></div><div class="info-2"><div class="info-item-1">深入探讨Python面向对象编程核心概念，包括类与对象关系、元类编程、动态语言特性，以及工厂模式、策略模式、观察者模式等经典设计模式的Python实现和应用场景。</div></div></div></a><a class="pagination-related" href="/dev/git/" title="GitHub 协作开发指南"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-30</div><div class="info-item-2">GitHub 协作开发指南</div></div><div class="info-2"><div class="info-item-1">全面的Git和GitHub协作开发教程，涵盖开源项目贡献流程、分支管理策略、提交规范、子模块使用、PR创建与合并等，为开发者提供完整的版本控制和团队协作指南。</div></div></div></a></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Michael L</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">102</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rsync"><span class="toc-text">rsync</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SCP"><span class="toc-text">SCP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%A4%87%E4%BB%BD"><span class="toc-text">加密备份</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/immortalwrt-ax6000-upgrade/" title="Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录"><img src="https://cdn.blog-blockchain.xyz/2026/02/30b64e37b39e0b482a817643d8100e5d.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录"></a><div class="content"><a class="title" href="/dev/immortalwrt-ax6000-upgrade/" title="Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录">Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录</a><time datetime="2026-02-19T13:43:00.000Z" title="Created 2026-02-19 21:43:00">2026-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/defi/permit-ecdsa-cryptography/" title="ERC-20 Permit 与 ECDSA 密码学原理"><img src="https://cdn.blog-blockchain.xyz/2026/01/7926570b23eeb56169050989a441e0a6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ERC-20 Permit 与 ECDSA 密码学原理"></a><div class="content"><a class="title" href="/defi/permit-ecdsa-cryptography/" title="ERC-20 Permit 与 ECDSA 密码学原理">ERC-20 Permit 与 ECDSA 密码学原理</a><time datetime="2026-01-09T02:00:00.000Z" title="Created 2026-01-09 10:00:00">2026-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/structural-thoughts-after-one-and-half-years-at-work/" title="职业增长的数学模型：从log(x)到eˣ的跃迁代价"><img src="https://cdn.blog-blockchain.xyz/2026/02/57338184b4fb276c89fe5e77277a4f37.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="职业增长的数学模型：从log(x)到eˣ的跃迁代价"></a><div class="content"><a class="title" href="/career/structural-thoughts-after-one-and-half-years-at-work/" title="职业增长的数学模型：从log(x)到eˣ的跃迁代价">职业增长的数学模型：从log(x)到eˣ的跃迁代价</a><time datetime="2025-12-13T16:00:00.000Z" title="Created 2025-12-14 00:00:00">2025-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/find-gold-then-build-factory/" title="困境：从「想明白」到「做出来」的鸿沟"><img src="https://cdn.blog-blockchain.xyz/2026/02/131dd24e0445c2bc1422ed04d661be85.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="困境：从「想明白」到「做出来」的鸿沟"></a><div class="content"><a class="title" href="/career/find-gold-then-build-factory/" title="困境：从「想明白」到「做出来」的鸿沟">困境：从「想明白」到「做出来」的鸿沟</a><time datetime="2025-10-27T17:11:20.000Z" title="Created 2025-10-28 01:11:20">2025-10-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/fundiing-rate/" title="资金费率套利完整指南"><img src="https://cdn.blog-blockchain.xyz/2026/02/2882ad3aa493489c4cb0d9c60a862bb8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="资金费率套利完整指南"></a><div class="content"><a class="title" href="/finance/fundiing-rate/" title="资金费率套利完整指南">资金费率套利完整指南</a><time datetime="2025-10-05T10:26:20.000Z" title="Created 2025-10-05 18:26:20">2025-10-05</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2020 - 2026 By Michael L</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js?v=1771518382865"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search for Posts" type="text"></div><hr><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div></div></div><script src="/bundle.js"></script><script>(async () => {
   const showKatex = () => {
     document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
   }
 
   if (!window.katex_js_css) {
     window.katex_js_css = true
-    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css')
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css')
     if (false) {
-      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/copy-tex.min.js')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/contrib/copy-tex.min.js')
     }
   }
 
   showKatex()
 })();
 (() => {
+  const parseViewBox = viewBox => {
+    if (!viewBox) return null
+    const parts = viewBox.trim().split(/[\s,]+/).map(n => Number(n))
+    if (parts.length !== 4 || parts.some(n => Number.isNaN(n))) return null
+    return parts
+  }
+
+  const getSvgViewBox = svg => {
+    const attr = parseViewBox(svg.getAttribute('viewBox'))
+    if (attr) return attr
+
+    // Fallback: use bbox to build a viewBox
+    try {
+      const bbox = svg.getBBox()
+      if (bbox && bbox.width && bbox.height) return [bbox.x, bbox.y, bbox.width, bbox.height]
+    } catch (e) {
+      // getBBox may fail on some edge cases; ignore
+    }
+
+    const w = Number(svg.getAttribute('width')) || 0
+    const h = Number(svg.getAttribute('height')) || 0
+    if (w > 0 && h > 0) return [0, 0, w, h]
+    return [0, 0, 100, 100]
+  }
+
+  const setSvgViewBox = (svg, vb) => {
+    svg.setAttribute('viewBox', `${vb[0]} ${vb[1]} ${vb[2]} ${vb[3]}`)
+  }
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
+
+  const openSvgInNewTab = ({ source, initViewBox }) => {
+    const getClonedSvg = () => {
+      if (typeof source === 'string') {
+        const template = document.createElement('template')
+        template.innerHTML = source.trim()
+        const svg = template.content.querySelector('svg')
+        return svg ? svg.cloneNode(true) : null
+      }
+      if (source && typeof source.cloneNode === 'function') {
+        return source.cloneNode(true)
+      }
+      return null
+    }
+
+    const clone = getClonedSvg()
+    if (!clone) return
+    if (initViewBox && initViewBox.length === 4) {
+      clone.setAttribute('viewBox', initViewBox.join(' '))
+    }
+    if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+    if (!clone.getAttribute('xmlns:xlink') && clone.outerHTML.includes('xlink:')) {
+      clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+    }
+    // inject background to match current theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+    const bg = getComputedStyle(document.body).backgroundColor || (isDark ? '#1e1e1e' : '#ffffff')
+    if (!clone.style.background) clone.style.background = bg
+
+    const serializer = new XMLSerializer()
+    const svgSource = serializer.serializeToString(clone)
+    const htmlSource = `<!doctype html><html><head><meta charset="utf-8" />
+      <style>
+        html, body { width: 100%; height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; background: ${bg}; }
+        svg { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+      </style>
+      </head><body>${svgSource}</body></html>`
+    const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_blank', 'noopener')
+    setTimeout(() => URL.revokeObjectURL(url), 30000)
+  }
+
+  const attachMermaidViewerButton = wrap => {
+    let btn = wrap.querySelector('.mermaid-open-btn')
+    if (!btn) {
+      btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'mermaid-open-btn'
+      wrap.appendChild(btn)
+    }
+
+    btn.innerHTML = '<i class="fa fa-search fa-fw" aria-hidden="true"></i>'
+
+    if (!btn.__mermaidViewerBound) {
+      btn.addEventListener('click', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const svg = wrap.__mermaidOriginalSvg || wrap.querySelector('svg')
+        if (!svg) return
+        const initViewBox = wrap.__mermaidInitViewBox
+        if (typeof svg === 'string') {
+          openSvgInNewTab({ source: svg, initViewBox })
+          return
+        }
+        openSvgInNewTab({ source: svg, initViewBox })
+      })
+      btn.__mermaidViewerBound = true
+    }
+  }
+
+  // Zoom around a point (px, py) in the SVG viewport (in viewBox coordinates)
+  const zoomAtPoint = (vb, factor, px, py) => {
+    const w = vb[2] * factor
+    const h = vb[3] * factor
+    const nx = px - (px - vb[0]) * factor
+    const ny = py - (py - vb[1]) * factor
+    return [nx, ny, w, h]
+  }
+
+  const initMermaidGestures = wrap => {
+    const svg = wrap.querySelector('svg')
+    if (!svg) return
+
+    // Ensure viewBox exists so gestures always work
+    const initVb = getSvgViewBox(svg)
+    wrap.__mermaidInitViewBox = initVb
+    wrap.__mermaidCurViewBox = initVb.slice()
+    setSvgViewBox(svg, initVb)
+
+    // Avoid binding multiple times on themeChange/pjax
+    if (wrap.__mermaidGestureBound) return
+    wrap.__mermaidGestureBound = true
+
+    // Helper: map client (viewport) coordinate -> viewBox coordinate
+    const clientToViewBox = (clientX, clientY) => {
+      const rect = svg.getBoundingClientRect()
+      const vb = wrap.__mermaidCurViewBox || getSvgViewBox(svg)
+      const x = vb[0] + (clientX - rect.left) * (vb[2] / rect.width)
+      const y = vb[1] + (clientY - rect.top) * (vb[3] / rect.height)
+      return { x, y, rect, vb }
+    }
+
+    const state = {
+      pointers: new Map(),
+      startVb: null,
+      startDist: 0,
+      startCenter: null
+    }
+
+    const clampVb = vb => {
+      const init = wrap.__mermaidInitViewBox || vb
+      const minW = init[2] * 0.1
+      const maxW = init[2] * 10
+      const minH = init[3] * 0.1
+      const maxH = init[3] * 10
+      vb[2] = clamp(vb[2], minW, maxW)
+      vb[3] = clamp(vb[3], minH, maxH)
+      return vb
+    }
+
+    const setCurVb = vb => {
+      vb = clampVb(vb)
+      wrap.__mermaidCurViewBox = vb
+      setSvgViewBox(svg, vb)
+    }
+
+    const onPointerDown = e => {
+      // Allow only primary button for mouse
+      if (e.pointerType === 'mouse' && e.button !== 0) return
+      svg.setPointerCapture(e.pointerId)
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+      if (state.pointers.size === 1) {
+        state.startVb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+      } else if (state.pointers.size === 2) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        state.startDist = Math.hypot(dx, dy)
+        state.startVb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+        state.startCenter = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 }
+      }
+    }
+
+    const onPointerMove = e => {
+      if (!state.pointers.has(e.pointerId)) return
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+      // Pan with 1 pointer
+      if (state.pointers.size === 1 && state.startVb) {
+        const p = [...state.pointers.values()][0]
+        const prev = { x: e.clientX - e.movementX, y: e.clientY - e.movementY }
+        // movementX/Y unreliable on touch, compute from stored last position
+        const last = wrap.__mermaidLastSinglePointer || p
+        const dxClient = p.x - last.x
+        const dyClient = p.y - last.y
+        wrap.__mermaidLastSinglePointer = p
+
+        const { rect } = clientToViewBox(p.x, p.y)
+        const vb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+        const dx = dxClient * (vb[2] / rect.width)
+        const dy = dyClient * (vb[3] / rect.height)
+        setCurVb([vb[0] - dx, vb[1] - dy, vb[2], vb[3]])
+        return
+      }
+
+      // Pinch zoom with 2 pointers
+      if (state.pointers.size === 2 && state.startVb && state.startDist > 0) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        const dist = Math.hypot(dx, dy)
+        if (!dist) return
+        const factor = state.startDist / dist // dist bigger => zoom in (viewBox smaller)
+
+        const cx = (pts[0].x + pts[1].x) / 2
+        const cy = (pts[0].y + pts[1].y) / 2
+        const centerClient = { x: cx, y: cy }
+
+        const pxy = clientToViewBox(centerClient.x, centerClient.y)
+        const cpx = pxy.x
+        const cpy = pxy.y
+
+        const vb = zoomAtPoint(state.startVb, factor, cpx, cpy)
+        setCurVb(vb)
+      }
+    }
+
+    const onPointerUpOrCancel = e => {
+      state.pointers.delete(e.pointerId)
+      if (state.pointers.size === 0) {
+        state.startVb = null
+        state.startDist = 0
+        state.startCenter = null
+        wrap.__mermaidLastSinglePointer = null
+      } else if (state.pointers.size === 1) {
+        // reset single pointer baseline to avoid jump
+        wrap.__mermaidLastSinglePointer = [...state.pointers.values()][0]
+      }
+    }
+
+    // Wheel zoom (mouse/trackpad)
+    const onWheel = e => {
+      // ctrlKey on mac trackpad pinch; we treat both as zoom
+      e.preventDefault()
+      const delta = e.deltaY
+      const zoomFactor = delta > 0 ? 1.1 : 0.9
+      const { x, y } = clientToViewBox(e.clientX, e.clientY)
+      const vb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+      setCurVb(zoomAtPoint(vb, zoomFactor, x, y))
+    }
+
+    const onDblClick = () => {
+      const init = wrap.__mermaidInitViewBox
+      if (!init) return
+      wrap.__mermaidCurViewBox = init.slice()
+      setSvgViewBox(svg, init)
+    }
+
+    svg.addEventListener('pointerdown', onPointerDown)
+    svg.addEventListener('pointermove', onPointerMove)
+    svg.addEventListener('pointerup', onPointerUpOrCancel)
+    svg.addEventListener('pointercancel', onPointerUpOrCancel)
+    svg.addEventListener('wheel', onWheel, { passive: false })
+    svg.addEventListener('dblclick', onDblClick)
+  }
+
   const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
     ele.forEach((item, index) => {
       const mermaidSrc = item.firstElementChild
+
+      // Clear old render (themeChange/pjax will rerun)
+      const oldSvg = item.querySelector('svg')
+      if (oldSvg) oldSvg.remove()
+      item.__mermaidGestureBound = false
+
       const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
       if (!config.theme) {
         config.theme = theme
@@ -263,7 +527,11 @@ btf.addGlobalFn('pjaxSend', () => {
       const renderFn = mermaid.render(mermaidID, mermaidDefinition)
       const renderMermaid = svg => {
         mermaidSrc.insertAdjacentHTML('afterend', svg)
+        if (true) initMermaidGestures(item)
+        item.__mermaidOriginalSvg = svg
+        if (true) attachMermaidViewerButton(item)
       }
+
 
       // mermaid v9 and v10 compatibility
       typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))

@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Kafka分布式消息系统技术指南 | Michael L</title><meta name="author" content="Michael L"><meta name="copyright" content="Michael L"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="description" content="Apache Kafka是现代分布式架构中的核心消息中间件，以其高吞吐量、低延迟和强一致性著称。本指南从分布式系统基础出发，深入剖析Kafka的技术架构、性能优化原理和生产实践，帮助开发者全面掌握这一关键技术。">
+<!DOCTYPE html><html lang="default" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Kafka分布式消息系统技术指南 | Logic's Tech Blog</title><meta name="author" content="Michael L"><meta name="copyright" content="Michael L"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="description" content="Apache Kafka是现代分布式架构中的核心消息中间件，以其高吞吐量、低延迟和强一致性著称。本指南从分布式系统基础出发，深入剖析Kafka的技术架构、性能优化原理和生产实践，帮助开发者全面掌握这一关键技术。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka分布式消息系统技术指南">
 <meta property="og:url" content="https://www.blog-blockchain.xyz/dev/kafka/index.html">
-<meta property="og:site_name" content="Michael L">
+<meta property="og:site_name" content="Logic's Tech Blog">
 <meta property="og:description" content="Apache Kafka是现代分布式架构中的核心消息中间件，以其高吞吐量、低延迟和强一致性著称。本指南从分布式系统基础出发，深入剖析Kafka的技术架构、性能优化原理和生产实践，帮助开发者全面掌握这一关键技术。">
 <meta property="og:locale">
 <meta property="og:image" content="https://cdn.blog-blockchain.xyz/2025/06/a96b1a9d3fed485c6214b10572c4d736.png">
 <meta property="article:published_time" content="2025-06-18T19:21:20.000Z">
-<meta property="article:modified_time" content="2025-06-19T01:57:11.656Z">
+<meta property="article:modified_time" content="2026-02-19T16:18:34.259Z">
 <meta property="article:author" content="Michael L">
 <meta property="article:tag" content="developer">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://www.blog-blockchain.xyz/dev/kafka/",
   "image": "https://cdn.blog-blockchain.xyz/2025/06/a96b1a9d3fed485c6214b10572c4d736.png",
   "datePublished": "2025-06-18T19:21:20.000Z",
-  "dateModified": "2025-06-19T01:57:11.656Z",
+  "dateModified": "2026-02-19T16:18:34.259Z",
   "author": [
     {
       "@type": "Person",
@@ -160,7 +160,7 @@ btf.addGlobalFn('pjaxComplete', () => {
   lightbox: 'fancybox',
   Snackbar: undefined,
   infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
     buttonText: 'Load More'
   },
   isPhotoFigcaption: false,
@@ -176,8 +176,8 @@ btf.addGlobalFn('pjaxComplete', () => {
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Michael L" type="application/atom+xml">
-<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css');loadCss('https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css"></noscript></head><body><script>window.paceOptions = {
+}</script><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Logic's Tech Blog" type="application/atom+xml">
+<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css');loadCss('https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css"></noscript></head><body><script>window.paceOptions = {
   restartOnPushState: false
 }
 
@@ -185,7 +185,7 @@ btf.addGlobalFn('pjaxSend', () => {
   Pace.restart()
 }, 'pace_restart')
 
-</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Michael L</span></a><a class="nav-page-title" href="/"><span class="site-name">Kafka分布式消息系统技术指南</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Kafka分布式消息系统技术指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-18T19:21:20.000Z" title="Created 2025-06-19 03:21:20">2025-06-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-19T01:57:11.656Z" title="Updated 2025-06-19 09:57:11">2025-06-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/developer/">developer</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">17.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>65mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="摘要">摘要</h2>
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">102</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Logic's Tech Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Kafka分布式消息系统技术指南</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Kafka分布式消息系统技术指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-18T19:21:20.000Z" title="Created 2025-06-19 03:21:20">2025-06-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-19T16:18:34.259Z" title="Updated 2026-02-20 00:18:34">2026-02-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/developer/">developer</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">19.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>72mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="摘要">摘要</h2>
 <p>Apache Kafka是现代分布式架构中的核心消息中间件，以其高吞吐量、低延迟和强一致性著称。本指南从分布式系统基础出发，深入剖析Kafka的技术架构、性能优化原理和生产实践，帮助开发者全面掌握这一关键技术。</p>
 <h2 id="内容概览">内容概览</h2>
 <p><strong>核心架构篇</strong>：分布式存储设计、Topic/Partition模型、副本同步机制、Controller选举原理</p>
@@ -220,7 +220,7 @@ btf.addGlobalFn('pjaxSend', () => {
 <li>记录注册统计</li>
 </ol>
 <p><strong>传统同步调用方式</strong>：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant Client as 客户端
     participant User as 用户服务
     participant Email as 邮件服务
@@ -237,7 +237,7 @@ btf.addGlobalFn('pjaxSend', () => {
     Stat--&gt;&gt;User: 统计记录结果
     User-&gt;&gt;Client: 注册完成响应
 
-    Note over Client,Stat: 串行执行，总耗时 = 各服务耗时之和</pre>
+    Note over Client,Stat: 串行执行，总耗时 = 各服务耗时之和</code></pre>
 <p><strong>为什么是串行的</strong>：</p>
 <ul>
 <li>用户服务必须等待邮件服务返回才能继续</li>
@@ -254,7 +254,7 @@ btf.addGlobalFn('pjaxSend', () => {
 </ul>
 <h3 id="1-2-异步消息系统的解决方案">1.2 异步消息系统的解决方案</h3>
 <p><strong>使用消息队列的异步处理方式</strong>：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant Client as 客户端
     participant User as 用户服务
     participant MQ as 消息队列
@@ -279,7 +279,7 @@ btf.addGlobalFn('pjaxSend', () => {
         MQ-&gt;&gt;Stat: 消费消息并记录统计
     end
 
-    Note over Client,Stat: 并行执行，用户无需等待后续处理</pre>
+    Note over Client,Stat: 并行执行，用户无需等待后续处理</code></pre>
 <p><strong>为什么是异步的</strong>：</p>
 <ul>
 <li>用户服务创建用户后立即发送消息到队列</li>
@@ -319,7 +319,7 @@ btf.addGlobalFn('pjaxSend', () => {
 <li><strong>扩展性差</strong>：业务增长时无法灵活扩容</li>
 </ul>
 <p><strong>分布式架构的必要性</strong>：</p>
-<pre class="mermaid">graph TB
+<pre><code class="highlight mermaid">graph TB
     subgraph "单机限制"
         S1[CPU: 有限处理能力]
         S2[内存: 有限缓存容量]
@@ -337,27 +337,27 @@ btf.addGlobalFn('pjaxSend', () => {
     S1 --&gt; D1
     S2 --&gt; D2
     S3 --&gt; D3
-    S4 --&gt; D4</pre>
+    S4 --&gt; D4</code></pre>
 <h3 id="2-2-Kafka集群拓扑结构设计原理">2.2 Kafka集群拓扑结构设计原理</h3>
 <p>在介绍Kafka集群架构之前，需要了解一个重要组件：<strong>ZooKeeper</strong>。ZooKeeper是一个分布式协调服务，在Kafka集群中承担着关键角色：负责元数据管理、Leader选举、配置管理和集群协调。可以把ZooKeeper理解为Kafka集群的"大脑"，它知道集群中每个组件的状态和位置。</p>
-<pre class="mermaid">graph TB
+<pre><code class="highlight mermaid">graph TB
     subgraph "Kafka Cluster"
-        B1[Broker 1<br>负责Partition 0,3]
-        B2[Broker 2<br>负责Partition 1,4]
-        B3[Broker 3<br>负责Partition 2,5]
+        B1[Broker 1&lt;br/&gt;负责Partition 0,3]
+        B2[Broker 2&lt;br/&gt;负责Partition 1,4]
+        B3[Broker 3&lt;br/&gt;负责Partition 2,5]
     end
 
     subgraph "ZooKeeper Ensemble"
-        Z1[ZK Node 1<br>Leader选举]
-        Z2[ZK Node 2<br>元数据同步]
-        Z3[ZK Node 3<br>故障检测]
+        Z1[ZK Node 1&lt;br/&gt;Leader选举]
+        Z2[ZK Node 2&lt;br/&gt;元数据同步]
+        Z3[ZK Node 3&lt;br/&gt;故障检测]
     end
 
-    P[Producer<br>智能路由] --&gt; B1
+    P[Producer&lt;br/&gt;智能路由] --&gt; B1
     P --&gt; B2
     P --&gt; B3
 
-    B1 --&gt; C[Consumer<br>负载均衡]
+    B1 --&gt; C[Consumer&lt;br/&gt;负载均衡]
     B2 --&gt; C
     B3 --&gt; C
 
@@ -367,7 +367,7 @@ btf.addGlobalFn('pjaxSend', () => {
 
     style B1 fill:#e1f5fe
     style B2 fill:#e1f5fe
-    style B3 fill:#e1f5fe</pre>
+    style B3 fill:#e1f5fe</code></pre>
 <p><strong>为什么需要多个Broker</strong>：</p>
 <ol>
 <li>
@@ -400,14 +400,14 @@ btf.addGlobalFn('pjaxSend', () => {
 <ol>
 <li><strong>节点状态同步问题</strong>：</li>
 </ol>
-<pre class="mermaid">graph TD
-    B1["Broker 1认为：<br>Partition A的Leader是Broker 2"]
-    B2["Broker 2认为：<br>Partition A的Leader是Broker 3"]
-    B3["Broker 3认为：<br>Partition A的Leader是Broker 2"]
+<pre><code class="highlight mermaid">graph TD
+    B1["Broker 1认为：&lt;br/&gt;Partition A的Leader是Broker 2"]
+    B2["Broker 2认为：&lt;br/&gt;Partition A的Leader是Broker 3"]
+    B3["Broker 3认为：&lt;br/&gt;Partition A的Leader是Broker 2"]
 
     style B1 fill:#ffcdd2
     style B2 fill:#ffcdd2
-    style B3 fill:#ffcdd2</pre>
+    style B3 fill:#ffcdd2</code></pre>
 <ul>
 <li>如果各个Broker对集群状态有不同理解，系统就无法正常工作</li>
 <li>需要一个权威的协调者来维护统一的状态信息</li>
@@ -486,7 +486,7 @@ Topic是Kafka中消息的逻辑分类单位。可以理解为一个消息的类�
 </ul>
 <p><strong>为什么需要Topic分类</strong>：<br>
 想象一个系统中有各种类型的消息混合在一起：</p>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     subgraph "没有Topic分类的混乱状态"
         M1[用户登录消息]
         M2[订单创建消息]
@@ -498,9 +498,9 @@ Topic是Kafka中消息的逻辑分类单位。可以理解为一个消息的类�
     M1 --&gt; M2 --&gt; M3 --&gt; M4 --&gt; M5
 
     C1[订单处理系统] --&gt; M1
-    note1[需要过滤掉不相关消息]</pre>
+    note1[需要过滤掉不相关消息]</code></pre>
 <p>使用Topic分类后：</p>
-<pre class="mermaid">graph TB
+<pre><code class="highlight mermaid">graph TB
     subgraph "Topic分类管理"
         T1[user-login Topic]
         T2[order-created Topic]
@@ -508,16 +508,16 @@ Topic是Kafka中消息的逻辑分类单位。可以理解为一个消息的类�
     end
 
     T2 --&gt; C1[订单处理系统]
-    note2[直接消费相关消息，无需过滤]</pre>
+    note2[直接消费相关消息，无需过滤]</code></pre>
 <p><strong>什么是Partition</strong>：<br>
 Partition是Topic的物理存储分片。一个Topic可以被分成多个Partition。</p>
 <p><strong>Topic和Partition的层级关系</strong>：</p>
-<pre class="mermaid">graph TD
-    T[Topic: user-events<br>逻辑层面的消息分类]
+<pre><code class="highlight mermaid">graph TD
+    T[Topic: user-events&lt;br/&gt;逻辑层面的消息分类]
 
-    T --&gt; P0[Partition 0<br>物理存储分片1]
-    T --&gt; P1[Partition 1<br>物理存储分片2]
-    T --&gt; P2[Partition 2<br>物理存储分片3]
+    T --&gt; P0[Partition 0&lt;br/&gt;物理存储分片1]
+    T --&gt; P1[Partition 1&lt;br/&gt;物理存储分片2]
+    T --&gt; P2[Partition 2&lt;br/&gt;物理存储分片3]
 
     P0 --&gt; F0[实际文件：/logs/user-events-0/]
     P1 --&gt; F1[实际文件：/logs/user-events-1/]
@@ -526,7 +526,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     style T fill:#e3f2fd
     style P0 fill:#fff3e0
     style P1 fill:#fff3e0
-    style P2 fill:#fff3e0</pre>
+    style P2 fill:#fff3e0</code></pre>
 <p><strong>层级关系说明</strong>：</p>
 <ol>
 <li><strong>Topic是逻辑概念</strong>：开发者在代码中指定消息发送到哪个Topic</li>
@@ -538,7 +538,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 <ol>
 <li><strong>存储容量突破</strong>：</li>
 </ol>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "单Partition限制"
         SP[单个Partition] --&gt; SL[单台机器存储限制]
     end
@@ -552,11 +552,11 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     style SL fill:#ffcdd2
     style B1 fill:#c8e6c9
     style B2 fill:#c8e6c9
-    style B3 fill:#c8e6c9</pre>
+    style B3 fill:#c8e6c9</code></pre>
 <ol start="2">
 <li><strong>并行处理能力</strong>：</li>
 </ol>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     subgraph "串行处理（单Partition）"
         P[Producer] --&gt; SP[Partition 0]
         SP --&gt; C[Consumer]
@@ -572,7 +572,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
         MP2 --&gt; C2[Consumer 2]
         MP3 --&gt; C3[Consumer 3]
         note2[多个消息并行处理]
-    end</pre>
+    end</code></pre>
 <ol start="3">
 <li><strong>负载分散</strong>：
 <ul>
@@ -584,38 +584,38 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 </ol>
 <p><strong>消息如何分配到Partition</strong>：<br>
 当Producer发送消息时，需要决定消息发送到哪个Partition：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     M[消息] --&gt; D{分配策略}
 
-    D --&gt;|有Key| H[根据Key的hash值分配<br>相同Key的消息进入同一Partition]
-    D --&gt;|无Key| R[轮询分配<br>消息均匀分布到各Partition]
+    D --&gt;|有Key| H[根据Key的hash值分配&lt;br/&gt;相同Key的消息进入同一Partition]
+    D --&gt;|无Key| R[轮询分配&lt;br/&gt;消息均匀分布到各Partition]
 
     H --&gt; P1[Partition 0]
     R --&gt; P1
     R --&gt; P2[Partition 1]
-    R --&gt; P3[Partition 2]</pre>
+    R --&gt; P3[Partition 2]</code></pre>
 <p>这样的层级设计让Kafka既有逻辑上的清晰分类，又有物理上的分布式存储能力。</p>
 <p><strong>Partition的副本机制设计</strong>：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     T[Topic: user-events] --&gt; P1[Partition 0]
     T --&gt; P2[Partition 1]
     T --&gt; P3[Partition 2]
 
-    P1 --&gt; R1[Leader Replica<br>Broker 1]
-    P1 --&gt; R2[Follower Replica<br>Broker 2]
-    P1 --&gt; R3[Follower Replica<br>Broker 3]
+    P1 --&gt; R1[Leader Replica&lt;br/&gt;Broker 1]
+    P1 --&gt; R2[Follower Replica&lt;br/&gt;Broker 2]
+    P1 --&gt; R3[Follower Replica&lt;br/&gt;Broker 3]
 
-    P2 --&gt; R4[Leader Replica<br>Broker 2]
-    P2 --&gt; R5[Follower Replica<br>Broker 1]
-    P2 --&gt; R6[Follower Replica<br>Broker 3]
+    P2 --&gt; R4[Leader Replica&lt;br/&gt;Broker 2]
+    P2 --&gt; R5[Follower Replica&lt;br/&gt;Broker 1]
+    P2 --&gt; R6[Follower Replica&lt;br/&gt;Broker 3]
 
-    P3 --&gt; R7[Leader Replica<br>Broker 3]
-    P3 --&gt; R8[Follower Replica<br>Broker 1]
-    P3 --&gt; R9[Follower Replica<br>Broker 2]
+    P3 --&gt; R7[Leader Replica&lt;br/&gt;Broker 3]
+    P3 --&gt; R8[Follower Replica&lt;br/&gt;Broker 1]
+    P3 --&gt; R9[Follower Replica&lt;br/&gt;Broker 2]
 
     style R1 fill:#ff9999
     style R4 fill:#ff9999
-    style R7 fill:#ff9999</pre>
+    style R7 fill:#ff9999</code></pre>
 <p><strong>为什么需要副本机制</strong>：</p>
 <ol>
 <li>
@@ -669,7 +669,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 <li><strong>负载均衡</strong>：Leader副本均匀分布在各Broker</li>
 </ul>
 <h3 id="2-5-消息的物理存储模型">2.5 消息的物理存储模型</h3>
-<pre class="mermaid">graph TB
+<pre><code class="highlight mermaid">graph TB
     subgraph "Partition Directory"
         subgraph "Segment 1"
             S1L[00000000000.log]
@@ -688,7 +688,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
             S3I[00000200000.index]
             S3T[00000200000.timeindex]
         end
-    end</pre>
+    end</code></pre>
 <p><strong>Log Segment</strong>：</p>
 <ul>
 <li>每个Partition被分割为多个Segment文件</li>
@@ -704,7 +704,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 <hr>
 <h2 id="第三章：消息生产与消费机制">第三章：消息生产与消费机制</h2>
 <h3 id="3-1-Producer消息发送流程">3.1 Producer消息发送流程</h3>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant I as Interceptor
     participant S as Serializer
@@ -720,7 +720,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     A-&gt;&gt;ST: 5. 批次发送
     ST-&gt;&gt;B: 6. 网络传输
     B-&gt;&gt;ST: 7. 响应确认
-    ST-&gt;&gt;P: 8. 回调处理</pre>
+    ST-&gt;&gt;P: 8. 回调处理</code></pre>
 <p><strong>关键组件的具体作用</strong>：</p>
 <p><strong>Interceptor（消息拦截器）</strong>：<br>
 在消息发送前进行预处理的组件。</p>
@@ -743,13 +743,13 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 <p><em>具体例子</em>：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">主线程的工作：</span><br><span class="line">1. 处理业务逻辑</span><br><span class="line">2. 调用producer.send() → 消息放入累加器，立即返回</span><br><span class="line">3. 继续处理其他业务</span><br><span class="line"></span><br><span class="line">Sender线程的工作：</span><br><span class="line">1. 从累加器取出消息批次</span><br><span class="line">2. 建立网络连接</span><br><span class="line">3. 发送数据到Broker</span><br><span class="line">4. 处理响应和重试</span><br><span class="line"></span><br><span class="line">好处：主线程不会被网络I/O阻塞</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="3-2-分区器-Partitioner-策略">3.2 分区器(Partitioner)策略</h3>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     M[Message] --&gt; PK{"Has Key?"}
     PK --&gt;|Yes| H["Hash(key) % partitions"]
     PK --&gt;|No| RR["Round Robin"]
     H --&gt; P1[Partition 0]
     RR --&gt; P2[Partition 1]
-    RR --&gt; P3[Partition 2]</pre>
+    RR --&gt; P3[Partition 2]</code></pre>
 <p><strong>分区策略</strong>：</p>
 <ul>
 <li><strong>Hash分区</strong>：基于消息Key的哈希值分区，确保相同Key的消息有序</li>
@@ -762,25 +762,25 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 <p><em>场景1：水平扩展消费能力</em></p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">订单Topic每秒产生1000条消息</span><br><span class="line">单个Consumer每秒只能处理100条消息</span><br><span class="line">问题：Consumer处理不过来，消息积压</span><br></pre></td></tr></tbody></table></figure>
 <p>如果没有Consumer Group机制：</p>
-<pre class="mermaid">graph TD
-    T[订单Topic<br>1000条/秒] --&gt; C1[Consumer A<br>100条/秒]
-    T --&gt; C2[Consumer B<br>100条/秒]
-    T --&gt; C3[Consumer C<br>100条/秒]
+<pre><code class="highlight mermaid">graph TD
+    T[订单Topic&lt;br/&gt;1000条/秒] --&gt; C1[Consumer A&lt;br/&gt;100条/秒]
+    T --&gt; C2[Consumer B&lt;br/&gt;100条/秒]
+    T --&gt; C3[Consumer C&lt;br/&gt;100条/秒]
 
-    note1[问题：每个Consumer都会收到所有1000条消息<br>造成重复处理]
+    note1[问题：每个Consumer都会收到所有1000条消息&lt;br/&gt;造成重复处理]
 
     style C1 fill:#ffcdd2
     style C2 fill:#ffcdd2
-    style C3 fill:#ffcdd2</pre>
+    style C3 fill:#ffcdd2</code></pre>
 <p>使用Consumer Group后：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "订单处理组（Group: order-processors）"
-        C1[Consumer A<br>处理333条/秒]
-        C2[Consumer B<br>处理333条/秒]
-        C3[Consumer C<br>处理334条/秒]
+        C1[Consumer A&lt;br/&gt;处理333条/秒]
+        C2[Consumer B&lt;br/&gt;处理333条/秒]
+        C3[Consumer C&lt;br/&gt;处理334条/秒]
     end
 
-    T[订单Topic<br>1000条/秒] --&gt; P1[Partition 0]
+    T[订单Topic&lt;br/&gt;1000条/秒] --&gt; P1[Partition 0]
     T --&gt; P2[Partition 1]
     T --&gt; P3[Partition 2]
 
@@ -788,11 +788,11 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     P2 --&gt; C2
     P3 --&gt; C3
 
-    note2[每条消息只被处理一次<br>总处理能力：1000条/秒]
+    note2[每条消息只被处理一次&lt;br/&gt;总处理能力：1000条/秒]
 
     style C1 fill:#c8e6c9
     style C2 fill:#c8e6c9
-    style C3 fill:#c8e6c9</pre>
+    style C3 fill:#c8e6c9</code></pre>
 <p><em>场景2：多业务系统共享数据</em></p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用户注册消息需要被多个系统处理：</span><br><span class="line">- 邮件系统：发送欢迎邮件</span><br><span class="line">- 统计系统：更新注册统计</span><br><span class="line">- 推荐系统：初始化用户画像</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>Consumer Group的核心规则</strong>：</p>
@@ -807,7 +807,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 </li>
 </ol>
 <p><strong>Consumer与Partition的分配机制</strong>：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "Topic: user-events (3个Partition)"
         P1[Partition 0]
         P2[Partition 1]
@@ -834,7 +834,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     P3 --&gt; CB2
 
     note1[Group A：一对一分配]
-    note2[Group B：Consumer B1处理2个分区]</pre>
+    note2[Group B：Consumer B1处理2个分区]</code></pre>
 <p><strong>分配规则的具体逻辑</strong>：</p>
 <ol>
 <li>
@@ -850,11 +850,11 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 <p>可能有人会问：为什么不让多个Consumer同时处理同一个分区来提高并行度？答案是为了保证消息的顺序性。如果多个Consumer同时处理同一分区，就无法保证消息按照发送顺序被处理，这在很多业务场景下是不可接受的。</p>
 <p><strong>重要澄清：分区之间没有顺序关系</strong></p>
 <p>这里需要澄清一个关键概念：<strong>分区之间是没有顺序关系的，只有分区内部的消息是有序的</strong>。Consumer可以并行地从多个分区读取数据，不需要按照分区编号顺序去一个一个读取。</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "Topic: user-events"
-        P0["Partition 0<br>消息A1→A2→A3"]
-        P1["Partition 1<br>消息B1→B2→B3"]
-        P2["Partition 2<br>消息C1→C2→C3"]
+        P0["Partition 0&lt;br/&gt;消息A1→A2→A3"]
+        P1["Partition 1&lt;br/&gt;消息B1→B2→B3"]
+        P2["Partition 2&lt;br/&gt;消息C1→C2→C3"]
     end
 
     subgraph "Consumer Group"
@@ -868,10 +868,10 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     P2 --&gt; C3
 
     note1[分区内有序：消息按顺序处理, 例如 A1→A2→A3]
-    note2[分区间无序: A1, B1, C1 的处理顺序是随机的<br>并行消费: 三个 Consumer 同时工作]
+    note2[分区间无序: A1, B1, C1 的处理顺序是随机的&lt;br/&gt;并行消费: 三个 Consumer 同时工作]
 
     P1 -.-&gt; note1
-    C2 -.-&gt; note2</pre>
+    C2 -.-&gt; note2</code></pre>
 <ol>
 <li>
 <p><strong>保证消费顺序</strong>：</p>
@@ -894,7 +894,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 </ul>
 <p><strong>深入理解：分区内容的差异性</strong></p>
 <p>您提出了一个关键问题：分区之间的内容是一样的还是不一样的？答案是：<strong>分区之间的内容是完全不同的，它们存储的是不同的消息</strong>。</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "Producer发送消息"
         M1[消息1: 用户A下单]
         M2[消息2: 用户B下单]
@@ -907,8 +907,8 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     end
 
     subgraph "Topic分区存储"
-        P0[Partition 0<br>用户A下单<br>用户A付款]
-        P1[Partition 1<br>用户B下单<br>用户C下单]
+        P0[Partition 0&lt;br/&gt;用户A下单&lt;br/&gt;用户A付款]
+        P1[Partition 1&lt;br/&gt;用户B下单&lt;br/&gt;用户C下单]
     end
 
     M1 --&gt; PD
@@ -920,7 +920,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     PD --&gt; P1
 
     style P0 fill:#e3f2fd
-    style P1 fill:#fff3e0</pre>
+    style P1 fill:#fff3e0</code></pre>
 <p><strong>分区设计的业务考量</strong>：</p>
 <p>这里有一个重要的设计原则：<strong>分区间的顺序确实必须不影响业务逻辑</strong>。这是为什么呢？</p>
 <ol>
@@ -940,20 +940,20 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">如果设计成：</span><br><span class="line">Partition 0: 商品A的库存操作</span><br><span class="line">Partition 1: 商品B的库存操作</span><br><span class="line">但业务需要：必须先处理完所有入库，再处理出库</span><br><span class="line"></span><br><span class="line">问题：</span><br><span class="line">- 分区0的入库可能晚于分区1的出库</span><br><span class="line">- 导致库存计算错误</span><br><span class="line">- 违反了"分区间顺序不影响业务"的原则</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>分区与副本的区别</strong>：</p>
 <p>还需要澄清一个常见的混淆：分区(Partition)和副本(Replica)是不同的概念：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "Topic: orders"
-        P0[Partition 0<br>用户A的消息]
-        P1[Partition 1<br>用户B的消息]
+        P0[Partition 0&lt;br/&gt;用户A的消息]
+        P1[Partition 1&lt;br/&gt;用户B的消息]
     end
 
     subgraph "Broker 1"
-        P0L[Partition 0 Leader<br>用户A的消息]
-        P1F1[Partition 1 Follower<br>用户B的消息副本]
+        P0L[Partition 0 Leader&lt;br/&gt;用户A的消息]
+        P1F1[Partition 1 Follower&lt;br/&gt;用户B的消息副本]
     end
 
     subgraph "Broker 2"
-        P0F1[Partition 0 Follower<br>用户A的消息副本]
-        P1L[Partition 1 Leader<br>用户B的消息]
+        P0F1[Partition 0 Follower&lt;br/&gt;用户A的消息副本]
+        P1L[Partition 1 Leader&lt;br/&gt;用户B的消息]
     end
 
     P0 --&gt; P0L
@@ -962,7 +962,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     P1 --&gt; P1F1
 
     style P0L fill:#4caf50
-    style P1L fill:#4caf50</pre>
+    style P1L fill:#4caf50</code></pre>
 <ul>
 <li><strong>分区</strong>：存储不同的消息内容，用于并行处理</li>
 <li><strong>副本</strong>：存储相同的消息内容，用于容错备份</li>
@@ -970,7 +970,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 <p><strong>重要澄清：Broker与分区的关系</strong></p>
 <p>您提出了一个关键问题：一个分区可能非常大，一台机器放不下怎么办？这里需要澄清一个重要概念：</p>
 <p><strong>一个分区只能存储在一台机器上，不能跨机器分割</strong>。但是，Kafka通过以下机制来解决存储限制问题：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "Topic: user-events（3个分区）"
         P0[Partition 0]
         P1[Partition 1]
@@ -979,17 +979,17 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 
     subgraph "Kafka集群"
         subgraph "Broker 1（机器1）"
-            P0_B1[Partition 0<br>存储在此机器]
+            P0_B1[Partition 0&lt;br/&gt;存储在此机器]
             P1_R1[Partition 1 副本]
         end
 
         subgraph "Broker 2（机器2）"
-            P1_B2[Partition 1<br>存储在此机器]
+            P1_B2[Partition 1&lt;br/&gt;存储在此机器]
             P2_R1[Partition 2 副本]
         end
 
         subgraph "Broker 3（机器3）"
-            P2_B3[Partition 2<br>存储在此机器]
+            P2_B3[Partition 2&lt;br/&gt;存储在此机器]
             P0_R1[Partition 0 副本]
         end
     end
@@ -1003,7 +1003,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 
     style P0_B1 fill:#4caf50
     style P1_B2 fill:#4caf50
-    style P2_B3 fill:#4caf50</pre>
+    style P2_B3 fill:#4caf50</code></pre>
 <p><strong>核心原则</strong>：</p>
 <ol>
 <li><strong>每个分区主副本只存在于一个Broker上</strong></li>
@@ -1027,7 +1027,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 </li>
 </ol>
 <p><strong>Broker与分区的具体关系</strong>：</p>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     subgraph B1 ["Broker 1 (192.168.1.10)"]
         B1P1["orders-0/ (主分区)"]
         B1P2["orders-2/ (副本)"]
@@ -1056,7 +1056,7 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
     style B2P1 fill:#4caf50
     style B3P1 fill:#4caf50
     style B2P3 fill:#4caf50
-    style B3P3 fill:#4caf50</pre>
+    style B3P3 fill:#4caf50</code></pre>
 <p><strong>关键理解</strong>：</p>
 <ol>
 <li>
@@ -1113,10 +1113,10 @@ Partition是Topic的物理存储分片。一个Topic可以被分成多个Partiti
 </ul>
 <p><strong>Offset的本质</strong>：<br>
 Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
-<pre class="mermaid">graph TD
-    M0["消息0<br>offset=0"] --&gt; M1["消息1<br>offset=1"] --&gt; M2["消息2<br>offset=2"] --&gt; M3["消息3<br>offset=3"] --&gt; M4["消息4<br>offset=4"]
+<pre><code class="highlight mermaid">graph TD
+    M0["消息0&lt;br/&gt;offset=0"] --&gt; M1["消息1&lt;br/&gt;offset=1"] --&gt; M2["消息2&lt;br/&gt;offset=2"] --&gt; M3["消息3&lt;br/&gt;offset=3"] --&gt; M4["消息4&lt;br/&gt;offset=4"]
     style M2 fill:#ffeb3b
-    note1["Consumer当前位置：offset=2<br>下次读取：offset=3"]</pre>
+    note1["Consumer当前位置：offset=2&lt;br/&gt;下次读取：offset=3"]</code></pre>
 <p><strong>Offset的关键特性</strong>：</p>
 <ol>
 <li><strong>单调递增</strong>：新消息的offset总是比旧消息大</li>
@@ -1125,7 +1125,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
 </ol>
 <h3 id="3-5-Consumer的消费位置追踪">3.5 Consumer的消费位置追踪</h3>
 <p><strong>Consumer如何知道读取位置</strong>：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C as Consumer
     participant B as Broker
     participant OS as Offset Storage
@@ -1144,7 +1144,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
     Note over C,OS: Consumer重启后
     C-&gt;&gt;OS: 8. 再次查询offset
     OS-&gt;&gt;C: 9. 返回offset=103
-    C-&gt;&gt;B: 10. 从offset=103继续拉取</pre>
+    C-&gt;&gt;B: 10. 从offset=103继续拉取</code></pre>
 <p><strong>为什么需要Offset提交</strong>：</p>
 <ol>
 <li><strong>状态持久化</strong>：Consumer重启后能够继续上次的进度</li>
@@ -1153,7 +1153,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
 </ol>
 <h3 id="3-6-Offset提交策略的选择">3.6 Offset提交策略的选择</h3>
 <p><strong>自动提交的工作原理</strong>：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C as Consumer
     participant B as Broker
     participant T as Timer
@@ -1165,10 +1165,10 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
         T-&gt;&gt;C: 定时器触发(5秒到)
         C-&gt;&gt;B: 自动提交当前offset
         Note over C,B: 无论消息是否处理完成
-    end</pre>
+    end</code></pre>
 <p><strong>自动提交的问题场景</strong>：</p>
 <p><em>场景1：消息丢失</em></p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C as Consumer
     participant B as Broker
 
@@ -1178,9 +1178,9 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
     C-&gt;&gt;B: 提交offset=103
     Note over C: Consumer崩溃，消息未处理
     Note over C: 重启后从offset=103开始
-    Note over C: 消息100-102永远丢失</pre>
+    Note over C: 消息100-102永远丢失</code></pre>
 <p><em>场景2：重复消费</em></p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C as Consumer
     participant B as Broker
 
@@ -1190,9 +1190,9 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
     Note over C: Consumer崩溃，offset未提交
     Note over C: 重启后仍从offset=100开始
     C-&gt;&gt;B: 重新拉取offset=100-102
-    Note over C: 消息100-102被重复处理</pre>
+    Note over C: 消息100-102被重复处理</code></pre>
 <p><strong>手动提交的精确控制</strong>：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C as Consumer
     participant B as Broker
     participant BL as Business Logic
@@ -1204,7 +1204,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
     C-&gt;&gt;B: 手动提交offset=101
     B-&gt;&gt;C: 提交确认
 
-    Note over C,B: 只有业务处理成功才提交offset</pre>
+    Note over C,B: 只有业务处理成功才提交offset</code></pre>
 <p><strong>两种策略的适用场景</strong>：</p>
 <table>
 <thead>
@@ -1247,7 +1247,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
 <p>在理解Kafka的副本机制之前，我们需要先理解Kafka最核心的设计理念：<strong>追加式日志（Append-Only Log）</strong>。这是Kafka高性能和可靠性的基石。</p>
 <p><strong>什么是Append-Only Log</strong>：</p>
 <p>Append-Only Log是一种只能在末尾添加数据，不能修改已有数据的存储结构：</p>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     subgraph "传统数据库的更新操作"
         DB1[记录1: 用户A, 余额100] --&gt; DB2[记录1: 用户A, 余额150]
         DB3[记录2: 用户B, 余额200] --&gt; DB4[记录2: 用户B, 余额180]
@@ -1263,7 +1263,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
 
     style DB2 fill:#fff3e0
     style DB4 fill:#fff3e0
-    style L4 fill:#e3f2fd</pre>
+    style L4 fill:#e3f2fd</code></pre>
 <p><strong>为什么选择Append-Only设计</strong>：</p>
 <ol>
 <li>
@@ -1277,7 +1277,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
 <p>为什么传统数据库不使用append-only设计？因为传统数据库需要支持随机更新和删除操作（如修改用户信息、删除过期数据），而消息队列的特点是数据一旦发送就不需要修改，这使得append-only设计成为可能且高效：</p>
 </li>
 </ol>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "传统数据库的并发问题"
         T1[线程1: 修改记录A] --&gt; Lock1[需要加锁]
         T2[线程2: 修改记录A] --&gt; Lock2[等待锁释放]
@@ -1292,7 +1292,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
     end
 
     style Conflict fill:#ffcdd2
-    style Simple fill:#c8e6c9</pre>
+    style Simple fill:#c8e6c9</code></pre>
 <ol start="3">
 <li><strong>数据不可变性带来的优势</strong>：
 <ul>
@@ -1304,24 +1304,24 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
 </ol>
 <p><strong>Kafka中Log的物理结构</strong>：</p>
 <p>每个Partition在磁盘上就是一个append-only的日志文件：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "Partition的物理存储"
         subgraph "Log Segment 1 (已满)"
-            S1[00000000000000000000.log<br>offset 0-999]
+            S1[00000000000000000000.log&lt;br/&gt;offset 0-999]
         end
 
         subgraph "Log Segment 2 (已满)"
-            S2[00000000000001000000.log<br>offset 1000-1999]
+            S2[00000000000001000000.log&lt;br/&gt;offset 1000-1999]
         end
 
         subgraph "Active Segment (当前写入)"
-            S3[00000000000002000000.log<br>offset 2000-当前]
+            S3[00000000000002000000.log&lt;br/&gt;offset 2000-当前]
             Arrow[新消息追加到这里 →]
         end
     end
 
     S1 --&gt; S2 --&gt; S3
-    style S3 fill:#e3f2fd</pre>
+    style S3 fill:#e3f2fd</code></pre>
 <p><strong>Log Segment的设计原理</strong>：</p>
 <p>为什么要将一个Partition分成多个Segment？</p>
 <ol>
@@ -1336,30 +1336,30 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
 <p><strong>数据清理效率</strong>：</p>
 </li>
 </ol>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     Old[过期的旧Segment] --&gt; Delete[直接删除整个文件]
     Active[活跃Segment] --&gt; Keep[继续保留]
 
-    note1[删除整个文件比删除文件中的部分内容要快得多]</pre>
+    note1[删除整个文件比删除文件中的部分内容要快得多]</code></pre>
 <ol start="3">
 <li><strong>索引文件配套</strong>：<br>
 每个Segment都有对应的索引文件，便于快速定位消息：<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">00000000000001000000.log    - 消息数据</span><br><span class="line">00000000000001000000.index  - offset索引</span><br><span class="line">00000000000001000000.timeindex - 时间索引</span><br></pre></td></tr></tbody></table></figure>
 </li>
 </ol>
 <p><strong>消息在Log中的存储格式</strong>：</p>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     subgraph "单条消息的结构"
-        Offset[8字节<br>Offset]
-        Size[4字节<br>消息大小]
-        CRC[4字节<br>校验码]
-        Magic[1字节<br>版本号]
-        Attr[1字节<br>属性]
-        Key[变长<br>消息Key]
-        Value[变长<br>消息内容]
-    end</pre>
+        Offset[8字节&lt;br/&gt;Offset]
+        Size[4字节&lt;br/&gt;消息大小]
+        CRC[4字节&lt;br/&gt;校验码]
+        Magic[1字节&lt;br/&gt;版本号]
+        Attr[1字节&lt;br/&gt;属性]
+        Key[变长&lt;br/&gt;消息Key]
+        Value[变长&lt;br/&gt;消息内容]
+    end</code></pre>
 <p><strong>Append-Only Log的读取机制</strong>：</p>
 <p>既然数据只能追加，Kafka如何实现高效的读取？</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C as Consumer
     participant I as Index File
     participant L as Log File
@@ -1368,13 +1368,13 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
     I-&gt;&gt;I: 2. 二分查找最接近的索引项
     I-&gt;&gt;C: 3. 返回：offset=1500在文件位置45000
     C-&gt;&gt;L: 4. 从位置45000开始读取
-    L-&gt;&gt;C: 5. 返回消息内容</pre>
+    L-&gt;&gt;C: 5. 返回消息内容</code></pre>
 <p>索引文件记录了部分offset与文件位置的映射关系（稀疏索引），Consumer可以快速定位到目标消息的大概位置，然后顺序读取。</p>
 <h3 id="4-2-基于Append-Only-Log的副本同步机制">4.2 基于Append-Only Log的副本同步机制</h3>
 <p>理解了Kafka的基础存储原理后，我们就能更好地理解副本同步是如何工作的。</p>
 <p><strong>副本同步的本质</strong>：</p>
 <p>由于Kafka使用append-only log，副本同步就是<strong>将Leader的日志文件复制到Follower上</strong>的过程：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant L as Leader
     participant F1 as Follower 1
@@ -1398,7 +1398,7 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
         F2-&gt;&gt;L: 6. ACK: 已同步到offset=100
     end
 
-    L-&gt;&gt;P: 7. 确认消息已写入所有副本</pre>
+    L-&gt;&gt;P: 7. 确认消息已写入所有副本</code></pre>
 <p><strong>副本同步的关键特点</strong>：</p>
 <ol>
 <li>
@@ -1428,22 +1428,22 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
 </ol>
 <p><strong>ISR (In-Sync Replicas) 机制</strong>：</p>
 <p>ISR是Kafka用来标识与Leader保持同步状态的副本集合，这是Kafka保证数据一致性的核心机制。在分布式环境中，网络延迟、节点性能差异等因素会导致某些Follower无法及时跟上Leader的更新进度。ISR机制就是用来区分哪些副本是"可靠同步"的，哪些是"延迟过大"的：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "Partition的所有副本"
-        L[Leader<br>offset=1000]
-        F1[Follower 1<br>offset=1000]
-        F2[Follower 2<br>offset=998]
-        F3[Follower 3<br>offset=850]
+        L[Leader&lt;br/&gt;offset=1000]
+        F1[Follower 1&lt;br/&gt;offset=1000]
+        F2[Follower 2&lt;br/&gt;offset=998]
+        F3[Follower 3&lt;br/&gt;offset=850]
     end
 
     subgraph "ISR集合"
-        L2[Leader<br>延迟=0]
-        F1_2[Follower 1<br>延迟=0]
-        F2_2[Follower 2<br>延迟=2条消息]
+        L2[Leader&lt;br/&gt;延迟=0]
+        F1_2[Follower 1&lt;br/&gt;延迟=0]
+        F2_2[Follower 2&lt;br/&gt;延迟=2条消息]
     end
 
     subgraph "OSR (Out-of-Sync)"
-        F3_2[Follower 3<br>延迟=150条消息]
+        F3_2[Follower 3&lt;br/&gt;延迟=150条消息]
     end
 
     L --&gt; L2
@@ -1454,23 +1454,23 @@ Offset是消息在Partition中的位置标识，类似于数组的索引：</p>
     style L2 fill:#c8e6c9
     style F1_2 fill:#c8e6c9
     style F2_2 fill:#fff3e0
-    style F3_2 fill:#ffcdd2</pre>
+    style F3_2 fill:#ffcdd2</code></pre>
 <p><strong>ISR的动态维护</strong>：</p>
 <p>ISR不是固定的，会根据Follower的同步情况动态调整。为了理解这个过程，我们需要先明确一个概念：</p>
 <p><strong>OSR (Out-of-Sync Replicas)</strong>：<br>
 OSR是指那些因为各种原因（网络延迟、处理能力不足、节点故障等）无法与Leader保持同步的Follower副本。</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "所有副本状态"
-        AR[AR: All Replicas<br>所有副本]
-        AR --&gt; ISR[ISR: In-Sync Replicas<br>同步副本]
-        AR --&gt; OSR[OSR: Out-of-Sync Replicas<br>非同步副本]
+        AR[AR: All Replicas&lt;br/&gt;所有副本]
+        AR --&gt; ISR[ISR: In-Sync Replicas&lt;br/&gt;同步副本]
+        AR --&gt; OSR[OSR: Out-of-Sync Replicas&lt;br/&gt;非同步副本]
     end
 
     ISR --&gt; List1[Leader + 同步的Follower]
     OSR --&gt; List2[延迟过大的Follower]
 
     style ISR fill:#c8e6c9
-    style OSR fill:#ffcdd2</pre>
+    style OSR fill:#ffcdd2</code></pre>
 <p><strong>动态调整的判断标准</strong>：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">主要参数：replica.lag.time.max.ms（默认30秒）</span><br><span class="line">判断逻辑：如果Follower超过30秒没有向Leader发送拉取请求，</span><br><span class="line">         就认为该Follower失去同步</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>动态调整过程</strong>：</p>
@@ -1493,7 +1493,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <p>如果Producer不知道消息是否真正安全存储，就无法保证数据的可靠性。</p>
 <p><strong>Kafka的解决方案：acks确认机制</strong></p>
 <p>Kafka通过acks参数让Producer可以选择不同的确认级别，在<strong>性能</strong>和<strong>可靠性</strong>之间做权衡：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     P[Producer发送消息] --&gt; Choice{选择确认级别}
 
     Choice --&gt;|acks=0| Fast[追求最高性能]
@@ -1506,9 +1506,9 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 
     style Fast fill:#ffeb3b
     style Balance fill:#ff9800
-    style Safe fill:#4caf50</pre>
+    style Safe fill:#4caf50</code></pre>
 <p><strong>acks=0：追求极致性能的选择</strong></p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant N as Network
     participant B as Broker
@@ -1517,7 +1517,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     P-&gt;&gt;P: 立即认为发送成功
     Note over P: 不等待任何确认
     N-&gt;&gt;B: 消息可能到达Broker
-    Note over N,B: 也可能在网络中丢失</pre>
+    Note over N,B: 也可能在网络中丢失</code></pre>
 <p><strong>为什么选择acks=0</strong>：</p>
 <ul>
 <li><strong>极致性能需求</strong>：日志收集、监控指标等场景，需要极高的吞吐量</li>
@@ -1525,7 +1525,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li><strong>成本考虑</strong>：网络和存储资源有限，愿意用少量数据丢失换取性能</li>
 </ul>
 <p><strong>acks=1：平衡性能与可靠性</strong></p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant L as Leader
     participant F1 as Follower 1
@@ -1539,7 +1539,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     par 后台同步过程
         L-&gt;&gt;F1: 同步消息（异步）
         L-&gt;&gt;F2: 同步消息（异步）
-    end</pre>
+    end</code></pre>
 <p><strong>acks=1的风险场景</strong>：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">时间线：</span><br><span class="line">1. Producer发送消息到Leader</span><br><span class="line">2. Leader写入本地日志并确认</span><br><span class="line">3. Producer认为消息发送成功</span><br><span class="line">4. Leader在同步给Follower之前宕机</span><br><span class="line">5. 新Leader从Follower中选出，但没有这条消息</span><br><span class="line">结果：消息丢失</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>为什么选择acks=1</strong>：</p>
@@ -1549,7 +1549,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li><strong>可靠性足够</strong>：Leader故障概率相对较低</li>
 </ul>
 <p><strong>acks=all/-1：追求数据安全的选择</strong></p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant L as Leader
     participant F1 as Follower 1
@@ -1569,7 +1569,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     end
 
     L-&gt;&gt;P: 所有ISR副本都确认后才回复
-    Note over P: Producer才认为发送成功</pre>
+    Note over P: Producer才认为发送成功</code></pre>
 <p><strong>acks=all的安全保障</strong>：<br>
 即使Leader宕机，消息也已经在ISR的其他副本中安全存储，新选出的Leader一定包含这条消息。</p>
 <p><strong>acks=all的潜在问题</strong>：</p>
@@ -1611,7 +1611,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 </table>
 <p>理解了这三种确认级别的设计原理和适用场景，开发者就能根据具体业务需求选择合适的可靠性策略，在性能和数据安全之间找到最佳平衡点。</p>
 <h3 id="4-3-故障恢复机制">4.3 故障恢复机制</h3>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     F[Leader故障] --&gt; D[检测故障]
     D --&gt; C[Controller选举新Leader]
     C --&gt; U[更新元数据]
@@ -1619,7 +1619,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     N --&gt; S[服务恢复]
 
     style F fill:#ff6666
-    style S fill:#66ff66</pre>
+    style S fill:#66ff66</code></pre>
 <p><strong>Controller选举</strong>：</p>
 <ul>
 <li>基于ZooKeeper的分布式锁机制</li>
@@ -1628,7 +1628,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 </ul>
 <p><strong>ZooKeeper分布式锁的工作原理</strong>：</p>
 <p>在Kafka集群中，只能有一个Broker担任Controller角色。如何在多个Broker中选出唯一的Controller？这就需要依赖ZooKeeper的分布式锁机制。</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant B1 as Broker 1
     participant B2 as Broker 2
     participant B3 as Broker 3
@@ -1650,7 +1650,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     Note over B2,B3: Broker 2,3 监听Controller变化
 
     B2-&gt;&gt;ZK: 监听 /controller 节点删除事件
-    B3-&gt;&gt;ZK: 监听 /controller 节点删除事件</pre>
+    B3-&gt;&gt;ZK: 监听 /controller 节点删除事件</code></pre>
 <p><strong>ZooKeeper分布式锁的核心特性</strong>：</p>
 <ol>
 <li>
@@ -1662,7 +1662,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <p>为什么Controller必须使用临时节点而不能使用永久节点？如果使用永久节点，当Controller故障时节点不会自动删除，其他Broker就无法感知到Controller的故障，整个集群会陷入无主状态。临时节点与ZooKeeper会话绑定，一旦会话中断就会自动删除，这样其他Broker立即感知到故障并开始新的选举：</p>
 </li>
 </ol>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     Controller[Controller Broker] --&gt; Session[ZK Session]
     Session --&gt; Node["/controller 临时节点"]
 
@@ -1676,13 +1676,13 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 
     style Node fill:#e3f2fd
     style Delete fill:#ffcdd2
-    style Trigger fill:#fff3e0</pre>
+    style Trigger fill:#fff3e0</code></pre>
 <ol start="3">
 <li><strong>会话超时检测</strong>：<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ZooKeeper会话机制：</span><br><span class="line">- Controller与ZooKeeper维持TCP长连接</span><br><span class="line">- 定期发送心跳包（默认1/3 session timeout）</span><br><span class="line">- 如果心跳超时，ZooKeeper认为Controller故障</span><br><span class="line">- 自动删除临时节点，其他Broker收到通知开始新一轮选举</span><br></pre></td></tr></tbody></table></figure>
 </li>
 </ol>
 <p><strong>Controller选举的详细流程</strong>：</p>
-<pre class="mermaid">flowchart TD
+<pre><code class="highlight mermaid">flowchart TD
     Start[Broker启动] --&gt; Check{检查/controller节点}
     Check --&gt;|不存在| Create[尝试创建临时节点]
     Check --&gt;|存在| Watch[监听节点变化]
@@ -1702,10 +1702,10 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 
     style BeController fill:#4caf50
     style Watch fill:#ff9800
-    style NodeDeleted fill:#ffeb3b</pre>
+    style NodeDeleted fill:#ffeb3b</code></pre>
 <p><strong>Controller故障恢复过程</strong>：</p>
 <p>当Controller Broker发生故障时：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant Controller as Controller Broker
     participant ZK as ZooKeeper
     participant B2 as Broker 2
@@ -1732,7 +1732,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     B3-&gt;&gt;B3: 重新进行Leader选举
     B3-&gt;&gt;B2: 通知新的分区Leader信息
 
-    Note over B2,B3: 集群恢复正常运行</pre>
+    Note over B2,B3: 集群恢复正常运行</code></pre>
 <p><strong>分布式锁机制的优势</strong>：</p>
 <ol>
 <li>
@@ -1747,14 +1747,14 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <p><strong>事件驱动的通知机制</strong>：</p>
 </li>
 </ol>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     Event[Controller节点删除] --&gt; Watcher1[Broker 2 收到通知]
     Event --&gt; Watcher2[Broker 3 收到通知]
     Event --&gt; Watcher3[Broker N 收到通知]
 
     Watcher1 --&gt; Action1[立即参与选举]
     Watcher2 --&gt; Action2[立即参与选举]
-    Watcher3 --&gt; Action3[立即参与选举]</pre>
+    Watcher3 --&gt; Action3[立即参与选举]</code></pre>
 <p>这种基于ZooKeeper的分布式锁机制确保了Kafka集群中Controller角色的唯一性和高可用性，是Kafka分布式协调的核心基础。</p>
 <hr>
 <h2 id="第五章：性能优化原理">第五章：性能优化原理</h2>
@@ -1764,7 +1764,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <p>在高吞吐量的消息系统中，Kafka需要频繁地从磁盘读取消息并通过网络发送给Consumer。这个过程看似简单，但在操作系统层面却涉及复杂的数据拷贝流程。</p>
 <p><strong>传统I/O操作的性能问题</strong>：</p>
 <p>让我们分析一下Consumer从Kafka读取消息的传统流程：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C as Consumer
     participant K as Kafka Broker
     participant OS as 操作系统
@@ -1777,14 +1777,14 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     OS-&gt;&gt;K: 数据拷贝到用户空间
     K-&gt;&gt;OS: write()系统调用
     OS-&gt;&gt;OS: 数据拷贝到Socket缓冲区
-    OS-&gt;&gt;C: 通过网络发送数据</pre>
+    OS-&gt;&gt;C: 通过网络发送数据</code></pre>
 <p>这个过程中，数据经历了<strong>4次拷贝</strong>和<strong>2次上下文切换</strong>：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "传统I/O的数据拷贝路径"
-        D[磁盘数据] --&gt; K1[内核缓冲区<br>第1次拷贝]
-        K1 --&gt; U[用户空间缓冲区<br>第2次拷贝]
-        U --&gt; K2[Socket内核缓冲区<br>第3次拷贝]
-        K2 --&gt; N[网络接口卡<br>第4次拷贝]
+        D[磁盘数据] --&gt; K1[内核缓冲区&lt;br/&gt;第1次拷贝]
+        K1 --&gt; U[用户空间缓冲区&lt;br/&gt;第2次拷贝]
+        U --&gt; K2[Socket内核缓冲区&lt;br/&gt;第3次拷贝]
+        K2 --&gt; N[网络接口卡&lt;br/&gt;第4次拷贝]
     end
 
     subgraph "上下文切换开销"
@@ -1794,7 +1794,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 
     style U fill:#ffcdd2
     style Context1 fill:#ffcdd2
-    style Context2 fill:#ffcdd2</pre>
+    style Context2 fill:#ffcdd2</code></pre>
 <p><strong>性能问题分析</strong>：</p>
 <ol>
 <li>
@@ -1812,7 +1812,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 </ol>
 <p><strong>零拷贝技术的解决方案</strong>：</p>
 <p>为了解决这些问题，Linux内核提供了零拷贝技术。Kafka使用的是<code>sendfile</code>系统调用：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C as Consumer
     participant K as Kafka Broker
     participant OS as 操作系统
@@ -1823,12 +1823,12 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     Note over OS: 一次系统调用完成整个传输
     OS-&gt;&gt;Disk: 读取数据到内核缓冲区
     OS-&gt;&gt;OS: 直接从内核缓冲区发送到网络
-    OS-&gt;&gt;C: 通过网络发送数据</pre>
+    OS-&gt;&gt;C: 通过网络发送数据</code></pre>
 <p><strong>零拷贝的优化效果</strong>：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "零拷贝的数据路径"
-        D2[磁盘数据] --&gt; K3[内核缓冲区<br>第1次拷贝]
-        K3 --&gt; N2[网络接口卡<br>第2次拷贝]
+        D2[磁盘数据] --&gt; K3[内核缓冲区&lt;br/&gt;第1次拷贝]
+        K3 --&gt; N2[网络接口卡&lt;br/&gt;第2次拷贝]
     end
 
     subgraph "性能提升"
@@ -1843,7 +1843,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     style Benefit1 fill:#e8f5e8
     style Benefit2 fill:#e8f5e8
     style Benefit3 fill:#e8f5e8
-    style Benefit4 fill:#e8f5e8</pre>
+    style Benefit4 fill:#e8f5e8</code></pre>
 <p><strong>sendfile系统调用的工作原理</strong>：</p>
 <p>Kafka的零拷贝技术主要通过Linux内核提供的sendfile系统调用实现。sendfile是专门为高效文件传输设计的系统调用，它允许数据直接在内核空间中从文件传输到网络Socket，完全绕过用户空间：</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传统方式需要多次系统调用</span></span><br><span class="line">read(disk_fd, buffer, size);     <span class="comment">// 读取到用户空间</span></span><br><span class="line">write(socket_fd, buffer, size);  <span class="comment">// 从用户空间写入Socket</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sendfile方式只需一次系统调用</span></span><br><span class="line">sendfile(socket_fd, disk_fd, offset, size);  <span class="comment">// 直接从磁盘发送到Socket</span></span><br></pre></td></tr></tbody></table></figure>
@@ -1878,7 +1878,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <p><strong>问题场景</strong>：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">电商系统在促销期间：</span><br><span class="line">- 每秒产生10,000条订单消息</span><br><span class="line">- 如果每条消息单独发送到Kafka</span><br><span class="line">- 就需要每秒进行10,000次网络调用</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>单条消息发送的开销</strong>：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant N as Network
     participant B as Broker
@@ -1889,13 +1889,13 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
         B-&gt;&gt;N: ACK响应 (40字节开销)
         N-&gt;&gt;P: 确认收到
         Note over P,B: 单条消息实际传输140字节，开销占57%
-    end</pre>
+    end</code></pre>
 <p><strong>网络开销分析</strong>：</p>
 <p>每次网络调用的固定开销包括：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1. TCP/IP协议开销：</span><br><span class="line">   - IP头：20字节</span><br><span class="line">   - TCP头：20字节</span><br><span class="line">   - 以太网帧头：14字节</span><br><span class="line">   - 总计：54字节协议开销</span><br><span class="line"></span><br><span class="line">2. 系统调用开销：</span><br><span class="line">   - 用户态到内核态切换</span><br><span class="line">   - 网络栈处理时间</span><br><span class="line">   - 中断处理开销</span><br><span class="line"></span><br><span class="line">3. 网络延迟：</span><br><span class="line">   - 每次发送都要等待网络往返时间（RTT）</span><br><span class="line">   - 即使是1ms的RTT，10,000次调用就是10秒延迟</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>批处理技术的解决思路</strong>：</p>
 <p>批处理的核心思想是：<strong>将多条消息打包成一个批次发送，减少网络调用次数</strong>。</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "单条发送模式"
         M1[消息1] --&gt; S1[网络调用1]
         M2[消息2] --&gt; S2[网络调用2]
@@ -1922,9 +1922,9 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     style Cost1 fill:#ffcdd2
     style Cost2 fill:#ffcdd2
     style Cost3 fill:#ffcdd2
-    style Cost4 fill:#ffcdd2</pre>
+    style Cost4 fill:#ffcdd2</code></pre>
 <p><strong>Kafka Producer的批处理实现</strong>：</p>
-<pre class="mermaid">flowchart TD
+<pre><code class="highlight mermaid">flowchart TD
     Start[消息到达] --&gt; CheckBatch{检查当前批次}
     CheckBatch --&gt;|批次不存在| CreateBatch[创建新批次]
     CheckBatch --&gt;|批次存在| AddToBatch[添加到批次]
@@ -1944,7 +1944,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 
     style SendNow fill:#4caf50
     style SendTimer fill:#ff9800
-    style WaitMore fill:#2196f3</pre>
+    style WaitMore fill:#2196f3</code></pre>
 <p><strong>关键批处理参数详解</strong>：</p>
 <ol>
 <li>
@@ -1958,7 +1958,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 </ol>
 <p><strong>批处理的性能提升效果</strong>：</p>
 <p>让我们通过具体数据来理解批处理的价值：</p>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     subgraph "批处理前（单条发送）"
         Scenario1[10,000条消息/秒]
         Calls1[10,000次网络调用]
@@ -1975,66 +1975,66 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 
     style Calls2 fill:#c8e6c9
     style Overhead2 fill:#c8e6c9
-    style Latency2 fill:#c8e6c9</pre>
+    style Latency2 fill:#c8e6c9</code></pre>
 <p><strong>实际测试数据对比</strong>：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">测试环境：单Producer，发送1MB消息到Kafka</span><br><span class="line"></span><br><span class="line">配置1：batch.size=1, linger.ms=0 (禁用批处理)</span><br><span class="line">- 吞吐量：1,200 消息/秒</span><br><span class="line">- 网络调用次数：1,200次/秒</span><br><span class="line">- CPU使用率：45%</span><br><span class="line"></span><br><span class="line">配置2：batch.size=16KB, linger.ms=10ms</span><br><span class="line">- 吞吐量：45,000 消息/秒</span><br><span class="line">- 网络调用次数：约100次/秒</span><br><span class="line">- CPU使用率：15%</span><br><span class="line"></span><br><span class="line">性能提升：吞吐量提升37.5倍，CPU使用率降低67%</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>批处理策略的权衡考虑</strong>：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     BatchSize[批处理配置] --&gt; Throughput{吞吐量优化}
     BatchSize --&gt; Latency{延迟优化}
     BatchSize --&gt; Memory{内存使用}
 
-    Throughput --&gt;|增大batch.size| HighThroughput[更高吞吐量<br>但延迟增加]
-    Throughput --&gt;|增大linger.ms| MoreBatching[更好的批处理效果<br>但延迟增加]
+    Throughput --&gt;|增大batch.size| HighThroughput[更高吞吐量&lt;br/&gt;但延迟增加]
+    Throughput --&gt;|增大linger.ms| MoreBatching[更好的批处理效果&lt;br/&gt;但延迟增加]
 
-    Latency --&gt;|减小batch.size| LowLatency[更低延迟<br>但吞吐量下降]
-    Latency --&gt;|减小linger.ms| QuickSend[更快发送<br>但批处理效果差]
+    Latency --&gt;|减小batch.size| LowLatency[更低延迟&lt;br/&gt;但吞吐量下降]
+    Latency --&gt;|减小linger.ms| QuickSend[更快发送&lt;br/&gt;但批处理效果差]
 
     Memory --&gt;|批次过大| MemoryPressure[内存压力增大]
     Memory --&gt;|批次过小| CPUOverhead[CPU开销增大]
 
     style HighThroughput fill:#4caf50
     style LowLatency fill:#ff9800
-    style MemoryPressure fill:#f44336</pre>
+    style MemoryPressure fill:#f44336</code></pre>
 <h3 id="5-3-存储空间优化与压缩技术">5.3 存储空间优化与压缩技术</h3>
 <p><strong>大规模消息存储的挑战</strong>：</p>
 <p>在实际生产环境中，Kafka需要存储海量的消息数据。让我们分析一个具体场景来理解存储压力：</p>
 <p><strong>典型场景分析</strong>：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">大型互联网公司的日志收集系统：</span><br><span class="line">- 1000个微服务实例</span><br><span class="line">- 每个实例每秒产生100条日志</span><br><span class="line">- 每条日志平均1KB大小</span><br><span class="line">- 总计：100,000条/秒 × 1KB = 100MB/秒</span><br><span class="line">- 一天产生的数据：100MB/秒 × 86400秒 = 8.64TB/天</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>存储成本问题</strong>：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     DataVolume[8.64TB/天] --&gt; StorageCost{存储成本}
-    StorageCost --&gt; SSD[SSD存储<br>$0.1/GB/月]
-    StorageCost --&gt; HDD[机械硬盘<br>$0.03/GB/月]
+    StorageCost --&gt; SSD[SSD存储&lt;br/&gt;$0.1/GB/月]
+    StorageCost --&gt; HDD[机械硬盘&lt;br/&gt;$0.03/GB/月]
 
     SSD --&gt; SSDCost[月成本：$25,920]
     HDD --&gt; HDDCost[月成本：$7,776]
 
     DataVolume --&gt; NetworkCost{网络传输成本}
-    NetworkCost --&gt; Bandwidth[带宽消耗<br>100MB/秒]
+    NetworkCost --&gt; Bandwidth[带宽消耗&lt;br/&gt;100MB/秒]
     Bandwidth --&gt; BandwidthCost[专线成本：$5000/月]
 
     style SSDCost fill:#ffcdd2
     style HDDCost fill:#fff3e0
-    style BandwidthCost fill:#ffcdd2</pre>
+    style BandwidthCost fill:#ffcdd2</code></pre>
 <p><strong>压缩技术的必要性</strong>：</p>
 <p>压缩技术可以显著减少存储和网络传输成本：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">假设平均压缩比为3:1</span><br><span class="line">存储需求：8.64TB → 2.88TB （节省67%存储空间）</span><br><span class="line">网络带宽：100MB/秒 → 33MB/秒 （节省67%带宽）</span><br><span class="line">成本节省：月节省$17,000+ 存储和网络成本</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>不同压缩算法的特性对比</strong>：</p>
 <p>为什么Kafka需要支持多种压缩算法？这是因为不同的应用场景有不同的优化目标：有些场景更关注存储成本（如日志归档），有些更关注实时性（如在线交易），有些需要在两者间平衡（如用户行为分析）。因此，在选择压缩算法时，需要根据具体需求在压缩比、CPU消耗、延迟之间做权衡：</p>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "压缩算法特性对比"
-        GZIP[gzip<br>压缩比：高<br>CPU：高<br>延迟：高]
-        SNAPPY[snappy<br>压缩比：中<br>CPU：中<br>延迟：中]
-        LZ4[lz4<br>压缩比：中低<br>CPU：低<br>延迟：低]
-        ZSTD[zstd<br>压缩比：最高<br>CPU：可调<br>延迟：可调]
+        GZIP[gzip&lt;br/&gt;压缩比：高&lt;br/&gt;CPU：高&lt;br/&gt;延迟：高]
+        SNAPPY[snappy&lt;br/&gt;压缩比：中&lt;br/&gt;CPU：中&lt;br/&gt;延迟：中]
+        LZ4[lz4&lt;br/&gt;压缩比：中低&lt;br/&gt;CPU：低&lt;br/&gt;延迟：低]
+        ZSTD[zstd&lt;br/&gt;压缩比：最高&lt;br/&gt;CPU：可调&lt;br/&gt;延迟：可调]
     end
 
     subgraph "应用场景"
-        HighCompression[存储成本敏感<br>CPU资源充足]
-        Balanced[均衡场景<br>中等压缩需求]
-        LowLatency[延迟敏感<br>实时处理]
-        Flexible[灵活配置<br>最佳压缩]
+        HighCompression[存储成本敏感&lt;br/&gt;CPU资源充足]
+        Balanced[均衡场景&lt;br/&gt;中等压缩需求]
+        LowLatency[延迟敏感&lt;br/&gt;实时处理]
+        Flexible[灵活配置&lt;br/&gt;最佳压缩]
     end
 
     GZIP --&gt; HighCompression
@@ -2045,7 +2045,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     style GZIP fill:#ff9800
     style SNAPPY fill:#4caf50
     style LZ4 fill:#2196f3
-    style ZSTD fill:#9c27b0</pre>
+    style ZSTD fill:#9c27b0</code></pre>
 <p><strong>详细压缩算法分析</strong>：</p>
 <ol>
 <li>
@@ -2066,7 +2066,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 </li>
 </ol>
 <p><strong>Kafka中压缩机制的工作流程</strong>：</p>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant B as Broker
     participant C as Consumer
@@ -2083,10 +2083,10 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     Note over C: Consumer端解压
     C-&gt;&gt;B: 5. 拉取压缩数据
     B-&gt;&gt;C: 6. 返回压缩数据
-    C-&gt;&gt;C: 7. 解压获得原始消息</pre>
+    C-&gt;&gt;C: 7. 解压获得原始消息</code></pre>
 <p><strong>压缩策略的配置建议</strong>：</p>
 <p>根据不同业务场景选择合适的压缩算法：</p>
-<pre class="mermaid">flowchart TD
+<pre><code class="highlight mermaid">flowchart TD
     Start[选择压缩算法] --&gt; Priority{主要优化目标}
 
     Priority --&gt;|存储成本| Storage[存储优化]
@@ -2094,15 +2094,15 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     Priority --&gt;|处理延迟| Latency[延迟优化]
     Priority --&gt;|CPU资源| CPU[CPU优化]
 
-    Storage --&gt; StorageChoice[推荐：GZIP或ZSTD<br>高压缩比，节省存储]
-    Network --&gt; NetworkChoice[推荐：GZIP或ZSTD<br>减少网络传输]
-    Latency --&gt; LatencyChoice[推荐：LZ4或Snappy<br>快速压缩解压]
-    CPU --&gt; CPUChoice[推荐：LZ4<br>最低CPU消耗]
+    Storage --&gt; StorageChoice[推荐：GZIP或ZSTD&lt;br/&gt;高压缩比，节省存储]
+    Network --&gt; NetworkChoice[推荐：GZIP或ZSTD&lt;br/&gt;减少网络传输]
+    Latency --&gt; LatencyChoice[推荐：LZ4或Snappy&lt;br/&gt;快速压缩解压]
+    CPU --&gt; CPUChoice[推荐：LZ4&lt;br/&gt;最低CPU消耗]
 
     style StorageChoice fill:#4caf50
     style NetworkChoice fill:#4caf50
     style LatencyChoice fill:#2196f3
-    style CPUChoice fill:#ff9800</pre>
+    style CPUChoice fill:#ff9800</code></pre>
 <p><strong>压缩效果的实测数据</strong>：</p>
 <p>以JSON格式的日志数据为例：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">测试数据：10MB JSON日志文件</span><br><span class="line">原始大小：10,485,760 字节</span><br><span class="line"></span><br><span class="line">GZIP压缩：</span><br><span class="line">- 压缩后大小：2,097,152 字节 (2MB)</span><br><span class="line">- 压缩比：5:1</span><br><span class="line">- 压缩耗时：850ms</span><br><span class="line">- 解压耗时：120ms</span><br><span class="line"></span><br><span class="line">Snappy压缩：</span><br><span class="line">- 压缩后大小：3,145,728 字节 (3MB)</span><br><span class="line">- 压缩比：3.33:1</span><br><span class="line">- 压缩耗时：180ms</span><br><span class="line">- 解压耗时：45ms</span><br><span class="line"></span><br><span class="line">LZ4压缩：</span><br><span class="line">- 压缩后大小：4,194,304 字节 (4MB)</span><br><span class="line">- 压缩比：2.5:1</span><br><span class="line">- 压缩耗时：80ms</span><br><span class="line">- 解压耗时：25ms</span><br></pre></td></tr></tbody></table></figure>
@@ -2125,7 +2125,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <hr>
 <h2 id="第六章：集群管理与运维">第六章：集群管理与运维</h2>
 <h3 id="6-1-分区重平衡机制">6.1 分区重平衡机制</h3>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant C1 as Consumer 1
     participant C2 as Consumer 2
     participant C3 as New Consumer
@@ -2139,7 +2139,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     GC-&gt;&gt;GC: Partition Assignment
     GC-&gt;&gt;C1: New Assignment
     GC-&gt;&gt;C2: New Assignment
-    GC-&gt;&gt;C3: New Assignment</pre>
+    GC-&gt;&gt;C3: New Assignment</code></pre>
 <p><strong>重平衡触发条件</strong>：</p>
 <ul>
 <li>Consumer加入或离开Consumer Group</li>
@@ -2147,7 +2147,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li>Consumer超时未发送心跳</li>
 </ul>
 <h3 id="6-2-监控指标体系">6.2 监控指标体系</h3>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     subgraph "Broker指标"
         B1[消息吞吐量]
         B2[请求延迟]
@@ -2167,7 +2167,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
         C2[重平衡频率]
         C3[处理耗时]
         C4[错误率]
-    end</pre>
+    end</code></pre>
 <p><strong>关键性能指标</strong>：</p>
 <ul>
 <li><strong>Producer Metrics</strong>：发送速率、错误率、批次大小</li>
@@ -2175,7 +2175,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li><strong>Consumer Metrics</strong>：消费lag、重平衡时间、处理延迟</li>
 </ul>
 <h3 id="6-3-容量规划">6.3 容量规划</h3>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     R[业务需求] --&gt; T[吞吐量计算]
     R --&gt; S[存储容量计算]
     R --&gt; N[网络带宽计算]
@@ -2186,7 +2186,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 
     P --&gt; Config[集群配置]
     D --&gt; Config
-    B --&gt; Config</pre>
+    B --&gt; Config</code></pre>
 <p><strong>规划要素</strong>：</p>
 <ul>
 <li><strong>分区数量</strong>：基于并发消费需求和单分区性能限制</li>
@@ -2196,14 +2196,14 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <hr>
 <h2 id="第七章：故障排查与问题解决">第七章：故障排查与问题解决</h2>
 <h3 id="7-1-消息丢失排查">7.1 消息丢失排查</h3>
-<pre class="mermaid">flowchart TD
+<pre><code class="highlight mermaid">flowchart TD
     Start[消息丢失] --&gt; PC{Producer配置检查}
     PC --&gt;|acks!=all| P1[设置acks=all]
     PC --&gt;|正常| BC{Broker配置检查}
     BC --&gt;|副本不足| B1[增加副本因子]
     BC --&gt;|正常| CC{Consumer配置检查}
     CC --&gt;|自动提交| C1[改为手动提交]
-    CC --&gt;|正常| LC[检查日志文件]</pre>
+    CC --&gt;|正常| LC[检查日志文件]</code></pre>
 <p><strong>排查步骤</strong>：</p>
 <ol>
 <li>检查Producer的acks和retries配置</li>
@@ -2212,16 +2212,16 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li>分析Broker和Consumer的错误日志</li>
 </ol>
 <h3 id="7-2-性能瓶颈诊断">7.2 性能瓶颈诊断</h3>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     PB[性能瓶颈] --&gt; CPU{CPU使用率}
     PB --&gt; MEM{内存使用率}
     PB --&gt; DISK{磁盘I/O}
     PB --&gt; NET{网络I/O}
 
-    CPU --&gt;|高| C1[优化序列化<br>减少GC]
-    MEM --&gt;|高| M1[调整JVM参数<br>优化缓存]
-    DISK --&gt;|高| D1[增加分区<br>优化存储]
-    NET --&gt;|高| N1[启用压缩<br>增加带宽]</pre>
+    CPU --&gt;|高| C1[优化序列化&lt;br/&gt;减少GC]
+    MEM --&gt;|高| M1[调整JVM参数&lt;br/&gt;优化缓存]
+    DISK --&gt;|高| D1[增加分区&lt;br/&gt;优化存储]
+    NET --&gt;|高| N1[启用压缩&lt;br/&gt;增加带宽]</code></pre>
 <p><strong>性能调优策略</strong>：</p>
 <ul>
 <li><strong>JVM调优</strong>：合理设置堆大小和GC参数</li>
@@ -2229,7 +2229,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li><strong>Kafka配置调优</strong>：优化批处理、压缩、副本同步参数</li>
 </ul>
 <h3 id="7-3-数据一致性问题">7.3 数据一致性问题</h3>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant L as Leader
     participant F as Follower
@@ -2242,7 +2242,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     L-&gt;&gt;C: High Watermark=99
     Note over L,F: Follower选为新Leader
     F-&gt;&gt;C: High Watermark=98
-    Note over C: 数据回滚</pre>
+    Note over C: 数据回滚</code></pre>
 <p><strong>一致性保证机制</strong>：</p>
 <ul>
 <li><strong>High Watermark</strong>：确保只消费已被所有ISR确认的消息</li>
@@ -2252,7 +2252,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <hr>
 <h2 id="第八章：高级特性与扩展">第八章：高级特性与扩展</h2>
 <h3 id="8-1-事务支持">8.1 事务支持</h3>
-<pre class="mermaid">sequenceDiagram
+<pre><code class="highlight mermaid">sequenceDiagram
     participant P as Producer
     participant TC as Transaction Coordinator
     participant B1 as Broker 1
@@ -2264,7 +2264,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     P-&gt;&gt;B2: Send Message (TXN)
     P-&gt;&gt;TC: Commit Transaction
     TC-&gt;&gt;B1: Commit Marker
-    TC-&gt;&gt;B2: Commit Marker</pre>
+    TC-&gt;&gt;B2: Commit Marker</code></pre>
 <p><strong>事务特性</strong>：</p>
 <ul>
 <li><strong>原子性</strong>：多分区写入的原子性保证</li>
@@ -2272,7 +2272,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li><strong>幂等性</strong>：避免重复发送导致的数据重复</li>
 </ul>
 <h3 id="8-2-Exactly-Once语义">8.2 Exactly-Once语义</h3>
-<pre class="mermaid">graph TD
+<pre><code class="highlight mermaid">graph TD
     EOS[Exactly-Once Semantics] --&gt; IP[幂等性Producer]
     EOS --&gt; T[事务支持]
     EOS --&gt; RI[消费端幂等性]
@@ -2284,7 +2284,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
     T --&gt; TCO[Transaction Coordinator]
 
     RI --&gt; UO[业务唯一标识]
-    RI --&gt; DT[外部存储去重]</pre>
+    RI --&gt; DT[外部存储去重]</code></pre>
 <p><strong>实现机制</strong>：</p>
 <ul>
 <li>Producer端：PID + Sequence Number实现幂等性</li>
@@ -2292,7 +2292,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li>Consumer端：业务层面的去重逻辑</li>
 </ul>
 <h3 id="8-3-流处理集成">8.3 流处理集成</h3>
-<pre class="mermaid">graph LR
+<pre><code class="highlight mermaid">graph LR
     K1[Kafka Topic A] --&gt; KS[Kafka Streams]
     K2[Kafka Topic B] --&gt; KS
     KS --&gt; K3[Kafka Topic C]
@@ -2303,7 +2303,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
         KS --&gt; M[Map]
         KS --&gt; A[Aggregate]
         KS --&gt; J[Join]
-    end</pre>
+    end</code></pre>
 <p><strong>Kafka Streams特性</strong>：</p>
 <ul>
 <li>无需额外集群，直接基于Kafka Client</li>
@@ -2320,7 +2320,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li><strong>运维监控</strong>：指标体系、容量规划、故障排查</li>
 </ol>
 <h3 id="技术栈集成建议">技术栈集成建议</h3>
-<pre class="mermaid">graph TB
+<pre><code class="highlight mermaid">graph TB
     subgraph "数据采集层"
         A1[应用日志] --&gt; Kafka
         A2[业务事件] --&gt; Kafka
@@ -2337,7 +2337,7 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
         KS --&gt; ES[Elasticsearch]
         Flink --&gt; HBase[HBase]
         Storm --&gt; Redis[Redis]
-    end</pre>
+    end</code></pre>
 <h3 id="持续学习路径">持续学习路径</h3>
 <ol>
 <li><strong>深入源码</strong>：理解核心算法和数据结构</li>
@@ -2346,30 +2346,292 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
 <li><strong>流处理框架</strong>：Kafka Streams、Apache Flink、Apache Storm</li>
 </ol>
 <p>通过系统性学习Kafka的技术原理和实践应用，能够在分布式系统设计和微服务架构中发挥其最大价值。</p>
-<div class="mermaid-wrap"><pre class="mermaid-src" data-config="{}" hidden="">    
-  </pre></div>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael L</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/dev/kafka/">https://www.blog-blockchain.xyz/dev/kafka/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2025/06/a96b1a9d3fed485c6214b10572c4d736.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/career/making-of-consumer/" title="制造消费者"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/06/51642e0693cbe2d398d9d1518bf06360.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">制造消费者</div></div><div class="info-2"><div class="info-item-1">《制造消费者》详细梳理了消费社会的诞生史，从19世纪铁路打破地域隔绝、百货商店营造购物「剧场」，到广告业塑造符号价值、媒体制造消费想象。本书揭示了消费主义如何通过技术革新、心理操控和文化重塑，将人们从生产者转变为消费者，最终让消费成为现代人定义自我和追求幸福的核心方式。</div></div></div></a><a class="pagination-related" href="/defi/prediction-market-hedging-paradox/" title="预测市场对冲策略：当数学模型遇上现实的残酷"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/07/184deb32c11e6b5069308216a0e79b26.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">预测市场对冲策略：当数学模型遇上现实的残酷</div></div><div class="info-2"><div class="info-item-1">用投资组合理论构建预测市场对冲策略，却发现一个残酷真相：需要预测能力来构建对冲，但有预测能力就不需要对冲。深度剖析数学模型的局限性。</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/dev/python-package/" title="(二）包的开发"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-22</div><div class="info-item-2">(二）包的开发</div></div><div class="info-2"><div class="info-item-1">全面指导Python包开发流程，包括包结构设计、模块初始化、测试编写、pyproject.toml配置、打包分发等核心技能，帮助开发者创建可复用的Python库。</div></div></div></a><a class="pagination-related" href="/dev/rss/" title="RSS信息汇聚"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/07780b2a37df07c6fe3a70d3fa78b077.jpeg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-19</div><div class="info-item-2">RSS信息汇聚</div></div><div class="info-2"><div class="info-item-1">介绍RSS信息聚合的工具和实践，包括Inoreader、Feedly等阅读软件对比，RSSHub订阅源发现，以及优质RSS源推荐，帮助构建高效的信息获取体系。</div></div></div></a><a class="pagination-related" href="/dev/hexo-cache-busting-solution/" title="Hexo博客缓存问题的终极解决方案"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/07/717868abde8ec43fd9ded6bb36280318.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-23</div><div class="info-item-2">Hexo博客缓存问题的终极解决方案</div></div><div class="info-2"><div class="info-item-1">深入分析Hexo博客部署后浏览器缓存导致内容不更新的根本原因，提供基于Hexo钩子系统的智能化缓存清理解决方案，实现自动版本控制和缓存管理，让用户无需手动清理即可看到最新内容。</div></div></div></a><a class="pagination-related" href="/dev/macbook/" title="macbook体验"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/f0e20c6b389a00ecf1945b34324cfdd1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-17</div><div class="info-item-2">macbook体验</div></div><div class="info-2"><div class="info-item-1">分享MacBook Pro使用体验和配置指南，包括硬件选择建议、系统快捷键、开发环境搭建、编程语言安装、实用软件推荐等，帮助开发者快速搭建高效的macOS工作环境。</div></div></div></a><a class="pagination-related" href="/dev/value-of-software-engineering/" title="程序员的价值在哪里"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/05/819ee56cc884eb5c8194f7f9a2d94d8c.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-10</div><div class="info-item-2">程序员的价值在哪里</div></div><div class="info-2"><div class="info-item-1">程序员的核心价值是利用技术为企业创造业务价值，而非纯粹的技术能力。其价值公式 V=Σ（技术杠杆率×业务价值密度）揭示了价值来源：技术杠杆放大个人产出，业务价值密度决定场景潜力。不同场景和行业对程序员价值估值各异，通用价值体现在解决复杂问题、优化性能、提升效率、推动创新和降低成本等方面。程序员需拥抱多元技术栈，精进核心技能，提升业务理解和复合能力。技术价值受稀缺性、适配度和泡沫溢价率影响，需警惕技术超前、路径依赖和伪需求陷阱。逃离泡沫需识别资本退潮、人才降温、监管收紧等信号，并提前转型、提升能力、谨慎投资、拓展人脉和终身学习。</div></div></div></a><a class="pagination-related" href="/dev/python-env/" title="(一）Python环境配置指南"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">(一）Python环境配置指南</div></div><div class="info-2"><div class="info-item-1">详细介绍Python开发环境搭建，包括pyenv版本管理、Poetry虚拟环境、依赖管理等工具的安装配置和使用技巧，帮助开发者建立稳定高效的Python开发环境。</div></div></div></a></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Michael L</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%A7%88"><span class="toc-text">内容概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E8%83%8C%E6%99%AF"><span class="toc-text">技术背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%9C%AF%E8%AF%AD%E5%AF%B9%E7%85%A7"><span class="toc-text">核心术语对照</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80"><span class="toc-text">第一章：分布式消息系统基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9C%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">1.1 消息队列在分布式架构中的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">1.2 异步消息系统的解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Kafka%E7%9A%84%E6%8A%80%E6%9C%AF%E5%AE%9A%E4%BD%8D"><span class="toc-text">1.3 Kafka的技术定位</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9AKafka%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="toc-text">第二章：Kafka核心架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84"><span class="toc-text">2.1 为什么需要分布式架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Kafka%E9%9B%86%E7%BE%A4%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-text">2.2 Kafka集群拓扑结构设计原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Topic%E4%B8%8EPartition%E7%9A%84%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB"><span class="toc-text">2.4 Topic与Partition的层级关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%B6%88%E6%81%AF%E7%9A%84%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E6%A8%A1%E5%9E%8B"><span class="toc-text">2.5 消息的物理存储模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9A%E6%B6%88%E6%81%AF%E7%94%9F%E4%BA%A7%E4%B8%8E%E6%B6%88%E8%B4%B9%E6%9C%BA%E5%88%B6"><span class="toc-text">第三章：消息生产与消费机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Producer%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E6%B5%81%E7%A8%8B"><span class="toc-text">3.1 Producer消息发送流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%88%86%E5%8C%BA%E5%99%A8-Partitioner-%E7%AD%96%E7%95%A5"><span class="toc-text">3.2 分区器(Partitioner)策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Consumer-Group%E6%9C%BA%E5%88%B6%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-text">3.3 Consumer Group机制的设计原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%B6%88%E6%81%AF%E5%AE%9A%E4%BD%8D%E4%B8%8EOffset%E6%A6%82%E5%BF%B5"><span class="toc-text">3.4 消息定位与Offset概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Consumer%E7%9A%84%E6%B6%88%E8%B4%B9%E4%BD%8D%E7%BD%AE%E8%BF%BD%E8%B8%AA"><span class="toc-text">3.5 Consumer的消费位置追踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Offset%E6%8F%90%E4%BA%A4%E7%AD%96%E7%95%A5%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">3.6 Offset提交策略的选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%9A%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%B8%8E%E4%B8%80%E8%87%B4%E6%80%A7%E4%BF%9D%E8%AF%81"><span class="toc-text">第四章：可靠性与一致性保证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Kafka%E7%9A%84%E5%9F%BA%E7%A1%80%E5%AD%98%E5%82%A8%E5%8E%9F%E7%90%86%EF%BC%9AAppend-Only-Log"><span class="toc-text">4.1 Kafka的基础存储原理：Append-Only Log</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%9F%BA%E4%BA%8EAppend-Only-Log%E7%9A%84%E5%89%AF%E6%9C%AC%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-text">4.2 基于Append-Only Log的副本同步机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-text">4.3 生产者确认机制的设计原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D%E6%9C%BA%E5%88%B6"><span class="toc-text">4.3 故障恢复机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0%EF%BC%9A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86"><span class="toc-text">第五章：性能优化原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-I-O%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%8A%80%E6%9C%AF"><span class="toc-text">5.1 I/O性能瓶颈与零拷贝技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E6%95%88%E7%8E%87%E4%B8%8E%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96"><span class="toc-text">5.2 网络传输效率与批处理优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E4%BC%98%E5%8C%96%E4%B8%8E%E5%8E%8B%E7%BC%A9%E6%8A%80%E6%9C%AF"><span class="toc-text">5.3 存储空间优化与压缩技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E4%B8%8E%E8%BF%90%E7%BB%B4"><span class="toc-text">第六章：集群管理与运维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E5%88%86%E5%8C%BA%E9%87%8D%E5%B9%B3%E8%A1%A1%E6%9C%BA%E5%88%B6"><span class="toc-text">6.1 分区重平衡机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E7%9B%91%E6%8E%A7%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB"><span class="toc-text">6.2 监控指标体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E5%AE%B9%E9%87%8F%E8%A7%84%E5%88%92"><span class="toc-text">6.3 容量规划</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%EF%BC%9A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E4%B8%8E%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-text">第七章：故障排查与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E6%8E%92%E6%9F%A5"><span class="toc-text">7.1 消息丢失排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88%E8%AF%8A%E6%96%AD"><span class="toc-text">7.2 性能瓶颈诊断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">7.3 数据一致性问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0%EF%BC%9A%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%89%A9%E5%B1%95"><span class="toc-text">第八章：高级特性与扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81"><span class="toc-text">8.1 事务支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-Exactly-Once%E8%AF%AD%E4%B9%89"><span class="toc-text">8.2 Exactly-Once语义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-%E6%B5%81%E5%A4%84%E7%90%86%E9%9B%86%E6%88%90"><span class="toc-text">8.3 流处理集成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E5%AE%9E%E8%B7%B5%E5%BB%BA%E8%AE%AE"><span class="toc-text">总结与实践建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9"><span class="toc-text">核心技术要点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88%E9%9B%86%E6%88%90%E5%BB%BA%E8%AE%AE"><span class="toc-text">技术栈集成建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84"><span class="toc-text">持续学习路径</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/defi/permit-ecdsa-cryptography/" title="ERC-20 Permit 与 ECDSA 密码学原理"><img src="https://cdn.blog-blockchain.xyz/2026/01/7926570b23eeb56169050989a441e0a6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ERC-20 Permit 与 ECDSA 密码学原理"></a><div class="content"><a class="title" href="/defi/permit-ecdsa-cryptography/" title="ERC-20 Permit 与 ECDSA 密码学原理">ERC-20 Permit 与 ECDSA 密码学原理</a><time datetime="2026-01-09T02:00:00.000Z" title="Created 2026-01-09 10:00:00">2026-01-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/career/structural-thoughts-after-one-and-half-years-at-work/" title="职业增长的数学模型：从log(x)到eˣ的跃迁代价">职业增长的数学模型：从log(x)到eˣ的跃迁代价</a><time datetime="2025-12-13T16:00:00.000Z" title="Created 2025-12-14 00:00:00">2025-12-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/career/find-gold-then-build-factory/" title="困境：从「想明白」到「做出来」的鸿沟">困境：从「想明白」到「做出来」的鸿沟</a><time datetime="2025-10-27T17:11:20.000Z" title="Created 2025-10-28 01:11:20">2025-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/finance/fundiing-rate/" title="资金费率套利完整指南">资金费率套利完整指南</a><time datetime="2025-10-05T10:26:20.000Z" title="Created 2025-10-05 18:26:20">2025-10-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/options-arbitrage-strategy-modeling/" title="期权组合套利策略的数学分析和建模"><img src="https://cdn.blog-blockchain.xyz/2025/08/16db5eba53f859fa8c4b45badfb216b8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="期权组合套利策略的数学分析和建模"></a><div class="content"><a class="title" href="/finance/options-arbitrage-strategy-modeling/" title="期权组合套利策略的数学分析和建模">期权组合套利策略的数学分析和建模</a><time datetime="2025-08-31T07:45:00.000Z" title="Created 2025-08-31 15:45:00">2025-08-31</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2020 - 2026 By Michael L</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js?v=1768679027609"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search for Posts" type="text"></div><hr><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div></div></div><script src="/bundle.js"></script><script>(async () => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz">Michael L</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.blog-blockchain.xyz/dev/kafka/">https://www.blog-blockchain.xyz/dev/kafka/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener external nofollow noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.blog-blockchain.xyz/2025/06/a96b1a9d3fed485c6214b10572c4d736.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/career/making-of-consumer/" title="制造消费者"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/06/51642e0693cbe2d398d9d1518bf06360.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">制造消费者</div></div><div class="info-2"><div class="info-item-1">《制造消费者》详细梳理了消费社会的诞生史，从19世纪铁路打破地域隔绝、百货商店营造购物「剧场」，到广告业塑造符号价值、媒体制造消费想象。本书揭示了消费主义如何通过技术革新、心理操控和文化重塑，将人们从生产者转变为消费者，最终让消费成为现代人定义自我和追求幸福的核心方式。</div></div></div></a><a class="pagination-related" href="/defi/prediction-market-hedging-paradox/" title="预测市场对冲策略：当数学模型遇上现实的残酷"><img class="cover" src="https://cdn.blog-blockchain.xyz/2025/07/184deb32c11e6b5069308216a0e79b26.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">预测市场对冲策略：当数学模型遇上现实的残酷</div></div><div class="info-2"><div class="info-item-1">用投资组合理论构建预测市场对冲策略，却发现一个残酷真相：需要预测能力来构建对冲，但有预测能力就不需要对冲。深度剖析数学模型的局限性。</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/career/become-good-coder/" title="如何成为优秀的软件工程师"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/4c8a976a9e6720e0283852ce24503f1c.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-09</div><div class="info-item-2">如何成为优秀的软件工程师</div></div><div class="info-2"><div class="info-item-1">全面的软件工程师成长指南：深入讲解数据结构与算法的实际应用，详述设计模式在服务器开发中的运用，介绍良好的编程习惯与高效工具链，帮助开发者从基础技能到架构设计全方位提升编程能力。</div></div></div></a><a class="pagination-related" href="/dev/immortalwrt-ax6000-upgrade/" title="Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录"><img class="cover" src="https://cdn.blog-blockchain.xyz/2026/02/30b64e37b39e0b482a817643d8100e5d.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-19</div><div class="info-item-2">Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录</div></div><div class="info-2"><div class="info-item-1">记录 Xiaomi Redmi AX6000 从 ImmortalWrt 23.05（hanwckf uboot 布局）迁移到 24.10.2（ubootmod 布局）的完整过程，含布局迁移、TFTP 刷机、OpenClash 安装及 WiFi/TCP 调优，汇总所有踩坑经验。</div></div></div></a><a class="pagination-related" href="/dev/web-security/" title="如何保障个人网站的安全"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/12/f936073f7e7c6bdb2aa3ea0905916957.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-07</div><div class="info-item-2">如何保障个人网站的安全</div></div><div class="info-2"><div class="info-item-1">详细介绍个人网站安全防护策略，包括防火墙配置、fail2ban自动拉黑、Nginx反向代理、端口敲门技术、虚拟组网等安全措施，全面提升服务器安全防护能力。</div></div></div></a><a class="pagination-related" href="/dev/backup-practice/" title="传输和备份实践"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/11/e9427ec31426e24ea92ff3d40382ed08.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="info-item-2">传输和备份实践</div></div><div class="info-2"><div class="info-item-1">详细介绍了rsync、SCP等文件传输工具的使用方法和实际应用场景，包括本地同步、远程传输、加密备份等最佳实践，帮助开发者选择合适的数据传输和备份解决方案。</div></div></div></a><a class="pagination-related" href="/dev/python-package/" title="(二）包的开发"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-22</div><div class="info-item-2">(二）包的开发</div></div><div class="info-2"><div class="info-item-1">全面指导Python包开发流程，包括包结构设计、模块初始化、测试编写、pyproject.toml配置、打包分发等核心技能，帮助开发者创建可复用的Python库。</div></div></div></a><a class="pagination-related" href="/dev/python-env/" title="(一）Python环境配置指南"><img class="cover" src="https://cdn.blog-blockchain.xyz/2024/10/b0e9d2ce07312c8cc21c8e0c2fed6f16.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="info-item-2">(一）Python环境配置指南</div></div><div class="info-2"><div class="info-item-1">详细介绍Python开发环境搭建，包括pyenv版本管理、Poetry虚拟环境、依赖管理等工具的安装配置和使用技巧，帮助开发者建立稳定高效的Python开发环境。</div></div></div></a></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/site-avator.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Michael L</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">102</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">32</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/learnerLj"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:luoshitou9@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">从技术到商业，从产品到设计，从生活到未来，我会在这里分享我的所思所想，欢迎关注！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E6%A6%82%E8%A7%88"><span class="toc-text">内容概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E8%83%8C%E6%99%AF"><span class="toc-text">技术背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%9C%AF%E8%AF%AD%E5%AF%B9%E7%85%A7"><span class="toc-text">核心术语对照</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80"><span class="toc-text">第一章：分布式消息系统基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9C%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">1.1 消息队列在分布式架构中的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">1.2 异步消息系统的解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Kafka%E7%9A%84%E6%8A%80%E6%9C%AF%E5%AE%9A%E4%BD%8D"><span class="toc-text">1.3 Kafka的技术定位</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9AKafka%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="toc-text">第二章：Kafka核心架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84"><span class="toc-text">2.1 为什么需要分布式架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Kafka%E9%9B%86%E7%BE%A4%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-text">2.2 Kafka集群拓扑结构设计原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Topic%E4%B8%8EPartition%E7%9A%84%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB"><span class="toc-text">2.4 Topic与Partition的层级关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%B6%88%E6%81%AF%E7%9A%84%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E6%A8%A1%E5%9E%8B"><span class="toc-text">2.5 消息的物理存储模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9A%E6%B6%88%E6%81%AF%E7%94%9F%E4%BA%A7%E4%B8%8E%E6%B6%88%E8%B4%B9%E6%9C%BA%E5%88%B6"><span class="toc-text">第三章：消息生产与消费机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Producer%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E6%B5%81%E7%A8%8B"><span class="toc-text">3.1 Producer消息发送流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%88%86%E5%8C%BA%E5%99%A8-Partitioner-%E7%AD%96%E7%95%A5"><span class="toc-text">3.2 分区器(Partitioner)策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Consumer-Group%E6%9C%BA%E5%88%B6%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-text">3.3 Consumer Group机制的设计原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%B6%88%E6%81%AF%E5%AE%9A%E4%BD%8D%E4%B8%8EOffset%E6%A6%82%E5%BF%B5"><span class="toc-text">3.4 消息定位与Offset概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Consumer%E7%9A%84%E6%B6%88%E8%B4%B9%E4%BD%8D%E7%BD%AE%E8%BF%BD%E8%B8%AA"><span class="toc-text">3.5 Consumer的消费位置追踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Offset%E6%8F%90%E4%BA%A4%E7%AD%96%E7%95%A5%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">3.6 Offset提交策略的选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%9A%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%B8%8E%E4%B8%80%E8%87%B4%E6%80%A7%E4%BF%9D%E8%AF%81"><span class="toc-text">第四章：可靠性与一致性保证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Kafka%E7%9A%84%E5%9F%BA%E7%A1%80%E5%AD%98%E5%82%A8%E5%8E%9F%E7%90%86%EF%BC%9AAppend-Only-Log"><span class="toc-text">4.1 Kafka的基础存储原理：Append-Only Log</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%9F%BA%E4%BA%8EAppend-Only-Log%E7%9A%84%E5%89%AF%E6%9C%AC%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-text">4.2 基于Append-Only Log的副本同步机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-text">4.3 生产者确认机制的设计原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D%E6%9C%BA%E5%88%B6"><span class="toc-text">4.3 故障恢复机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0%EF%BC%9A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86"><span class="toc-text">第五章：性能优化原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-I-O%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%8A%80%E6%9C%AF"><span class="toc-text">5.1 I/O性能瓶颈与零拷贝技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E6%95%88%E7%8E%87%E4%B8%8E%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96"><span class="toc-text">5.2 网络传输效率与批处理优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E4%BC%98%E5%8C%96%E4%B8%8E%E5%8E%8B%E7%BC%A9%E6%8A%80%E6%9C%AF"><span class="toc-text">5.3 存储空间优化与压缩技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E4%B8%8E%E8%BF%90%E7%BB%B4"><span class="toc-text">第六章：集群管理与运维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E5%88%86%E5%8C%BA%E9%87%8D%E5%B9%B3%E8%A1%A1%E6%9C%BA%E5%88%B6"><span class="toc-text">6.1 分区重平衡机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E7%9B%91%E6%8E%A7%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB"><span class="toc-text">6.2 监控指标体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E5%AE%B9%E9%87%8F%E8%A7%84%E5%88%92"><span class="toc-text">6.3 容量规划</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%EF%BC%9A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E4%B8%8E%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-text">第七章：故障排查与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E6%8E%92%E6%9F%A5"><span class="toc-text">7.1 消息丢失排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88%E8%AF%8A%E6%96%AD"><span class="toc-text">7.2 性能瓶颈诊断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">7.3 数据一致性问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0%EF%BC%9A%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%89%A9%E5%B1%95"><span class="toc-text">第八章：高级特性与扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81"><span class="toc-text">8.1 事务支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-Exactly-Once%E8%AF%AD%E4%B9%89"><span class="toc-text">8.2 Exactly-Once语义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-%E6%B5%81%E5%A4%84%E7%90%86%E9%9B%86%E6%88%90"><span class="toc-text">8.3 流处理集成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E5%AE%9E%E8%B7%B5%E5%BB%BA%E8%AE%AE"><span class="toc-text">总结与实践建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9"><span class="toc-text">核心技术要点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88%E9%9B%86%E6%88%90%E5%BB%BA%E8%AE%AE"><span class="toc-text">技术栈集成建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84"><span class="toc-text">持续学习路径</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/dev/immortalwrt-ax6000-upgrade/" title="Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录"><img src="https://cdn.blog-blockchain.xyz/2026/02/30b64e37b39e0b482a817643d8100e5d.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录"></a><div class="content"><a class="title" href="/dev/immortalwrt-ax6000-upgrade/" title="Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录">Xiaomi Redmi Router AX6000 ImmortalWrt 升级记录</a><time datetime="2026-02-19T13:43:00.000Z" title="Created 2026-02-19 21:43:00">2026-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/defi/permit-ecdsa-cryptography/" title="ERC-20 Permit 与 ECDSA 密码学原理"><img src="https://cdn.blog-blockchain.xyz/2026/01/7926570b23eeb56169050989a441e0a6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ERC-20 Permit 与 ECDSA 密码学原理"></a><div class="content"><a class="title" href="/defi/permit-ecdsa-cryptography/" title="ERC-20 Permit 与 ECDSA 密码学原理">ERC-20 Permit 与 ECDSA 密码学原理</a><time datetime="2026-01-09T02:00:00.000Z" title="Created 2026-01-09 10:00:00">2026-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/structural-thoughts-after-one-and-half-years-at-work/" title="职业增长的数学模型：从log(x)到eˣ的跃迁代价"><img src="https://cdn.blog-blockchain.xyz/2026/02/57338184b4fb276c89fe5e77277a4f37.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="职业增长的数学模型：从log(x)到eˣ的跃迁代价"></a><div class="content"><a class="title" href="/career/structural-thoughts-after-one-and-half-years-at-work/" title="职业增长的数学模型：从log(x)到eˣ的跃迁代价">职业增长的数学模型：从log(x)到eˣ的跃迁代价</a><time datetime="2025-12-13T16:00:00.000Z" title="Created 2025-12-14 00:00:00">2025-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/career/find-gold-then-build-factory/" title="困境：从「想明白」到「做出来」的鸿沟"><img src="https://cdn.blog-blockchain.xyz/2026/02/131dd24e0445c2bc1422ed04d661be85.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="困境：从「想明白」到「做出来」的鸿沟"></a><div class="content"><a class="title" href="/career/find-gold-then-build-factory/" title="困境：从「想明白」到「做出来」的鸿沟">困境：从「想明白」到「做出来」的鸿沟</a><time datetime="2025-10-27T17:11:20.000Z" title="Created 2025-10-28 01:11:20">2025-10-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/finance/fundiing-rate/" title="资金费率套利完整指南"><img src="https://cdn.blog-blockchain.xyz/2026/02/2882ad3aa493489c4cb0d9c60a862bb8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="资金费率套利完整指南"></a><div class="content"><a class="title" href="/finance/fundiing-rate/" title="资金费率套利完整指南">资金费率套利完整指南</a><time datetime="2025-10-05T10:26:20.000Z" title="Created 2025-10-05 18:26:20">2025-10-05</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2020 - 2026 By Michael L</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js?v=1771518382866"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search for Posts" type="text"></div><hr><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div></div></div><script src="/bundle.js"></script><script>(async () => {
   const showKatex = () => {
     document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
   }
 
   if (!window.katex_js_css) {
     window.katex_js_css = true
-    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css')
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css')
     if (false) {
-      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/copy-tex.min.js')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/contrib/copy-tex.min.js')
     }
   }
 
   showKatex()
 })();
 (() => {
+  const parseViewBox = viewBox => {
+    if (!viewBox) return null
+    const parts = viewBox.trim().split(/[\s,]+/).map(n => Number(n))
+    if (parts.length !== 4 || parts.some(n => Number.isNaN(n))) return null
+    return parts
+  }
+
+  const getSvgViewBox = svg => {
+    const attr = parseViewBox(svg.getAttribute('viewBox'))
+    if (attr) return attr
+
+    // Fallback: use bbox to build a viewBox
+    try {
+      const bbox = svg.getBBox()
+      if (bbox && bbox.width && bbox.height) return [bbox.x, bbox.y, bbox.width, bbox.height]
+    } catch (e) {
+      // getBBox may fail on some edge cases; ignore
+    }
+
+    const w = Number(svg.getAttribute('width')) || 0
+    const h = Number(svg.getAttribute('height')) || 0
+    if (w > 0 && h > 0) return [0, 0, w, h]
+    return [0, 0, 100, 100]
+  }
+
+  const setSvgViewBox = (svg, vb) => {
+    svg.setAttribute('viewBox', `${vb[0]} ${vb[1]} ${vb[2]} ${vb[3]}`)
+  }
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
+
+  const openSvgInNewTab = ({ source, initViewBox }) => {
+    const getClonedSvg = () => {
+      if (typeof source === 'string') {
+        const template = document.createElement('template')
+        template.innerHTML = source.trim()
+        const svg = template.content.querySelector('svg')
+        return svg ? svg.cloneNode(true) : null
+      }
+      if (source && typeof source.cloneNode === 'function') {
+        return source.cloneNode(true)
+      }
+      return null
+    }
+
+    const clone = getClonedSvg()
+    if (!clone) return
+    if (initViewBox && initViewBox.length === 4) {
+      clone.setAttribute('viewBox', initViewBox.join(' '))
+    }
+    if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+    if (!clone.getAttribute('xmlns:xlink') && clone.outerHTML.includes('xlink:')) {
+      clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+    }
+    // inject background to match current theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+    const bg = getComputedStyle(document.body).backgroundColor || (isDark ? '#1e1e1e' : '#ffffff')
+    if (!clone.style.background) clone.style.background = bg
+
+    const serializer = new XMLSerializer()
+    const svgSource = serializer.serializeToString(clone)
+    const htmlSource = `<!doctype html><html><head><meta charset="utf-8" />
+      <style>
+        html, body { width: 100%; height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; background: ${bg}; }
+        svg { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+      </style>
+      </head><body>${svgSource}</body></html>`
+    const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_blank', 'noopener')
+    setTimeout(() => URL.revokeObjectURL(url), 30000)
+  }
+
+  const attachMermaidViewerButton = wrap => {
+    let btn = wrap.querySelector('.mermaid-open-btn')
+    if (!btn) {
+      btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'mermaid-open-btn'
+      wrap.appendChild(btn)
+    }
+
+    btn.innerHTML = '<i class="fa fa-search fa-fw" aria-hidden="true"></i>'
+
+    if (!btn.__mermaidViewerBound) {
+      btn.addEventListener('click', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const svg = wrap.__mermaidOriginalSvg || wrap.querySelector('svg')
+        if (!svg) return
+        const initViewBox = wrap.__mermaidInitViewBox
+        if (typeof svg === 'string') {
+          openSvgInNewTab({ source: svg, initViewBox })
+          return
+        }
+        openSvgInNewTab({ source: svg, initViewBox })
+      })
+      btn.__mermaidViewerBound = true
+    }
+  }
+
+  // Zoom around a point (px, py) in the SVG viewport (in viewBox coordinates)
+  const zoomAtPoint = (vb, factor, px, py) => {
+    const w = vb[2] * factor
+    const h = vb[3] * factor
+    const nx = px - (px - vb[0]) * factor
+    const ny = py - (py - vb[1]) * factor
+    return [nx, ny, w, h]
+  }
+
+  const initMermaidGestures = wrap => {
+    const svg = wrap.querySelector('svg')
+    if (!svg) return
+
+    // Ensure viewBox exists so gestures always work
+    const initVb = getSvgViewBox(svg)
+    wrap.__mermaidInitViewBox = initVb
+    wrap.__mermaidCurViewBox = initVb.slice()
+    setSvgViewBox(svg, initVb)
+
+    // Avoid binding multiple times on themeChange/pjax
+    if (wrap.__mermaidGestureBound) return
+    wrap.__mermaidGestureBound = true
+
+    // Helper: map client (viewport) coordinate -> viewBox coordinate
+    const clientToViewBox = (clientX, clientY) => {
+      const rect = svg.getBoundingClientRect()
+      const vb = wrap.__mermaidCurViewBox || getSvgViewBox(svg)
+      const x = vb[0] + (clientX - rect.left) * (vb[2] / rect.width)
+      const y = vb[1] + (clientY - rect.top) * (vb[3] / rect.height)
+      return { x, y, rect, vb }
+    }
+
+    const state = {
+      pointers: new Map(),
+      startVb: null,
+      startDist: 0,
+      startCenter: null
+    }
+
+    const clampVb = vb => {
+      const init = wrap.__mermaidInitViewBox || vb
+      const minW = init[2] * 0.1
+      const maxW = init[2] * 10
+      const minH = init[3] * 0.1
+      const maxH = init[3] * 10
+      vb[2] = clamp(vb[2], minW, maxW)
+      vb[3] = clamp(vb[3], minH, maxH)
+      return vb
+    }
+
+    const setCurVb = vb => {
+      vb = clampVb(vb)
+      wrap.__mermaidCurViewBox = vb
+      setSvgViewBox(svg, vb)
+    }
+
+    const onPointerDown = e => {
+      // Allow only primary button for mouse
+      if (e.pointerType === 'mouse' && e.button !== 0) return
+      svg.setPointerCapture(e.pointerId)
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+      if (state.pointers.size === 1) {
+        state.startVb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+      } else if (state.pointers.size === 2) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        state.startDist = Math.hypot(dx, dy)
+        state.startVb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+        state.startCenter = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 }
+      }
+    }
+
+    const onPointerMove = e => {
+      if (!state.pointers.has(e.pointerId)) return
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+      // Pan with 1 pointer
+      if (state.pointers.size === 1 && state.startVb) {
+        const p = [...state.pointers.values()][0]
+        const prev = { x: e.clientX - e.movementX, y: e.clientY - e.movementY }
+        // movementX/Y unreliable on touch, compute from stored last position
+        const last = wrap.__mermaidLastSinglePointer || p
+        const dxClient = p.x - last.x
+        const dyClient = p.y - last.y
+        wrap.__mermaidLastSinglePointer = p
+
+        const { rect } = clientToViewBox(p.x, p.y)
+        const vb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+        const dx = dxClient * (vb[2] / rect.width)
+        const dy = dyClient * (vb[3] / rect.height)
+        setCurVb([vb[0] - dx, vb[1] - dy, vb[2], vb[3]])
+        return
+      }
+
+      // Pinch zoom with 2 pointers
+      if (state.pointers.size === 2 && state.startVb && state.startDist > 0) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        const dist = Math.hypot(dx, dy)
+        if (!dist) return
+        const factor = state.startDist / dist // dist bigger => zoom in (viewBox smaller)
+
+        const cx = (pts[0].x + pts[1].x) / 2
+        const cy = (pts[0].y + pts[1].y) / 2
+        const centerClient = { x: cx, y: cy }
+
+        const pxy = clientToViewBox(centerClient.x, centerClient.y)
+        const cpx = pxy.x
+        const cpy = pxy.y
+
+        const vb = zoomAtPoint(state.startVb, factor, cpx, cpy)
+        setCurVb(vb)
+      }
+    }
+
+    const onPointerUpOrCancel = e => {
+      state.pointers.delete(e.pointerId)
+      if (state.pointers.size === 0) {
+        state.startVb = null
+        state.startDist = 0
+        state.startCenter = null
+        wrap.__mermaidLastSinglePointer = null
+      } else if (state.pointers.size === 1) {
+        // reset single pointer baseline to avoid jump
+        wrap.__mermaidLastSinglePointer = [...state.pointers.values()][0]
+      }
+    }
+
+    // Wheel zoom (mouse/trackpad)
+    const onWheel = e => {
+      // ctrlKey on mac trackpad pinch; we treat both as zoom
+      e.preventDefault()
+      const delta = e.deltaY
+      const zoomFactor = delta > 0 ? 1.1 : 0.9
+      const { x, y } = clientToViewBox(e.clientX, e.clientY)
+      const vb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+      setCurVb(zoomAtPoint(vb, zoomFactor, x, y))
+    }
+
+    const onDblClick = () => {
+      const init = wrap.__mermaidInitViewBox
+      if (!init) return
+      wrap.__mermaidCurViewBox = init.slice()
+      setSvgViewBox(svg, init)
+    }
+
+    svg.addEventListener('pointerdown', onPointerDown)
+    svg.addEventListener('pointermove', onPointerMove)
+    svg.addEventListener('pointerup', onPointerUpOrCancel)
+    svg.addEventListener('pointercancel', onPointerUpOrCancel)
+    svg.addEventListener('wheel', onWheel, { passive: false })
+    svg.addEventListener('dblclick', onDblClick)
+  }
+
   const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
     ele.forEach((item, index) => {
       const mermaidSrc = item.firstElementChild
+
+      // Clear old render (themeChange/pjax will rerun)
+      const oldSvg = item.querySelector('svg')
+      if (oldSvg) oldSvg.remove()
+      item.__mermaidGestureBound = false
+
       const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
       if (!config.theme) {
         config.theme = theme
@@ -2381,7 +2643,11 @@ OSR是指那些因为各种原因（网络延迟、处理能力不足、节点�
       const renderFn = mermaid.render(mermaidID, mermaidDefinition)
       const renderMermaid = svg => {
         mermaidSrc.insertAdjacentHTML('afterend', svg)
+        if (true) initMermaidGestures(item)
+        item.__mermaidOriginalSvg = svg
+        if (true) attachMermaidViewerButton(item)
       }
+
 
       // mermaid v9 and v10 compatibility
       typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
